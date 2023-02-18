@@ -13,6 +13,8 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SCPPancakes.MOD_ID);
 
     public static final RegistryObject<SoundEvent> SCP_096_RUNNING = registerSoundEvent("scp_096_running");
+    public static final RegistryObject<SoundEvent> SCP_096_KILL = registerSoundEvent("scp_096_kill");
+    public static final RegistryObject<SoundEvent> SCP_096_IDLE = registerSoundEvent("scp_096_idle");
     public static final RegistryObject<SoundEvent> SCP_096_TRIGGERED = registerDistanceSoundEvent("scp_096_triggered", 35.0F);
 
 

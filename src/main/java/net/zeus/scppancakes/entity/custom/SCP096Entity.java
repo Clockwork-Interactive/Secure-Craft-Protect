@@ -1,14 +1,9 @@
 package net.zeus.scppancakes.entity.custom;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -22,18 +17,14 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.zeus.scppancakes.SCPPancakes;
 import net.zeus.scppancakes.custom.RunnableCooldownHandler;
-import net.zeus.scppancakes.entity.ModEntity;
-import net.zeus.scppancakes.event.CommonEvents;
+import net.zeus.scppancakes.entity.custom.goals.WaterAvoiding096StrollGoal;
 import net.zeus.scppancakes.sound.ModSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.DataTicket;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -56,10 +47,9 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     private static final EntityDataAccessor<Integer> DATA_CHARGE_TIME = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_IS_SITTING = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 1.3F);
     private final Set<LivingEntity> targetMap = new HashSet<>();
-    private final int chargeTime = 700;
+    private final int defaultChargeTime = 700;
     private int targetChangeTime;
 
     public SCP096Entity(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -69,7 +59,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     protected void registerGoals() {
         this.targetSelector.addGoal(0, new SCP096LookForPlayerGoal(this, this::isAngryAt));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.setPersistenceRequired();
+
         this.addBehaviourGoals();
     }
 
@@ -77,15 +67,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-    }
-
-    protected SoundEvent getTriggeredSound() {
-        return ModSounds.SCP_096_TRIGGERED.get();
-    }
-
-    @Override
-    public void checkDespawn() {
-        super.checkDespawn();
+        this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -98,6 +80,26 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F);
     }
 
+    protected SoundEvent getTriggeredSound() {
+        return ModSounds.SCP_096_TRIGGERED.get();
+    }
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.SCP_096_IDLE.get();
+    }
+    protected SoundEvent getKillSound() {
+        return ModSounds.SCP_096_KILL.get();
+    }
+
+    @Override
+    public void playAmbientSound() {
+        if (this.getChargeTime() == defaultChargeTime) {
+            SoundEvent soundevent = this.getAmbientSound();
+            if (soundevent != null) {
+                this.playSound(soundevent, 0.5F, this.getVoicePitch());
+            }
+        }
+    }
+
     public static final RawAnimation WALK096 = RawAnimation.begin().thenLoop("scp_096_walking");
     public static final RawAnimation RUN096 = RawAnimation.begin().thenLoop("scp_096_run");
     public static final RawAnimation IDLE096 = RawAnimation.begin().thenLoop("scp_096_sitting_idle");
@@ -107,21 +109,21 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Controller", 0, state -> {
-            if (this.getChargeTime() != chargeTime && this.getChargeTime() != 0) {
+            if (this.getChargeTime() != defaultChargeTime && this.getChargeTime() != 0) {
                 state.setAndContinue(TRIGGERED096);
-                currentPose.put(this,Pose.STANDING);
+                currentPose.put(this, Pose.STANDING);
             } else if (!this.canTrigger()) {
                 state.setAndContinue(LOSTTARGET096);
-                currentPose.put(this,Pose.STANDING);
+                currentPose.put(this, Pose.STANDING);
             } else if (state.isMoving() && this.isTriggered()) {
                 state.setAndContinue(RUN096);
-                currentPose.put(this,Pose.STANDING);
+                currentPose.put(this, Pose.STANDING);
             } else if (state.isMoving() && !this.isTriggered()) {
                 state.setAndContinue(WALK096);
-                currentPose.put(this,Pose.STANDING);
+                currentPose.put(this, Pose.STANDING);
             } else if (!state.isMoving() && !this.isTriggered()) {
                 state.setAndContinue(IDLE096);
-                currentPose.put(this,Pose.SITTING);
+                currentPose.put(this, Pose.SITTING);
             }
             return PlayState.CONTINUE;
         }));
@@ -142,12 +144,12 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     }
 
     boolean isLookingAtMe(LivingEntity livingEntity) {
-            Vec3 vec3 = livingEntity.getViewVector(1.0F).normalize();
-            Vec3 vec31 = new Vec3(this.getX() - livingEntity.getX(), this.getEyeY() - livingEntity.getEyeY(), this.getZ() - livingEntity.getZ());
-            double d0 = vec31.length();
-            vec31 = vec31.normalize();
-            double d1 = vec3.dot(vec31);
-            return d1 > 1.0D - 0.025D / d0 && livingEntity.hasLineOfSight(this);
+        Vec3 vec3 = livingEntity.getViewVector(1.0F).normalize();
+        Vec3 vec31 = new Vec3(this.getX() - livingEntity.getX(), this.getEyeY() - livingEntity.getEyeY(), this.getZ() - livingEntity.getZ());
+        double d0 = vec31.length();
+        vec31 = vec31.normalize();
+        double d1 = vec3.dot(vec31);
+        return d1 > 1.0D - 0.025D / d0 && livingEntity.hasLineOfSight(this);
     }
 
     protected void defineSynchedData() {
@@ -155,7 +157,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
         this.entityData.define(DATA_ISTRIGGERED, false);
         this.entityData.define(DATA_STARED_AT, false);
         this.entityData.define(DATA_CAN_TRIGGER, true);
-        this.entityData.define(DATA_CHARGE_TIME, chargeTime);
+        this.entityData.define(DATA_CHARGE_TIME, defaultChargeTime);
         this.entityData.define(DATA_HAS_HAD_TARGET, false);
     }
 
@@ -189,12 +191,14 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
 
     @Override
     public void tick() {
-        currentPose.putIfAbsent(this,Pose.STANDING);
+        this.setPersistenceRequired();
+        currentPose.putIfAbsent(this, Pose.STANDING);
         this.setPose(currentPose.get(this));
 
         if (!level.isClientSide) {
             this.targetMap.forEach(livingEntity -> {
-                if (livingEntity.isDeadOrDying()) {
+                if (livingEntity.isDeadOrDying()) { // Do stuff on target death
+                    this.playSound(this.getKillSound(), 1.0F, 1.0F);
                     this.targetMap.remove(livingEntity);
                 }
             });
@@ -202,7 +206,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
             if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.setCanTrigger(false);
                 this.setHasHadTarget(false);
-                this.setChargeTime(chargeTime);
+                this.setChargeTime(defaultChargeTime);
                 RunnableCooldownHandler.addDelayedRunnable(() -> {
                     if (!this.isDeadOrDying()) {
                         this.setCanTrigger(true);
@@ -234,6 +238,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     public void setBeingStaredAt() {
         this.entityData.set(DATA_STARED_AT, true);
     }
+
     public boolean hasHadTarget() {
         return this.entityData.get(DATA_HAS_HAD_TARGET);
     }
@@ -360,3 +365,4 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
         }
     }
 }
+

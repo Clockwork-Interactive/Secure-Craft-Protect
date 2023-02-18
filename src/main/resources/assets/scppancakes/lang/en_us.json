@@ -2,6 +2,7 @@
   "entity.scppancakes.scp_096": "SCP-096",
 
   "sounds.scppancakes.scp_096_running": "SCP-096 is running!",
-  "sounds.scppancakes.scp_096_running": "SCP-096 is idle nearby!",
-  "sounds.scppancakes.scp_096_triggered": "SCP-096 is triggered nearby!"
+  "sounds.scppancakes.scp_096_idle": "SCP-096 is idle nearby!",
+  "sounds.scppancakes.scp_096_triggered": "SCP-096 is triggered nearby!",
+  "sounds.scppancakes.scp_096_kill": "SCP-096 is killed someone nearby!"
 }

@@ -14,7 +14,7 @@ public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096Entity> {
 
     public SCP096EntityRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SCP096Model());
-        this.shadowRadius = 0.5f;
+        this.shadowRadius = 0.5F;
     }
 
     @Override

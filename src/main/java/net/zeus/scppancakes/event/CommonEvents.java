@@ -18,7 +18,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = SCPPancakes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEvents {
 
-    public static Map<SCP096Entity, Pose> currentPose = new HashMap<>(); // TODO Convert to packet if possible. Or use animation cache?
+    public static Map<SCP096Entity, Pose> currentPose = new HashMap<>(); // TODO Convert to packet if possible.
 
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {

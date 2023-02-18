@@ -16,5 +16,11 @@
     "sounds": [
       "scppancakes:scp_096_triggered"
     ]
+  },
+  "scp_096_kill": {
+    "subtitle": "sounds.scppancakes.scp_096_kill",
+    "sounds": [
+      "scppancakes:scp_096_kill"
+    ]
   }
 }
