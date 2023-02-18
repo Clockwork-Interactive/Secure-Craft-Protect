@@ -14,7 +14,7 @@ public class ModEntity {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SCPPancakes.MOD_ID);
 
     public static final RegistryObject<EntityType<SCP096Entity>> SCP_096 = ENTITY_TYPES.register("scp_096",
-            () -> EntityType.Builder.of(SCP096Entity::new, MobCategory.MONSTER).build(SCPPancakes.MOD_ID + ":scp_096"));
+            () -> EntityType.Builder.of(SCP096Entity::new, MobCategory.MONSTER).sized(SCP096Entity.HITBOX_WIDTH,SCP096Entity.HITBOX_HEIGHT).build(SCPPancakes.MOD_ID + ":scp_096"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

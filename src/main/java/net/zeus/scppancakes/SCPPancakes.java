@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.zeus.scppancakes.entity.ModEntity;
+import net.zeus.scppancakes.sound.ModSounds;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -14,12 +15,14 @@ import software.bernie.geckolib.GeckoLib;
 public class SCPPancakes
 {
     public static final String MOD_ID = "scppancakes";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public SCPPancakes()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModEntity.register(modEventBus);
+
+        ModSounds.register(modEventBus);
 
         GeckoLib.initialize();
 

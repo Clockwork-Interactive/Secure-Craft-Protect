@@ -19,7 +19,11 @@ public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096Entity> {
 
     @Override
     public ResourceLocation getTextureLocation(SCP096Entity animatable) {
-        return new ResourceLocation(SCPPancakes.MOD_ID,"textures/entity/scp_096_calm_texture.png");
+        if (this.animatable.isTriggered()) {
+            return new ResourceLocation(SCPPancakes.MOD_ID, "textures/entity/scp_096_rage_texture.png");
+        } else {
+            return new ResourceLocation(SCPPancakes.MOD_ID, "textures/entity/scp_096_calm_texture.png");
+        }
     }
 
     @Override

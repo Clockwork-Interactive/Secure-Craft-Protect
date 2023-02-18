@@ -1,6 +1,4 @@
-package net.zeus.scppancakes.client.models;// Made with Blockbench 4.5.2
-// Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package net.zeus.scppancakes.client.models;
 
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scppancakes.SCPPancakes;
@@ -22,6 +20,6 @@ public class SCP096Model extends GeoModel<SCP096Entity> {
 
 	@Override
 	public ResourceLocation getAnimationResource(SCP096Entity animatable) {
-		return new ResourceLocation(SCPPancakes.MOD_ID,"animations/walking_096.animation.json");
+		return  new ResourceLocation(SCPPancakes.MOD_ID,"animations/animations_096.animation.json");
 	}
 }

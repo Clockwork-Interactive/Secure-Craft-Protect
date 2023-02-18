@@ -29,7 +29,7 @@ displayName="SCP Pancakes" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Pancakes, Zeus" #optional
+credits="Pancakes, Zeus, SCP wiki" #optional
 # A text field displayed in the mod UI
 authors="Pancakes, Zeus" #optional
 # Display Test controls the display for your mod in the server connection screen
@@ -42,7 +42,7 @@ authors="Pancakes, Zeus" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-SCP DEEZ
+Credit to the SCP wiki!
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.scppancakes]] #optional
