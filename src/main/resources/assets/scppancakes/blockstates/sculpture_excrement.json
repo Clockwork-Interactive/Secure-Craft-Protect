@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "scppancakes:block/sculpture_excrement"
+    },
+    "facing=south": {
+      "model": "scppancakes:block/sculpture_excrement",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "scppancakes:block/sculpture_excrement",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "scppancakes:block/sculpture_excrement",
+      "y": 90
+    }
+  }
+}

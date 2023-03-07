@@ -1,0 +1,52 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"scp_173i_idle": {
+			"loop": true,
+			"bones": {
+				"Head": {
+					"rotation": {
+						"vector": [7.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -0.2, 0]
+					}
+				}
+			}
+		},
+		"scp_173i_strangle": {
+			"loop": true,
+			"bones": {
+				"Head": {
+					"rotation": {
+						"vector": [12.5, 0, 7.5]
+					}
+				},
+				"RightArm": {
+					"rotation": {
+						"vector": [-77.5, 12.5, 0]
+					}
+				},
+				"LeftArm": {
+					"rotation": {
+						"vector": [-77.5, -12.5, 0]
+					}
+				}
+			}
+		},
+		"scp_173i_rebar_neck": {
+			"loop": true,
+			"bones": {
+				"Head": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					},
+					"position": {
+						"vector": [0, 6, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -6,11 +6,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scppancakes.SCPPancakes;
 import net.zeus.scppancakes.client.models.SCP096Model;
-import net.zeus.scppancakes.entity.custom.SCP096Entity;
+import net.zeus.scppancakes.entity.custom.SCP096;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096Entity> {
+public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096> {
 
     public SCP096EntityRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SCP096Model());
@@ -18,7 +18,7 @@ public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096Entity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SCP096Entity animatable) {
+    public ResourceLocation getTextureLocation(SCP096 animatable) {
         if (this.animatable.isTriggered()) {
             return new ResourceLocation(SCPPancakes.MOD_ID, "textures/entity/scp_096_rage_texture.png");
         } else {
@@ -27,7 +27,7 @@ public class SCP096EntityRenderer extends GeoEntityRenderer<SCP096Entity> {
     }
 
     @Override
-    public RenderType getRenderType(SCP096Entity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
+    public RenderType getRenderType(SCP096 animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
         return super.getRenderType(animatable, texture, bufferSource, partialTick);
     }
 }

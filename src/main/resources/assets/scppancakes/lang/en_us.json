@@ -1,8 +1,15 @@
 {
   "entity.scppancakes.scp_096": "SCP-096",
+  "entity.scppancakes.scp_173i": "SCP-173i",
+
+  "block.scppancakes.sculpture_excrement": "Sculpture Excrements",
+
+  "death.attack.scppancakes.scp173i.damage": "%1$s blinked",
 
   "sounds.scppancakes.scp_096_running": "SCP-096 is running!",
   "sounds.scppancakes.scp_096_idle": "SCP-096 is idle nearby!",
   "sounds.scppancakes.scp_096_triggered": "SCP-096 is triggered nearby!",
-  "sounds.scppancakes.scp_096_kill": "SCP-096 is killed someone nearby!"
+  "sounds.scppancakes.scp_096_kill": "SCP-096 has killed someone nearby!",
+
+  "creativemodetab.securecraftprotecttab": "Secure Craft Protect"
 }

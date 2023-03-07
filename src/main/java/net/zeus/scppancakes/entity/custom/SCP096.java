@@ -1,8 +1,10 @@
 package net.zeus.scppancakes.entity.custom;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -10,14 +12,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.zeus.scppancakes.custom.RunnableCooldownHandler;
+import net.zeus.scppancakes.entity.custom.goals.BreakDoorGoal096;
+import net.zeus.scppancakes.entity.custom.goals.HurtByTargetGoal096;
 import net.zeus.scppancakes.entity.custom.goals.WaterAvoiding096StrollGoal;
 import net.zeus.scppancakes.sound.ModSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -29,43 +34,44 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static net.zeus.scppancakes.event.CommonEvents.currentPose;
 
-public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
+public class SCP096 extends Monster implements GeoEntity, NeutralMob {
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");
     private float speedModifier = 0.33F;
     public static float HITBOX_WIDTH = 0.5F;
     public static float HITBOX_HEIGHT = 2.3F;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final EntityDataAccessor<Boolean> DATA_ISTRIGGERED = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_STARED_AT = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> DATA_CHARGE_TIME = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_ISTRIGGERED = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_STARED_AT = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DATA_CHARGE_TIME = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 1.3F);
-    private final Set<LivingEntity> targetMap = new HashSet<>();
-    private final int defaultChargeTime = 700;
+    public final Set<LivingEntity> targetMap = new HashSet<>();
+    private final int defaultChargeTime = 580;
     private int targetChangeTime;
 
-    public SCP096Entity(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
     }
 
     protected void registerGoals() {
         this.targetSelector.addGoal(0, new SCP096LookForPlayerGoal(this, this::isAngryAt));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal096(this));
 
         this.addBehaviourGoals();
     }
 
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level));
+        this.goalSelector.addGoal(2, new BreakDoorGoal096(this, 20));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D));
     }
@@ -77,17 +83,26 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
                 .add(Attributes.ATTACK_SPEED, 0.1F)
                 .add(Attributes.MAX_HEALTH, 700.0F)
                 .add(Attributes.FOLLOW_RANGE, 1000.0F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F)
+                .add(ForgeMod.ATTACK_RANGE.get(), 5.0F);
     }
 
     protected SoundEvent getTriggeredSound() {
         return ModSounds.SCP_096_TRIGGERED.get();
     }
+
     protected SoundEvent getAmbientSound() {
         return ModSounds.SCP_096_IDLE.get();
     }
+
     protected SoundEvent getKillSound() {
         return ModSounds.SCP_096_KILL.get();
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        super.jumpFromGround();
+        this.setDeltaMovement(this.getDeltaMovement().add(0, 0.3, 0));
     }
 
     @Override
@@ -99,6 +114,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
             }
         }
     }
+
 
     public static final RawAnimation WALK096 = RawAnimation.begin().thenLoop("scp_096_walking");
     public static final RawAnimation RUN096 = RawAnimation.begin().thenLoop("scp_096_run");
@@ -135,7 +151,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pPose) { // Change hitboxes.
+    public EntityDimensions getDimensions(Pose pPose) {
         return pPose == Pose.SITTING ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pPose);
     }
 
@@ -197,9 +213,11 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
 
         if (!level.isClientSide) {
             this.targetMap.forEach(livingEntity -> {
-                if (livingEntity.isDeadOrDying()) { // Do stuff on target death
-                    this.playSound(this.getKillSound(), 1.0F, 1.0F);
-                    this.targetMap.remove(livingEntity);
+                if (livingEntity != null) {
+                    if (livingEntity.isDeadOrDying()) { // Do stuff on target death
+                        this.playSound(this.getKillSound(), 1.0F, 1.0F);
+                        this.targetMap.remove(livingEntity);
+                    }
                 }
             });
 
@@ -287,7 +305,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
     }
 
     static class SCP096LookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
-        private final SCP096Entity scp096;
+        private final SCP096 scp096;
         @Nullable
         private LivingEntity pendingTarget;
         private int aggroTime;
@@ -295,9 +313,9 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
         private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
         private final Predicate<LivingEntity> isAngerInducing;
 
-        public SCP096LookForPlayerGoal(SCP096Entity scp096Entity, @Nullable Predicate<LivingEntity> pSelectionPredicate) {
-            super(scp096Entity, Player.class, 0, false, false, pSelectionPredicate);
-            this.scp096 = scp096Entity;
+        public SCP096LookForPlayerGoal(SCP096 scp096, @Nullable Predicate<LivingEntity> pSelectionPredicate) {
+            super(scp096, Player.class, 0, false, false, pSelectionPredicate);
+            this.scp096 = scp096;
 
             this.isAngerInducing = (entity) -> {
                 if (this.scp096.isLookingAtMe(entity) && this.scp096.canTrigger()) {
@@ -311,7 +329,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
                     this.scp096.targetMap.add(entity);
                 }
 
-                return scp096Entity.isAngryAt(entity) || this.scp096.targetMap.contains(entity);
+                return scp096.isAngryAt(entity) || this.scp096.targetMap.contains(entity);
             };
 
             this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
@@ -320,9 +338,11 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
         public boolean canUse() {
             this.pendingTarget = this.scp096.level.getNearestPlayer(this.startAggroTargetConditions, this.scp096); // TODO change to LivingEntity
             if (!this.scp096.targetMap.isEmpty()) {
-                if (this.scp096.getChargeTime() != 0) {
+                if (this.scp096.getChargeTime() >= 0) {
                     this.scp096.setChargeTime(this.scp096.getChargeTime() - 2); // Have to remove 2 instead of 1 because this only fires every 2 ticks.
-                    if (this.scp096.getChargeTime() == 698) {
+                    ServerLevel serverLevel = (ServerLevel) this.scp096.level;
+                    serverLevel.sendParticles(ParticleTypes.RAIN, this.scp096.position().x, this.scp096.getEyeY(), this.scp096.position().z, 1, -0.2F, -0.1F, 0.0F, 1);
+                    if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime - 2) {
                         this.scp096.playSound(this.scp096.getTriggeredSound(), 1.0F, 1.0F);
                     }
                 }
@@ -354,6 +374,7 @@ public class SCP096Entity extends Monster implements GeoEntity, NeutralMob {
             if (this.scp096.getTarget() == null) {
                 super.setTarget(null);
             }
+
             if (this.pendingTarget != null) {
                 if (--this.aggroTime <= 0) {
                     this.target = this.pendingTarget;
