@@ -1,13 +1,11 @@
 package net.zeus.scppancakes.block;
 
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,9 +20,9 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, SCPPancakes.MOD_ID);
 
-    public static final RegistryObject<SculptureExcrement> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrement",
+    public static final RegistryObject<Block> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrement",
             () -> new SculptureExcrement(BlockBehaviour.Properties.of(Material.DIRT)
-                    .strength(2.0F).noOcclusion().sound(SoundType.MOSS_CARPET)));
+                    .strength(2.0F).noOcclusion().sound(SoundType.MOSS_CARPET).noLootTable()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

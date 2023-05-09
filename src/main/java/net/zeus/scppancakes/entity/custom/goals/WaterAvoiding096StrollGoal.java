@@ -1,11 +1,11 @@
 package net.zeus.scppancakes.entity.custom.goals;
 
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
 import net.zeus.scppancakes.entity.custom.SCP096;
-import net.zeus.scppancakes.entity.custom.SCP173i;
+import net.zeus.scppancakes.event.CommonEvents;
 
 import javax.annotation.Nullable;
 
@@ -27,8 +27,8 @@ public class WaterAvoiding096StrollGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        if (!this.scp096.targetMap.isEmpty()) {
-            if (this.mob.level.getRawBrightness(this.mob.blockPosition(), 0) < 5 || this.mob.level.getBiome(this.mob.blockPosition()).get().coldEnoughToSnow(this.mob.blockPosition()) && this.scp096.targetMap.isEmpty()) {
+        if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime && !(CommonEvents.currentPose.get(this.scp096) == Pose.SITTING) && this.scp096.canTrigger()) {
+            if (this.mob.level.getRawBrightness(this.mob.blockPosition(), 0) < 5 || this.mob.level.getBiome(this.mob.blockPosition()).get().coldEnoughToSnow(this.mob.blockPosition())) {
                 return this.mob.getRandom().nextFloat() >= this.probability / 100 ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
             } else {
                 return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();

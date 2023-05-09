@@ -10,6 +10,7 @@
   "sounds.scppancakes.scp_096_idle": "SCP-096 is idle nearby!",
   "sounds.scppancakes.scp_096_triggered": "SCP-096 is triggered nearby!",
   "sounds.scppancakes.scp_096_kill": "SCP-096 has killed someone nearby!",
+  "sounds.scppancakes.scp_096_seen": "You've looked at it...",
 
   "creativemodetab.securecraftprotecttab": "Secure Craft Protect"
 }

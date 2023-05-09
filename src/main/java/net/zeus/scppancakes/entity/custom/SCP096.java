@@ -1,17 +1,25 @@
 package net.zeus.scppancakes.entity.custom;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.ClimbOnTopOfPowderSnowGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -24,8 +32,13 @@ import net.zeus.scppancakes.custom.RunnableCooldownHandler;
 import net.zeus.scppancakes.entity.custom.goals.BreakDoorGoal096;
 import net.zeus.scppancakes.entity.custom.goals.HurtByTargetGoal096;
 import net.zeus.scppancakes.entity.custom.goals.WaterAvoiding096StrollGoal;
+import net.zeus.scppancakes.networking.ModMessages;
+import net.zeus.scppancakes.networking.packet.PlayLocalSeenSoundS2C;
+import net.zeus.scppancakes.sound.Idle096TickableSound;
 import net.zeus.scppancakes.sound.ModSounds;
+import net.zeus.scppancakes.sound.Running096TickableSound;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -34,7 +47,10 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import static net.zeus.scppancakes.event.CommonEvents.currentPose;
@@ -43,7 +59,7 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");
     private float speedModifier = 0.33F;
     public static float HITBOX_WIDTH = 0.5F;
-    public static float HITBOX_HEIGHT = 2.3F;
+    public static float HITBOX_HEIGHT = 1.9F;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> DATA_ISTRIGGERED = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_STARED_AT = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
@@ -51,13 +67,18 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 1.3F);
-    public final Set<LivingEntity> targetMap = new HashSet<>();
-    private final int defaultChargeTime = 580;
+    private static final EntityDimensions SLEEPING_DIMENSIONS = EntityDimensions.scalable(1.5F, 0.4F);
+    public final HashMap<LivingEntity, Integer> targetMap = new HashMap<>();
+    public final int defaultChargeTime = 580; // TODO 580
     private int targetChangeTime;
+
+    public final Running096TickableSound tickableSoundRunning = new Running096TickableSound(this);
+    public final Idle096TickableSound tickableSoundIdle = new Idle096TickableSound(this);
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
     protected void registerGoals() {
@@ -81,18 +102,24 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 99.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
-                .add(Attributes.MAX_HEALTH, 700.0F)
+                .add(Attributes.MAX_HEALTH, 50000.0F)
                 .add(Attributes.FOLLOW_RANGE, 1000.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F)
-                .add(ForgeMod.ATTACK_RANGE.get(), 5.0F);
+                .add(ForgeMod.ENTITY_REACH.get(), 5.0F)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 3.0F);
     }
 
     protected SoundEvent getTriggeredSound() {
         return ModSounds.SCP_096_TRIGGERED.get();
     }
 
-    protected SoundEvent getAmbientSound() {
-        return ModSounds.SCP_096_IDLE.get();
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource.is(DamageTypes.FALL) || pSource.is(DamageTypes.DROWN) || pSource.is(DamageTypes.IN_WALL)) {
+            return false;
+        } else {
+            return super.hurt(pSource, pAmount);
+        }
     }
 
     protected SoundEvent getKillSound() {
@@ -101,16 +128,24 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
 
     @Override
     protected void jumpFromGround() {
-        super.jumpFromGround();
-        this.setDeltaMovement(this.getDeltaMovement().add(0, 0.3, 0));
+        double d0 = (double) this.getJumpPower() + this.getJumpBoostPower() + 0.3;
+        Vec3 vec3 = this.getDeltaMovement();
+        this.setDeltaMovement(vec3.x, d0, vec3.z);
+        if (this.isSprinting()) {
+            float f = this.getYRot() * ((float) Math.PI / 180F);
+            this.setDeltaMovement(this.getDeltaMovement().add((double) (-Mth.sin(f) * 0.2F), 0.0D, (double) (Mth.cos(f) * 0.2F)));
+        }
+
+        this.hasImpulse = true;
+        net.minecraftforge.common.ForgeHooks.onLivingJump(this);
     }
 
     @Override
     public void playAmbientSound() {
-        if (this.getChargeTime() == defaultChargeTime) {
-            SoundEvent soundevent = this.getAmbientSound();
-            if (soundevent != null) {
-                this.playSound(soundevent, 0.5F, this.getVoicePitch());
+        if (this.getChargeTime() == defaultChargeTime && level.isClientSide) {
+            if (!tickableSoundIdle.isPlaying) {
+                Minecraft minecraft = Minecraft.getInstance();
+                minecraft.getSoundManager().play(tickableSoundIdle);
             }
         }
     }
@@ -125,14 +160,18 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Controller", 0, state -> {
-            if (this.getChargeTime() != defaultChargeTime && this.getChargeTime() != 0) {
+            if (this.getChargeTime() != defaultChargeTime && this.getChargeTime() != 0 && !this.isTriggered()) {
                 state.setAndContinue(TRIGGERED096);
                 currentPose.put(this, Pose.STANDING);
             } else if (!this.canTrigger()) {
                 state.setAndContinue(LOSTTARGET096);
-                currentPose.put(this, Pose.STANDING);
+                currentPose.put(this, Pose.SLEEPING);
             } else if (state.isMoving() && this.isTriggered()) {
                 state.setAndContinue(RUN096);
+                if (!this.tickableSoundRunning.isPlaying) {
+                    Minecraft minecraft = Minecraft.getInstance();
+                    minecraft.getSoundManager().play(this.tickableSoundRunning);
+                }
                 currentPose.put(this, Pose.STANDING);
             } else if (state.isMoving() && !this.isTriggered()) {
                 state.setAndContinue(WALK096);
@@ -152,10 +191,13 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
-        return pPose == Pose.SITTING ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pPose);
+        return pPose == Pose.SITTING ? SITTING_DIMENSIONS.scale(this.getScale()) : pPose == Pose.SLEEPING ? SLEEPING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pPose);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+        if (pPose.equals(Pose.STANDING)) {
+            return 2.1F;
+        }
         return pSize.height - 0.1F;
     }
 
@@ -212,15 +254,6 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
         this.setPose(currentPose.get(this));
 
         if (!level.isClientSide) {
-            this.targetMap.forEach(livingEntity -> {
-                if (livingEntity != null) {
-                    if (livingEntity.isDeadOrDying()) { // Do stuff on target death
-                        this.playSound(this.getKillSound(), 1.0F, 1.0F);
-                        this.targetMap.remove(livingEntity);
-                    }
-                }
-            });
-
             if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.setCanTrigger(false);
                 this.setHasHadTarget(false);
@@ -320,37 +353,47 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
             this.isAngerInducing = (entity) -> {
                 if (this.scp096.isLookingAtMe(entity) && this.scp096.canTrigger()) {
 
-                    if (entity instanceof Player player) {
+                    if (entity instanceof ServerPlayer player) {
+                        if (!this.scp096.targetMap.containsKey(player) && !player.isCreative()) {
+                            ModMessages.sendToPlayer(new PlayLocalSeenSoundS2C(), player);
+                        }
+
                         if (player.isCreative()) {
                             return false;
                         }
                     }
 
-                    this.scp096.targetMap.add(entity);
+                    this.scp096.targetMap.put(entity, 0);
                 }
 
-                return scp096.isAngryAt(entity) || this.scp096.targetMap.contains(entity);
+                return scp096.isAngryAt(entity) || this.scp096.targetMap.containsKey(entity);
             };
 
-            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
+            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing).ignoreLineOfSight();
         }
 
         public boolean canUse() {
-            this.pendingTarget = this.scp096.level.getNearestPlayer(this.startAggroTargetConditions, this.scp096); // TODO change to LivingEntity
+            this.pendingTarget = this.scp096.level.getNearestEntity(this.scp096.level.getEntitiesOfClass(LivingEntity.class, this.scp096.getBoundingBox().inflate(this.scp096.getAttributeValue(Attributes.FOLLOW_RANGE))), this.startAggroTargetConditions, this.scp096, this.scp096.getX(), this.scp096.getY(), this.scp096.getZ());
+
+            this.refreshTargetList();
             if (!this.scp096.targetMap.isEmpty()) {
                 if (this.scp096.getChargeTime() >= 0) {
                     this.scp096.setChargeTime(this.scp096.getChargeTime() - 2); // Have to remove 2 instead of 1 because this only fires every 2 ticks.
                     ServerLevel serverLevel = (ServerLevel) this.scp096.level;
                     serverLevel.sendParticles(ParticleTypes.RAIN, this.scp096.position().x, this.scp096.getEyeY(), this.scp096.position().z, 1, -0.2F, -0.1F, 0.0F, 1);
                     if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime - 2) {
-                        this.scp096.playSound(this.scp096.getTriggeredSound(), 1.0F, 1.0F);
+                        this.scp096.playSound(this.scp096.getTriggeredSound(), 2.0F, 1.0F);
                     }
                 }
+            } else {
+                return false;
             }
+
             return !this.scp096.targetMap.isEmpty() && this.scp096.getChargeTime() <= 0;
         }
 
         public boolean canContinueToUse() {
+            this.refreshTargetList();
             if (this.pendingTarget != null && this.scp096.getChargeTime() <= 0) {
                 if (!this.isAngerInducing.test(this.pendingTarget)) {
                     return false;
@@ -367,9 +410,6 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
             this.scp096.setBeingStaredAt();
         }
 
-        /**
-         * Called Every Tick
-         */
         public void tick() {
             if (this.scp096.getTarget() == null) {
                 super.setTarget(null);
@@ -384,6 +424,23 @@ public class SCP096 extends Monster implements GeoEntity, NeutralMob {
                 }
             }
         }
+
+
+        public void refreshTargetList() {
+            Iterator<Map.Entry<LivingEntity, Integer>> iterator = this.scp096.targetMap.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+
+                if (iterator.next().getKey().isDeadOrDying()) {
+                    this.scp096.playSound(this.scp096.getKillSound(), 1.0F, 1.0F);
+                    this.scp096.setHasHadTarget(true);
+                    iterator.remove();
+                }
+
+            }
+
+        }
+
     }
 }
 

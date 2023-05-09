@@ -22,5 +22,11 @@
     "sounds": [
       "scppancakes:scp_096_kill"
     ]
+  },
+  "scp_096_seen": {
+    "subtitle": "sounds.scppancakes.scp_096_seen",
+    "sounds": [
+      "scppancakes:scp_096_seen"
+    ]
   }
 }

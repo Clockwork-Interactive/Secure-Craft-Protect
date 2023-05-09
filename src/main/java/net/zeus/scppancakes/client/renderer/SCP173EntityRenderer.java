@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scppancakes.SCPPancakes;
 import net.zeus.scppancakes.client.models.SCP173Model;
-import net.zeus.scppancakes.entity.custom.SCP096;
 import net.zeus.scppancakes.entity.custom.SCP173i;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;

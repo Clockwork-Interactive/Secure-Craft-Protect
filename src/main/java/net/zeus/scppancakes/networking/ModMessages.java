@@ -8,6 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.zeus.scppancakes.SCPPancakes;
 import net.zeus.scppancakes.networking.packet.BlinkS2CPacket;
+import net.zeus.scppancakes.networking.packet.PlayLocalSeenSoundS2C;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -32,6 +33,12 @@ public class ModMessages {
                 .decoder(BlinkS2CPacket::new)
                 .encoder(BlinkS2CPacket::toBytes)
                 .consumerMainThread(BlinkS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayLocalSeenSoundS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlayLocalSeenSoundS2C::new)
+                .encoder(PlayLocalSeenSoundS2C::toBytes)
+                .consumerMainThread(PlayLocalSeenSoundS2C::handle)
                 .add();
 
 

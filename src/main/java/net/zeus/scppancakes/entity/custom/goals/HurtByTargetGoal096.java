@@ -1,9 +1,9 @@
 package net.zeus.scppancakes.entity.custom.goals;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.zeus.scppancakes.entity.custom.SCP096;
 
 import java.util.EnumSet;
@@ -27,8 +27,9 @@ public class HurtByTargetGoal096 extends TargetGoal {
      */
     public boolean canUse() {
         LivingEntity livingentity = this.scp096.getLastHurtByMob();
+        if ((livingentity instanceof Player player && player.isCreative()) || !this.scp096.canTrigger()) return false;
         if (livingentity != null) {
-            this.scp096.targetMap.add(livingentity);
+            this.scp096.targetMap.put(livingentity, 0);
             return true;
         }
         return false;

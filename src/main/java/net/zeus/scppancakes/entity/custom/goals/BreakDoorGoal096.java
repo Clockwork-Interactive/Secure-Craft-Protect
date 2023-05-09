@@ -1,12 +1,8 @@
 package net.zeus.scppancakes.entity.custom.goals;
 
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.DoorInteractGoal;
 import net.minecraft.world.level.block.Block;
 import net.zeus.scppancakes.entity.custom.SCP096;
-
-import java.util.function.Predicate;
 
 public class BreakDoorGoal096 extends DoorInteractGoal {
     private static final int DEFAULT_DOOR_BREAK_TIME = 240;
@@ -26,7 +22,7 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
     }
 
     protected int getDoorBreakTime() {
-        return Math.max(240, this.doorBreakTime);
+        return this.doorBreakTime;
     }
 
     /**
@@ -81,7 +77,7 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
             }
         }
 
-        this.breakTime++;
+        this.breakTime += 10;
         int i = (int)((float)this.breakTime / (float)this.getDoorBreakTime() * 10.0F);
         if (i != this.lastBreakProgress) {
             this.mob.level.destroyBlockProgress(this.mob.getId(), this.doorPos, i);

@@ -1,6 +1,5 @@
 package net.zeus.scppancakes.entity.custom.goals;
 
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
