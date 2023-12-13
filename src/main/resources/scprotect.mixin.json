@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "net.zeus.scpprotect.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "GameRendererMixin",
+    "KeyMappingMixin",
+    "MinecraftMixin"
+  ],
+  "server": [
+  ],
+  "mixins": [
+    "EntityMixin",
+    "InventoryMixin",
+    "LivingEntityMixin",
+    "ServerPacketListenerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "scprotect.refmap.json"
+}

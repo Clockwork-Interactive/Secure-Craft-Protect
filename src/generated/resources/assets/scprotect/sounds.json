@@ -1,0 +1,107 @@
+{
+  "scp_096_idle": {
+    "sounds": [
+      "scprotect:scp_096_idle"
+    ]
+  },
+  "scp_096_kill": {
+    "sounds": [
+      "scprotect:scp_096_kill"
+    ]
+  },
+  "scp_096_running": {
+    "sounds": [
+      "scprotect:scp_096_running"
+    ]
+  },
+  "scp_096_seen": {
+    "sounds": [
+      "scprotect:scp_096_seen"
+    ]
+  },
+  "scp_096_triggered": {
+    "sounds": [
+      "scprotect:scp_096_triggered"
+    ]
+  },
+  "scp_109_pour1": {
+    "sounds": [
+      "scprotect:scp_109_pour1"
+    ]
+  },
+  "scp_109_pour2": {
+    "sounds": [
+      "scprotect:scp_109_pour2"
+    ]
+  },
+  "scp_109_pour3": {
+    "sounds": [
+      "scprotect:scp_109_pour3"
+    ]
+  },
+  "scp_173_horror_1": {
+    "sounds": [
+      "scprotect:scp_173_horror_1"
+    ]
+  },
+  "scp_173_horror_2": {
+    "sounds": [
+      "scprotect:scp_173_horror_2"
+    ]
+  },
+  "scp_173_horror_3": {
+    "sounds": [
+      "scprotect:scp_173_horror_3"
+    ]
+  },
+  "scp_173_horror_4": {
+    "sounds": [
+      "scprotect:scp_173_horror_4"
+    ]
+  },
+  "scp_173_horror_5": {
+    "sounds": [
+      "scprotect:scp_173_horror_5"
+    ]
+  },
+  "scp_173_kill_1": {
+    "sounds": [
+      "scprotect:scp_173_kill_1"
+    ]
+  },
+  "scp_173_kill_2": {
+    "sounds": [
+      "scprotect:scp_173_kill_2"
+    ]
+  },
+  "scp_173_move_1": {
+    "sounds": [
+      "scprotect:scp_173_move_1"
+    ]
+  },
+  "scp_173_move_2": {
+    "sounds": [
+      "scprotect:scp_173_move_2"
+    ]
+  },
+  "scp_173_move_3": {
+    "sounds": [
+      "scprotect:scp_173_move_3"
+    ]
+  },
+  "scp_173_strangle_kill": {
+    "sounds": [
+      "scprotect:scp_173_strangle_kill"
+    ]
+  },
+  "scp_173_strangle_sequence": {
+    "sounds": [
+      "scprotect:scp_173_strangle_sequence"
+    ]
+  },
+  "scp_330_sever": {
+    "sounds": [
+      "scprotect:scp_330_sever"
+    ]
+  }
+}

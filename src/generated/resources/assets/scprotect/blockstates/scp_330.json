@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "scprotect:block/scp_330",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "scprotect:block/scp_330"
+    },
+    "facing=south": {
+      "model": "scprotect:block/scp_330",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "scprotect:block/scp_330",
+      "y": 270
+    }
+  }
+}

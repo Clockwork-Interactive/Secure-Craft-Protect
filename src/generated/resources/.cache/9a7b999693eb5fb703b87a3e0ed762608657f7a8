@@ -1,0 +1,15 @@
+// 1.20.1	2023-11-26T00:39:06.0880845	Block States: scprotect
+ffefaaed8f94ef42871d02da94781c728b17afb8 assets/scprotect/blockstates/aged_bricks.json
+4e0d3aaf074eb171177e16c5257e056a6632c3d8 assets/scprotect/blockstates/aged_concrete.json
+d3debd2ad9923d6b84220bdeadc18ff453adb555 assets/scprotect/blockstates/scp_019.json
+be57e5a05eb3d63fa605cf0512443fe47b2146a1 assets/scprotect/blockstates/scp_310.json
+e4d772802a397d7595b00efffabf4f6aa403129e assets/scprotect/blockstates/scp_330.json
+bc58bc6b7d9c02d2bc13e9235154d1415a87b2b3 assets/scprotect/blockstates/sculpture_excrements.json
+9bd6a72dd4dee8a2b41a712e0f866a1798e39a01 assets/scprotect/models/block/aged_bricks.json
+c2d1804eb44be3c77afa7b3f2b58f7278c6d3a08 assets/scprotect/models/block/aged_concrete.json
+08e8303bc20ca4a7d8dd82db26c8f72100a5a64b assets/scprotect/models/item/aged_bricks.json
+57f3e13c764f90cc7be3a9f0d8932fc85a92321f assets/scprotect/models/item/aged_concrete.json
+c808b7502d8978a240636b104b84a82793f816c6 assets/scprotect/models/item/scp_019.json
+81c8e072b31d0ed03e4337077a9fc7bf6808f521 assets/scprotect/models/item/scp_310.json
+3d69f9ea25f2d394063e1a49edebe669f1bfe205 assets/scprotect/models/item/scp_330.json
+bbdce20e0b16f014abcd5cb84004545a4fee5d42 assets/scprotect/models/item/sculpture_excrements.json

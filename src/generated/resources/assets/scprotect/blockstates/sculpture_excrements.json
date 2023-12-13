@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "scprotect:block/sculpture_excrements",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "scprotect:block/sculpture_excrements"
+    },
+    "facing=south": {
+      "model": "scprotect:block/sculpture_excrements",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "scprotect:block/sculpture_excrements",
+      "y": 270
+    }
+  }
+}
