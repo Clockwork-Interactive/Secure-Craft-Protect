@@ -7,12 +7,14 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 
 public abstract class BiPedalModel<T extends LivingEntity & GeoAnimatable> extends DefaultGeoBiPedalModel<T> {
 
+    public T entity;
     public abstract String model(int process);
     public abstract boolean hasAnimation();
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "geo/" + this.model(1) + ".geo.json");
+        this.entity = animatable;
+        return new ResourceLocation(SCP.MOD_ID, "geo/entity/" + this.model(1) + ".geo.json");
     }
 
     @Override
@@ -25,4 +27,5 @@ public abstract class BiPedalModel<T extends LivingEntity & GeoAnimatable> exten
         if (!this.hasAnimation()) return null;
         return new ResourceLocation(SCP.MOD_ID, "animations/animations_" + this.model(3) + ".animation.json");
     }
+
 }

@@ -2,8 +2,7 @@ package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.client.models.entity.DefaultGeoTetrapodModel;
-import net.zeus.scpprotect.level.entity.custom.SCP019_2;
+import net.zeus.scpprotect.level.entity.entities.SCP019_2;
 
 public class SCP019_2Model extends DefaultGeoTetrapodModel<SCP019_2> {
 

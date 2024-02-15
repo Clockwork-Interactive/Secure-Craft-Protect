@@ -1,7 +1,6 @@
 package net.zeus.scpprotect.level.block.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.MagmaBlock;
@@ -11,7 +10,7 @@ import net.minecraft.world.phys.AABB;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
 import net.zeus.scpprotect.level.block.ModBlockEntities;
 import net.zeus.scpprotect.level.entity.ModEntity;
-import net.zeus.scpprotect.level.entity.custom.SCP019_2;
+import net.zeus.scpprotect.level.entity.entities.SCP019_2;
 
 public class SCP019BlockEntity extends BaseEntityBlock {
 

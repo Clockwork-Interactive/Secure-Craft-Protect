@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.refractionapi.refraction.registry.block.BaseHorizontalBlock;
-import net.zeus.scpprotect.level.entity.custom.base.SCP173;
+import net.zeus.scpprotect.level.entity.entities.SCP173;
 
 import java.util.stream.Stream;
 

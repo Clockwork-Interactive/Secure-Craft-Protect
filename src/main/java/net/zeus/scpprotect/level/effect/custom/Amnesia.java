@@ -13,11 +13,6 @@ public class Amnesia extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        pLivingEntity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 10, 0, true, false, false));
-    }
-
-    @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }

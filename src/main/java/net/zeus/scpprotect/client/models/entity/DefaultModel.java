@@ -9,25 +9,25 @@ import software.bernie.geckolib.model.GeoModel;
 
 public abstract class DefaultModel<T extends GeoAnimatable> extends GeoModel<T> {
 
-    public abstract String model(int process);
+    public abstract String model(int process, T animatable);
 
-    public abstract String type();
+    public abstract String type(T animatable);
 
-    public abstract boolean hasAnimation();
+    public abstract boolean hasAnimation(T animatable);
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "geo/" + this.type() + "/" + this.model(1) + ".geo.json");
+        return new ResourceLocation(SCP.MOD_ID, "geo/" + this.type(animatable) + "/" + this.model(1, animatable) + ".geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "textures/" + this.type() + "/" + this.model(2) + ".png");
+        return new ResourceLocation(SCP.MOD_ID, "textures/" + this.type(animatable) + "/" + this.model(2, animatable) + ".png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(T animatable) {
-        if (!this.hasAnimation()) return null;
-        return new ResourceLocation(SCP.MOD_ID, "animations/" + this.type() + "animations_" + this.model(3) + ".animation.json");
+        if (!this.hasAnimation(animatable)) return null;
+        return new ResourceLocation(SCP.MOD_ID, "animations/" + this.type(animatable) + "/animations_" + this.model(3, animatable) + ".animation.json");
     }
 }

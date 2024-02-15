@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
@@ -21,12 +20,12 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.level.effect.ModEffects;
-import net.zeus.scpprotect.level.entity.custom.SCP096;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
@@ -36,7 +35,6 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonForgeEvents {
-    public static Map<SCP096, Pose> currentPose = new HashMap<>(); // TODO optimize
     public static Map<Player, PlayerData> PlayerRuntimeData = new HashMap<>();
     public static Map<Player, Integer> SCP_966_INSOMNIA = new HashMap<>();
     public static int SCP_966Max = 2000;
@@ -120,6 +118,13 @@ public class CommonForgeEvents {
         if (!event.isCancelable()) return;
         if (event.getEntity().hasEffect(ModEffects.AMPUTATED.get())) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLivingDeath(LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof Anomaly anomaly) {
+            anomaly.onKillEntity(event.getEntity());
         }
     }
 

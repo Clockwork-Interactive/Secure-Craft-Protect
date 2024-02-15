@@ -8,7 +8,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class NodsModel extends GeoModel<Nods> {
     @Override
     public ResourceLocation getModelResource(Nods animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "geo/nods.geo.json");
+        return new ResourceLocation(SCP.MOD_ID, "geo/armor/nods.geo.json");
     }
 
     @Override

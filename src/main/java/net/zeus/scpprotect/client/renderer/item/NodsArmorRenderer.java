@@ -5,7 +5,9 @@ import net.zeus.scpprotect.level.item.armor.Nods;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class NodsArmorRenderer extends GeoArmorRenderer<Nods> {
+
     public NodsArmorRenderer() {
         super(new NodsModel());
     }
+
 }

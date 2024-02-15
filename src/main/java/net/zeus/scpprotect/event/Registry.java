@@ -20,13 +20,16 @@ public class Registry {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntity.SCP_019_2.get(), SCP019_2EntityRenderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_173i.get(), SCP173IEntityRenderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_096.get(), SCP096EntityRenderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_939.get(), SCP939EntityRenderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_966.get(), SCP966EntityRenderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_811.get(), SCP811EntityRenderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_019_2.get(), SCP019_2Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_173.get(), SCP173Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_096.get(), SCP096Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_939.get(), SCP939Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_966.get(), SCP966Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_811.get(), SCP811Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_3199.get(), SCP3199Renderer::new);
+        event.registerEntityRenderer(ModEntity.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
         event.registerEntityRenderer(ModEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
+        event.registerEntityRenderer(ModEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
     }
 
     @SubscribeEvent

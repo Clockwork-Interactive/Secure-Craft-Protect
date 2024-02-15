@@ -99,9 +99,159 @@
       "scprotect:scp_173_strangle_sequence"
     ]
   },
+  "scp_3199_death_1": {
+    "sounds": [
+      "scprotect:scp_3199_death_1"
+    ]
+  },
+  "scp_3199_death_2": {
+    "sounds": [
+      "scprotect:scp_3199_death_2"
+    ]
+  },
+  "scp_3199_death_3": {
+    "sounds": [
+      "scprotect:scp_3199_death_3"
+    ]
+  },
+  "scp_3199_hurt_1": {
+    "sounds": [
+      "scprotect:scp_3199_hurt_1"
+    ]
+  },
+  "scp_3199_hurt_2": {
+    "sounds": [
+      "scprotect:scp_3199_hurt_2"
+    ]
+  },
+  "scp_3199_hurt_3": {
+    "sounds": [
+      "scprotect:scp_3199_hurt_3"
+    ]
+  },
+  "scp_3199_idle_1": {
+    "sounds": [
+      "scprotect:scp_3199_idle_1"
+    ]
+  },
+  "scp_3199_idle_10": {
+    "sounds": [
+      "scprotect:scp_3199_idle_10"
+    ]
+  },
+  "scp_3199_idle_11": {
+    "sounds": [
+      "scprotect:scp_3199_idle_11"
+    ]
+  },
+  "scp_3199_idle_12": {
+    "sounds": [
+      "scprotect:scp_3199_idle_12"
+    ]
+  },
+  "scp_3199_idle_2": {
+    "sounds": [
+      "scprotect:scp_3199_idle_2"
+    ]
+  },
+  "scp_3199_idle_3": {
+    "sounds": [
+      "scprotect:scp_3199_idle_3"
+    ]
+  },
+  "scp_3199_idle_4": {
+    "sounds": [
+      "scprotect:scp_3199_idle_4"
+    ]
+  },
+  "scp_3199_idle_5": {
+    "sounds": [
+      "scprotect:scp_3199_idle_5"
+    ]
+  },
+  "scp_3199_idle_6": {
+    "sounds": [
+      "scprotect:scp_3199_idle_6"
+    ]
+  },
+  "scp_3199_idle_7": {
+    "sounds": [
+      "scprotect:scp_3199_idle_7"
+    ]
+  },
+  "scp_3199_idle_8": {
+    "sounds": [
+      "scprotect:scp_3199_idle_8"
+    ]
+  },
+  "scp_3199_idle_9": {
+    "sounds": [
+      "scprotect:scp_3199_idle_9"
+    ]
+  },
+  "scp_3199_lay": {
+    "sounds": [
+      "scprotect:scp_3199_lay"
+    ]
+  },
   "scp_330_sever": {
     "sounds": [
       "scprotect:scp_330_sever"
+    ]
+  },
+  "scp_939_attack_1": {
+    "sounds": [
+      "scprotect:scp_939_attack_1"
+    ]
+  },
+  "scp_939_attack_2": {
+    "sounds": [
+      "scprotect:scp_939_attack_2"
+    ]
+  },
+  "scp_939_attack_3": {
+    "sounds": [
+      "scprotect:scp_939_attack_3"
+    ]
+  },
+  "scp_939_attack_4": {
+    "sounds": [
+      "scprotect:scp_939_attack_4"
+    ]
+  },
+  "scp_939_baby_idle_1": {
+    "sounds": [
+      "scprotect:scp_939_baby_idle_1"
+    ]
+  },
+  "scp_939_baby_idle_2": {
+    "sounds": [
+      "scprotect:scp_939_baby_idle_2"
+    ]
+  },
+  "scp_939_baby_idle_3": {
+    "sounds": [
+      "scprotect:scp_939_baby_idle_3"
+    ]
+  },
+  "scp_939_hurt_1": {
+    "sounds": [
+      "scprotect:scp_939_hurt_1"
+    ]
+  },
+  "scp_939_hurt_2": {
+    "sounds": [
+      "scprotect:scp_939_hurt_2"
+    ]
+  },
+  "scp_939_screech": {
+    "sounds": [
+      "scprotect:scp_939_screech"
+    ]
+  },
+  "scp_939_spot_target": {
+    "sounds": [
+      "scprotect:scp_939_spot_target"
     ]
   }
 }

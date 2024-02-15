@@ -33,7 +33,36 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCP_173_MOVE_2 = registerSoundEvent("scp_173_move_2");
     public static final RegistryObject<SoundEvent> SCP_173_MOVE_3 = registerSoundEvent("scp_173_move_3");
     public static final RegistryObject<SoundEvent> SCP_330_SEVER = registerSoundEvent("scp_330_sever");
-
+    public static final RegistryObject<SoundEvent> SCP_939_ATTACK_1 = registerSoundEvent("scp_939_attack_1");
+    public static final RegistryObject<SoundEvent> SCP_939_ATTACK_2 = registerSoundEvent("scp_939_attack_2");
+    public static final RegistryObject<SoundEvent> SCP_939_ATTACK_3 = registerSoundEvent("scp_939_attack_3");
+    public static final RegistryObject<SoundEvent> SCP_939_ATTACK_4 = registerSoundEvent("scp_939_attack_4");
+    public static final RegistryObject<SoundEvent> SCP_939_BABY_IDLE_1 = registerSoundEvent("scp_939_baby_idle_1");
+    public static final RegistryObject<SoundEvent> SCP_939_BABY_IDLE_2 = registerSoundEvent("scp_939_baby_idle_2");
+    public static final RegistryObject<SoundEvent> SCP_939_BABY_IDLE_3 = registerSoundEvent("scp_939_baby_idle_3");
+    public static final RegistryObject<SoundEvent> SCP_939_HURT_1 = registerSoundEvent("scp_939_hurt_1");
+    public static final RegistryObject<SoundEvent> SCP_939_HURT_2 = registerSoundEvent("scp_939_hurt_2");
+    public static final RegistryObject<SoundEvent> SCP_939_SCREECH = registerSoundEvent("scp_939_screech");
+    public static final RegistryObject<SoundEvent> SCP_939_SPOT_TARGET = registerSoundEvent("scp_939_spot_target");
+    public static final RegistryObject<SoundEvent> SCP_3199_DEATH_1 = registerSoundEvent("scp_3199_death_1");
+    public static final RegistryObject<SoundEvent> SCP_3199_DEATH_2 = registerSoundEvent("scp_3199_death_2");
+    public static final RegistryObject<SoundEvent> SCP_3199_DEATH_3 = registerSoundEvent("scp_3199_death_3");
+    public static final RegistryObject<SoundEvent> SCP_3199_HURT_1 = registerSoundEvent("scp_3199_hurt_1");
+    public static final RegistryObject<SoundEvent> SCP_3199_HURT_2 = registerSoundEvent("scp_3199_hurt_2");
+    public static final RegistryObject<SoundEvent> SCP_3199_HURT_3 = registerSoundEvent("scp_3199_hurt_3");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_1 = registerSoundEvent("scp_3199_idle_1");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_10 = registerSoundEvent("scp_3199_idle_10");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_11 = registerSoundEvent("scp_3199_idle_11");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_12 = registerSoundEvent("scp_3199_idle_12");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_2 = registerSoundEvent("scp_3199_idle_2");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_3 = registerSoundEvent("scp_3199_idle_3");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_4 = registerSoundEvent("scp_3199_idle_4");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_5 = registerSoundEvent("scp_3199_idle_5");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_6 = registerSoundEvent("scp_3199_idle_6");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_7 = registerSoundEvent("scp_3199_idle_7");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_8 = registerSoundEvent("scp_3199_idle_8");
+    public static final RegistryObject<SoundEvent> SCP_3199_IDLE_9 = registerSoundEvent("scp_3199_idle_9");
+    public static final RegistryObject<SoundEvent> SCP_3199_LAY = registerSoundEvent("scp_3199_lay");
 
     private static RegistryObject<SoundEvent> registerDistanceSoundEvent(String name, float distance) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(new ResourceLocation(SCP.MOD_ID, name), distance));

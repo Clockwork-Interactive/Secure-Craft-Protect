@@ -17,10 +17,12 @@ import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.entity.ModEntity;
 import net.zeus.scpprotect.level.item.ModItems;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.custom.BookOfChange;
 import net.zeus.scpprotect.util.ModDamageTypes;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class ModLangugageProvider extends LanguageProvider {
+
     public ModLangugageProvider(PackOutput output) {
         super(output, SCP.MOD_ID, "en_us");
     }
@@ -32,7 +34,7 @@ public class ModLangugageProvider extends LanguageProvider {
         }
 
         for (RegistryObject<Block> registry : ModBlocks.BLOCKS.getEntries()) {
-            if (registry.get() instanceof Anomaly anomaly) {
+            if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", "-").toUpperCase());
                 continue;
             }
@@ -40,6 +42,10 @@ public class ModLangugageProvider extends LanguageProvider {
         }
 
         for (RegistryObject<Item> registry : ModItems.ITEMS.getEntries()) {
+            if (registry == ModItems.BOOK_OF_CHANGE) {
+                add(registry.get(), "AWCY? Book");
+                continue;
+            }
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {
@@ -50,6 +56,10 @@ public class ModLangugageProvider extends LanguageProvider {
         }
 
         for (RegistryObject<MobEffect> registry : ModEffects.MOB_EFFECTS.getEntries()) {
+            if (registry == ModEffects.AMNESIA) {
+                add(registry.get(), "AMN-C227");
+                continue;
+            }
             add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("effect.scprotect.", "").replace("_", " ")));
         }
 

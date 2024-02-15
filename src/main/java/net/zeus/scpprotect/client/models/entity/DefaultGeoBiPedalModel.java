@@ -46,13 +46,21 @@ public abstract class DefaultGeoBiPedalModel<T extends LivingEntity & GeoAnimata
 		}
 
 		if (leftArm != null && rightArm != null) {
-			leftArm.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
-			rightArm.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
+			leftArm.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, (float) Math.toRadians(this.zOffLeftArm()));
+			rightArm.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, (float) Math.toRadians(this.zOffRightArm()));
 		}
 		if (leftLeg != null && rightLeg != null) {
 			leftLeg.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
 			rightLeg.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
 		}
+	}
+
+	public float zOffRightArm() {
+		return 0.0F;
+	}
+
+	public float zOffLeftArm() {
+		return 0.0F;
 	}
 
 }

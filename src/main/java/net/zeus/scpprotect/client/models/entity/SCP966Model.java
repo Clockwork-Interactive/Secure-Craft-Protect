@@ -3,8 +3,7 @@ package net.zeus.scpprotect.client.models.entity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.client.models.entity.DefaultGeoBiPedalModel;
-import net.zeus.scpprotect.level.entity.custom.SCP966;
+import net.zeus.scpprotect.level.entity.entities.SCP966;
 
 public class SCP966Model extends DefaultGeoBiPedalModel<SCP966> {
 

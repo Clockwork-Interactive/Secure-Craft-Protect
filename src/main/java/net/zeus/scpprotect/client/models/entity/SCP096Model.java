@@ -2,10 +2,27 @@ package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.custom.SCP096;
-import software.bernie.geckolib.model.GeoModel;
+import net.zeus.scpprotect.level.entity.entities.SCP096;
 
-public class SCP096Model extends GeoModel<SCP096> {
+public class SCP096Model extends DefaultModel<SCP096> {
+
+	@Override
+	public String model(int process, SCP096 animatable) {
+		if (process == 2) {
+			return animatable.isTriggered() ? "scp_096_rage_texture" : "scp_096_calm_texture";
+		}
+		return "scp_096";
+	}
+
+	@Override
+	public String type(SCP096 animatable) {
+		return "entity";
+	}
+
+	@Override
+	public boolean hasAnimation(SCP096 animatable) {
+		return true;
+	}
 
 	@Override
 	public ResourceLocation getModelResource(SCP096 animatable) {
