@@ -19,7 +19,7 @@ public class BookOfChange extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if (pInteractionTarget instanceof SCP173 scp173) {
-            scp173.setType(scp173.get173Type().ordinal() + 1 % SCP173.SCP173Types.values().length);
+            scp173.setType((scp173.get173Type().ordinal() + 1) % SCP173.SCP173Types.values().length);
             pPlayer.displayClientMessage(Component.literal(scp173.get173Type().fullName), true);
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
@@ -27,7 +27,8 @@ public class BookOfChange extends Item {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        entity.discard();
+        if (player.isCreative())
+            entity.discard();
         return super.onLeftClickEntity(stack, player, entity);
     }
 }
