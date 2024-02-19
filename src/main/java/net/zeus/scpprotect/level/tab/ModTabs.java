@@ -2,7 +2,6 @@ package net.zeus.scpprotect.level.tab;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -10,12 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.ModBlocks;
 import net.zeus.scpprotect.level.item.ModItems;
-import net.zeus.scpprotect.level.item.custom.InstantDeleteItem;
+import net.zeus.scpprotect.level.item.items.InstantDeleteItem;
+import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
 public class ModTabs {
 
@@ -48,7 +47,7 @@ public class ModTabs {
                     new ItemStack(ModItems.ITEMS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
 
                 for (RegistryObject<Item> key : ModItems.ITEMS.getEntries()) {
-                    if (!(key.get() instanceof BlockItem || key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem)) {
+                    if (!(key.get() instanceof BlockItem || key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem) || key.get() instanceof SolidBucketMobItem) {
                         entries.accept(key.get());
                     }
                 }

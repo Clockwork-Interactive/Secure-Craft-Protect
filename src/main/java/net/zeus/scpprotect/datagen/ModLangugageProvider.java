@@ -17,7 +17,7 @@ import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.entity.ModEntity;
 import net.zeus.scpprotect.level.item.ModItems;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.item.custom.BookOfChange;
+import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.util.ModDamageTypes;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -50,7 +50,7 @@ public class ModLangugageProvider extends LanguageProvider {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {
                 add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", " ")).replace("Scp", "SCP-").replaceFirst(" ", ""));
-            } else if (!(registry.get() instanceof BlockItem)) {
+            } else if (!(registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem))) {
                 add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", " ")));
             }
         }

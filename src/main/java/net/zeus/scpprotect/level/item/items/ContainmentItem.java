@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.item.custom;
+package net.zeus.scpprotect.level.item.items;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

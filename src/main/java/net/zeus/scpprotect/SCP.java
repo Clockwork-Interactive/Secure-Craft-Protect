@@ -1,6 +1,8 @@
 package net.zeus.scpprotect;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -53,15 +55,17 @@ public class SCP {
 
 
     public enum SCPTypes {
-        KETER("§4"),
-        EUCLID("§6"),
-        SAFE("§2"),
+        KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED)),
+        EUCLID("§6", Component.literal("Euclid").withStyle(ChatFormatting.YELLOW)),
+        SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN))
         ;
 
-        public String colorModifier;
+        public final String colorModifier;
+        public final Component component;
 
-        SCPTypes(String colorModifier) {
+        SCPTypes(String colorModifier, Component component) {
             this.colorModifier = colorModifier;
+            this.component = component.copy().withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.ITALIC);
         }
 
     }

@@ -8,10 +8,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SolidBucketItem;
 import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.TickEvent;
@@ -27,6 +31,7 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
 
@@ -44,7 +49,7 @@ public class CommonForgeEvents {
         PlayerData.init(event.getEntity());
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void toolTipEvent(ItemTooltipEvent event) {
         if (event.getItemStack().getItem() instanceof Anomaly anomaly) {
             SCP.SCPTypes scpTypes = anomaly.getClassType();
@@ -113,7 +118,7 @@ public class CommonForgeEvents {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void interactEvent(PlayerInteractEvent event) {
         if (!event.isCancelable()) return;
         if (event.getEntity().hasEffect(ModEffects.AMPUTATED.get())) {
@@ -125,6 +130,27 @@ public class CommonForgeEvents {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Anomaly anomaly) {
             anomaly.onKillEntity(event.getEntity());
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+        ItemStack stack = event.getItemStack();
+        if (event.getTarget() instanceof Bucketable bucketable &&
+                bucketable.getBucketItemStack().getItem() instanceof SolidBucketMobItem bucketItem
+                && !(stack.getItem() instanceof SolidBucketMobItem) && event.getTarget().isAlive()) {
+
+            if (stack.getItem() instanceof SolidBucketItem item) {
+                ItemStack bucketItemStack = bucketable.getBucketItemStack();
+                Block requiredBlock = bucketItem.getBlock();
+                Block block = item.getBlock();
+                if (block.equals(requiredBlock)) {
+                    bucketable.saveToBucketTag(bucketItemStack);
+                    event.getEntity().setItemInHand(event.getHand(), bucketItemStack);
+                    event.getTarget().discard();
+                }
+            }
+
         }
     }
 

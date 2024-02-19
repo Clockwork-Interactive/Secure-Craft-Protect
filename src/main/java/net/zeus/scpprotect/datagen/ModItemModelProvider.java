@@ -11,6 +11,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -26,7 +27,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 continue;
             }
 
-            if (registry.get() instanceof BlockItem) continue;
+            if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
 
             try { // I'm lazy 🤓
                 simpleItem(registry);

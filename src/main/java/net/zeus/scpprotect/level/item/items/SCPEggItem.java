@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.item.custom;
+package net.zeus.scpprotect.level.item.items;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -9,7 +9,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
