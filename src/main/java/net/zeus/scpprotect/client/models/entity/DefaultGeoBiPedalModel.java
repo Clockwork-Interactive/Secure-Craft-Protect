@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.zeus.scpprotect.level.entity.entities.SCP096;
+import net.zeus.scpprotect.level.interfaces.Anomaly;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
@@ -28,31 +30,48 @@ public abstract class DefaultGeoBiPedalModel<T extends LivingEntity & GeoAnimata
 		CoreGeoBone leftArm = getAnimationProcessor().getBone("leftArm");
 		CoreGeoBone leftLeg = getAnimationProcessor().getBone("leftLeg");
 		CoreGeoBone rightLeg = getAnimationProcessor().getBone("rightLeg");
-		if (head != null) {
-			EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-			head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-			head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-		}
 
 		float partialTick = Minecraft.getInstance().getPartialTick();
 		float speed = 0.0F;
 		float position = 0.0F;
 
-		if (animatable.isAlive()) {
-			speed = animatable.walkAnimation.speed(partialTick);
-			position = animatable.walkAnimation.position(partialTick);
-			if (speed > 1.0F) speed = 1.0F;
+		if (animatable instanceof Anomaly anomaly && anomaly.doLegAnimations(animationState)) {
+
+			if (animatable.isAlive()) {
+				speed = animatable.walkAnimation.speed(partialTick);
+				position = animatable.walkAnimation.position(partialTick);
+				if (speed > 1.0F) speed = 1.0F;
+			}
+
+			if (leftLeg != null && rightLeg != null) {
+				leftLeg.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
+				rightLeg.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
+			}
+
 		}
+
+		if (animatable instanceof Anomaly anomaly && anomaly.doHeadAnimation(animationState)) {
+			if (head != null) {
+				EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+
+				head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+				head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+				head.setRotZ(0);
+			}
+
+		}
+
+		if (animatable instanceof Anomaly anomaly && !anomaly.doArmAnimations(animationState)) {
+			return;
+		}
+
 
 		if (leftArm != null && rightArm != null) {
 			leftArm.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, (float) Math.toRadians(this.zOffLeftArm()));
 			rightArm.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, (float) Math.toRadians(this.zOffRightArm()));
 		}
-		if (leftLeg != null && rightLeg != null) {
-			leftLeg.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
-			rightLeg.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
-		}
+
+
 	}
 
 	public float zOffRightArm() {

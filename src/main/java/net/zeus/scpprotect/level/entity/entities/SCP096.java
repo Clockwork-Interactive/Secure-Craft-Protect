@@ -1,6 +1,8 @@
 package net.zeus.scpprotect.level.entity.entities;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -28,6 +30,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.refractionapi.refraction.misc.RefractionMisc;
+import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
 import net.zeus.scpprotect.level.entity.entities.goals.BreakDoorGoal096;
@@ -40,9 +44,12 @@ import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
 import net.zeus.scpprotect.util.RunnableCooldownHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -106,11 +113,37 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
         return SCP.SCPTypes.EUCLID;
     }
 
+    public static final RawAnimation CLIMBING_ANIMATION = RawAnimation.begin().thenLoop("climbing");
+    public static final RawAnimation CROUCHING_ANIMATION = RawAnimation.begin().thenPlay("crouch");
+    public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
+    public static final RawAnimation TRIGGERED_ANIMATION = RawAnimation.begin().thenPlay("triggered");
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "c", (state) -> {
-            return PlayState.CONTINUE;
-        }));
+        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
+                    return PlayState.STOP;
+                })
+                        .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                        .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                        .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                        .triggerableAnim("sitting", SITTING_ANIMATION)
+                        .triggerableAnim("none", RawAnimation.begin())
+        );
+    }
+
+    @Override
+    public boolean doArmAnimations(AnimationState<?> state) {
+        return !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == defaultChargeTime);
+    }
+
+    @Override
+    public boolean doLegAnimations(AnimationState<?> state) {
+        return !state.isCurrentAnimation(SITTING_ANIMATION);
+    }
+
+    @Override
+    public boolean doHeadAnimation(AnimationState<?> state) {
+        return !state.isCurrentAnimation(CROUCHING_ANIMATION) && !state.isCurrentAnimation(TRIGGERED_ANIMATION);
     }
 
     @Override
@@ -140,8 +173,10 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
         }
         if (pClimbing) {
             b0 = (byte) (b0 | 1);
+            this.triggerAnim("controller", "climbing");
         } else {
             b0 = (byte) (b0 & -2);
+            this.triggerAnim("controller", "none");
         }
 
         this.entityData.set(CLIMBING, b0);
@@ -152,12 +187,9 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     boolean isLookingAtMe(LivingEntity livingEntity) {
-        Vec3 vec3 = livingEntity.getViewVector(1.0F).normalize();
-        Vec3 vec31 = new Vec3(this.getX() - livingEntity.getX(), this.getEyeY() - livingEntity.getEyeY(), this.getZ() - livingEntity.getZ());
-        double d0 = vec31.length();
-        vec31 = vec31.normalize();
-        double d1 = vec3.dot(vec31);
-        return d1 > 1.0D - 0.025D / d0 && livingEntity.hasLineOfSight(this);
+        boolean can096SeeEntity = Vec3Helper.isInAngle(this, BlockPos.containing(livingEntity.getEyePosition()), 180);
+        boolean canEntitySee096 = Vec3Helper.isInAngle(livingEntity, BlockPos.containing(this.getEyePosition()), 120);
+        return can096SeeEntity && canEntitySee096 && livingEntity.hasLineOfSight(this);
     }
 
     protected void defineSynchedData() {
@@ -217,7 +249,13 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     @Override
     public void tick() {
         if (!level().isClientSide) {
-            this.setClimbing(this.horizontalCollision);
+            BlockPos above = this.blockPosition().above(2);
+            if (!this.level().getBlockState(above).isAir()) {
+                this.triggerAnim("controller", "crouch");
+            }
+            if (this.getChargeTime() == 0 || this.getChargeTime() == defaultChargeTime) {
+                this.setClimbing(this.horizontalCollision);
+            }
             if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 if (SCPCommonConfig.SCP096Cooldown.get()) {
                     this.setCanTrigger(false);
@@ -330,6 +368,9 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
             this.isAngerInducing = (entity) -> {
                 if (this.scp096.isLookingAtMe(entity) && this.scp096.canTrigger() && !this.scp096.targetMap.contains(entity)) {
 
+                    if (entity instanceof Player player && (player.isCreative() || player.isSpectator()))
+                        return false;
+
                     if (entity instanceof ServerPlayer player) {
                         if (player.isCreative()) {
                             return false;
@@ -361,6 +402,9 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                 serverLevel.sendParticles(ParticleTypes.RAIN, this.scp096.position().x, this.scp096.getEyeY(), this.scp096.position().z, 1, -0.2F, -0.1F, 0.0F, 1);
                 if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime - 2) {
                     this.scp096.playSound(this.scp096.getTriggeredSound(), 2.0F, 1.0F);
+                    this.scp096.setClimbing(false);
+                    this.scp096.triggerAnim("controller", "triggered");
+                    RefractionMisc.enableMovement(this.scp096, this.scp096.defaultChargeTime);
                 }
             }
 
