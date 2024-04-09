@@ -24,7 +24,7 @@ import net.zeus.scpprotect.data.DeobfuscatedUtil;
 import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP939ListenTargetGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.util.Misc;
 import net.zeus.scpprotect.util.ModDamageTypes;
 import org.jetbrains.annotations.Nullable;
@@ -44,11 +44,11 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
     private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier("Attacking speed boost 939", speedModifier, AttributeModifier.Operation.ADDITION);
     private final Map<Class<? extends Mob>, SoundEvent> soundCache = new HashMap<>();
     private final List<Class<? extends Mob>> invalidSoundCache = new ArrayList<>();
-    private final List<SoundEvent> ATTACK_SOUNDS = Arrays.asList(ModSounds.SCP_939_ATTACK_1.get(), ModSounds.SCP_939_ATTACK_2.get(), ModSounds.SCP_939_ATTACK_3.get(), ModSounds.SCP_939_ATTACK_4.get());
-    private final List<SoundEvent> BABY_IDLE_SOUNDS = Arrays.asList(ModSounds.SCP_939_BABY_IDLE_1.get(), ModSounds.SCP_939_BABY_IDLE_2.get(), ModSounds.SCP_939_BABY_IDLE_3.get());
-    private final List<SoundEvent> HURT_SOUNDS = Arrays.asList(ModSounds.SCP_939_HURT_1.get(), ModSounds.SCP_939_HURT_2.get());
-    private final SoundEvent SCREECH_SOUND = ModSounds.SCP_939_SCREECH.get();
-    private final SoundEvent SPOT_TARGET_SOUND = ModSounds.SCP_939_SPOT_TARGET.get();
+    private final List<SoundEvent> ATTACK_SOUNDS = Arrays.asList(SCPSounds.SCP_939_ATTACK_1.get(), SCPSounds.SCP_939_ATTACK_2.get(), SCPSounds.SCP_939_ATTACK_3.get(), SCPSounds.SCP_939_ATTACK_4.get());
+    private final List<SoundEvent> BABY_IDLE_SOUNDS = Arrays.asList(SCPSounds.SCP_939_BABY_IDLE_1.get(), SCPSounds.SCP_939_BABY_IDLE_2.get(), SCPSounds.SCP_939_BABY_IDLE_3.get());
+    private final List<SoundEvent> HURT_SOUNDS = Arrays.asList(SCPSounds.SCP_939_HURT_1.get(), SCPSounds.SCP_939_HURT_2.get());
+    private final SoundEvent SCREECH_SOUND = SCPSounds.SCP_939_SCREECH.get();
+    private final SoundEvent SPOT_TARGET_SOUND = SCPSounds.SCP_939_SPOT_TARGET.get();
 
     public SCP939(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -58,6 +58,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new SCP939ListenTargetGoal(this));
         this.addBehaviourGoals();
+        this.setPersistenceRequired();
     }
 
     protected void addBehaviourGoals() {
@@ -127,7 +128,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
                         } else {
                             this.invalidSoundCache.add(mob.getClass());
                         }
-                        
+
                     } catch (InvocationTargetException | IllegalAccessException e) {
                         SCP.LOGGER.error("Could not fetch mob sound \n {}", e.getMessage());
                         this.invalidSoundCache.add(mob.getClass());
@@ -187,7 +188,8 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         if (pEntity instanceof Player player) {
             player.addEffect(new MobEffectInstance(ModEffects.AMNESIA.get(), 160, 0, false, false, false));
         }
-        this.playSound(RefractionMisc.getRandom(ATTACK_SOUNDS));
+        if (pEntity instanceof LivingEntity living && living.isAlive())
+            this.playSound(RefractionMisc.getRandom(ATTACK_SOUNDS));
         pEntity.hurt(Misc.damageSource(ModDamageTypes.SCP939_DAMAGE, pEntity.level()), 10.0F);
         return true;
     }

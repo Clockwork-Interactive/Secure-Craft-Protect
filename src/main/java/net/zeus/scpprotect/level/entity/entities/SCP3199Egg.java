@@ -21,7 +21,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.ModEntity;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -138,7 +138,7 @@ public class SCP3199Egg extends Mob implements GeoEntity, Bucketable, Anomaly {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ModItems.SCP_3199_EGG_BUCKET.get());
+        return new ItemStack(SCPItems.SCP_3199_EGG_BUCKET.get());
     }
 
     @Override

@@ -47,6 +47,7 @@ public class SCP811 extends Monster implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Frog.class, true));
         this.addBehaviourGoals();
+        this.setPersistenceRequired();
     }
 
     protected void addBehaviourGoals() {

@@ -26,7 +26,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -35,9 +35,9 @@ import java.util.List;
 public class SCP109 extends Item implements Anomaly {
     public SCP109(Properties pProperties) {
         super(pProperties);
-        sounds.add(ModSounds.SCP_109_POUR1.get());
-        sounds.add(ModSounds.SCP_109_POUR2.get());
-        sounds.add(ModSounds.SCP_109_POUR3.get());
+        sounds.add(SCPSounds.SCP_109_POUR1.get());
+        sounds.add(SCPSounds.SCP_109_POUR2.get());
+        sounds.add(SCPSounds.SCP_109_POUR3.get());
     }
 
     public static List<SoundEvent> sounds = new ArrayList<>();

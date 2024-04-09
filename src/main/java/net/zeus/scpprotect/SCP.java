@@ -15,9 +15,9 @@ import net.zeus.scpprotect.level.block.ModBlocks;
 import net.zeus.scpprotect.level.block.ModBlockEntities;
 import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.entity.ModEntity;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.particle.ModParticles;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.ModTabs;
 import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
@@ -32,9 +32,9 @@ public class SCP {
 
         ModEntity.ENTITIES.register(modEventBus);
 
-        ModSounds.SOUND_EVENTS.register(modEventBus);
+        SCPSounds.SOUND_EVENTS.register(modEventBus);
 
-        ModItems.ITEMS.register(modEventBus);
+        SCPItems.ITEMS.register(modEventBus);
 
         ModBlocks.BLOCKS.register(modEventBus);
 

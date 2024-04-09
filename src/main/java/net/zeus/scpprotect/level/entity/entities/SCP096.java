@@ -1,6 +1,5 @@
 package net.zeus.scpprotect.level.entity.entities;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,6 +9,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -28,23 +28,22 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
 import net.zeus.scpprotect.level.entity.entities.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.entities.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.entities.goals.WaterAvoiding096StrollGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
 import net.zeus.scpprotect.util.RunnableCooldownHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -64,7 +63,6 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public final List<LivingEntity> targetMap = new ArrayList<>();
-    public final int defaultChargeTime = 580;
     private float speedModifier = 0.33F;
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");
     private static final EntityDataAccessor<Boolean> DATA_IS_TRIGGERED = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
@@ -72,6 +70,11 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     private static final EntityDataAccessor<Integer> DATA_CHARGE_TIME = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
+
+    public static final RawAnimation CLIMBING_ANIMATION = RawAnimation.begin().thenLoop("climbing");
+    public static final RawAnimation CROUCHING_ANIMATION = RawAnimation.begin().thenPlay("crouch");
+    public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
+    public static final RawAnimation TRIGGERED_ANIMATION = RawAnimation.begin().thenPlay("triggered");
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BYTE);
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -92,58 +95,127 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
         this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
         this.goalSelector.addGoal(2, new BreakDoorGoal096(this, 20));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D, 0.001F));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.MOVEMENT_SPEED, 0.15F)
                 .add(Attributes.ATTACK_DAMAGE, 99.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
                 .add(Attributes.MAX_HEALTH, 50000.0F)
                 .add(Attributes.FOLLOW_RANGE, 1000.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F)
                 .add(ForgeMod.ENTITY_REACH.get(), 5.0F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 3.0F);
+                .add(ForgeMod.SWIM_SPEED.get(), 8.0F);
     }
 
+    public void onKill(LivingEntity living) {
+        this.playSound(this.getKillSound(), 0.21F, 1.0F);
+    }
+
+    public void onKillAll() {
+        if (SCPCommonConfig.SCP096Cooldown.get()) {
+            this.setCanTrigger(false);
+            RunnableCooldownHandler.addDelayedRunnable(() -> {
+                if (!this.isDeadOrDying()) {
+                    this.setCanTrigger(true);
+                }
+            }, 600);
+        }
+        this.setHasHadTarget(false);
+        this.setChargeTime(this.getDefaultChargeTime());
+    }
+
+    public void setTarget(@Nullable LivingEntity pLivingEntity) {
+        AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
+        AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (pLivingEntity == null) {
+            this.entityData.set(DATA_IS_TRIGGERED, false);
+            this.entityData.set(DATA_STARED_AT, false);
+            SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
+            attributeinstance.removeModifier(SPEED_MODIFIER_ATTACKING);
+        } else {
+            this.entityData.set(DATA_IS_TRIGGERED, true);
+            if (!attributeinstance.hasModifier(SPEED_MODIFIER_ATTACKING)) {
+                this.speedModifier = Mth.lerp(Math.min(pLivingEntity.distanceTo(this) / 20.0F, 1.0F), 0.2F, 0.45F);
+                SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
+                attributeinstance.addTransientModifier(SPEED_MODIFIER_ATTACKING);
+            }
+        }
+
+        super.setTarget(pLivingEntity);
+    }
+
+    @Override
+    public void tick() {
+        if (!level().isClientSide) {
+            if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
+                this.setClimbing(this.horizontalCollision);
+            }
+            if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
+                this.onKillAll();
+            }
+        }
+        super.tick();
+    }
+
+    public int getDefaultChargeTime() {
+        return 58;
+    }
+
+    public boolean isDefaultCharge() {
+        return this.getChargeTime() == this.getDefaultChargeTime();
+    }
 
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.EUCLID;
     }
 
-    public static final RawAnimation CLIMBING_ANIMATION = RawAnimation.begin().thenLoop("climbing");
-    public static final RawAnimation CROUCHING_ANIMATION = RawAnimation.begin().thenPlay("crouch");
-    public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
-    public static final RawAnimation TRIGGERED_ANIMATION = RawAnimation.begin().thenPlay("triggered");
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
-                    return PlayState.STOP;
-                })
-                        .triggerableAnim("triggered", TRIGGERED_ANIMATION)
-                        .triggerableAnim("climbing", CLIMBING_ANIMATION)
-                        .triggerableAnim("crouch", CROUCHING_ANIMATION)
-                        .triggerableAnim("sitting", SITTING_ANIMATION)
-                        .triggerableAnim("none", RawAnimation.begin())
+        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {PlayerClientData.checkAndUpdateIdle(this); return PlayState.STOP;})
+                .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                .triggerableAnim("sitting", SITTING_ANIMATION)
+                .triggerableAnim("none", RawAnimation.begin())
         );
     }
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == defaultChargeTime);
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
+            return false;
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
     }
 
     @Override
     public boolean doLegAnimations(AnimationState<?> state) {
-        return !state.isCurrentAnimation(SITTING_ANIMATION);
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
+            return false;
+        } else {
+            BlockPos above = this.blockPosition().above(2);
+            if (this.isTriggered() && !this.level().getBlockState(above).isAir()) {
+                this.triggerAnim("controller", "crouch");
+                return false;
+            }
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION);
     }
 
     @Override
     public boolean doHeadAnimation(AnimationState<?> state) {
-        return !state.isCurrentAnimation(CROUCHING_ANIMATION) && !state.isCurrentAnimation(TRIGGERED_ANIMATION);
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
+            return false;
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, TRIGGERED_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION);
+    }
+
+    private boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
+        return state.isCurrentAnimation(animation) && !state.getController().hasAnimationFinished();
     }
 
     @Override
@@ -197,13 +269,13 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
         this.entityData.define(DATA_IS_TRIGGERED, false);
         this.entityData.define(DATA_STARED_AT, false);
         this.entityData.define(DATA_CAN_TRIGGER, true);
-        this.entityData.define(DATA_CHARGE_TIME, defaultChargeTime);
+        this.entityData.define(DATA_CHARGE_TIME, this.getDefaultChargeTime());
         this.entityData.define(DATA_HAS_HAD_TARGET, false);
         this.entityData.define(CLIMBING, (byte) 0);
     }
 
     protected SoundEvent getTriggeredSound() {
-        return ModSounds.SCP_096_TRIGGERED.get();
+        return SCPSounds.SCP_096_TRIGGERED.get();
     }
 
     @Override
@@ -216,60 +288,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     protected SoundEvent getKillSound() {
-        return ModSounds.SCP_096_KILL.get();
-    }
-
-
-    public void setTarget(@Nullable LivingEntity pLivingEntity) {
-        AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
-        AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-        if (pLivingEntity == null) {
-            this.entityData.set(DATA_IS_TRIGGERED, false);
-            this.entityData.set(DATA_STARED_AT, false);
-            SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
-            attributeinstance.removeModifier(SPEED_MODIFIER_ATTACKING);
-        } else {
-            this.entityData.set(DATA_IS_TRIGGERED, true);
-            if (!attributeinstance.hasModifier(SPEED_MODIFIER_ATTACKING)) {
-                this.speedModifier = pLivingEntity.distanceTo(this) / 20;
-                if (this.speedModifier < 0.2F) {
-                    this.speedModifier = 0.2F;
-                }
-                if (this.speedModifier > 0.35F) {
-                    this.speedModifier = 0.35F;
-                }
-                SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
-                attributeinstance.addTransientModifier(SPEED_MODIFIER_ATTACKING);
-            }
-        }
-
-        super.setTarget(pLivingEntity);
-    }
-
-    @Override
-    public void tick() {
-        if (!level().isClientSide) {
-            BlockPos above = this.blockPosition().above(2);
-            if (!this.level().getBlockState(above).isAir()) {
-                this.triggerAnim("controller", "crouch");
-            }
-            if (this.getChargeTime() == 0 || this.getChargeTime() == defaultChargeTime) {
-                this.setClimbing(this.horizontalCollision);
-            }
-            if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
-                if (SCPCommonConfig.SCP096Cooldown.get()) {
-                    this.setCanTrigger(false);
-                    RunnableCooldownHandler.addDelayedRunnable(() -> {
-                        if (!this.isDeadOrDying()) {
-                            this.setCanTrigger(true);
-                        }
-                    }, 600);
-                }
-                this.setHasHadTarget(false);
-                this.setChargeTime(defaultChargeTime);
-            }
-        }
-        super.tick();
+        return SCPSounds.SCP_096_KILL.get();
     }
 
     @Override
@@ -400,11 +419,13 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                 this.scp096.setChargeTime(this.scp096.getChargeTime() - 2); // Have to remove 2 instead of 1 because this only fires every 2 ticks.
                 ServerLevel serverLevel = (ServerLevel) this.scp096.level();
                 serverLevel.sendParticles(ParticleTypes.RAIN, this.scp096.position().x, this.scp096.getEyeY(), this.scp096.position().z, 1, -0.2F, -0.1F, 0.0F, 1);
-                if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime - 2) {
+                if (this.scp096.getChargeTime() == this.scp096.getDefaultChargeTime() - 2) {
                     this.scp096.playSound(this.scp096.getTriggeredSound(), 2.0F, 1.0F);
                     this.scp096.setClimbing(false);
                     this.scp096.triggerAnim("controller", "triggered");
-                    RefractionMisc.enableMovement(this.scp096, this.scp096.defaultChargeTime);
+                    RefractionMisc.enableMovement(this.scp096, this.scp096.getDefaultChargeTime());
+                    if (scp096.moveControl.hasWanted())
+                        this.scp096.moveTo(this.scp096.position());
                 }
             }
 
@@ -442,6 +463,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                     super.start();
                 }
             }
+
         }
 
 
@@ -451,7 +473,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
             while (iterator.hasNext()) {
                 LivingEntity entity = iterator.next();
                 if (entity.isDeadOrDying() || entity.isRemoved()) {
-                    this.scp096.playSound(this.scp096.getKillSound(), 1.0F, 1.0F);
+                    this.scp096.onKill(entity);
                     this.scp096.setHasHadTarget(true);
                     iterator.remove();
                 }

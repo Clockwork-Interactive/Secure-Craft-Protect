@@ -27,8 +27,8 @@ public class DataGenerators {
         generator.addProvider(true, new ModItemModelProvider(packOutput, existingFileHelper));
         generator.addProvider(true, new ParticleProvider(packOutput, existingFileHelper));
         generator.addProvider(true, new SoundProvider(packOutput, existingFileHelper));
-        generator.addProvider(true, new ModLangugageProvider(packOutput));
+        generator.addProvider(true, new ModLanguageProvider(packOutput));
         generator.addProvider(event.includeServer(), new DatapackProvider(packOutput, lookupProvider));
-
     }
+
 }

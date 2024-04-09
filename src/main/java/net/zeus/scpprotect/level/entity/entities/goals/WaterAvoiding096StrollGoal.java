@@ -25,7 +25,7 @@ public class WaterAvoiding096StrollGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        if (this.scp096.getChargeTime() == this.scp096.defaultChargeTime && !this.scp096.isTriggered()) {
+        if (this.scp096.getChargeTime() == this.scp096.getDefaultChargeTime() && !this.scp096.isTriggered()) {
             if (this.mob.level().getRawBrightness(this.mob.blockPosition(), 0) <= 1) {
                 this.scp096.triggerAnim("controller", "sitting");
                 return null;

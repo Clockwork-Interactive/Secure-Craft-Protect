@@ -19,7 +19,7 @@ import net.zeus.scpprotect.level.item.scp.SCP109;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class ModItems {
+public class SCPItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SCP.MOD_ID);
 
     // SCP ITEMS

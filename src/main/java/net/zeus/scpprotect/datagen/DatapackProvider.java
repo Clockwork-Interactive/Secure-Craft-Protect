@@ -18,4 +18,5 @@ public class DatapackProvider extends DatapackBuiltinEntriesProvider {
     public DatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(SCP.MOD_ID));
     }
+
 }

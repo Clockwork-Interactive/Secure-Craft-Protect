@@ -5,7 +5,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -14,7 +13,7 @@ import net.zeus.scpprotect.level.block.custom.SCP019;
 import net.zeus.scpprotect.level.block.custom.SCP310;
 import net.zeus.scpprotect.level.block.custom.SCP330;
 import net.zeus.scpprotect.level.block.custom.SculptureExcrement;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.function.Supplier;
 
@@ -53,7 +52,7 @@ public class ModBlocks {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return SCPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
 }

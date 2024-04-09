@@ -56,7 +56,7 @@ package net.zeus.scpprotect.level.entity.entities;
 //    }
 //
 //    protected SoundEvent getTriggeredSound() {
-//        return ModSounds.SCP_096_TRIGGERED.get();
+//        return SCPSounds.SCP_096_TRIGGERED.get();
 //    }
 //
 //    @Override
@@ -69,7 +69,7 @@ package net.zeus.scpprotect.level.entity.entities;
 //    }
 //
 //    protected SoundEvent getKillSound() {
-//        return ModSounds.SCP_096_KILL.get();
+//        return SCPSounds.SCP_096_KILL.get();
 //    }
 //
 //    @Override

@@ -7,9 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.network.NetworkEvent;
 import net.refractionapi.refraction.networking.Packet;
-import net.zeus.scpprotect.level.sound.ModSounds;
-
-import java.util.function.Supplier;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 
 public class PlayLocalSeenSoundS2C extends Packet {
 
@@ -28,7 +26,7 @@ public class PlayLocalSeenSoundS2C extends Packet {
     @Override
     public void handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
-            Minecraft.getInstance().getSoundManager().play(new EntityBoundSoundInstance(ModSounds.SCP_096_SEEN.get(), SoundSource.AMBIENT, 1.0F, 1.0F, Minecraft.getInstance().player, RandomSource.create().nextLong()));
+            Minecraft.getInstance().getSoundManager().play(new EntityBoundSoundInstance(SCPSounds.SCP_096_SEEN.get(), SoundSource.AMBIENT, 1.0F, 1.0F, Minecraft.getInstance().player, RandomSource.create().nextLong()));
         });
         context.setPacketHandled(true);
     }

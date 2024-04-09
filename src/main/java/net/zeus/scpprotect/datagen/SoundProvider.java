@@ -8,7 +8,7 @@ import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 
 public class SoundProvider extends SoundDefinitionsProvider {
     /**
@@ -23,7 +23,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        for (RegistryObject<SoundEvent> event : ModSounds.SOUND_EVENTS.getEntries()) {
+        for (RegistryObject<SoundEvent> event : SCPSounds.SOUND_EVENTS.getEntries()) {
             SoundDefinition definition = SoundDefinition.definition();
             SoundEvent soundEvent = event.get();
             String sound = soundEvent.getLocation().getPath();

@@ -39,6 +39,7 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new SCP966LookForPlayerGoal(this, Player.class, false));
         this.addBehaviourGoals();
+        this.setPersistenceRequired();
     }
 
     protected void addBehaviourGoals() {

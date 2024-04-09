@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -88,6 +89,7 @@ public class CommonForgeEvents {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) return;
         Player player = event.player;
+        if (!player.hasEffect(ModEffects.INSOMNIA.get())) return; else SCP_966_INSOMNIA.putIfAbsent(player, 0);
         SCP_966_INSOMNIA.putIfAbsent(player, 0);
         SCP_966_INSOMNIA.put(player, SCP_966_INSOMNIA.get(player) + 1);
         if (SCP_966_INSOMNIA.get(player) > 2000 && !player.level().isClientSide && player.level() instanceof ServerLevel serverLevel) {

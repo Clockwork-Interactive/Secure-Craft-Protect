@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.ModBlocks;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.InstantDeleteItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
@@ -23,7 +23,7 @@ public class ModTabs {
 
     public static final RegistryObject<CreativeModeTab> BLOCK_TAB = TABS.register("block_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.blocks")).icon(() ->
-                    new ItemStack(ModItems.BLOCKS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
+                    new ItemStack(SCPItems.BLOCKS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Block> key : ModBlocks.BLOCKS.getEntries()) {
                     entries.accept(key.get());
                 }
@@ -31,9 +31,9 @@ public class ModTabs {
 
     public static final RegistryObject<CreativeModeTab> ENTITY_TAB = TABS.register("entity_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.entities")).icon(() ->
-                    new ItemStack(ModItems.ENTITIES_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
+                    new ItemStack(SCPItems.ENTITIES_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
 
-                for (RegistryObject<Item> key : ModItems.ITEMS.getEntries()) {
+                for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
                     if (key.get() instanceof ForgeSpawnEggItem) {
                         entries.accept(key.get());
                     }
@@ -44,9 +44,9 @@ public class ModTabs {
 
     public static final RegistryObject<CreativeModeTab> ITEM_TAB = TABS.register("item_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.items")).icon(() ->
-                    new ItemStack(ModItems.ITEMS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
+                    new ItemStack(SCPItems.ITEMS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
 
-                for (RegistryObject<Item> key : ModItems.ITEMS.getEntries()) {
+                for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
                     if (!(key.get() instanceof BlockItem || key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem) || key.get() instanceof SolidBucketMobItem) {
                         entries.accept(key.get());
                     }

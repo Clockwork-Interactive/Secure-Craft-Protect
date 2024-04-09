@@ -11,7 +11,6 @@ public class Anxious extends MobEffect {
         super(pCategory, pColor);
     }
 
-
     @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;

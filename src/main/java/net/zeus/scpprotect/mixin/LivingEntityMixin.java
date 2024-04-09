@@ -5,13 +5,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.zeus.scpprotect.level.effect.ModEffects;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -26,7 +24,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, ne
 
     @Inject(at = @At("HEAD"), method = "hasEffect", cancellable = true)
     public void hasInject(MobEffect pEffect, CallbackInfoReturnable<Boolean> cir) {
-        if (pEffect == MobEffects.NIGHT_VISION && this.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NODS.get())) {
+        if (pEffect == MobEffects.NIGHT_VISION && this.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get())) {
             cir.setReturnValue(true);
         }
     }

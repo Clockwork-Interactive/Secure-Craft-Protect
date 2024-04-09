@@ -26,7 +26,7 @@ import net.zeus.scpprotect.level.entity.ModEntity;
 import net.zeus.scpprotect.level.entity.entities.goals.WaterRandomLookAroundGoal;
 import net.zeus.scpprotect.level.entity.entities.goals.WaterSinkingRandomStroll;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -44,30 +44,30 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
     public int timeRemaining = maxTime;
 
     public static final List<SoundEvent> idles = List.of(
-            ModSounds.SCP_3199_IDLE_1.get(),
-            ModSounds.SCP_3199_IDLE_2.get(),
-            ModSounds.SCP_3199_IDLE_3.get(),
-            ModSounds.SCP_3199_IDLE_4.get(),
-            ModSounds.SCP_3199_IDLE_5.get(),
-            ModSounds.SCP_3199_IDLE_6.get(),
-            ModSounds.SCP_3199_IDLE_7.get(),
-            ModSounds.SCP_3199_IDLE_8.get(),
-            ModSounds.SCP_3199_IDLE_9.get(),
-            ModSounds.SCP_3199_IDLE_10.get(),
-            ModSounds.SCP_3199_IDLE_11.get(),
-            ModSounds.SCP_3199_IDLE_12.get()
+            SCPSounds.SCP_3199_IDLE_1.get(),
+            SCPSounds.SCP_3199_IDLE_2.get(),
+            SCPSounds.SCP_3199_IDLE_3.get(),
+            SCPSounds.SCP_3199_IDLE_4.get(),
+            SCPSounds.SCP_3199_IDLE_5.get(),
+            SCPSounds.SCP_3199_IDLE_6.get(),
+            SCPSounds.SCP_3199_IDLE_7.get(),
+            SCPSounds.SCP_3199_IDLE_8.get(),
+            SCPSounds.SCP_3199_IDLE_9.get(),
+            SCPSounds.SCP_3199_IDLE_10.get(),
+            SCPSounds.SCP_3199_IDLE_11.get(),
+            SCPSounds.SCP_3199_IDLE_12.get()
     );
     public static final List<SoundEvent> hurt = List.of(
-            ModSounds.SCP_3199_HURT_1.get(),
-            ModSounds.SCP_3199_HURT_2.get(),
-            ModSounds.SCP_3199_HURT_3.get()
+            SCPSounds.SCP_3199_HURT_1.get(),
+            SCPSounds.SCP_3199_HURT_2.get(),
+            SCPSounds.SCP_3199_HURT_3.get()
     );
     public static final List<SoundEvent> death = List.of(
-            ModSounds.SCP_3199_DEATH_1.get(),
-            ModSounds.SCP_3199_DEATH_2.get(),
-            ModSounds.SCP_3199_DEATH_3.get()
+            SCPSounds.SCP_3199_DEATH_1.get(),
+            SCPSounds.SCP_3199_DEATH_2.get(),
+            SCPSounds.SCP_3199_DEATH_3.get()
     );
-    public static final SoundEvent layEgg = ModSounds.SCP_3199_LAY.get();
+    public static final SoundEvent layEgg = SCPSounds.SCP_3199_LAY.get();
 
 
     public SCP3199(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -79,6 +79,7 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false, this::canAttack));
         this.addBehaviourGoals();
+        this.setPersistenceRequired();
     }
 
     protected void addBehaviourGoals() {

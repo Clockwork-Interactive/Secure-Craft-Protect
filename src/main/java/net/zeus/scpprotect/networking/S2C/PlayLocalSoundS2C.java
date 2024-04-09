@@ -2,7 +2,6 @@ package net.zeus.scpprotect.networking.S2C;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -11,10 +10,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.refractionapi.refraction.networking.Packet;
-import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.sound.ModSounds;
-
-import java.util.function.Supplier;
 
 public class PlayLocalSoundS2C extends Packet {
 

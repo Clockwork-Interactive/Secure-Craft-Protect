@@ -7,13 +7,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 
 public class NodsOverlay {
 
     public static final IGuiOverlay NODS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight)  -> {
         ItemStack stack = gui.getMinecraft().player.getItemBySlot(EquipmentSlot.HEAD);
-        if (stack.getItem() != ModItems.NODS.get()) return;
+        if (stack.getItem() != SCPItems.NODS.get()) return;
 
         gui.setupOverlayRenderState(true, false);
         renderTextureOverlay(guiGraphics, new ResourceLocation(SCP.MOD_ID, "overlay/nods_overlay.png"), 1.0F, screenWidth, screenHeight);

@@ -39,7 +39,7 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.ModBlocks;
 import net.zeus.scpprotect.level.block.custom.SculptureExcrement;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.BlinkS2CPacket;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSoundS2C;
@@ -172,14 +172,14 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
             if ((enemy instanceof ServerPlayer player && player.isAlive()) && (this.getRandom().nextInt(5) == 2 && inRange)) {
                 this.inEvent = true;
                 this.setPose(Pose.EMERGING);
-                ModMessages.sendToPlayer(new PlayLocalSoundS2C(ModSounds.SCP_173_STRANGLE_SEQUENCE.get()), player);
+                ModMessages.sendToPlayer(new PlayLocalSoundS2C(SCPSounds.SCP_173_STRANGLE_SEQUENCE.get()), player);
                 ModMessages.sendToPlayer(new VignetteS2CPacket(140, false, false), player);
                 RefractionMisc.enableMovement(player, 140);
                 CameraShakeHandler.invokeCameraShakeToPlayer(140, 5, player);
                 RunnableHandler.addRunnable(() -> player.lookAt(EntityAnchorArgument.Anchor.EYES, this.getEyePosition().add(0, 0.5F, 0)), 140);
                 RunnableCooldownHandler.addDelayedRunnable(() -> {
                     this.doHurtTarget(player);
-                    this.playSound(ModSounds.SCP_173_STRANGLE_KILL.get());
+                    this.playSound(SCPSounds.SCP_173_STRANGLE_KILL.get());
                     this.setTarget(null);
                     this.inEvent = false;
                     this.setPose(Pose.STANDING);
@@ -282,21 +282,21 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
         this.teleports.putIfAbsent(player, 0);
         this.teleports.put(player, this.teleports.get(player) + 1);
         switch (this.teleports.get(player)) {
-            case 1 -> RefractionMisc.playLocalSound(player,ModSounds.SCP_173_HORROR_1.get());
-            case 2 -> RefractionMisc.playLocalSound(player,ModSounds.SCP_173_HORROR_2.get());
-            case 3 -> RefractionMisc.playLocalSound(player,ModSounds.SCP_173_HORROR_3.get());
-            case 4 -> RefractionMisc.playLocalSound(player,ModSounds.SCP_173_HORROR_4.get());
-            case 5 -> RefractionMisc.playLocalSound(player,ModSounds.SCP_173_HORROR_5.get());
+            case 1 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_1.get());
+            case 2 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_2.get());
+            case 3 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_3.get());
+            case 4 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_4.get());
+            case 5 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_5.get());
         }
     }
 
     public void playKillSound() {
-        SoundEvent[] soundEvents = new SoundEvent[]{ModSounds.SCP_173_KILL_1.get(), ModSounds.SCP_173_KILL_2.get()};
+        SoundEvent[] soundEvents = new SoundEvent[]{SCPSounds.SCP_173_KILL_1.get(), SCPSounds.SCP_173_KILL_2.get()};
         this.playSound(soundEvents[this.getRandom().nextIntBetweenInclusive(0, soundEvents.length - 1)]);
     }
 
     public void playMoveSounds() {
-        SoundEvent[] soundEvents = new SoundEvent[]{ModSounds.SCP_173_MOVE_1.get(), ModSounds.SCP_173_MOVE_2.get(), ModSounds.SCP_173_MOVE_3.get()};
+        SoundEvent[] soundEvents = new SoundEvent[]{SCPSounds.SCP_173_MOVE_1.get(), SCPSounds.SCP_173_MOVE_2.get(), SCPSounds.SCP_173_MOVE_3.get()};
         this.playSound(soundEvents[this.getRandom().nextIntBetweenInclusive(0, soundEvents.length - 1)]);
     }
 

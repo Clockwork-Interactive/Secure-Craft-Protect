@@ -6,14 +6,6 @@ import net.zeus.scpprotect.event.CommonForgeEvents;
 public class PlayerData {
     private Player player;
 
-
-
-    /** Client side **/
-    public int fovTick = 0;
-    public int currentFov = Integer.MAX_VALUE;
-    public boolean pulse = false;
-
-
     public static PlayerData getData(Player player) {
         return CommonForgeEvents.PlayerRuntimeData.getOrDefault(player, new PlayerData());
     }

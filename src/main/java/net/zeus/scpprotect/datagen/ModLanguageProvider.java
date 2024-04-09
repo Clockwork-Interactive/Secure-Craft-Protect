@@ -15,15 +15,15 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.ModBlocks;
 import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.entity.ModEntity;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.util.ModDamageTypes;
 import org.apache.commons.lang3.text.WordUtils;
 
-public class ModLangugageProvider extends LanguageProvider {
+public class ModLanguageProvider extends LanguageProvider {
 
-    public ModLangugageProvider(PackOutput output) {
+    public ModLanguageProvider(PackOutput output) {
         super(output, SCP.MOD_ID, "en_us");
     }
 
@@ -41,9 +41,13 @@ public class ModLangugageProvider extends LanguageProvider {
             add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", " ")));
         }
 
-        for (RegistryObject<Item> registry : ModItems.ITEMS.getEntries()) {
-            if (registry == ModItems.BOOK_OF_CHANGE) {
+        for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
+            if (registry == SCPItems.BOOK_OF_CHANGE) {
                 add(registry.get(), "AWCY? Book");
+                continue;
+            }
+            if (registry == SCPItems.SCP_3199_EGG_BUCKET) {
+                add(registry.get(), "SCP-3199 Egg Bucket");
                 continue;
             }
             if (registry.get() instanceof Anomaly) {

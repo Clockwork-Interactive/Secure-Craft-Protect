@@ -4,14 +4,16 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundSource;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 
 public class Running096TickableSound extends AbstractTickableSoundInstance {
 
     private final SCP096 scp096;
     public boolean isPlaying = false;
+    public boolean stopped = false;
+
     public Running096TickableSound(SCP096 scp096) {
-        super(ModSounds.SCP_096_RUNNING.get(), SoundSource.HOSTILE, SoundInstance.createUnseededRandom());
+        super(SCPSounds.SCP_096_RUNNING.get(), SoundSource.HOSTILE, SoundInstance.createUnseededRandom());
         this.scp096 = scp096;
         this.looping = true;
         this.x = ((float)scp096.getX());
@@ -25,7 +27,7 @@ public class Running096TickableSound extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        if (this.scp096.isRemoved() || !this.scp096.isTriggered()) {
+        if (this.scp096.isRemoved() || this.stopped || !this.scp096.isTriggered()) {
             this.stop();
             this.isPlaying = false;
         } else {
@@ -35,4 +37,7 @@ public class Running096TickableSound extends AbstractTickableSoundInstance {
             this.z = ((float) this.scp096.getZ());
         }
     }
+
+
+
 }

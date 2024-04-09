@@ -10,7 +10,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.item.ModItems;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -21,7 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
 
-        for (RegistryObject<Item> registry : ModItems.ITEMS.getEntries()) {
+        for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
             if (registry.get() instanceof ForgeSpawnEggItem) {
                 spawnEgg(registry);
                 continue;

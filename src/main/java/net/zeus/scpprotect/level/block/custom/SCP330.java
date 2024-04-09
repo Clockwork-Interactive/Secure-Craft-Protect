@@ -20,8 +20,8 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.entity.custom.SCP330BlockEntity;
 import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.item.ModItems;
-import net.zeus.scpprotect.level.sound.ModSounds;
+import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
 import org.jetbrains.annotations.Nullable;
@@ -44,12 +44,12 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
         scp330BlockEntity.candiesTaken.putIfAbsent(pPlayer, 0);
         scp330BlockEntity.candiesTaken.put(pPlayer, scp330BlockEntity.candiesTaken.get(pPlayer) + 1);
 
-        pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(ModItems.CANDY_RED.get(), ModItems.CANDY_BLUE.get(), ModItems.CANDY_GREEN.get(), ModItems.CANDY_YELLOW.get(), ModItems.CANDY_ORANGE.get(), ModItems.CANDY_PURPLE.get())), 1));
+        pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get())), 1));
 
         if (scp330BlockEntity.candiesTaken.get(pPlayer) > 2) {
             scp330BlockEntity.candiesTaken.put(pPlayer, 0);
             pPlayer.addEffect(new MobEffectInstance(ModEffects.AMPUTATED.get(), 250, 0, false, true, true));
-            pPlayer.level().playSound(null, pPlayer.blockPosition(), ModSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
+            pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
             if (pPlayer instanceof ServerPlayer player)
                 ModMessages.sendToPlayer(new VignetteS2CPacket(250, true, false), player);
         }
