@@ -4,12 +4,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.ModBlocks;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
@@ -20,6 +22,12 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+
+        /* If you find a way to automate this then feel free to replace it,
+        but this is the only way I can think of for now -YesMan2 */
+        blockItemWithTexture(ModBlocks.SCP_330, new ResourceLocation(SCP.MOD_ID, "item/scp_330"));
+        blockItemWithTexture(ModBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));
+        blockItemWithTexture(ModBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
 
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
             if (registry.get() instanceof ForgeSpawnEggItem) {
@@ -54,6 +62,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/handheld")).texture("layer0",
                 new ResourceLocation(SCP.MOD_ID, "item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder blockItemWithTexture(RegistryObject<Block> block, ResourceLocation texture) {
+        return withExistingParent(block.getId().getPath(), new ResourceLocation("item/generated")).texture("layer0", texture);
     }
 
     private ItemModelBuilder spawnEgg(RegistryObject<? extends Item> item) {

@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,7 +15,9 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.ModEntity;
 import net.zeus.scpprotect.level.item.armor.Nods;
 import net.zeus.scpprotect.level.item.items.*;
+import net.zeus.scpprotect.level.item.scp.SCP1025;
 import net.zeus.scpprotect.level.item.scp.SCP109;
+import net.zeus.scpprotect.level.item.scp.SCP500PILL;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -24,6 +27,8 @@ public class SCPItems {
 
     // SCP ITEMS
     public static final RegistryObject<Item> SCP_109 = ITEMS.register("scp_109", () -> new SCP109(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_1025 = ITEMS.register("scp_1025", () -> new SCP1025(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_500 = ITEMS.register("scp_500", () -> new SCP500PILL(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> CANDY_RED = ITEMS.register("red_candy", () -> new Item(new Item.Properties().stacksTo(16).food(ModFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_BLUE = ITEMS.register("blue_candy", () -> new Item(new Item.Properties().stacksTo(16).food(ModFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_GREEN = ITEMS.register("green_candy", () -> new Item(new Item.Properties().stacksTo(16).food(ModFoods.CANDY)));
@@ -46,6 +51,7 @@ public class SCPItems {
 
     // MISC
     public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new BundleItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> BLOCKS_TAB_ICON = ITEMS.register("blocks_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> ENTITIES_TAB_ICON = ITEMS.register("entities_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> ITEMS_TAB_ICON = ITEMS.register("items_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
