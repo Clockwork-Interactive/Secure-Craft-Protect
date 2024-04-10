@@ -10,7 +10,7 @@ import net.zeus.scpprotect.level.entity.entities.*;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
 import net.zeus.scpprotect.level.entity.entities.projectiles.ToxicSpit;
 
-public class ModEntity {
+public class SCPEntity {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SCP.MOD_ID);
 
     /**

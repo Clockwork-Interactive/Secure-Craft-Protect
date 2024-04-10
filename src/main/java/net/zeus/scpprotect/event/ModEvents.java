@@ -9,9 +9,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.capabilities.SCPData;
 import net.zeus.scpprotect.capabilities.SCPDataProvider;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID)
 public class ModEvents {
@@ -42,7 +41,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void render(RenderPlayerEvent event) {
-        if (event.getEntity().hasEffect(ModEffects.AMPUTATED.get())) {
+        if (event.getEntity().hasEffect(SCPEffects.AMPUTATED.get())) {
             event.getRenderer().getModel().rightArm.visible = false;
             event.getRenderer().getModel().leftArm.visible = false;
             event.getRenderer().getModel().rightSleeve.visible = false;

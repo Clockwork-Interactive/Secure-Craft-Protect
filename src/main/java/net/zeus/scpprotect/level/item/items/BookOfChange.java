@@ -9,8 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
+import net.zeus.scpprotect.level.interfaces.DataGenObj;
 
-public class BookOfChange extends Item {
+public class BookOfChange extends Item implements DataGenObj {
 
     public BookOfChange(Properties pProperties) {
         super(pProperties);
@@ -30,5 +31,10 @@ public class BookOfChange extends Item {
         if (player.isCreative())
             entity.discard();
         return super.onLeftClickEntity(stack, player, entity);
+    }
+
+    @Override
+    public String customID() {
+        return "AWCY? Book";
     }
 }

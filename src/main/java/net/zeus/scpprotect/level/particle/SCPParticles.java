@@ -6,9 +6,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.particle.custom.GenericParticle;
 
-public class ModParticles {
+public class SCPParticles {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, SCP.MOD_ID);
 

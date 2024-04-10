@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-10T14:46:21.315509	Item Models: scprotect
+// 1.20.1	2024-04-10T23:39:44.145589	Item Models: scprotect
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 1311e103df0291a9f2539d96edc36143c1e4b904 assets/scprotect/models/item/blocks_tab_icon.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -20,8 +20,8 @@ c704d262ee06b9f903fe844cb4f7d1cd7e9cb171 assets/scprotect/models/item/scp_310.js
 64f6b45ae23c1bdb2a46357e5de8516076f679fc assets/scprotect/models/item/scp_3199_egg_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_3199_spawn_egg.json
 828b2a67f5788cf26de97c9ce3b9ebfffd38fd1b assets/scprotect/models/item/scp_330.json
+26ca275a44307827b70dd3273e1a8fa308dd7347 assets/scprotect/models/item/scp_500.json
 f90805bf7bbafd9903f93628a82c72f1b2027066 assets/scprotect/models/item/scp_500_bottle.json
-c19eb382b0c056f046e9cb3634223a69ca88f80d assets/scprotect/models/item/scp_500_pill.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_811_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_939_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_966_spawn_egg.json

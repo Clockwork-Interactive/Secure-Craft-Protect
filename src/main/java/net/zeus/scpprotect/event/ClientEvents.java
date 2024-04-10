@@ -13,8 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
-import net.zeus.scpprotect.data.PlayerData;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.entities.SCP966;
 import net.zeus.scpprotect.level.item.SCPItems;
 import software.bernie.geckolib.event.GeoRenderEvent;
@@ -31,7 +30,7 @@ public class ClientEvents {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
 
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get()) && !player.hasEffect(ModEffects.AMNESIA.get())) {
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get()) && !player.hasEffect(SCPEffects.AMNESIA.get())) {
                 if (!markedNods) {
                     markedNods = true;
                     Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation(SCP.MOD_ID, "shader/nods.json"));
@@ -41,7 +40,7 @@ public class ClientEvents {
                 Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
             }
 
-            if (player.hasEffect(ModEffects.AMNESIA.get())) {
+            if (player.hasEffect(SCPEffects.AMNESIA.get())) {
                 if (!markedAmnesia) {
                     Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
                     markedAmnesia = true;
@@ -59,7 +58,7 @@ public class ClientEvents {
         if (PlayerClientData.vignetteTick > 0) {
             PlayerClientData.vignetteTick--;
         }
-        if (player != null && player.hasEffect(ModEffects.ANXIOUS.get())) {
+        if (player != null && player.hasEffect(SCPEffects.ANXIOUS.get())) {
             if (PlayerClientData.currentFov < Minecraft.getInstance().options.fov().get() / 1.5F || PlayerClientData.pulse) {
                 PlayerClientData.fovTick--;
                 PlayerClientData.pulse = PlayerClientData.fovTick > 0;

@@ -11,14 +11,14 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
-import net.zeus.scpprotect.level.block.ModBlocks;
-import net.zeus.scpprotect.level.block.ModBlockEntities;
-import net.zeus.scpprotect.level.effect.ModEffects;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.block.SCPBlockEntities;
+import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.item.SCPItems;
-import net.zeus.scpprotect.level.particle.ModParticles;
+import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.level.tab.ModTabs;
+import net.zeus.scpprotect.level.tab.SCPTabs;
 import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
 
@@ -30,21 +30,21 @@ public class SCP {
     public SCP() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModEntity.ENTITIES.register(modEventBus);
+        SCPEntity.ENTITIES.register(modEventBus);
 
         SCPSounds.SOUND_EVENTS.register(modEventBus);
 
         SCPItems.ITEMS.register(modEventBus);
 
-        ModBlocks.BLOCKS.register(modEventBus);
+        SCPBlocks.BLOCKS.register(modEventBus);
 
-        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        SCPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
-        ModEffects.MOB_EFFECTS.register(modEventBus);
+        SCPEffects.MOB_EFFECTS.register(modEventBus);
 
-        ModTabs.TABS.register(modEventBus);
+        SCPTabs.TABS.register(modEventBus);
 
-        ModParticles.PARTICLES.register(modEventBus);
+        SCPParticles.PARTICLES.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

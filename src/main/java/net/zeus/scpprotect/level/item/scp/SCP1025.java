@@ -13,14 +13,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.effect.ModEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.item.SCPItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;

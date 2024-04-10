@@ -12,9 +12,10 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.ModBlocks;
-import net.zeus.scpprotect.level.effect.ModEffects;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
@@ -29,11 +30,11 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        for (RegistryObject<EntityType<?>> registry : ModEntity.ENTITIES.getEntries()) {
+        for (RegistryObject<EntityType<?>> registry : SCPEntity.ENTITIES.getEntries()) {
             add(registry.get(), registry.get().toShortString().replace("_", "-").toUpperCase());
         }
 
-        for (RegistryObject<Block> registry : ModBlocks.BLOCKS.getEntries()) {
+        for (RegistryObject<Block> registry : SCPBlocks.BLOCKS.getEntries()) {
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", "-").toUpperCase());
                 continue;
@@ -42,14 +43,19 @@ public class ModLanguageProvider extends LanguageProvider {
         }
 
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
-            if (registry == SCPItems.BOOK_OF_CHANGE) {
-                add(registry.get(), "AWCY? Book");
-                continue;
+            if (registry.get() instanceof DataGenObj obj) {
+                String customID = obj.customID();
+                if (customID != null) {
+                    add(registry.get(), customID);
+                    continue;
+                }
             }
+
             if (registry == SCPItems.SCP_3199_EGG_BUCKET) {
                 add(registry.get(), "SCP-3199 Egg Bucket");
                 continue;
             }
+
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {
@@ -59,8 +65,8 @@ public class ModLanguageProvider extends LanguageProvider {
             }
         }
 
-        for (RegistryObject<MobEffect> registry : ModEffects.MOB_EFFECTS.getEntries()) {
-            if (registry == ModEffects.AMNESIA) {
+        for (RegistryObject<MobEffect> registry : SCPEffects.MOB_EFFECTS.getEntries()) {
+            if (registry == SCPEffects.AMNESIA) {
                 add(registry.get(), "AMN-C227");
                 continue;
             }

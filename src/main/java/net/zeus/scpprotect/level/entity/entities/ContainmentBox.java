@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.entity.SCPEntity;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -43,12 +43,12 @@ public class ContainmentBox extends Animal implements GeoEntity {
     }
 
     public ContainmentBox(Level pLevel, Entity entity) {
-        super(ModEntity.CONTAINMENT_BOX.get(), pLevel);
+        super(SCPEntity.CONTAINMENT_BOX.get(), pLevel);
         this.containEntity(entity);
     }
 
     public ContainmentBox(Level pLevel) {
-        super(ModEntity.CONTAINMENT_BOX.get(), pLevel);
+        super(SCPEntity.CONTAINMENT_BOX.get(), pLevel);
     }
 
     @Override

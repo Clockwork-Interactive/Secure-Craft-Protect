@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.event.CommonForgeEvents;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP966LookForPlayerGoal;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP966PanicGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
@@ -74,7 +74,7 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
         for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(12))) {
             if (entity instanceof LivingEntity livingEntity) {
                 if (this.tickCount % 100 == 0) {
-                    livingEntity.addEffect(new MobEffectInstance(ModEffects.INSOMNIA.get(), -1, 0, false, true, true));
+                    livingEntity.addEffect(new MobEffectInstance(SCPEffects.INSOMNIA.get(), -1, 0, false, true, true));
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 1200, 1, false, true, true));
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 1200, 1, false, true, true));
                     if (livingEntity instanceof ServerPlayer serverPlayer) {

@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ParticleDescriptionProvider;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.particle.ModParticles;
+import net.zeus.scpprotect.level.particle.SCPParticles;
 
 public class ParticleProvider extends ParticleDescriptionProvider {
     /**
@@ -20,6 +20,6 @@ public class ParticleProvider extends ParticleDescriptionProvider {
 
     @Override
     protected void addDescriptions() {
-        sprite(ModParticles.BLOOD.get(), new ResourceLocation(SCP.MOD_ID, "blood"));
+        sprite(SCPParticles.BLOOD.get(), new ResourceLocation(SCP.MOD_ID, "blood"));
     }
 }

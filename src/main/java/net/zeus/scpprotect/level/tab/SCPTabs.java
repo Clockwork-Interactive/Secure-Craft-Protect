@@ -11,12 +11,12 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.ModBlocks;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.InstantDeleteItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
-public class ModTabs {
+public class SCPTabs {
 
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SCP.MOD_ID);
 
@@ -24,7 +24,7 @@ public class ModTabs {
     public static final RegistryObject<CreativeModeTab> BLOCK_TAB = TABS.register("block_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.blocks")).icon(() ->
                     new ItemStack(SCPItems.BLOCKS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
-                for (RegistryObject<Block> key : ModBlocks.BLOCKS.getEntries()) {
+                for (RegistryObject<Block> key : SCPBlocks.BLOCKS.getEntries()) {
                     entries.accept(key.get());
                 }
             }).build());

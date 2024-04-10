@@ -11,8 +11,8 @@ import net.zeus.scpprotect.client.overlays.BlinkOverlay;
 import net.zeus.scpprotect.client.overlays.NodsOverlay;
 import net.zeus.scpprotect.client.overlays.VignetteOverlay;
 import net.zeus.scpprotect.client.renderer.entity.*;
-import net.zeus.scpprotect.level.entity.ModEntity;
-import net.zeus.scpprotect.level.particle.ModParticles;
+import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.particle.custom.GenericParticle;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -20,16 +20,16 @@ public class Registry {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntity.SCP_019_2.get(), SCP019_2Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_173.get(), SCP173Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_096.get(), SCP096Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_939.get(), SCP939Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_966.get(), SCP966Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_811.get(), SCP811Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_3199.get(), SCP3199Renderer::new);
-        event.registerEntityRenderer(ModEntity.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
-        event.registerEntityRenderer(ModEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
-        event.registerEntityRenderer(ModEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_019_2.get(), SCP019_2Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_173.get(), SCP173Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_096.get(), SCP096Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_939.get(), SCP939Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_966.get(), SCP966Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_811.get(), SCP811Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_3199.get(), SCP3199Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
+        event.registerEntityRenderer(SCPEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
+        event.registerEntityRenderer(SCPEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
     }
 
     @SubscribeEvent
@@ -41,7 +41,7 @@ public class Registry {
 
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticles.BLOOD.get(), GenericParticle.Provider::new);
+        event.registerSpriteSet(SCPParticles.BLOOD.get(), GenericParticle.Provider::new);
     }
 
 }

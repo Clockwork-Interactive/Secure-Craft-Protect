@@ -5,7 +5,7 @@ import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.entity.EntityAccess;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,7 +48,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
     @Inject(at = @At("HEAD"), method = "extinguishFire", cancellable = true)
     public void clearInject(CallbackInfo ci) {
         if (this.getSelfAndPassengers().findFirst().isPresent() && this.getSelfAndPassengers().findFirst().get() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(ModEffects.UNEXTINGUISHABLE.get())) {
+            if (livingEntity.hasEffect(SCPEffects.UNEXTINGUISHABLE.get())) {
                 ci.cancel();
             }
         }
@@ -57,7 +57,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
     @Inject(at = @At("HEAD"), method = "playEntityOnFireExtinguishedSound", cancellable = true)
     public void soundInject(CallbackInfo ci) {
         if (this.getSelfAndPassengers().findFirst().isPresent() && this.getSelfAndPassengers().findFirst().get() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(ModEffects.UNEXTINGUISHABLE.get())) {
+            if (livingEntity.hasEffect(SCPEffects.UNEXTINGUISHABLE.get())) {
                 ci.cancel();
             }
         }
@@ -66,7 +66,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
     @Inject(at = @At("HEAD"), method = "setRemainingFireTicks", cancellable = true)
     public void fireInject(int pSecondsOnFire, CallbackInfo ci) {
         if (this.getSelfAndPassengers().findFirst().isPresent() && this.getSelfAndPassengers().findFirst().get() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(ModEffects.UNEXTINGUISHABLE.get())) {
+            if (livingEntity.hasEffect(SCPEffects.UNEXTINGUISHABLE.get())) {
                 ci.cancel();
                 this.remainingFireTicks = 40;
             }

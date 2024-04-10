@@ -36,7 +36,7 @@ import net.refractionapi.refraction.runnable.RunnableCooldownHandler;
 import net.refractionapi.refraction.runnable.RunnableHandler;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.ModBlocks;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.custom.SculptureExcrement;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
@@ -117,7 +117,7 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
             BlockPos pos1 = new BlockPos((int) this.getX(), (int) this.getBoundingBox().minY, (int) this.getZ());
             BlockPos pos2 = new BlockPos((int) this.getX(), (int) (this.getBoundingBox().minY - 1), (int) this.getZ());
             if (this.level().getBlockState(pos1).isAir() && !(this.level().getBlockState(pos2).getBlock() instanceof SculptureExcrement)) {
-                this.level().setBlockAndUpdate(pos1, ModBlocks.SCULPTURE_EXCREMENT.get().defaultBlockState());
+                this.level().setBlockAndUpdate(pos1, SCPBlocks.SCULPTURE_EXCREMENT.get().defaultBlockState());
             }
         }
         boolean blink = false;
@@ -339,6 +339,7 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
             this.id = id;
             this.fullName = fullName;
         }
+
     }
 
 }

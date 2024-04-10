@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
-import net.zeus.scpprotect.level.block.ModBlockEntities;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.block.SCPBlockEntities;
+import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.entity.entities.SCP019_2;
 
 public class SCP019BlockEntity extends BaseEntityBlock {
@@ -18,7 +18,7 @@ public class SCP019BlockEntity extends BaseEntityBlock {
     public int spawnTimer = 1200;
 
     public SCP019BlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.SCP_019_BE.get(), pPos, pBlockState);
+        super(SCPBlockEntities.SCP_019_BE.get(), pPos, pBlockState);
     }
 
 
@@ -43,7 +43,7 @@ public class SCP019BlockEntity extends BaseEntityBlock {
         }
 
         if (this.tickCount % this.spawnTimer == 0) {
-            SCP019_2 scp019_2 = new SCP019_2(ModEntity.SCP_019_2.get(), this.level);
+            SCP019_2 scp019_2 = new SCP019_2(SCPEntity.SCP_019_2.get(), this.level);
             scp019_2.teleportTo(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ());
             this.level.addFreshEntity(scp019_2);
         }

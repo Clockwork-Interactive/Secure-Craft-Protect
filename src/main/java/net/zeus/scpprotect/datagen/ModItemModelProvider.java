@@ -11,7 +11,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.ModBlocks;
+import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
@@ -22,12 +23,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-
-        /* If you find a way to automate this then feel free to replace it,
-        but this is the only way I can think of for now -YesMan2 */
-        blockItemWithTexture(ModBlocks.SCP_330, new ResourceLocation(SCP.MOD_ID, "item/scp_330"));
-        blockItemWithTexture(ModBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));
-        blockItemWithTexture(ModBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
 
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
             if (registry.get() instanceof ForgeSpawnEggItem) {
@@ -41,6 +36,12 @@ public class ModItemModelProvider extends ItemModelProvider {
                 simpleItem(registry);
             } catch (Exception e) {
                 makePlaceholderModel(registry);
+            }
+        }
+
+        for (RegistryObject<Block> registry : SCPBlocks.BLOCKS.getEntries()) {
+            if (registry.get() instanceof Anomaly) {
+                blockItemWithTexture(registry, new ResourceLocation(SCP.MOD_ID, "item/%s".formatted(registry.getId().getPath())));
             }
         }
 

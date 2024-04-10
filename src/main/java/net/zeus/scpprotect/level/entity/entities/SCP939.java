@@ -21,7 +21,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.DeobfuscatedUtil;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP939ListenTargetGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
@@ -159,7 +159,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
                     cloud.setDuration(100);
                     cloud.setOwner(this);
                     cloud.setRadius(4.0F);
-                    cloud.addEffect(new MobEffectInstance(ModEffects.AMNESIA.get(), 160, 0));
+                    cloud.addEffect(new MobEffectInstance(SCPEffects.AMNESIA.get(), 160, 0));
                     cloud.setInvisible(true);
                     cloud.setWaitTime(0);
                     this.level().addFreshEntity(cloud);
@@ -186,7 +186,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
     @Override
     public boolean doHurtTarget(Entity pEntity) {
         if (pEntity instanceof Player player) {
-            player.addEffect(new MobEffectInstance(ModEffects.AMNESIA.get(), 160, 0, false, false, false));
+            player.addEffect(new MobEffectInstance(SCPEffects.AMNESIA.get(), 160, 0, false, false, false));
         }
         if (pEntity instanceof LivingEntity living && living.isAlive())
             this.playSound(RefractionMisc.getRandom(ATTACK_SOUNDS));

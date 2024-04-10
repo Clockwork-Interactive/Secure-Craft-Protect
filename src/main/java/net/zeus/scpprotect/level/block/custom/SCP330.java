@@ -18,7 +18,7 @@ import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.registry.block.BaseHorizontalEntityBlock;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.entity.custom.SCP330BlockEntity;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.sound.SCPSounds;
@@ -48,7 +48,7 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
 
         if (scp330BlockEntity.candiesTaken.get(pPlayer) > 2) {
             scp330BlockEntity.candiesTaken.put(pPlayer, 0);
-            pPlayer.addEffect(new MobEffectInstance(ModEffects.AMPUTATED.get(), 250, 0, false, true, true));
+            pPlayer.addEffect(new MobEffectInstance(SCPEffects.AMPUTATED.get(), 250, 0, false, true, true));
             pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
             if (pPlayer instanceof ServerPlayer player)
                 ModMessages.sendToPlayer(new VignetteS2CPacket(250, true, false), player);

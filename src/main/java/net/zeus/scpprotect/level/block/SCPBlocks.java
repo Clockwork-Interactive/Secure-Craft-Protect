@@ -17,7 +17,7 @@ import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.function.Supplier;
 
-public class ModBlocks {
+public class SCPBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
 

@@ -7,19 +7,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
-import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.ModBlockEntities;
-import net.zeus.scpprotect.level.effect.ModEffects;
+import net.zeus.scpprotect.level.block.SCPBlockEntities;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 
 public class SCP310BlockEntity extends BaseEntityBlock {
 
     public SCP310BlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.SCP_310_BE.get(), pPos, pBlockState);
+        super(SCPBlockEntities.SCP_310_BE.get(), pPos, pBlockState);
     }
 
     @Override
@@ -34,9 +31,9 @@ public class SCP310BlockEntity extends BaseEntityBlock {
             if (this.tickCount % 20 == 0) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && (serverPlayer.isCreative() || serverPlayer.isSpectator()))
                     return;
-                if (livingEntity.hasEffect(ModEffects.UNEXTINGUISHABLE.get())) return;
+                if (livingEntity.hasEffect(SCPEffects.UNEXTINGUISHABLE.get())) return;
                 if (livingEntity.getRandom().nextFloat() > 0.90F)
-                    livingEntity.addEffect(new MobEffectInstance(ModEffects.UNEXTINGUISHABLE.get(), -1, 0));
+                    livingEntity.addEffect(new MobEffectInstance(SCPEffects.UNEXTINGUISHABLE.get(), -1, 0));
             }
         }
     }

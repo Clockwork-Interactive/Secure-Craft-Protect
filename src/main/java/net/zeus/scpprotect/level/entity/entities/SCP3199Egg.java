@@ -19,7 +19,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -69,7 +69,7 @@ public class SCP3199Egg extends Mob implements GeoEntity, Bucketable, Anomaly {
     public void tick() {
         super.tick();
         if (this.timeRemaining <= 0) {
-            SCP3199 scp3199 = new SCP3199(ModEntity.SCP_3199.get(), this.level());
+            SCP3199 scp3199 = new SCP3199(SCPEntity.SCP_3199.get(), this.level());
             scp3199.setPos(this.getX(), this.getY(), this.getZ());
             scp3199.setBaby();
             this.level().addFreshEntity(scp3199);

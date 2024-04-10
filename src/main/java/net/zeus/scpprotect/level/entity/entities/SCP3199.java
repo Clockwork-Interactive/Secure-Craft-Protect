@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.ModEntity;
+import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.entity.entities.goals.WaterRandomLookAroundGoal;
 import net.zeus.scpprotect.level.entity.entities.goals.WaterSinkingRandomStroll;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
@@ -206,7 +206,7 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
 
     public void layEgg() {
         this.timeRemaining = maxTime;
-        SCP3199Egg scp3199Egg = new SCP3199Egg(ModEntity.SCP_3199_EGG.get(), this.level());
+        SCP3199Egg scp3199Egg = new SCP3199Egg(SCPEntity.SCP_3199_EGG.get(), this.level());
         scp3199Egg.setPos(this.getX(), this.getY(), this.getZ());
         this.level().addFreshEntity(scp3199Egg);
 
