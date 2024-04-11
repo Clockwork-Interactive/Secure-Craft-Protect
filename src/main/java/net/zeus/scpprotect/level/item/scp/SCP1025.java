@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,17 +33,12 @@ public class SCP1025 extends Item implements Anomaly {
         pPlayer.swing(pUsedHand);
 
         if (pLevel instanceof ServerLevel) {
-            MobEffect pick = null;
-            for (Map.Entry<ResourceKey<MobEffect>, MobEffect> effect : ForgeRegistries.MOB_EFFECTS.getEntries()) {
-                MobEffect mobEffect = effect.getValue();
-                if (RandomSource.create().nextFloat() > 0.9F && !effect.getValue().isBeneficial())  {
-                    pick = mobEffect;
-                    break;
-                }
-            }
-            if (pick == null) {
-                pick = MobEffects.CONFUSION;
-            }
+            MobEffect pick = ForgeRegistries.MOB_EFFECTS.getEntries().stream().filter(effect ->
+                    !effect.getValue().isBeneficial() && pPlayer.getRandom().nextFloat() >= 0.9F && SCPEffects.MOB_EFFECTS.getEntries().stream().noneMatch(e -> {
+                        assert e.getKey() != null;
+                        return e.getKey().equals(effect.getKey());
+                    })
+            ).findAny().map(Map.Entry::getValue).orElse(MobEffects.CONFUSION);
             //pPlayer.getCooldowns().addCooldown(SCPItems.SCP_1025.get(), 40);
             pPlayer.addEffect(new MobEffectInstance(pick, RandomSource.create().nextInt(400, 600)));
             return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
