@@ -161,7 +161,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     public int getDefaultChargeTime() {
-        return 58;
+        return 580;
     }
 
     public boolean isDefaultCharge() {

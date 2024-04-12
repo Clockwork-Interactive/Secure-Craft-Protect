@@ -19,9 +19,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class Nods extends ArmorItem implements GeoItem {
+public class NightVisionGoggles extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public Nods(ArmorMaterial p_40386_, Type p_266831_, Properties p_40388_) {
+    public NightVisionGoggles(ArmorMaterial p_40386_, Type p_266831_, Properties p_40388_) {
         super(p_40386_, p_266831_, p_40388_);
     }
 

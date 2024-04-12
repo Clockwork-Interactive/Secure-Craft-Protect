@@ -18,6 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.SCPItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -39,7 +40,7 @@ public class SCP1025 extends Item implements Anomaly {
                         return e.getKey().equals(effect.getKey());
                     })
             ).findAny().map(Map.Entry::getValue).orElse(MobEffects.CONFUSION);
-            //pPlayer.getCooldowns().addCooldown(SCPItems.SCP_1025.get(), 40);
+            pPlayer.getCooldowns().addCooldown(SCPItems.SCP_1025.get(), 40);
             pPlayer.addEffect(new MobEffectInstance(pick, RandomSource.create().nextInt(400, 600)));
             return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
         }

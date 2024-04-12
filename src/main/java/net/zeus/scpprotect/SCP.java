@@ -2,12 +2,15 @@ package net.zeus.scpprotect;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
@@ -16,6 +19,7 @@ import net.zeus.scpprotect.level.block.SCPBlockEntities;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
@@ -47,10 +51,22 @@ public class SCP {
         SCPParticles.PARTICLES.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::setup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SCPCommonConfig.SPEC, "scprotect-common.toml");
         
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void setup(final FMLClientSetupEvent event)
+    {
+        event.enqueueWork(() ->
+        {
+            ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
+                    new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
+                        return SCP500Bottle.getFullnessDisplay(p_174625_);
+                    });
+        });
     }
 
 

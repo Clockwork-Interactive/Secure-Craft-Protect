@@ -3,6 +3,7 @@ package net.zeus.scpprotect.datagen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -13,8 +14,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
+import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -25,17 +28,22 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
 
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
-            if (registry.get() instanceof ForgeSpawnEggItem) {
-                spawnEgg(registry);
-                continue;
-            }
+            for (RegistryObject<Block> blockRegistry : SCPBlocks.BLOCKS.getEntries()) {
+                if (registry.get() instanceof ForgeSpawnEggItem) {
+                    spawnEgg(registry);
+                    continue;
+                }
 
-            if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
+                if (registry.get() instanceof SCP500Bottle) continue;
 
-            try { // I'm lazy 🤓
-                simpleItem(registry);
-            } catch (Exception e) {
-                makePlaceholderModel(registry);
+                if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
+
+                try { // I'm lazy 🤓
+                    simpleItem(registry);
+                    blockItem(blockRegistry);
+                } catch (Exception e) {
+                    makePlaceholderModel(registry);
+                }
             }
         }
 
@@ -51,6 +59,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(SCP.MOD_ID, "item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder blockItem(RegistryObject<Block> block) {
+        return withExistingParent(block.getId().getPath(),
+                new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()));
     }
 
     private ItemModelBuilder makePlaceholderModel(RegistryObject<? extends Item> item) {

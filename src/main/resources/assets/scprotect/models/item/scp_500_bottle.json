@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "scprotect:item/scp_500_bottle"
+  },
+  "overrides": [
+    { "predicate": { "scprotect:filled": 0.0000001 }, "model": "scprotect:item/scp_500_bottle_filled" }
+  ]
+}

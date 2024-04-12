@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scprotect:item/nods"
+    "layer0": "scprotect:item/night_vision_goggles"
   }
 }

@@ -1,4 +1,6 @@
-// 1.20.1	2024-04-10T23:39:44.145589	Item Models: scprotect
+// 1.20.1	2024-04-12T00:22:50.7188406	Item Models: scprotect
+08e8303bc20ca4a7d8dd82db26c8f72100a5a64b assets/scprotect/models/item/aged_bricks.json
+57f3e13c764f90cc7be3a9f0d8932fc85a92321f assets/scprotect/models/item/aged_concrete.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 1311e103df0291a9f2539d96edc36143c1e4b904 assets/scprotect/models/item/blocks_tab_icon.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -7,7 +9,7 @@ c43f6ce6aa32354c260b1a75a03075954ab9fe9f assets/scprotect/models/item/containmen
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 2bf27c7f50e0e5e154982c1f6d655f7cef477eea assets/scprotect/models/item/hairbrush.json
 7177502e22ff27fb5aefba5cd08b53f5bcbca239 assets/scprotect/models/item/items_tab_icon.json
-1d5c13e70c7dede53ae640320fcf266aa26668fd assets/scprotect/models/item/nods.json
+8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 876fb5f2577a50f2f35e8d806361d28b80f25f9b assets/scprotect/models/item/orange_candy.json
 339b0fb0a964c2b67d12b7a29645c5dc0d006b47 assets/scprotect/models/item/purple_candy.json
 161c45a420ac716ce09cb1d844d3f388cc2b8b76 assets/scprotect/models/item/red_candy.json
@@ -21,8 +23,8 @@ c704d262ee06b9f903fe844cb4f7d1cd7e9cb171 assets/scprotect/models/item/scp_310.js
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_3199_spawn_egg.json
 828b2a67f5788cf26de97c9ce3b9ebfffd38fd1b assets/scprotect/models/item/scp_330.json
 26ca275a44307827b70dd3273e1a8fa308dd7347 assets/scprotect/models/item/scp_500.json
-f90805bf7bbafd9903f93628a82c72f1b2027066 assets/scprotect/models/item/scp_500_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_811_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_939_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_966_spawn_egg.json
+bbdce20e0b16f014abcd5cb84004545a4fee5d42 assets/scprotect/models/item/sculpture_excrements.json
 96b34c14e06290105cb48b0540bffc0215b45b72 assets/scprotect/models/item/yellow_candy.json
