@@ -13,6 +13,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
@@ -54,6 +55,7 @@ public class SCP {
         modEventBus.addListener(this::setup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SCPCommonConfig.SPEC, "scprotect-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SCPClientConfig.SPEC, "scprotect-client.toml");
         
         MinecraftForge.EVENT_BUS.register(this);
     }

@@ -55,7 +55,7 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             arg '-mixin.config=scprotect.mixin.json'
-            args '--username', 'YesMan2'
+            //args '--username', 'YesMan2' You can change this within the configs on the top right of IntelliJ. -Zeus
 
 
             property 'forge.enabledGameTestNamespaces', 'scprotect'

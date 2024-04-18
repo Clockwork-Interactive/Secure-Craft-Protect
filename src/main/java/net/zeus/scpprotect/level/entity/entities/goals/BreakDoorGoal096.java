@@ -1,11 +1,11 @@
 package net.zeus.scpprotect.level.entity.entities.goals;
 
 import net.minecraft.world.entity.ai.goal.DoorInteractGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.block.Block;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 
 public class BreakDoorGoal096 extends DoorInteractGoal {
-    private static final int DEFAULT_DOOR_BREAK_TIME = 240;
     protected int breakTime;
     protected int lastBreakProgress = -1;
     protected int doorBreakTime = -1;
@@ -19,6 +19,8 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
         this(pMob);
         this.scp096 = pMob;
         this.doorBreakTime = pDoorBreakTime;
+        ((GroundPathNavigation) this.scp096.getNavigation()).setCanOpenDoors(true);
+        ((GroundPathNavigation) this.scp096.getNavigation()).setCanPassDoors(true);
     }
 
     protected int getDoorBreakTime() {

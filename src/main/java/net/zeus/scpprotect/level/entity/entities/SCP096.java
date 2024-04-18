@@ -22,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -106,23 +107,17 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                 .add(Attributes.MAX_HEALTH, 50000.0F)
                 .add(Attributes.FOLLOW_RANGE, 1000.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F)
-                .add(ForgeMod.ENTITY_REACH.get(), 5.0F)
-                .add(ForgeMod.SWIM_SPEED.get(), 8.0F);
+                .add(ForgeMod.ENTITY_REACH.get(), 6.5F)
+                .add(ForgeMod.SWIM_SPEED.get(), 8.0F)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
     }
 
     public void onKill(LivingEntity living) {
-        this.playSound(this.getKillSound(), 0.21F, 1.0F);
+        this.playSound(this.getKillSound(), 0.222F, 1.0F);
     }
 
     public void onKillAll() {
-        if (SCPCommonConfig.SCP096Cooldown.get()) {
-            this.setCanTrigger(false);
-            RunnableCooldownHandler.addDelayedRunnable(() -> {
-                if (!this.isDeadOrDying()) {
-                    this.setCanTrigger(true);
-                }
-            }, 600);
-        }
+        this.setCanTrigger(true);
         this.setHasHadTarget(false);
         this.setChargeTime(this.getDefaultChargeTime());
     }
@@ -148,6 +143,12 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     @Override
+    public boolean doHurtTarget(Entity pEntity) {
+        pEntity.kill(); // TODO create damage source for this
+        return true;
+    }
+
+    @Override
     public void tick() {
         if (!level().isClientSide) {
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
@@ -161,7 +162,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     public int getDefaultChargeTime() {
-        return 580;
+        return 58;
     }
 
     public boolean isDefaultCharge() {
@@ -175,12 +176,15 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {PlayerClientData.checkAndUpdateIdle(this); return PlayState.STOP;})
-                .triggerableAnim("triggered", TRIGGERED_ANIMATION)
-                .triggerableAnim("climbing", CLIMBING_ANIMATION)
-                .triggerableAnim("crouch", CROUCHING_ANIMATION)
-                .triggerableAnim("sitting", SITTING_ANIMATION)
-                .triggerableAnim("none", RawAnimation.begin())
+        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
+                    PlayerClientData.checkAndUpdateIdle(this);
+                    return PlayState.STOP;
+                })
+                        .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                        .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                        .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                        .triggerableAnim("sitting", SITTING_ANIMATION)
+                        .triggerableAnim("none", RawAnimation.begin())
         );
     }
 
@@ -261,7 +265,8 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     boolean isLookingAtMe(LivingEntity livingEntity) {
         boolean can096SeeEntity = Vec3Helper.isInAngle(this, BlockPos.containing(livingEntity.getEyePosition()), 180);
         boolean canEntitySee096 = Vec3Helper.isInAngle(livingEntity, BlockPos.containing(this.getEyePosition()), 120);
-        return can096SeeEntity && canEntitySee096 && livingEntity.hasLineOfSight(this);
+        return can096SeeEntity && canEntitySee096 && livingEntity.hasLineOfSight(this) &&
+                livingEntity.level() instanceof ServerLevel serverLevel && this.distanceTo(livingEntity) <= serverLevel.getServer().getPlayerList().getSimulationDistance() * 16;
     }
 
     protected void defineSynchedData() {
@@ -335,9 +340,6 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     public boolean canTrigger() {
-        if (!SCPCommonConfig.SCP096Cooldown.get()) {
-            return true;
-        }
         return this.entityData.get(DATA_CAN_TRIGGER);
     }
 

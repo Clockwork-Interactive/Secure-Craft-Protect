@@ -4,6 +4,11 @@
       "scprotect:scp_096_idle"
     ]
   },
+  "scp_096_idle_2": {
+    "sounds": [
+      "scprotect:scp_096_idle_2"
+    ]
+  },
   "scp_096_kill": {
     "sounds": [
       "scprotect:scp_096_kill"

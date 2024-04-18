@@ -14,6 +14,7 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_096_RUNNING = registerDistanceSoundEvent("scp_096_running", 20.0F);
     public static final RegistryObject<SoundEvent> SCP_096_KILL = registerSoundEvent("scp_096_kill");
     public static final RegistryObject<SoundEvent> SCP_096_IDLE = registerDistanceSoundEvent("scp_096_idle", 35.0F);
+    public static final RegistryObject<SoundEvent> SCP_096_IDLE_2 = registerDistanceSoundEvent("scp_096_idle_2", 35.0F);
     public static final RegistryObject<SoundEvent> SCP_096_TRIGGERED = registerDistanceSoundEvent("scp_096_triggered", 35.0F);
     public static final RegistryObject<SoundEvent> SCP_096_SEEN = registerSoundEvent("scp_096_seen");
     public static final RegistryObject<SoundEvent> SCP_109_POUR1 = registerSoundEvent("scp_109_pour1");

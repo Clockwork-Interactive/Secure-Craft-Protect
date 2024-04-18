@@ -3,6 +3,7 @@ package net.zeus.scpprotect.level.sound.tickable;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundSource;
+import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
@@ -12,7 +13,7 @@ public class Idle096TickableSound extends AbstractTickableSoundInstance {
     public boolean isPlaying = false;
 
     public Idle096TickableSound(SCP096 scp096) {
-        super(SCPSounds.SCP_096_IDLE.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
+        super(SCPClientConfig.IDLE_2.get() ? SCPSounds.SCP_096_IDLE_2.get() : SCPSounds.SCP_096_IDLE.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
         this.scp096 = scp096;
         this.looping = true;
         this.x = ((float)scp096.getX());
@@ -36,4 +37,5 @@ public class Idle096TickableSound extends AbstractTickableSoundInstance {
             this.z = ((float) this.scp096.getZ());
         }
     }
+
 }
