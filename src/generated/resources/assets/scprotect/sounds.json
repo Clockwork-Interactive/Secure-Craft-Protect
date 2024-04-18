@@ -1,4 +1,9 @@
 {
+  "scp_058_dialog": {
+    "sounds": [
+      "scprotect:scp_058_dialog"
+    ]
+  },
   "scp_096_idle": {
     "sounds": [
       "scprotect:scp_096_idle"

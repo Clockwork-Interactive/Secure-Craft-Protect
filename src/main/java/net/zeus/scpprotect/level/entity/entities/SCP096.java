@@ -112,7 +112,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
     }
 
-    public void onKill(LivingEntity living) {
+    public void onKill() {
         this.playSound(this.getKillSound(), 0.222F, 1.0F);
     }
 
@@ -475,7 +475,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
             while (iterator.hasNext()) {
                 LivingEntity entity = iterator.next();
                 if (entity.isDeadOrDying() || entity.isRemoved()) {
-                    this.scp096.onKill(entity);
+                    this.scp096.onKill();
                     this.scp096.setHasHadTarget(true);
                     iterator.remove();
                 }

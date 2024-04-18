@@ -21,6 +21,7 @@ public class Registry {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(SCPEntity.SCP_019_2.get(), SCP019_2Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_058.get(), SCP058Renderer::new);
         event.registerEntityRenderer(SCPEntity.SCP_173.get(), SCP173Renderer::new);
         event.registerEntityRenderer(SCPEntity.SCP_096.get(), SCP096Renderer::new);
         event.registerEntityRenderer(SCPEntity.SCP_939.get(), SCP939Renderer::new);

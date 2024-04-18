@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.item.items;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -8,6 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 
@@ -15,6 +18,10 @@ public class BookOfChange extends Item implements DataGenObj {
 
     public BookOfChange(Properties pProperties) {
         super(pProperties);
+    }
+
+    public boolean canAttackBlock(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+        return !pPlayer.isCreative();
     }
 
     @Override
