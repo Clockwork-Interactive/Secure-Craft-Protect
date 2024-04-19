@@ -60,7 +60,7 @@ public class SCP058 extends Monster implements GeoEntity, Anomaly {
 
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5D, true));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true));
     }
@@ -74,7 +74,7 @@ public class SCP058 extends Monster implements GeoEntity, Anomaly {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.6F)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 20.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
                 .add(Attributes.MAX_HEALTH, 47.0F)

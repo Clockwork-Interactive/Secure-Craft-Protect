@@ -83,7 +83,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F)
                 .add(ForgeMod.SWIM_SPEED.get(), 2.5F)
                 .add(ForgeMod.ENTITY_REACH.get(), 5.0F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 3.0F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
     }
 
     @Override
