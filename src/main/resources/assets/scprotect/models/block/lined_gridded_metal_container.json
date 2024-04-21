@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/facility/hcz/metal_container_4",
+    "side": "scprotect:block/facility/hcz/metal_container_3",
+    "top": "scprotect:block/facility/hcz/metal_container_4"
+  }
+}

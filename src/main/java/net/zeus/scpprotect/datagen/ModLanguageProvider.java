@@ -12,6 +12,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.SCPEntity;
@@ -39,6 +40,10 @@ public class ModLanguageProvider extends LanguageProvider {
                 add(registry.get(), registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", "-").toUpperCase());
                 continue;
             }
+            add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", " ")));
+        }
+
+        for (RegistryObject<Block> registry : FacilityBlocks.BLOCKS.getEntries()) {
             add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", " ")));
         }
 

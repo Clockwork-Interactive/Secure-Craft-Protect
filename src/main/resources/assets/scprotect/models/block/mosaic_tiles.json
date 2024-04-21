@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "scprotect:block/facility/lcz/mosaic_tiles"
+  }
+}

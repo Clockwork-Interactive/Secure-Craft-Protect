@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "scprotect:block/gridded_metal_container"
+    }
+  }
+}

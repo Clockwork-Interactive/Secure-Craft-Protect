@@ -15,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
+import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
 import net.zeus.scpprotect.level.effect.SCPEffects;
@@ -42,6 +43,8 @@ public class SCP {
         SCPItems.ITEMS.register(modEventBus);
 
         SCPBlocks.BLOCKS.register(modEventBus);
+
+        FacilityBlocks.BLOCKS.register(modEventBus);
 
         SCPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
