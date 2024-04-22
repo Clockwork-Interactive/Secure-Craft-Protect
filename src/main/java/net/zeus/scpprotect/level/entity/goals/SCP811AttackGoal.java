@@ -1,10 +1,10 @@
-package net.zeus.scpprotect.level.entity.entities.goals;
+package net.zeus.scpprotect.level.entity.goals;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.entity.entities.SCP811;
-import net.zeus.scpprotect.level.entity.entities.projectiles.ToxicSpit;
+import net.zeus.scpprotect.level.entity.projectiles.ToxicSpit;
 import org.jetbrains.annotations.NotNull;
 
 public class SCP811AttackGoal extends MeleeAttackGoal {

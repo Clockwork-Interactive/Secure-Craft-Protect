@@ -1,6 +1,6 @@
 package net.zeus.scpprotect.client.models.entity;
 
-import net.zeus.scpprotect.level.entity.entities.ContainmentBox;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 
 public class ContainmentModel extends DefaultModel<ContainmentBox> {
     @Override

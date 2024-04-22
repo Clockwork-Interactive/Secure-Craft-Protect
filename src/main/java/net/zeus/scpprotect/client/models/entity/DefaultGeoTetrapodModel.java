@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.zeus.scpprotect.SCP;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
@@ -11,21 +12,11 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class DefaultGeoTetrapodModel<T extends LivingEntity & GeoAnimatable> extends GeoModel<T> {
-    @Override
-    public ResourceLocation getModelResource(T animatable) {
-        return null;
-    }
+public abstract class DefaultGeoTetrapodModel<T extends LivingEntity & GeoAnimatable> extends GeoModel<T> {
 
-    @Override
-    public ResourceLocation getTextureResource(T animatable) {
-        return null;
-    }
+	public abstract String id(int process);
 
-    @Override
-    public ResourceLocation getAnimationResource(T animatable) {
-        return null;
-    }
+	public abstract String path(int process);
 
 	@Override
 	public void setCustomAnimations(T animatable, long instanceId, AnimationState<T> animationState) {
@@ -59,6 +50,21 @@ public class DefaultGeoTetrapodModel<T extends LivingEntity & GeoAnimatable> ext
 			topRightLeg.updateRotation(Mth.cos(position * 0.6662F) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
 			topLeftLeg.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
 		}
+	}
+
+	@Override
+	public ResourceLocation getModelResource(T animatable) {
+		return new ResourceLocation(SCP.MOD_ID, "geo/%s/%s.geo.json".formatted(this.path(0), this.id(0)));
+	}
+
+	@Override
+	public ResourceLocation getTextureResource(T animatable) {
+		return new ResourceLocation(SCP.MOD_ID, "textures/%s/%s.png".formatted(this.path(1), this.id(1)));
+	}
+
+	@Override
+	public ResourceLocation getAnimationResource(T animatable) {
+		return null;
 	}
 
 }

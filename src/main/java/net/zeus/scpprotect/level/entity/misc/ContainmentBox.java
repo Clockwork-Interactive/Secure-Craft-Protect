@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.entity.entities;
+package net.zeus.scpprotect.level.entity.misc;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

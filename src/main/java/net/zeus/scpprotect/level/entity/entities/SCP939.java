@@ -22,7 +22,7 @@ import net.refractionapi.refraction.misc.RefractionMisc;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.DeobfuscatedUtil;
 import net.zeus.scpprotect.level.effect.SCPEffects;
-import net.zeus.scpprotect.level.entity.entities.goals.SCP939ListenTargetGoal;
+import net.zeus.scpprotect.level.entity.goals.SCP939ListenTargetGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.util.Misc;

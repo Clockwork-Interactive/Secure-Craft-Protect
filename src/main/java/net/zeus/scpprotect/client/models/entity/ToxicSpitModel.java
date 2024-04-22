@@ -1,6 +1,6 @@
 package net.zeus.scpprotect.client.models.entity;
 
-import net.zeus.scpprotect.level.entity.entities.projectiles.ToxicSpit;
+import net.zeus.scpprotect.level.entity.projectiles.ToxicSpit;
 
 public class ToxicSpitModel extends DefaultModel<ToxicSpit> {
 

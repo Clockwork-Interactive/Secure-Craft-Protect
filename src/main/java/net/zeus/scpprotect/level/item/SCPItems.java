@@ -47,6 +47,7 @@ public class SCPItems {
     public static final RegistryObject<Item> SCP_966_SPAWN_EGG = registerEgg("scp_966_spawn_egg", SCPEntity.SCP_966, new Color(193, 163, 163), new Color(232, 180, 180), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_811_SPAWN_EGG = registerEgg("scp_811_spawn_egg", SCPEntity.SCP_811, new Color(40, 103, 54), new Color(50, 148, 89), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_3199_SPAWN_EGG = registerEgg("scp_3199_spawn_egg", SCPEntity.SCP_3199, new Color(238, 203, 201), new Color(183, 131, 131), SCP.SCPTypes.KETER);
+    public static final RegistryObject<Item> REBEL_SPAWN_EGG = registerEgg("rebel_spawn_egg", SCPEntity.REBEL, new Color(231, 190, 132), new Color(208, 129, 74), SCP.SCPTypes.KETER);
 
 
     // ARMOR

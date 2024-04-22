@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.entity.entities.goals;
+package net.zeus.scpprotect.level.entity.goals;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;

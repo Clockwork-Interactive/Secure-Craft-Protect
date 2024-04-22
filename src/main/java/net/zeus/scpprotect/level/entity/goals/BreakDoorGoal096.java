@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.entity.entities.goals;
+package net.zeus.scpprotect.level.entity.goals;
 
 import net.minecraft.world.entity.ai.goal.DoorInteractGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;

@@ -31,6 +31,7 @@ public class Registry {
         event.registerEntityRenderer(SCPEntity.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
         event.registerEntityRenderer(SCPEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
         event.registerEntityRenderer(SCPEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
+        event.registerEntityRenderer(SCPEntity.REBEL.get(), RebelRenderer::new);
     }
 
     @SubscribeEvent

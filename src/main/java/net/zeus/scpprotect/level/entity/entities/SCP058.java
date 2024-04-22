@@ -1,39 +1,22 @@
 package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
-import net.refractionapi.refraction.misc.RefractionMisc;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
-import net.zeus.scpprotect.data.DeobfuscatedUtil;
-import net.zeus.scpprotect.level.effect.SCPEffects;
-import net.zeus.scpprotect.level.entity.entities.goals.SCP939ListenTargetGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
-import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.util.Misc;
-import net.zeus.scpprotect.util.ModDamageTypes;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -41,10 +24,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.*;
 
 public class SCP058 extends Monster implements GeoEntity, Anomaly {
     AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);

@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.entity.entities;
+package net.zeus.scpprotect.level.entity.misc;
 
 //public class SCP096OLD extends Monster implements GeoEntity, NeutralMob, Anomaly {
 //    private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");

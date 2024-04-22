@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.entities.goals.SCP811AttackGoal;
+import net.zeus.scpprotect.level.entity.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
 import org.jetbrains.annotations.NotNull;

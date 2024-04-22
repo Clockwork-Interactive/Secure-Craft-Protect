@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import net.zeus.scpprotect.client.models.entity.ContainmentModel;
-import net.zeus.scpprotect.level.entity.entities.ContainmentBox;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ContainmentRenderer extends GeoEntityRenderer<ContainmentBox> {

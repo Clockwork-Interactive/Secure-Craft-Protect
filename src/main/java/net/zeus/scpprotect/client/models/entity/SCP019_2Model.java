@@ -7,13 +7,13 @@ import net.zeus.scpprotect.level.entity.entities.SCP019_2;
 public class SCP019_2Model extends DefaultGeoTetrapodModel<SCP019_2> {
 
     @Override
-    public ResourceLocation getModelResource(SCP019_2 animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "geo/entity/scp_019_2.geo.json");
+    public String id(int process) {
+        return "scp_019_2";
     }
 
     @Override
-    public ResourceLocation getTextureResource(SCP019_2 animatable) {
-        return new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_019_2.png");
+    public String path(int process) {
+        return "entity";
     }
 
 }

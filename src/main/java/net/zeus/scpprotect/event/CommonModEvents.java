@@ -7,6 +7,7 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.entity.entities.*;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonModEvents {
@@ -23,6 +24,7 @@ public class CommonModEvents {
         event.put(SCPEntity.SCP_3199.get(), SCP3199.createAttributes().build());
         event.put(SCPEntity.SCP_3199_EGG.get(), SCP3199Egg.createAttributes().build());
         event.put(SCPEntity.CONTAINMENT_BOX.get(), ContainmentBox.createAttributes().build());
+        event.put(SCPEntity.REBEL.get(), Rebel.createAttributes().build());
     }
 
 }

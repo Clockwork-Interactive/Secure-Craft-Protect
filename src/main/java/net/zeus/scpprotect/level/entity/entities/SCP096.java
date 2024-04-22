@@ -22,7 +22,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -34,15 +33,13 @@ import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
-import net.zeus.scpprotect.configs.SCPCommonConfig;
-import net.zeus.scpprotect.level.entity.entities.goals.BreakDoorGoal096;
-import net.zeus.scpprotect.level.entity.entities.goals.HurtByTargetGoal096;
-import net.zeus.scpprotect.level.entity.entities.goals.WaterAvoiding096StrollGoal;
+import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
+import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
+import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
-import net.zeus.scpprotect.util.RunnableCooldownHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -72,13 +69,11 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
 
-    public static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("idle");
-    public static final RawAnimation WALKING_ANIMATION = RawAnimation.begin().thenPlay("walking");
-    public static final RawAnimation RUNNING_ANIMATION = RawAnimation.begin().thenLoop("running");
     public static final RawAnimation CLIMBING_ANIMATION = RawAnimation.begin().thenLoop("climbing");
     public static final RawAnimation CROUCHING_ANIMATION = RawAnimation.begin().thenPlay("crouch");
     public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
     public static final RawAnimation TRIGGERED_ANIMATION = RawAnimation.begin().thenPlay("triggered");
+    public static final RawAnimation RUNNING_ANIMATION = RawAnimation.begin().thenLoop("running");
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BYTE);
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -94,9 +89,8 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     }
 
     protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new BreakDoorGoal096(this, 20));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D, 0.001F));
@@ -183,24 +177,28 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                     PlayerClientData.checkAndUpdateIdle(this);
                     return PlayState.STOP;
                 })
-                .triggerableAnim("triggered", TRIGGERED_ANIMATION)
-                .triggerableAnim("climbing", CLIMBING_ANIMATION)
-                .triggerableAnim("crouch", CROUCHING_ANIMATION)
-                .triggerableAnim("sitting", SITTING_ANIMATION)
-                .triggerableAnim("running", RUNNING_ANIMATION)
-                .triggerableAnim("walking", WALKING_ANIMATION)
-                .triggerableAnim("idle", IDLE_ANIMATION)
-                .triggerableAnim("none", RawAnimation.begin())
+                        .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                        .triggerableAnim("running", RUNNING_ANIMATION)
+                        .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                        .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                        .triggerableAnim("sitting", SITTING_ANIMATION)
+                        .triggerableAnim("none", RawAnimation.begin())
         );
     }
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return false;
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
+            return false;
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
     }
 
     @Override
     public boolean doLegAnimations(AnimationState<?> state) {
+        if (this.isCurrentAnimation(state, RUNNING_ANIMATION)) return false;
+        if (this.getChargeTime() != this.getDefaultChargeTime() && this.isCurrentAnimation(state, TRIGGERED_ANIMATION))
+            return false;
         if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
             return false;
         } else {
@@ -221,7 +219,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
         return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, TRIGGERED_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION);
     }
 
-    private boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
+    public boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
         return state.isCurrentAnimation(animation) && !state.getController().hasAnimationFinished();
     }
 
@@ -255,7 +253,6 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
             this.triggerAnim("controller", "climbing");
         } else {
             b0 = (byte) (b0 & -2);
-            this.triggerAnim("controller", "idle");
         }
 
         this.entityData.set(CLIMBING, b0);
@@ -453,6 +450,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
 
         public void start() {
             this.scp096.setBeingStaredAt();
+            this.scp096.triggerAnim("controller", "running");
         }
 
         public void tick() {

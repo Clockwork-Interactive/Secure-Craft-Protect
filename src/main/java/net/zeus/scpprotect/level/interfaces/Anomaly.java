@@ -25,4 +25,8 @@ public interface Anomaly {
         return true;
     }
 
+    default boolean doAnyAnimations(AnimationState<?> state) {
+        return true;
+    }
+
 }

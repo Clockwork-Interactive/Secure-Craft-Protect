@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.entity.entities.projectiles;
+package net.zeus.scpprotect.level.entity.projectiles;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

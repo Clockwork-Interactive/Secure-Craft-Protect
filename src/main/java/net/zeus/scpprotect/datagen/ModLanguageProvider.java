@@ -32,10 +32,21 @@ public class ModLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         for (RegistryObject<EntityType<?>> registry : SCPEntity.ENTITIES.getEntries()) {
-            add(registry.get(), registry.get().toShortString().replace("_", "-").toUpperCase());
+            String name = registry.get().toShortString().replace("_", " ");
+            if (name.contains(" "))
+                add(registry.get(), registry.get().toShortString().replace("_", "-").toUpperCase());
+            else
+                add(registry.get(), WordUtils.capitalize(name));
         }
 
         for (RegistryObject<Block> registry : SCPBlocks.BLOCKS.getEntries()) {
+            if (registry.get() instanceof DataGenObj obj) {
+                String customID = obj.customID();
+                if (customID != null) {
+                    add(registry.get(), customID);
+                    continue;
+                }
+            }
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("block.scprotect.", "").replace("_", "-").toUpperCase());
                 continue;
@@ -61,6 +72,11 @@ public class ModLanguageProvider extends LanguageProvider {
                 continue;
             }
 
+            if (registry == SCPItems.REBEL_SPAWN_EGG) {
+                add(registry.get(), "Rebel Spawn Egg");
+                continue;
+            }
+
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {
@@ -70,10 +86,13 @@ public class ModLanguageProvider extends LanguageProvider {
             }
         }
 
-        for (RegistryObject<MobEffect> registry : SCPEffects.MOB_EFFECTS.getEntries()) {
-            if (registry == SCPEffects.AMNESIA) {
-                add(registry.get(), "AMN-C227");
-                continue;
+        for (RegistryObject<? extends MobEffect> registry : SCPEffects.MOB_EFFECTS.getEntries()) {
+            if (registry.get() instanceof DataGenObj obj) {
+                String customID = obj.customID();
+                if (customID != null) {
+                    add(registry.get(), customID);
+                    continue;
+                }
             }
             add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("effect.scprotect.", "").replace("_", " ")));
         }

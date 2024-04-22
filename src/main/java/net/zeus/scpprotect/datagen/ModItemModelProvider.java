@@ -28,22 +28,19 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
 
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
-            for (RegistryObject<Block> blockRegistry : SCPBlocks.BLOCKS.getEntries()) {
-                if (registry.get() instanceof ForgeSpawnEggItem) {
-                    spawnEgg(registry);
-                    continue;
-                }
+            if (registry.get() instanceof ForgeSpawnEggItem) {
+                spawnEgg(registry);
+                continue;
+            }
 
-                if (registry.get() instanceof SCP500Bottle) continue;
+            if (registry.get() instanceof SCP500Bottle) continue;
 
-                if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
+            if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
 
-                try { // I'm lazy 🤓
-                    simpleItem(registry);
-                    blockItem(blockRegistry);
-                } catch (Exception e) {
-                    makePlaceholderModel(registry);
-                }
+            try { // I'm lazy 🤓
+                simpleItem(registry);
+            } catch (Exception e) {
+                makePlaceholderModel(registry);
             }
         }
 
@@ -51,6 +48,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             if (registry.get() instanceof Anomaly) {
                 blockItemWithTexture(registry, new ResourceLocation(SCP.MOD_ID, "item/%s".formatted(registry.getId().getPath())));
             }
+            blockItem(registry);
         }
 
     }

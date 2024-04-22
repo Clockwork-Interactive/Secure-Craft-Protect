@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.item.scp;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -42,6 +43,7 @@ public class SCP1025 extends Item implements Anomaly {
             ).findAny().map(Map.Entry::getValue).orElse(MobEffects.CONFUSION);
             pPlayer.getCooldowns().addCooldown(SCPItems.SCP_1025.get(), 40);
             pPlayer.addEffect(new MobEffectInstance(pick, RandomSource.create().nextInt(400, 600)));
+            pPlayer.displayClientMessage(Component.literal("You read a page on ").append(Component.translatable(pick.getDescriptionId())).append("..."), true);
             return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
         }
         return InteractionResultHolder.fail(pPlayer.getItemInHand(pUsedHand));

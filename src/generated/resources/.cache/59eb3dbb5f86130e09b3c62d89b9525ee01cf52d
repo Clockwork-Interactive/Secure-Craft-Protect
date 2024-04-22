@@ -1,4 +1,5 @@
-// 1.20.1	2024-04-17T16:57:20.7177099	Loot Tables
+// 1.20.1	2024-04-19T11:28:41.4721075	Loot Tables
+0b3261eab515a8da82f742e54298e2ac9301f69d data/scprotect/loot_tables/entities/rebel.json
 623de14e587e14082d30f2cd1ddbd60c14c394a7 data/scprotect/loot_tables/entities/scp_019_2.json
 115fe2c8f9e7f7d1c4c88269b5dda279cda9d8c5 data/scprotect/loot_tables/entities/scp_058.json
 022bf8d07c151a05ec76117c59e89e8d4320c980 data/scprotect/loot_tables/entities/scp_096.json

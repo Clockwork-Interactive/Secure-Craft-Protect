@@ -1,10 +1,8 @@
 package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -14,14 +12,6 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public abstract class DefaultGeoBiPedalModel<T extends LivingEntity & GeoAnimatable> extends GeoModel<T> {
-    @Override
-    public abstract ResourceLocation getModelResource(T animatable);
-
-	@Override
-    public abstract ResourceLocation getTextureResource(T animatable);
-
-	@Override
-    public abstract ResourceLocation getAnimationResource(T animatable);
 
 	@Override
 	public void setCustomAnimations(T animatable, long instanceId, AnimationState<T> animationState) {
@@ -34,6 +24,10 @@ public abstract class DefaultGeoBiPedalModel<T extends LivingEntity & GeoAnimata
 		float partialTick = Minecraft.getInstance().getPartialTick();
 		float speed = 0.0F;
 		float position = 0.0F;
+
+		this.onAnimate(animationState, animatable);
+
+		if (animatable instanceof Anomaly anomaly && !anomaly.doAnyAnimations(animationState)) return;
 
 		if (animatable instanceof Anomaly anomaly && anomaly.doLegAnimations(animationState)) {
 
@@ -80,6 +74,10 @@ public abstract class DefaultGeoBiPedalModel<T extends LivingEntity & GeoAnimata
 
 	public float zOffLeftArm() {
 		return 0.0F;
+	}
+
+	public void onAnimate(AnimationState<?> state, T animatable) {
+
 	}
 
 }

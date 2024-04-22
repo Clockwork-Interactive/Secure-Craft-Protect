@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
-import net.zeus.scpprotect.level.entity.entities.ContainmentBox;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 
 public class ContainmentItem extends Item {
     public ContainmentItem(Properties pProperties) {

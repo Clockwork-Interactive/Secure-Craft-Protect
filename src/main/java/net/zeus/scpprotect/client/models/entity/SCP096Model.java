@@ -1,12 +1,11 @@
 package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
-import net.zeus.scpprotect.level.sound.tickable.Idle096TickableSound;
 import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
+import software.bernie.geckolib.core.animation.AnimationState;
 
 public class SCP096Model extends BiPedalModel<SCP096> {
     public Running096TickableSound tickableSoundRunning = null;
@@ -38,12 +37,24 @@ public class SCP096Model extends BiPedalModel<SCP096> {
         } else if (process == 1) {
             return animatable.isTriggered() ? "scp_096_triggered" : "scp_096";
         }
+
         return "scp_096";
     }
 
     @Override
     public boolean hasAnimation() {
         return true;
+    }
+
+    @Override
+    public void onAnimate(AnimationState<?> state, SCP096 animatable) {
+        if (!animatable.isClimbing() && animatable.isCurrentAnimation(state, SCP096.CLIMBING_ANIMATION)) {
+            animatable.triggerAnim("controller", "none");
+        }
+        if (animatable.isTriggered() && state.getController().hasAnimationFinished()) {
+            if (!animatable.isCurrentAnimation(state, SCP096.RUNNING_ANIMATION))
+                animatable.triggerAnim("controller", "running");
+        }
     }
 
 }
