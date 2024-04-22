@@ -3,6 +3,7 @@
 	"animations": {
 		"811_sit": {
 			"loop": true,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"position": {

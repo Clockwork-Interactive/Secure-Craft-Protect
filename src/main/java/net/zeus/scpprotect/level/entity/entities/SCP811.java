@@ -1,41 +1,61 @@
 package net.zeus.scpprotect.level.entity.entities;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.SCPItems;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SCP811 extends TamableAnimal implements GeoEntity, Anomaly {
+import java.util.Objects;
+import java.util.UUID;
+
+public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anomaly {
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -49,6 +69,11 @@ public class SCP811 extends TamableAnimal implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Spider.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Silverfish.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Frog.class, true));
+        // Tame goals
+        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.addBehaviourGoals();
         this.setPersistenceRequired();
     }
@@ -143,14 +168,129 @@ public class SCP811 extends TamableAnimal implements GeoEntity, Anomaly {
         this.level().addFreshEntity(itementity);
     }
 
+    /**
+     * Tame stuff
+     * @return
+     */
+
+    public void setTame(boolean pTamed) {
+        super.setTame(pTamed);
+        if (pTamed) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0);
+            this.setHealth(20.0F);
+        } else {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0);
+        }
+
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0);
+    }
+
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        Item item = itemstack.getItem();
+        if (this.level().isClientSide) {
+            if (this.isTame() && this.isOwnedBy(pPlayer)) {
+                return InteractionResult.SUCCESS;
+            } else {
+                return !itemstack.is(SCPItems.HAIRBRUSH.get()) || !(this.getHealth() < this.getMaxHealth()) && this.isTame() ? InteractionResult.PASS : InteractionResult.SUCCESS;
+            }
+        } else {
+            if (this.isTame()) {
+                if (this.isOwnedBy(pPlayer)) {
+                    if (itemstack.is(Items.COOKED_BEEF)) {
+                        this.playSound(SoundEvents.GENERIC_EAT);
+                        this.spawnAtLocation(Items.SLIME_BALL);
+                        this.usePlayerItem(pPlayer, pHand, itemstack);
+                        pPlayer.getCooldowns().addCooldown(item, 40);
+                        if (this.getHealth() < this.getMaxHealth()) this.heal((float) Objects.requireNonNull(itemstack.getFoodProperties(this)).getNutrition());
+                        return InteractionResult.CONSUME;
+                    }
+
+                    InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
+                    if (!interactionresult.consumesAction() && !this.isOrderedToSit() || this.isBaby()) {
+                        setSitting(true);
+                    } else if (!interactionresult.consumesAction() && this.isOrderedToSit() || this.isBaby()) {
+                        setSitting(false);
+                        this.triggerAnim("controller", "none");
+                    }
+
+                    return interactionresult;
+                }
+            } else if (itemstack.is(SCPItems.HAIRBRUSH.get())) {
+                this.usePlayerItem(pPlayer, pHand, itemstack);
+                if (!net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                    this.tame(pPlayer);
+                    setSitting(true);
+                    this.level().broadcastEntityEvent(this, (byte)7);
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte)6);
+                }
+
+                this.setPersistenceRequired();
+                return InteractionResult.SUCCESS;
+            }
+            InteractionResult interactionresult1 = super.mobInteract(pPlayer, pHand);
+            if (interactionresult1.consumesAction()) {
+                this.setPersistenceRequired();
+            }
+            return interactionresult1;
+        }
+    }
+
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.EUCLID;
     }
 
+    private static final RawAnimation SIT_ANIM = RawAnimation.begin().then("811_sit", Animation.LoopType.HOLD_ON_LAST_FRAME);
+
+    private boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
+        return state.isCurrentAnimation(animation) && !state.getController().hasAnimationFinished();
+    }
+
+    @Override
+    public boolean doArmAnimations(AnimationState<?> state) {
+        return !this.isCurrentAnimation(state, SIT_ANIM);
+    }
+
+    @Override
+    public boolean doLegAnimations(AnimationState<?> state) {
+        return !this.isCurrentAnimation(state, SIT_ANIM);
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 3, state -> PlayState.STOP)
+                .triggerableAnim("811_sit", SIT_ANIM)
+                .triggerableAnim("none", RawAnimation.begin()));
+    }
 
+    public void setSitting(boolean sitting) {
+        this.triggerAnim("controller", "811_sit");
+        this.entityData.set(SITTING, sitting);
+        this.setOrderedToSit(sitting);
+    }
+
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SITTING, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("isSitting", this.isSitting());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        setSitting(pCompound.getBoolean("isSitting"));
     }
 
     @Override
@@ -162,5 +302,31 @@ public class SCP811 extends TamableAnimal implements GeoEntity, Anomaly {
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return 0;
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return null;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uuid) {
+
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+
     }
 }

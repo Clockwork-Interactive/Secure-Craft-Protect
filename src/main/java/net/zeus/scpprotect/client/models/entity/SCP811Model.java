@@ -21,6 +21,6 @@ public class SCP811Model extends BiPedalModel<SCP811> {
 
     @Override
     public boolean hasAnimation() {
-        return false;
+        return true;
     }
 }
