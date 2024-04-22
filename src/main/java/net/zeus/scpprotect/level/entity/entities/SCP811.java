@@ -3,7 +3,9 @@ package net.zeus.scpprotect.level.entity.entities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -27,16 +29,17 @@ import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SCP811 extends Monster implements GeoEntity, Anomaly {
+public class SCP811 extends TamableAnimal implements GeoEntity, Anomaly {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public SCP811(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    public SCP811(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -153,5 +156,11 @@ public class SCP811 extends Monster implements GeoEntity, Anomaly {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        return null;
     }
 }

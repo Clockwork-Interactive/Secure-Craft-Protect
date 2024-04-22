@@ -24,6 +24,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
     @Override
     public void registerSounds() {
         for (RegistryObject<SoundEvent> event : SCPSounds.SOUND_EVENTS.getEntries()) {
+
             SoundDefinition definition = SoundDefinition.definition();
             SoundEvent soundEvent = event.get();
             String sound = soundEvent.getLocation().getPath();

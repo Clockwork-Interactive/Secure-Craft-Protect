@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/pd/old_wall",
+    "side": "scprotect:block/pd/old_wall_stained",
+    "top": "scprotect:block/pd/old_wall"
+  }
+}

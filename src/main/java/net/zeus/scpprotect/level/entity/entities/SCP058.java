@@ -3,6 +3,7 @@ package net.zeus.scpprotect.level.entity.entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -72,12 +73,17 @@ public class SCP058 extends Monster implements GeoEntity, Anomaly {
         );
     }
 
+    @Override
+    protected void playStepSound(BlockPos pPos, BlockState pState) {
+        this.playSound(SoundEvents.SPIDER_STEP, 0.15f, 1);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 20.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
-                .add(Attributes.MAX_HEALTH, 47.0F)
+                .add(Attributes.MAX_HEALTH, 200.0F)
                 .add(Attributes.FOLLOW_RANGE, 30.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 13.0F)
                 .add(ForgeMod.SWIM_SPEED.get(), 2.5F)

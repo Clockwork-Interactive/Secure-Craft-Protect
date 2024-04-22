@@ -72,6 +72,9 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_CAN_TRIGGER = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HAS_HAD_TARGET = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
 
+    public static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("idle");
+    public static final RawAnimation WALKING_ANIMATION = RawAnimation.begin().thenPlay("walking");
+    public static final RawAnimation RUNNING_ANIMATION = RawAnimation.begin().thenLoop("running");
     public static final RawAnimation CLIMBING_ANIMATION = RawAnimation.begin().thenLoop("climbing");
     public static final RawAnimation CROUCHING_ANIMATION = RawAnimation.begin().thenPlay("crouch");
     public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
@@ -190,10 +193,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
-            return false;
-        }
-        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
+        return false;
     }
 
     @Override

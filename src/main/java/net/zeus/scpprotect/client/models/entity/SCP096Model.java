@@ -10,7 +10,6 @@ import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
 
 public class SCP096Model extends BiPedalModel<SCP096> {
     public Running096TickableSound tickableSoundRunning = null;
-    public Idle096TickableSound tickableSoundIdle = null;
 
     @Override
     public String model(int process, SCP096 animatable) {

@@ -1,4 +1,11 @@
 {
+  "pocket_dimension_step": {
+    "sounds": [
+      "scprotect:pd_walk/pocket_dimension_step1",
+      "scprotect:pd_walk/pocket_dimension_step2",
+      "scprotect:pd_walk/pocket_dimension_step3"
+    ]
+  },
   "scp_058_dialog": {
     "sounds": [
       "scprotect:scp_058_dialog"

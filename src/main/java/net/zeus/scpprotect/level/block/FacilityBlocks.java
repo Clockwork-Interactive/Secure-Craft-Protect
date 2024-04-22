@@ -35,6 +35,11 @@ public class FacilityBlocks {
 
     // Light Containment Zone
 
+    public static final RegistryObject<Block> FLOOR_CONCRETE = registerBlock("floor_concrete",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK)
+                    .strength(1.8F)));
+
+
     public static final RegistryObject<Block> LC_CONCRETE = registerBlock("light_containment_concrete",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
                     .strength(1.8F)));

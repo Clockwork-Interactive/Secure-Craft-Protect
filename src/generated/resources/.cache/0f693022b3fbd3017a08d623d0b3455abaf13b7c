@@ -1,19 +1,24 @@
-// 1.20.1	2024-04-17T16:57:20.7222298	Item Models: scprotect
+// 1.20.1	2024-04-21T19:39:17.2133786	Item Models: scprotect
 08e8303bc20ca4a7d8dd82db26c8f72100a5a64b assets/scprotect/models/item/aged_bricks.json
 57f3e13c764f90cc7be3a9f0d8932fc85a92321f assets/scprotect/models/item/aged_concrete.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 1311e103df0291a9f2539d96edc36143c1e4b904 assets/scprotect/models/item/blocks_tab_icon.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
 c43f6ce6aa32354c260b1a75a03075954ab9fe9f assets/scprotect/models/item/containment_item.json
+83917e691ca4c957871438931f6a68184e78b2af assets/scprotect/models/item/corroded_tiles.json
+d5a23eb2e3c13ceae1ee6132c6192fff99f1675a assets/scprotect/models/item/decay_block.json
 51c03efe9b368f1752bf7d74a336d0032c138915 assets/scprotect/models/item/entities_tab_icon.json
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 2bf27c7f50e0e5e154982c1f6d655f7cef477eea assets/scprotect/models/item/hairbrush.json
 7177502e22ff27fb5aefba5cd08b53f5bcbca239 assets/scprotect/models/item/items_tab_icon.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
+e7e51620bee61bbf6da4e35212e80c6a7be66fd0 assets/scprotect/models/item/old_wall.json
+ab5270e06418e690e6a510fb02aa3c0bc266f285 assets/scprotect/models/item/old_wall_stained.json
 876fb5f2577a50f2f35e8d806361d28b80f25f9b assets/scprotect/models/item/orange_candy.json
 339b0fb0a964c2b67d12b7a29645c5dc0d006b47 assets/scprotect/models/item/purple_candy.json
 161c45a420ac716ce09cb1d844d3f388cc2b8b76 assets/scprotect/models/item/red_candy.json
 547052f6f5a57f10027cea1f774d0c6fce960525 assets/scprotect/models/item/scp_019.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_019_2_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_058_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_096_spawn_egg.json
 fee2aed162db7f764d434d03202e3b3e2bc49c93 assets/scprotect/models/item/scp_1025.json

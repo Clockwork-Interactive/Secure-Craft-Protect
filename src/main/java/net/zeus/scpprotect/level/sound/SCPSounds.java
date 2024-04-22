@@ -65,6 +65,8 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_3199_IDLE_9 = registerSoundEvent("scp_3199_idle_9");
     public static final RegistryObject<SoundEvent> SCP_3199_LAY = registerSoundEvent("scp_3199_lay");
 
+    public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
+
     private static RegistryObject<SoundEvent> registerDistanceSoundEvent(String name, float distance) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(new ResourceLocation(SCP.MOD_ID, name), distance));
     }
