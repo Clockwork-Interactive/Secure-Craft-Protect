@@ -183,11 +183,14 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
                     PlayerClientData.checkAndUpdateIdle(this);
                     return PlayState.STOP;
                 })
-                        .triggerableAnim("triggered", TRIGGERED_ANIMATION)
-                        .triggerableAnim("climbing", CLIMBING_ANIMATION)
-                        .triggerableAnim("crouch", CROUCHING_ANIMATION)
-                        .triggerableAnim("sitting", SITTING_ANIMATION)
-                        .triggerableAnim("none", RawAnimation.begin())
+                .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                .triggerableAnim("sitting", SITTING_ANIMATION)
+                .triggerableAnim("running", RUNNING_ANIMATION)
+                .triggerableAnim("walking", WALKING_ANIMATION)
+                .triggerableAnim("idle", IDLE_ANIMATION)
+                .triggerableAnim("none", RawAnimation.begin())
         );
     }
 
@@ -252,7 +255,7 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
             this.triggerAnim("controller", "climbing");
         } else {
             b0 = (byte) (b0 & -2);
-            this.triggerAnim("controller", "none");
+            this.triggerAnim("controller", "idle");
         }
 
         this.entityData.set(CLIMBING, b0);

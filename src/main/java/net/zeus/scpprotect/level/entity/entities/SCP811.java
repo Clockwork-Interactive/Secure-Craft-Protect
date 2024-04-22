@@ -1,6 +1,5 @@
 package net.zeus.scpprotect.level.entity.entities;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,13 +15,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
@@ -32,9 +26,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
@@ -170,19 +162,18 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     /**
      * Tame stuff
-     * @return
      */
 
     public void setTame(boolean pTamed) {
         super.setTame(pTamed);
         if (pTamed) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0);
+            Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(20.0);
             this.setHealth(20.0F);
         } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0);
+            Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(8.0);
         }
 
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0);
+        Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(4.0);
     }
 
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
@@ -197,7 +188,7 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
         } else {
             if (this.isTame()) {
                 if (this.isOwnedBy(pPlayer)) {
-                    if (itemstack.is(Items.COOKED_BEEF)) {
+                    if (itemstack.is(Items.COOKED_BEEF) && !pPlayer.getCooldowns().isOnCooldown(Items.COOKED_BEEF)) {
                         this.playSound(SoundEvents.GENERIC_EAT);
                         this.spawnAtLocation(Items.SLIME_BALL);
                         this.usePlayerItem(pPlayer, pHand, itemstack);
@@ -244,18 +235,18 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     private static final RawAnimation SIT_ANIM = RawAnimation.begin().then("811_sit", Animation.LoopType.HOLD_ON_LAST_FRAME);
 
-    private boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
-        return state.isCurrentAnimation(animation) && !state.getController().hasAnimationFinished();
+    private boolean isCurrentAnimation(AnimationState<?> state) {
+        return !state.isCurrentAnimation(SCP811.SIT_ANIM) || state.getController().hasAnimationFinished();
     }
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return !this.isCurrentAnimation(state, SIT_ANIM);
+        return this.isCurrentAnimation(state);
     }
 
     @Override
     public boolean doLegAnimations(AnimationState<?> state) {
-        return !this.isCurrentAnimation(state, SIT_ANIM);
+        return this.isCurrentAnimation(state);
     }
 
     @Override
@@ -300,7 +291,7 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 
