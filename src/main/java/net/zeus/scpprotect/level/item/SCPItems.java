@@ -39,13 +39,14 @@ public class SCPItems {
     public static final RegistryObject<Item> BOOK_OF_CHANGE = ITEMS.register("awcy", () -> new BookOfChange(new Item.Properties().stacksTo(1)));
 
     // SPAWN EGGS
-    public static final RegistryObject<Item> SCP_019_2_SPAWN_EGG = registerEgg("scp_019_2_spawn_egg", SCPEntity.SCP_019_2, new Color(211, 162, 181), new Color(253, 220, 220), SCP.SCPTypes.KETER);
-    public static final RegistryObject<Item> SCP_058_SPAWN_EGG = registerEgg("scp_058_spawn_egg", SCPEntity.SCP_058, new Color(162, 0, 0), new Color(255, 201, 132), SCP.SCPTypes.KETER);
+    public static final RegistryObject<Item> SCP_111_SPAWN_EGG = registerEgg("scp_111_spawn_egg", SCPEntity.SCP_111, new Color(189, 38, 38), new Color(246, 237, 181), SCP.SCPTypes.SAFE);
     public static final RegistryObject<Item> SCP_096_SPAWN_EGG = registerEgg("scp_096_spawn_egg", SCPEntity.SCP_096, new Color(245, 233, 229), new Color(237, 212, 197), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_173_SPAWN_EGG = registerEgg("scp_173_spawn_egg", SCPEntity.SCP_173, new Color(227, 185, 129), new Color(162, 119, 78, 255), SCP.SCPTypes.EUCLID);
-    public static final RegistryObject<Item> SCP_939_SPAWN_EGG = registerEgg("scp_939_spawn_egg", SCPEntity.SCP_939, new Color(249, 6, 12), new Color(42, 0, 0), SCP.SCPTypes.KETER);
-    public static final RegistryObject<Item> SCP_966_SPAWN_EGG = registerEgg("scp_966_spawn_egg", SCPEntity.SCP_966, new Color(193, 163, 163), new Color(232, 180, 180), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_811_SPAWN_EGG = registerEgg("scp_811_spawn_egg", SCPEntity.SCP_811, new Color(40, 103, 54), new Color(50, 148, 89), SCP.SCPTypes.EUCLID);
+    public static final RegistryObject<Item> SCP_966_SPAWN_EGG = registerEgg("scp_966_spawn_egg", SCPEntity.SCP_966, new Color(193, 163, 163), new Color(232, 180, 180), SCP.SCPTypes.EUCLID);
+    public static final RegistryObject<Item> SCP_019_2_SPAWN_EGG = registerEgg("scp_019_2_spawn_egg", SCPEntity.SCP_019_2, new Color(211, 162, 181), new Color(253, 220, 220), SCP.SCPTypes.KETER);
+    public static final RegistryObject<Item> SCP_058_SPAWN_EGG = registerEgg("scp_058_spawn_egg", SCPEntity.SCP_058, new Color(162, 0, 0), new Color(255, 201, 132), SCP.SCPTypes.KETER);
+    public static final RegistryObject<Item> SCP_939_SPAWN_EGG = registerEgg("scp_939_spawn_egg", SCPEntity.SCP_939, new Color(249, 6, 12), new Color(42, 0, 0), SCP.SCPTypes.KETER);
     public static final RegistryObject<Item> SCP_3199_SPAWN_EGG = registerEgg("scp_3199_spawn_egg", SCPEntity.SCP_3199, new Color(238, 203, 201), new Color(183, 131, 131), SCP.SCPTypes.KETER);
     public static final RegistryObject<Item> REBEL_SPAWN_EGG = registerEgg("rebel_spawn_egg", SCPEntity.REBEL, new Color(231, 190, 132), new Color(208, 129, 74), SCP.SCPTypes.KETER);
 

@@ -51,6 +51,9 @@ public class SCPEntity {
 
     public static final RegistryObject<EntityType<SCP3199Egg>> SCP_3199_EGG = ENTITIES.register("scp_3199_egg",
             () -> EntityType.Builder.of(SCP3199Egg::new, MobCategory.MONSTER).sized(0.2F, 0.4F).build("scp_3199_egg"));
+
+    public static final RegistryObject<EntityType<SCP111>> SCP_111 = ENTITIES.register("scp_111",
+            () -> EntityType.Builder.of(SCP111::new, MobCategory.CREATURE).sized(0.7F, 0.6F).build("scp_111"));
     
     /**
      * OTHER

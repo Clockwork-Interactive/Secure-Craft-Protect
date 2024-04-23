@@ -3,27 +3,25 @@ package net.zeus.scpprotect.util;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class Misc {
     static RandomSource random = RandomSource.create();
+    public static int TPS = 20;
 
-    public static void summonParticlesAroundEntity(Entity entity, ParticleOptions particleOptions, ServerLevel level, int ParticleAmount) {
-        for (int i = 0; i < ParticleAmount; ++i) {
-            double d0 = random.nextGaussian() * 0.02D;
-            double d1 = random.nextGaussian() * 0.02D;
-            double d2 = random.nextGaussian() * 0.02D;
-            level.sendParticles(particleOptions, entity.getRandomX(1), entity.getRandomY() + 0.5D, entity.getRandomZ(1), ParticleAmount, d0, d1, d2, 0.0D);
+    public static void summonParticlesAroundEntity(LivingEntity entity, ParticleOptions particle, int amount) {
+        for (int i = 0; i < amount; ++i) {
+            double d0 = entity.getRandom().nextGaussian() * 0.02D;
+            double d1 = entity.getRandom().nextGaussian() * 0.02D;
+            double d2 = entity.getRandom().nextGaussian() * 0.02D;
+            entity.level().addParticle(particle, entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), d0, d1, d2);
         }
     }
 

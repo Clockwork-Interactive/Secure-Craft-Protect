@@ -32,6 +32,7 @@ public class Registry {
         event.registerEntityRenderer(SCPEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
         event.registerEntityRenderer(SCPEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
         event.registerEntityRenderer(SCPEntity.REBEL.get(), RebelRenderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_111.get(), SCP111Renderer::new);
     }
 
     @SubscribeEvent

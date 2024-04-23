@@ -8,8 +8,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 
 public class SCPSounds {
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SCP.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SCP.MOD_ID);
 
     public static final RegistryObject<SoundEvent> SCP_058_SPEAKING = registerSoundEvent("scp_058_dialog");
     public static final RegistryObject<SoundEvent> SCP_096_RUNNING = registerDistanceSoundEvent("scp_096_running", 20.0F);
@@ -64,7 +63,12 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_3199_IDLE_8 = registerSoundEvent("scp_3199_idle_8");
     public static final RegistryObject<SoundEvent> SCP_3199_IDLE_9 = registerSoundEvent("scp_3199_idle_9");
     public static final RegistryObject<SoundEvent> SCP_3199_LAY = registerSoundEvent("scp_3199_lay");
+    public static final RegistryObject<SoundEvent> SCP_111_IDLE_1 = registerSoundEvent("scp_111_idle_1");
+    public static final RegistryObject<SoundEvent> SCP_111_IDLE_2 = registerSoundEvent("scp_111_idle_2");
+
+    // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
+
 
     private static RegistryObject<SoundEvent> registerDistanceSoundEvent(String name, float distance) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(new ResourceLocation(SCP.MOD_ID, name), distance));

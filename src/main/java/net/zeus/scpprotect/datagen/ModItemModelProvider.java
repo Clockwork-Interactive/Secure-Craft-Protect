@@ -29,7 +29,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-
         for (RegistryObject<Item> registry : SCPItems.ITEMS.getEntries()) {
             if (registry.get() instanceof ForgeSpawnEggItem) {
                 spawnEgg(registry);
@@ -46,11 +45,9 @@ public class ModItemModelProvider extends ItemModelProvider {
                 makePlaceholderModel(registry);
             }
         }
-
-        for (RegistryObject<Block> registry : SCPBlocks.BLOCKS.getEntries()) {
-            if (registry.get() instanceof SCP019 || registry.get() instanceof SCP330 || registry.get() instanceof SCP310) continue;
-        }
-
+        blockItemWithTexture(SCPBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
+        blockItemWithTexture(SCPBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));
+        blockItemWithTexture(SCPBlocks.SCP_330, new ResourceLocation(SCP.MOD_ID, "item/scp_330"));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<? extends Item> item) {
