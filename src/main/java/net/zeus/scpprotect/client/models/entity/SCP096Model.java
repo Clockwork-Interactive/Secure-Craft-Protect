@@ -33,9 +33,9 @@ public class SCP096Model extends BiPedalModel<SCP096> {
         }
 
         if (process == 2) {
-            return animatable.isTriggered() ? "scp_096_rage" : "scp_096";
+            return animatable.isTriggered() || animatable.getChargeTime() <= 20 ? "scp_096_rage" : "scp_096";
         } else if (process == 1) {
-            return animatable.isTriggered() ? "scp_096_triggered" : "scp_096";
+            return animatable.isTriggered() || animatable.getChargeTime() <= 20 ? "scp_096_triggered" : "scp_096";
         }
 
         return "scp_096";
@@ -54,6 +54,14 @@ public class SCP096Model extends BiPedalModel<SCP096> {
         if (animatable.isTriggered() && state.getController().hasAnimationFinished()) {
             if (!animatable.isCurrentAnimation(state, SCP096.RUNNING_ANIMATION))
                 animatable.triggerAnim("controller", "running");
+        }
+        if (animatable.isTriggered()) return;
+        if (state.isMoving() && animatable.isCurrentAnimation(state, SCP096.IDLE_ANIMATION)) {
+            if (!animatable.isCurrentAnimation(state, SCP096.WALKING_ANIMATION))
+                animatable.triggerAnim("controller", "walking");
+        } else if (!state.isMoving() && animatable.isCurrentAnimation(state, SCP096.WALKING_ANIMATION) || (state.getController().getCurrentAnimation() == null)) {
+            if (!animatable.isCurrentAnimation(state, SCP096.IDLE_ANIMATION))
+                animatable.triggerAnim("controller", "idle");
         }
     }
 

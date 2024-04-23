@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.ClimbOnTopOfPowderSnowGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -58,7 +57,7 @@ import java.util.ListIterator;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
+public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public final List<LivingEntity> targetMap = new ArrayList<>();
@@ -202,7 +201,10 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return false;
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION) || this.isCurrentAnimation(state, IDLE_ANIMATION) || this.isCurrentAnimation(state, WALKING_ANIMATION)) {
+            return false;
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
     }
 
     @Override
