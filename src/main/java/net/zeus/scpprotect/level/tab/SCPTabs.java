@@ -24,7 +24,7 @@ public class SCPTabs {
 
     public static final RegistryObject<CreativeModeTab> BLOCK_TAB = TABS.register("block_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.blocks")).icon(() ->
-                    new ItemStack(SCPItems.BLOCKS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
+                    new ItemStack(SCPBlocks.SCP_019.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Block> key : SCPBlocks.BLOCKS.getEntries()) {
                     entries.accept(key.get());
                 }
@@ -35,10 +35,9 @@ public class SCPTabs {
 
     public static final RegistryObject<CreativeModeTab> ENTITY_TAB = TABS.register("entity_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.entities")).icon(() ->
-                    new ItemStack(SCPItems.ENTITIES_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
-
+                    new ItemStack(SCPItems.SCP_173_SPAWN_EGG.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
-                    if (key.get() instanceof ForgeSpawnEggItem) {
+                    if (key.get() instanceof ForgeSpawnEggItem && !(key.get() == SCPItems.REBEL_SPAWN_EGG.get())) {
                         entries.accept(key.get());
                     }
                 }
@@ -48,7 +47,7 @@ public class SCPTabs {
 
     public static final RegistryObject<CreativeModeTab> ITEM_TAB = TABS.register("item_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creativemodetab.securecraftprotecttab.items")).icon(() ->
-                    new ItemStack(SCPItems.ITEMS_TAB_ICON.get())).displayItems((enabledFeatures, entries) -> {
+                    new ItemStack(SCPItems.SCP_1025.get())).displayItems((enabledFeatures, entries) -> {
 
                 for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
                     if (!(key.get() instanceof BlockItem || key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem) || key.get() instanceof SolidBucketMobItem) {

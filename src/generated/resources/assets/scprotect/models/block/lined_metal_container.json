@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/metal_container",
+    "side": "scprotect:block/lined_metal_container",
+    "top": "scprotect:block/metal_container"
+  }
+}

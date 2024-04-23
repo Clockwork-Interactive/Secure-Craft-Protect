@@ -4,6 +4,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,19 +33,35 @@ public class SCPBlocks {
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                     .strength(2.0F).noOcclusion().noLootTable()));
 
+    public static final RegistryObject<Block> AGED_BRICK_STAIRS = registerBlock("aged_brick_stairs",
+            () -> new StairBlock(() -> SCPBlocks.AGED_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion().noLootTable()));
+
+    public static final RegistryObject<Block> AGED_CONCRETE_STAIRS = registerBlock("aged_concrete_stairs",
+            () -> new StairBlock(() -> SCPBlocks.AGED_CONCRETE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion().noLootTable()));
+
+    public static final RegistryObject<Block> AGED_BRICK_SLAB = registerBlock("aged_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion().noLootTable()));
+
+    public static final RegistryObject<Block> AGED_CONCRETE_SLAB = registerBlock("aged_concrete_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion().noLootTable()));
+
     // SCPs
 
     public static final RegistryObject<Block> SCP_019 = registerBlock("scp_019",
             () -> new SCP019(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noOcclusion()));
 
     public static final RegistryObject<Block> SCP_330 = registerBlock("scp_330",
             () -> new SCP330(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noOcclusion()));
 
     public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
             () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
-                    .strength(2.0F).noOcclusion().noLootTable().lightLevel((pState) -> 15)));
+                    .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));
 
     // Pocket Dimension
 

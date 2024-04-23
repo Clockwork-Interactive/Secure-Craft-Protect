@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/white_tile_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/white_tiles"
+    },
+    "type=top": {
+      "model": "scprotect:block/white_tile_slab_top"
+    }
+  }
+}

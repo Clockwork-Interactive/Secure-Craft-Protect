@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "scprotect:block/mosaic_tiles",
+    "side": "scprotect:block/mosaic_tiles",
+    "top": "scprotect:block/mosaic_tiles"
+  }
+}

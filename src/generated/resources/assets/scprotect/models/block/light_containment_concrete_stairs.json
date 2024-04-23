@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "scprotect:block/light_containment_concrete",
+    "side": "scprotect:block/light_containment_concrete",
+    "top": "scprotect:block/light_containment_concrete"
+  }
+}

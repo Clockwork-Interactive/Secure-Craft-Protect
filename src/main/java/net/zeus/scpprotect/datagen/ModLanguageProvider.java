@@ -77,6 +77,11 @@ public class ModLanguageProvider extends LanguageProvider {
                 continue;
             }
 
+            if (registry == SCPItems.SCP_019_2_SPAWN_EGG) {
+                add(registry.get(), "SCP-019-2 Spawn Egg");
+                continue;
+            }
+
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {

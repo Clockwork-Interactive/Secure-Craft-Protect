@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/metal_plate_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/metal_plate"
+    },
+    "type=top": {
+      "model": "scprotect:block/metal_plate_slab_top"
+    }
+  }
+}

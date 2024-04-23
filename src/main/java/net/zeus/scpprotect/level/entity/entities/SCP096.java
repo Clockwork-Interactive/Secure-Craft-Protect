@@ -42,6 +42,7 @@ import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -74,6 +75,8 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     public static final RawAnimation SITTING_ANIMATION = RawAnimation.begin().thenLoop("sitting");
     public static final RawAnimation TRIGGERED_ANIMATION = RawAnimation.begin().thenPlay("triggered");
     public static final RawAnimation RUNNING_ANIMATION = RawAnimation.begin().thenLoop("running");
+    public static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("idle");
+    public static final RawAnimation WALKING_ANIMATION = RawAnimation.begin().thenLoop("walking");
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BYTE);
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -175,45 +178,41 @@ public class SCP096 extends Monster implements GeoEntity, Anomaly, NeutralMob {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
                     PlayerClientData.checkAndUpdateIdle(this);
-                    return PlayState.STOP;
-                })
+                    return PlayState.CONTINUE;
+        })
                         .triggerableAnim("triggered", TRIGGERED_ANIMATION)
                         .triggerableAnim("running", RUNNING_ANIMATION)
                         .triggerableAnim("climbing", CLIMBING_ANIMATION)
                         .triggerableAnim("crouch", CROUCHING_ANIMATION)
                         .triggerableAnim("sitting", SITTING_ANIMATION)
+                        .triggerableAnim("idle", IDLE_ANIMATION)
+                        .triggerableAnim("walking", WALKING_ANIMATION)
                         .triggerableAnim("none", RawAnimation.begin())
         );
+        controllerRegistrar.add(new AnimationController<>(this, "controller_2", 0, state -> {
+            if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && !state.isMoving() && !this.isTriggered()) {
+                triggerAnim("controller", "idle");
+            }
+            if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && state.isMoving() && !this.isTriggered()) {
+                triggerAnim("controller", "walking");
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
-            return false;
-        }
-        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
+        return false;
     }
 
     @Override
     public boolean doLegAnimations(AnimationState<?> state) {
-        if (this.isCurrentAnimation(state, RUNNING_ANIMATION)) return false;
-        if (this.getChargeTime() != this.getDefaultChargeTime() && this.isCurrentAnimation(state, TRIGGERED_ANIMATION))
-            return false;
-        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
-            return false;
-        } else {
-            BlockPos above = this.blockPosition().above(2);
-            if (this.isTriggered() && !this.level().getBlockState(above).isAir()) {
-                this.triggerAnim("controller", "crouch");
-                return false;
-            }
-        }
-        return !this.isCurrentAnimation(state, SITTING_ANIMATION);
+        return false;
     }
 
     @Override
     public boolean doHeadAnimation(AnimationState<?> state) {
-        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION)) {
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION) || !state.isMoving()) {
             return false;
         }
         return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, TRIGGERED_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION);

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/mosaic_tile_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/mosaic_tiles"
+    },
+    "type=top": {
+      "model": "scprotect:block/mosaic_tile_slab_top"
+    }
+  }
+}

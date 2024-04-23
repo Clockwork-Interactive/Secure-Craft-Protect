@@ -1,11 +1,14 @@
 package net.zeus.scpprotect.level.block.custom;
 
+import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
+import it.unimi.dsi.fastutil.ints.Int2BooleanFunctions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.refractionapi.refraction.voxels.VoxelUtil;
 
+import java.awt.*;
 import java.util.stream.Stream;
 
 public class VoxelShapes {
@@ -27,14 +30,6 @@ public class VoxelShapes {
     public static final VoxelShape SCP_330 = Block.box(3, 0, 3, 13, 4, 13);
 
     public static final VoxelShape[] SCP_310 = VoxelUtil.makeHorizontalShapes(Stream.of(
-            Block.box(5, 0, 5, 11, 1, 11),
-            Block.box(5, 1, 11, 11, 2, 12),
-            Block.box(5, 1, 4, 11, 2, 5),
-            Block.box(11, 1, 5, 12, 2, 11),
-            Block.box(4, 1, 5, 5, 2, 11),
-            Block.box(7, 1, 7, 9, 4, 9),
-            Block.box(8, 4, 7.5, 8, 5, 8.5),
-            Block.box(8, 4, 7.5, 8, 5, 8.5)
-    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+            Block.box(4, 0, 4, 12, 1, 12), Block.box(7, 1, 7, 9, 4, 9)).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
 
 }

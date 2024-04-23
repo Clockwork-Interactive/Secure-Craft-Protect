@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/entrance_zone_concrete_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/entrance_zone_concrete"
+    },
+    "type=top": {
+      "model": "scprotect:block/entrance_zone_concrete_slab_top"
+    }
+  }
+}

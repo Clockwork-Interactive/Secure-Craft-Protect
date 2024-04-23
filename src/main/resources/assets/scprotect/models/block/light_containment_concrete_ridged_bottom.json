@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "scprotect:block/facility/lcz/lc_concrete",
-    "side": "scprotect:block/facility/lcz/lc_concrete_metal_border_bottom",
-    "top": "scprotect:block/facility/lcz/lc_concrete"
-  }
-}

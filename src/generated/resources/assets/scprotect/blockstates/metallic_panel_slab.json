@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/metallic_panel_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/metallic_panels"
+    },
+    "type=top": {
+      "model": "scprotect:block/metallic_panel_slab_top"
+    }
+  }
+}

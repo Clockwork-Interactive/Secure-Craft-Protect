@@ -13,6 +13,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.block.custom.SCP019;
+import net.zeus.scpprotect.level.block.custom.SCP310;
+import net.zeus.scpprotect.level.block.custom.SCP330;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -45,10 +48,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
 
         for (RegistryObject<Block> registry : SCPBlocks.BLOCKS.getEntries()) {
-            if (registry.get() instanceof Anomaly) {
-                blockItemWithTexture(registry, new ResourceLocation(SCP.MOD_ID, "item/%s".formatted(registry.getId().getPath())));
-            }
-            blockItem(registry);
+            if (registry.get() instanceof SCP019 || registry.get() instanceof SCP330 || registry.get() instanceof SCP310) continue;
         }
 
     }

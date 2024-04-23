@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/light_containment_concrete_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/light_containment_concrete"
+    },
+    "type=top": {
+      "model": "scprotect:block/light_containment_concrete_slab_top"
+    }
+  }
+}

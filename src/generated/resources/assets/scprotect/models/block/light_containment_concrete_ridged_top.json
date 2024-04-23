@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/light_containment_concrete",
+    "side": "scprotect:block/light_containment_concrete_ridged_top",
+    "top": "scprotect:block/light_containment_concrete"
+  }
+}

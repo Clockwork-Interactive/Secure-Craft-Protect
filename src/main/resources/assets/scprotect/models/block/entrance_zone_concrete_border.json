@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "scprotect:block/facility/ez/ez_concrete",
-    "side": "scprotect:block/facility/ez/ez_concrete_border",
-    "top": "scprotect:block/facility/ez/ez_concrete"
-  }
-}

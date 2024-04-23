@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "scprotect:block/metal_plate",
+    "side": "scprotect:block/metal_plate",
+    "top": "scprotect:block/metal_plate"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/cement_brick_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/cement_bricks"
+    },
+    "type=top": {
+      "model": "scprotect:block/cement_brick_slab_top"
+    }
+  }
+}

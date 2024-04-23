@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "scprotect:block/entrance_zone_concrete",
+    "side": "scprotect:block/entrance_zone_concrete",
+    "top": "scprotect:block/entrance_zone_concrete"
+  }
+}

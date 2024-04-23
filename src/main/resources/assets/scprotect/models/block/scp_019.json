@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "scprotect:block/scp_019",
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "scprotect:block/scp_019",

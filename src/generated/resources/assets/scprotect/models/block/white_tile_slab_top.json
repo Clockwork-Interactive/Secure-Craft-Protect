@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "scprotect:block/white_tiles",
+    "side": "scprotect:block/white_tiles",
+    "top": "scprotect:block/white_tiles"
+  }
+}

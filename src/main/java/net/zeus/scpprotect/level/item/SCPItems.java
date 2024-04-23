@@ -56,9 +56,9 @@ public class SCPItems {
     // MISC
     public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> BLOCKS_TAB_ICON = ITEMS.register("blocks_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
-    public static final RegistryObject<Item> ENTITIES_TAB_ICON = ITEMS.register("entities_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
-    public static final RegistryObject<Item> ITEMS_TAB_ICON = ITEMS.register("items_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    //public static final RegistryObject<Item> BLOCKS_TAB_ICON = ITEMS.register("blocks_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    //public static final RegistryObject<Item> ENTITIES_TAB_ICON = ITEMS.register("entities_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    //public static final RegistryObject<Item> ITEMS_TAB_ICON = ITEMS.register("items_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> CONTAINMENT_ITEM = ITEMS.register("containment_item", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_3199_EGG_BUCKET = ITEMS.register("scp_3199_egg_bucket", () -> new SolidBucketMobItem(Blocks.POWDER_SNOW, SCPEntity.SCP_3199_EGG::get, SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Item.Properties().stacksTo(1)));
 

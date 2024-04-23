@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/entrance_zone_concrete",
+    "side": "scprotect:block/entrance_zone_concrete_striped",
+    "top": "scprotect:block/entrance_zone_concrete"
+  }
+}
