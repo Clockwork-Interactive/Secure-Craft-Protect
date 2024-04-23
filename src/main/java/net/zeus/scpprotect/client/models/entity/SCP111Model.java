@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.SCP111;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -26,7 +27,7 @@ public class SCP111Model extends DefaultModel<SCP111> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(SCP111 animatable) {
+    public ResourceLocation getTextureResource(@NotNull SCP111 animatable) {
         return switch (animatable.getVariant()) {
             default -> new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_111/scp_111_red.png");
             case 1 -> new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_111/scp_111_blue.png");

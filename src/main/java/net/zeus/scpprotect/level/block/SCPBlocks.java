@@ -27,27 +27,27 @@ public class SCPBlocks {
 
     public static final RegistryObject<Block> AGED_BRICKS = registerBlock("aged_bricks",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     public static final RegistryObject<Block> AGED_CONCRETE = registerBlock("aged_concrete",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     public static final RegistryObject<Block> AGED_BRICK_STAIRS = registerBlock("aged_brick_stairs",
             () -> new StairBlock(() -> SCPBlocks.AGED_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     public static final RegistryObject<Block> AGED_CONCRETE_STAIRS = registerBlock("aged_concrete_stairs",
             () -> new StairBlock(() -> SCPBlocks.AGED_CONCRETE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     public static final RegistryObject<Block> AGED_BRICK_SLAB = registerBlock("aged_brick_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     public static final RegistryObject<Block> AGED_CONCRETE_SLAB = registerBlock("aged_concrete_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).noLootTable()));
 
     // SCPs
 

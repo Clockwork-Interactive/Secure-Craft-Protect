@@ -65,6 +65,8 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_3199_LAY = registerSoundEvent("scp_3199_lay");
     public static final RegistryObject<SoundEvent> SCP_111_IDLE_1 = registerSoundEvent("scp_111_idle_1");
     public static final RegistryObject<SoundEvent> SCP_111_IDLE_2 = registerSoundEvent("scp_111_idle_2");
+    public static final RegistryObject<SoundEvent> SCP_131_IDLE = registerSoundEvent("scp_131_idle");
+    public static final RegistryObject<SoundEvent> SCP_131_HURT = registerSoundEvent("scp_131_hurt");
 
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");

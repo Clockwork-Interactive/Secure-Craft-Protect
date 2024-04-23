@@ -178,7 +178,7 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
         controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
                     PlayerClientData.checkAndUpdateIdle(this);
                     return PlayState.CONTINUE;
-        })
+                })
                         .triggerableAnim("triggered", TRIGGERED_ANIMATION)
                         .triggerableAnim("running", RUNNING_ANIMATION)
                         .triggerableAnim("climbing", CLIMBING_ANIMATION)
@@ -191,9 +191,13 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
         controllerRegistrar.add(new AnimationController<>(this, "controller_2", 0, state -> {
             if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && !state.isMoving() && !this.isTriggered()) {
                 triggerAnim("controller", "idle");
+            } else {
+                triggerAnim("controller", "none");
             }
             if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && state.isMoving() && !this.isTriggered()) {
                 triggerAnim("controller", "walking");
+            } else {
+                triggerAnim("controller", "none");
             }
             return PlayState.CONTINUE;
         }));
@@ -201,10 +205,7 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION) || this.isCurrentAnimation(state, IDLE_ANIMATION) || this.isCurrentAnimation(state, WALKING_ANIMATION)) {
-            return false;
-        }
-        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
+        return false;
     }
 
     @Override

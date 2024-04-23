@@ -64,6 +64,16 @@
       "scprotect:scp_111_idle_2"
     ]
   },
+  "scp_131_hurt": {
+    "sounds": [
+      "scprotect:scp_131_hurt"
+    ]
+  },
+  "scp_131_idle": {
+    "sounds": [
+      "scprotect:scp_131_idle"
+    ]
+  },
   "scp_173_horror_1": {
     "sounds": [
       "scprotect:scp_173_horror_1"

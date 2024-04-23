@@ -9,12 +9,10 @@ import software.bernie.geckolib.core.animation.AnimationState;
 
 public class SCP096Model extends BiPedalModel<SCP096> {
     public Running096TickableSound tickableSoundRunning = null;
-
     @Override
     public String model(int process, SCP096 animatable) {
         Player player = Minecraft.getInstance().player;
         if (player == null) return "scp_096";
-
         if (animatable.isTriggered() && animatable.isAlive() && animatable.distanceTo(player) < 30.0F) {
             if (this.tickableSoundRunning == null) {
                 this.tickableSoundRunning = new Running096TickableSound(animatable);
@@ -40,12 +38,10 @@ public class SCP096Model extends BiPedalModel<SCP096> {
 
         return "scp_096";
     }
-
     @Override
     public boolean hasAnimation() {
         return true;
     }
-
     @Override
     public void onAnimate(AnimationState<?> state, SCP096 animatable) {
         if (!animatable.isClimbing() && animatable.isCurrentAnimation(state, SCP096.CLIMBING_ANIMATION)) {

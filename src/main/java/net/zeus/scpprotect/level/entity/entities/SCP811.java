@@ -47,7 +47,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anomaly {
+    private static final EntityDataAccessor<Boolean> DATA_HAS_TARGET = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
+    public static final RawAnimation SIT_ANIM = RawAnimation.begin().thenPlay("811_sit");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -83,15 +85,36 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                 .add(Attributes.ATTACK_DAMAGE, 3.0F)
                 .add(Attributes.ATTACK_SPEED, 0.5F)
                 .add(Attributes.MAX_HEALTH, 30.0F)
-                .add(Attributes.FOLLOW_RANGE, 32.0F)
+                .add(Attributes.FOLLOW_RANGE, 40.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.2F)
+                .add(ForgeMod.ENTITY_REACH.get(), 3.0F)
                 .add(ForgeMod.SWIM_SPEED.get(), 3.0F);
     }
 
     @Override
-    public void tick() {
-        super.tick();
+    public void setTarget(@Nullable LivingEntity pTarget) {
+        super.setTarget(pTarget);
+        this.setHasTarget(pTarget != null);
+    }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SITTING, false);
+        this.entityData.define(DATA_HAS_TARGET, false);
+    }
+
+    public boolean hasTarget() {
+        return this.entityData.get(DATA_HAS_TARGET);
+    }
+
+    public void setHasTarget(boolean hasTarget) {
+        this.entityData.set(DATA_HAS_TARGET, hasTarget);
+        this.triggerAnim("controller", "none");
+    }
+
+    @Override
+    public void tick() {
         if (this.getRandom().nextFloat() > 0.9999F) {
             BlockState blockState = this.level().getBlockState(this.getOnPos());
             if (blockState.getBlock() instanceof BonemealableBlock bonemealableblock) {
@@ -104,7 +127,7 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                 }
             }
         }
-
+        super.tick();
     }
 
     @Override
@@ -200,6 +223,7 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                     InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
                     if (!interactionresult.consumesAction() && !this.isOrderedToSit() || this.isBaby()) {
                         setSitting(true);
+                        this.triggerAnim("controller", "811_sit");
                     } else if (!interactionresult.consumesAction() && this.isOrderedToSit() || this.isBaby()) {
                         setSitting(false);
                         this.triggerAnim("controller", "none");
@@ -233,10 +257,8 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
         return SCP.SCPTypes.EUCLID;
     }
 
-    private static final RawAnimation SIT_ANIM = RawAnimation.begin().then("811_sit", Animation.LoopType.HOLD_ON_LAST_FRAME);
-
     private boolean isCurrentAnimation(AnimationState<?> state) {
-        return !state.isCurrentAnimation(SCP811.SIT_ANIM) || state.getController().hasAnimationFinished();
+        return !state.isCurrentAnimation(SIT_ANIM) || state.getController().hasAnimationFinished();
     }
 
     @Override
@@ -257,19 +279,12 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
     }
 
     public void setSitting(boolean sitting) {
-        this.triggerAnim("controller", "811_sit");
         this.entityData.set(SITTING, sitting);
         this.setOrderedToSit(sitting);
     }
 
     public boolean isSitting() {
         return this.entityData.get(SITTING);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SITTING, false);
     }
 
     @Override

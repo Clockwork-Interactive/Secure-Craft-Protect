@@ -4,7 +4,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.entity.entities.SCP111;
+import net.zeus.scpprotect.level.entity.entities.SCP999;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public abstract class DefaultModel<T extends GeoAnimatable> extends GeoModel<T> {

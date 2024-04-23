@@ -136,18 +136,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(block.get(), models().cubeBottomTop(block.getId().getPath(), side, bottom, top));
     }
 
-    private void stairBlock(RegistryObject<Block> block, ResourceLocation texture) {
-        stairsBlock((StairBlock)block.get(), texture);
-        simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
-    }
-
     private void slabBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {
         slabBlock((SlabBlock)block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
-        simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
-    }
-
-    private void slabBlock(RegistryObject<Block> block, ResourceLocation texture) {
-        slabBlock((SlabBlock)block.get(), texture, texture);
         simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
     }
 

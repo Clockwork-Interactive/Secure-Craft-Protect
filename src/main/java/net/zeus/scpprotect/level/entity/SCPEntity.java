@@ -31,14 +31,23 @@ public class SCPEntity {
     public static final RegistryObject<EntityType<SCP096>> SCP_096 = ENTITIES.register("scp_096",
             () -> EntityType.Builder.of(SCP096::new, MobCategory.MONSTER).sized(0.5F, 1.82F).clientTrackingRange(1000).build("scp_096"));
 
+    public static final RegistryObject<EntityType<SCP131>> SCP_131 = ENTITIES.register("scp_131",
+            () -> EntityType.Builder.of(SCP131::new, MobCategory.MISC).sized(0.6F, 0.6F).build(SCP.MOD_ID + ":scp_131"));
+
     public static final RegistryObject<EntityType<SCP173>> SCP_173 = ENTITIES.register("scp_173",
             () -> EntityType.Builder.of(SCP173::new, MobCategory.MONSTER).sized(0.5F, 1.8F).build("scp_173"));
+
+    public static final RegistryObject<EntityType<SCP346>> SCP_346 = ENTITIES.register("scp_346",
+            () -> EntityType.Builder.of(SCP346::new, MobCategory.MISC).sized(0.6F, 0.6F).build(SCP.MOD_ID + ":scp_346"));
 
     public static final RegistryObject<EntityType<SCP939>> SCP_939 = ENTITIES.register("scp_939",
             () -> EntityType.Builder.of(SCP939::new, MobCategory.MONSTER).sized(1.4F, 1.3F).build("scp_939"));
 
     public static final RegistryObject<EntityType<SCP966>> SCP_966 = ENTITIES.register("scp_966",
             () -> EntityType.Builder.of(SCP966::new, MobCategory.MONSTER).sized(0.5F, 2.2F).build("scp_966"));
+
+    public static final RegistryObject<EntityType<SCP999>> SCP_999 = ENTITIES.register("scp_999",
+            () -> EntityType.Builder.of(SCP999::new, MobCategory.MISC).sized(0.6F, 0.6F).build(SCP.MOD_ID + ":scp_999"));
 
     public static final RegistryObject<EntityType<SCP019_2>> SCP_019_2 = ENTITIES.register("scp_019_2",
             () -> EntityType.Builder.of(SCP019_2::new, MobCategory.MONSTER).sized(0.7F, 0.6F).build("scp_019_2"));
