@@ -191,13 +191,9 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
         controllerRegistrar.add(new AnimationController<>(this, "controller_2", 0, state -> {
             if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && !state.isMoving() && !this.isTriggered()) {
                 triggerAnim("controller", "idle");
-            } else {
-                triggerAnim("controller", "none");
             }
             if (!this.isCurrentAnimation(state, SITTING_ANIMATION) && state.isMoving() && !this.isTriggered()) {
                 triggerAnim("controller", "walking");
-            } else {
-                triggerAnim("controller", "none");
             }
             return PlayState.CONTINUE;
         }));
@@ -205,7 +201,10 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return false;
+        if (this.isCurrentAnimation(state, CROUCHING_ANIMATION) || this.isCurrentAnimation(state, IDLE_ANIMATION) || this.isCurrentAnimation(state, WALKING_ANIMATION)) {
+            return false;
+        }
+        return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION) && !this.isTriggered() && (state.getController().hasAnimationFinished() || this.getChargeTime() == this.getDefaultChargeTime());
     }
 
     @Override

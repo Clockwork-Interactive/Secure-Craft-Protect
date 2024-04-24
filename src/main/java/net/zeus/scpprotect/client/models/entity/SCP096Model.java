@@ -1,12 +1,9 @@
 package net.zeus.scpprotect.client.models.entity;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
 import software.bernie.geckolib.core.animation.AnimationState;
-
 public class SCP096Model extends BiPedalModel<SCP096> {
     public Running096TickableSound tickableSoundRunning = null;
     @Override

@@ -28,6 +28,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.projectiles.ToxicSpit;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.util.Misc;
@@ -100,9 +102,8 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
         }
         if (stack.is(Items.BONE_MEAL)) {
             if (!this.level().isClientSide) {
-                SmallFireball fireball = new SmallFireball(this.level(), this, 0, 0, 0);
-                fireball.setPos(this.getX(), this.getEyeY() + 0.1D, this.getZ());
-                fireball.shoot(this.getLookAngle().x, this.getLookAngle().y, this.getLookAngle().z, 1.5F, 0.1F);
+                SmallFireball fireball = new SmallFireball(this.level(), this, this.getX() + 0, this.getY() + 2.0F, this.getZ() + 0);
+                fireball.shootFromRotation(this, this.getXRot(), this.getYRot(), 0.0F, 3.0F, 0.0F);
                 this.level().addFreshEntity(fireball);
             }
             stack.shrink(1);

@@ -68,6 +68,11 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_131_IDLE = registerSoundEvent("scp_131_idle");
     public static final RegistryObject<SoundEvent> SCP_131_HURT = registerSoundEvent("scp_131_hurt");
 
+    public static final RegistryObject<SoundEvent> SCP_966_DEATH = registerSoundEvent("scp_966_death");
+    public static final RegistryObject<SoundEvent> SCP_966_IDLE1 = registerSoundEvent("scp_966_idle_1");
+    public static final RegistryObject<SoundEvent> SCP_966_IDLE2 = registerSoundEvent("scp_966_idle_2");
+    public static final RegistryObject<SoundEvent> SCP_966_IDLE3 = registerSoundEvent("scp_966_idle_3");
+
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
 

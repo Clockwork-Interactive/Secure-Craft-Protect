@@ -288,5 +288,25 @@
     "sounds": [
       "scprotect:scp_939_spot_target"
     ]
+  },
+  "scp_966_death": {
+    "sounds": [
+      "scprotect:scp_966_death"
+    ]
+  },
+  "scp_966_idle_1": {
+    "sounds": [
+      "scprotect:scp_966_idle_1"
+    ]
+  },
+  "scp_966_idle_2": {
+    "sounds": [
+      "scprotect:scp_966_idle_2"
+    ]
+  },
+  "scp_966_idle_3": {
+    "sounds": [
+      "scprotect:scp_966_idle_3"
+    ]
   }
 }

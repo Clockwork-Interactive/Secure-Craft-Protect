@@ -1,6 +1,7 @@
 package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -20,8 +21,10 @@ import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.goals.SCP966LookForPlayerGoal;
 import net.zeus.scpprotect.level.entity.goals.SCP966PanicGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -40,6 +43,18 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(2, new SCP966LookForPlayerGoal(this, Player.class, false));
         this.addBehaviourGoals();
         this.setPersistenceRequired();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        SoundEvent[] idleSounds = new SoundEvent[]{SCPSounds.SCP_966_IDLE1.get(), SCPSounds.SCP_966_IDLE2.get(), SCPSounds.SCP_966_IDLE3.get()};
+        return idleSounds[this.random.nextInt(0, idleSounds.length - 1)];
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SCPSounds.SCP_966_DEATH.get();
     }
 
     protected void addBehaviourGoals() {

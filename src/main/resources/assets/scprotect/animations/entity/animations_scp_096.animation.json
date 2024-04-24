@@ -3,7 +3,7 @@
 	"animations": {
 		"sitting": {
 			"loop": true,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -57,7 +57,7 @@
 		},
 		"triggered": {
 			"animation_length": 35.4,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -321,7 +321,7 @@
 		"running": {
 			"loop": true,
 			"animation_length": 0.32,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"all": {
 					"rotation": {
@@ -482,7 +482,7 @@
 		"climbing": {
 			"loop": true,
 			"animation_length": 0.48,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"body": {
 					"rotation": {
@@ -661,7 +661,7 @@
 		"crouch": {
 			"loop": true,
 			"animation_length": 0.48,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"body": {
 					"rotation": {
@@ -816,7 +816,7 @@
 		"walking": {
 			"loop": true,
 			"animation_length": 2.76,
-			"override_previous_animation": true,
+			"override_previous_animation": false,
 			"bones": {
 				"waist": {
 					"rotation": {

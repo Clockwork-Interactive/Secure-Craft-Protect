@@ -2,6 +2,7 @@ package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -62,12 +63,12 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.2f));
         this.goalSelector.addGoal(2, new PanicGoal(this, 1f));
 
-        this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, SCP173.class, 10.0F));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, SCP173.class, 10.0F));
 
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
-        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.goalSelector.addGoal(5, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
+        this.targetSelector.addGoal(5, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(5, new OwnerHurtTargetGoal(this));
 
         super.registerGoals();
     }
@@ -151,8 +152,15 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         }
 
         InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
-        if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
+        if (this.isOwnedBy(pPlayer) && !stack.is(Items.RED_DYE) || !stack.is(Items.YELLOW_DYE)) {
             this.setOrderedToSit(!this.isOrderedToSit());
+            String isSittingText;
+            if (this.isOrderedToSit()) {
+                isSittingText = "Is Sitting";
+            } else {
+                isSittingText = "Is Roaming";
+            }
+            pPlayer.displayClientMessage(Component.literal("SCP-131 " + isSittingText), true);
             this.jumping = false;
             this.navigation.stop();
             this.setTarget((LivingEntity)null);

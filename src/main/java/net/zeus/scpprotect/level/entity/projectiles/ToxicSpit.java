@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.entity.projectiles;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -9,6 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -52,7 +56,12 @@ public class ToxicSpit extends AbstractArrow implements GeoEntity {
 
     @Override
     protected void onHit(HitResult pResult) {
-        this.discard();
+        HitResult.Type hitresult$type = pResult.getType();
+        if (hitresult$type == HitResult.Type.ENTITY) {
+            this.onHitEntity((EntityHitResult)pResult);
+        } else if (hitresult$type == HitResult.Type.BLOCK) {
+            this.discard();
+        }
     }
 
 

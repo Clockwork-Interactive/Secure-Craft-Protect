@@ -6,16 +6,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SolidBucketItem;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -31,6 +34,7 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
@@ -137,6 +141,30 @@ public class CommonForgeEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
         ItemStack stack = event.getItemStack();
+
+        // SCP-999
+
+        if (event.getTarget() instanceof Bucketable bucketable &&
+                bucketable.getBucketItemStack().getItem() instanceof SCP999BucketItem bucketItem
+                && !(stack.getItem() instanceof SCP999BucketItem) && event.getTarget().isAlive()) {
+
+            if (stack.getItem() instanceof BucketItem item) {
+                ItemStack bucketItemStack = bucketable.getBucketItemStack();
+                Fluid requiredFluid = bucketItem.getFluid();
+                Fluid fluid = item.getFluid();
+                Entity player = event.getEntity();
+                if (fluid.equals(requiredFluid)) {
+                    player.playSound(SoundEvents.BUCKET_FILL_FISH, 0.7F, 1.0F);
+                    bucketable.saveToBucketTag(bucketItemStack);
+                    event.getEntity().setItemInHand(event.getHand(), bucketItemStack);
+                    event.getTarget().discard();
+                }
+            }
+
+        }
+
+        // SCP-3199 Egg
+
         if (event.getTarget() instanceof Bucketable bucketable &&
                 bucketable.getBucketItemStack().getItem() instanceof SolidBucketMobItem bucketItem
                 && !(stack.getItem() instanceof SolidBucketMobItem) && event.getTarget().isAlive()) {

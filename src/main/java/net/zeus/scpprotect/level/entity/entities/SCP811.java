@@ -1,6 +1,7 @@
 package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -102,10 +103,6 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
         super.defineSynchedData();
         this.entityData.define(SITTING, false);
         this.entityData.define(DATA_HAS_TARGET, false);
-    }
-
-    public boolean hasTarget() {
-        return this.entityData.get(DATA_HAS_TARGET);
     }
 
     public void setHasTarget(boolean hasTarget) {
@@ -223,9 +220,11 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                     InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
                     if (!interactionresult.consumesAction() && !this.isOrderedToSit() || this.isBaby()) {
                         setSitting(true);
+                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is Sitting"), true);
                         this.triggerAnim("controller", "811_sit");
                     } else if (!interactionresult.consumesAction() && this.isOrderedToSit() || this.isBaby()) {
                         setSitting(false);
+                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is Roaming"), true);
                         this.triggerAnim("controller", "none");
                     }
 

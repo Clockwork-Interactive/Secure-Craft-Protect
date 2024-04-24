@@ -72,6 +72,11 @@ public class ModLanguageProvider extends LanguageProvider {
                 continue;
             }
 
+            if (registry == SCPItems.SCP_999_BUCKET) {
+                add(registry.get(), "Bucket of SCP-999");
+                continue;
+            }
+
             if (registry == SCPItems.REBEL_SPAWN_EGG) {
                 add(registry.get(), "Rebel Spawn Egg");
                 continue;
