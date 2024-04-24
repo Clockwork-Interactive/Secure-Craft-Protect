@@ -1,8 +1,10 @@
-package net.zeus.scpprotect.datagen;
+package net.zeus.scpprotect.datagen.loot;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.zeus.scpprotect.datagen.loot.ModBlockLootTables;
+import net.zeus.scpprotect.datagen.loot.ModEntityLootTables;
 
 import java.util.List;
 import java.util.Set;

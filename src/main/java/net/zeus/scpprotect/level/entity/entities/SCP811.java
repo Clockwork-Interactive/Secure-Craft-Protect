@@ -88,7 +88,6 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                 .add(Attributes.MAX_HEALTH, 30.0F)
                 .add(Attributes.FOLLOW_RANGE, 40.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.2F)
-                .add(ForgeMod.ENTITY_REACH.get(), 3.0F)
                 .add(ForgeMod.SWIM_SPEED.get(), 3.0F);
     }
 

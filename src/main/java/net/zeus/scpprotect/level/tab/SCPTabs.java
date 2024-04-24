@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -26,9 +27,11 @@ public class SCPTabs {
             .title(Component.translatable("creativemodetab.securecraftprotecttab.blocks")).icon(() ->
                     new ItemStack(SCPBlocks.SCP_019.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Block> key : SCPBlocks.BLOCKS.getEntries()) {
+                    if (key.get() instanceof LiquidBlock) continue;
                     entries.accept(key.get());
                 }
                 for (RegistryObject<Block> key : FacilityBlocks.BLOCKS.getEntries()) {
+                    if (key.get() instanceof LiquidBlock) continue;
                     entries.accept(key.get());
                 }
             }).build());

@@ -2,6 +2,8 @@ package net.zeus.scpprotect;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +22,8 @@ import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.fluid.SCPFluidTypes;
+import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
@@ -54,6 +58,10 @@ public class SCP {
 
         SCPParticles.PARTICLES.register(modEventBus);
 
+        SCPFluidTypes.FLUID_TYPES.register(modEventBus);
+
+        SCPFluids.FLUIDS.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);
 
@@ -63,14 +71,14 @@ public class SCP {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLClientSetupEvent event)
-    {
-        event.enqueueWork(() ->
-        {
+    private void setup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
             ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
                     new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
                         return SCP500Bottle.getFullnessDisplay(p_174625_);
                     });
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
         });
     }
 

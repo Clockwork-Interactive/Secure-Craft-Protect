@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.datagen;
+package net.zeus.scpprotect.datagen.loot;
 
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;

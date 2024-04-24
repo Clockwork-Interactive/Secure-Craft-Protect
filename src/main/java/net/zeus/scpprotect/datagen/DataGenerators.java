@@ -8,6 +8,8 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.datagen.loot.ModLootTableProvider;
+import net.zeus.scpprotect.datagen.tag.ModFluidTagProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,6 +30,7 @@ public class DataGenerators {
         generator.addProvider(true, new ParticleProvider(packOutput, existingFileHelper));
         generator.addProvider(true, new SoundProvider(packOutput, existingFileHelper));
         generator.addProvider(true, new ModLanguageProvider(packOutput));
+        generator.addProvider(true, new ModFluidTagProvider(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new DatapackProvider(packOutput, lookupProvider));
     }
 

@@ -45,6 +45,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 makePlaceholderModel(registry);
             }
         }
+        handHeldItem(SCPItems.HAIRBRUSH);
         blockItemWithTexture(SCPBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
         blockItemWithTexture(SCPBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));
         blockItemWithTexture(SCPBlocks.SCP_330, new ResourceLocation(SCP.MOD_ID, "item/scp_330"));

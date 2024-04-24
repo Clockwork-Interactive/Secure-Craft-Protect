@@ -18,9 +18,23 @@ import net.zeus.scpprotect.level.item.SCPItems;
 import java.util.function.Supplier;
 
 public class SCPBlocks {
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
 
+    // SCPs
+    public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
+            () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
+                    .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));
+
+    public static final RegistryObject<Block> SCP_330 = registerBlock("scp_330",
+            () -> new SCP330(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion()));
+
+    public static final RegistryObject<Block> SCP_019 = registerBlock("scp_019",
+            () -> new SCP019(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .strength(2.0F).noOcclusion()));
+
+
+    // Misc
     public static final RegistryObject<Block> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrements",
             () -> new SculptureExcrement(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
                     .strength(2.0F).noOcclusion().noLootTable()));
@@ -49,22 +63,8 @@ public class SCPBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                     .strength(2.0F).noLootTable()));
 
-    // SCPs
-
-    public static final RegistryObject<Block> SCP_019 = registerBlock("scp_019",
-            () -> new SCP019(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion()));
-
-    public static final RegistryObject<Block> SCP_330 = registerBlock("scp_330",
-            () -> new SCP330(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion()));
-
-    public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
-            () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
-                    .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));
 
     // Pocket Dimension
-
     public static final RegistryObject<Block> CORRODED_TILES = registerBlock("corroded_tiles",
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
                     .strength(1.8F)));
@@ -90,5 +90,4 @@ public class SCPBlocks {
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         SCPItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
-
 }

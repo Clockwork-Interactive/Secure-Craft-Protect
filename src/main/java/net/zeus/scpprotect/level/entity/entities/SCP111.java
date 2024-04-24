@@ -146,6 +146,11 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
         return idleSounds[this.random.nextInt(0, idleSounds.length - 1)];
     }
 
+    @Override
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
+        return pDimensions.height * 0.7F;
+    }
+
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
