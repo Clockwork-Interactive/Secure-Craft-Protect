@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "scprotect:block/office_grating_ceiling",
+    "side": "scprotect:block/office_ceiling",
+    "top": "scprotect:block/office_ceiling"
+  }
+}

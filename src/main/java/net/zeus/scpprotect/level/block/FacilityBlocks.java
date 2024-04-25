@@ -11,6 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.custom.FileCabinetBlock;
 import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -162,6 +163,25 @@ public class FacilityBlocks {
                     .strength(1.8F).sound(SoundType.COPPER)));
 
     // Misc???
+
+    public static final RegistryObject<Block> DIRTY_METAL = registerBlock("dirty_metal",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> GRATE_BLOCK = registerBlock("grate_block",
+            () -> new GlassBlock(BlockBehaviour.Properties.of().sound(SoundType.COPPER).noOcclusion().mapColor(DyeColor.WHITE)
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> FILECABINET = registerBlock("file_cabinet", () ->
+            new FileCabinetBlock(BlockBehaviour.Properties.of().strength(1.8F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> OFFICE_CEILING = registerBlock("office_ceiling",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(0.6F)));
+
+    public static final RegistryObject<Block> OFFICE_GRATING_CEILING = registerBlock("office_grating_ceiling",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(0.6F)));
 
     public static final RegistryObject<Block> CEMENT_BRICKS = registerBlock("cement_bricks",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(2.0F)));

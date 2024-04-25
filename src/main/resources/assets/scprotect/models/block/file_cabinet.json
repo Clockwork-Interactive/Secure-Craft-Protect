@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "down": "scprotect:block/cabinet_top",
+    "up": "scprotect:block/cabinet_top",
+    "north": "scprotect:block/cabinet_front",
+    "east": "scprotect:block/cabinet_side",
+    "south": "scprotect:block/cabinet_side",
+    "west": "scprotect:block/cabinet_side",
+    "particle": "scprotect:block/cabinet_side"
+  }
+}

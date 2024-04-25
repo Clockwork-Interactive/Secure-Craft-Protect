@@ -9,6 +9,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -99,6 +101,36 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
         super.readAdditionalSaveData(pCompound);
         if (pCompound.contains("type"))
             this.entityData.set(TYPE, pCompound.getInt("type"));
+    }
+
+    @Override
+    public boolean canCollideWith(Entity pEntity) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource.getEntity() instanceof Player player) {
+            if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof PickaxeItem) {
+                this.hurt(this.level().damageSources().generic(), 10.0F);
+                return true;
+            }
+        }
+
+        return pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
+                || pSource.is(DamageTypes.DRAGON_BREATH)
+                || pSource.is(DamageTypes.FALLING_ANVIL)
+                && super.hurt(pSource, pAmount);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.STONE_HIT;
     }
 
     public void setType(int type) {
@@ -202,18 +234,6 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
 
     protected boolean inRange(LivingEntity enemy, double distToEnemySqr) {
         return distToEnemySqr <= this.getBbWidth() * 2.0F * this.getBbWidth() * 2.0F + enemy.getBbWidth();
-    }
-
-    @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (pSource.getEntity() instanceof Player player) {
-            if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof PickaxeItem) {
-                this.hurt(this.level().damageSources().generic(), 10.0F);
-                return true;
-            }
-        }
-
-        return !(pSource.is(DamageTypes.MAGIC) || pSource.is(DamageTypes.DROWN) || pSource.is(DamageTypes.IN_WALL) || pSource.is(DamageTypes.FALL) || pSource.is(DamageTypes.EXPLOSION)) && super.hurt(pSource, pAmount);
     }
 
     public void setPassable(boolean control) {

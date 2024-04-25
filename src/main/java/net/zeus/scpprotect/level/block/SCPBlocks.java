@@ -5,6 +5,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -37,7 +38,7 @@ public class SCPBlocks {
     // Misc
     public static final RegistryObject<Block> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrements",
             () -> new SculptureExcrement(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
-                    .strength(2.0F).noOcclusion().noLootTable()));
+                    .strength(2.0F).sound(SoundType.SLIME_BLOCK).noOcclusion().noLootTable()));
 
     public static final RegistryObject<Block> AGED_BRICKS = registerBlock("aged_bricks",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)

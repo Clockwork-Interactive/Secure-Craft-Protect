@@ -37,18 +37,22 @@ public class SCP500Pill extends Item implements Anomaly, DataGenObj {
         if (!pLevel.isClientSide) {
             pEntityLiving.curePotionEffects(pStack);
         }
+
         if (pEntityLiving instanceof ServerPlayer serverplayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, pStack);
             serverplayer.awardStat(Stats.ITEM_USED.get(this));
         }
+
         if (pEntityLiving instanceof Player && !((Player)pEntityLiving).getAbilities().instabuild) {
             ((Player) pEntityLiving).getCooldowns().addCooldown(SCPItems.SCP_500.get(), 40);
             pStack.shrink(1);
         }
+
         Map<MobEffect, MobEffectInstance> effects = pEntityLiving.getActiveEffectsMap();
         effects.entrySet().removeIf(mobEffectMobEffectInstanceEntry -> !mobEffectMobEffectInstanceEntry.getKey().isBeneficial());
 
-        return super.finishUsingItem(pStack, pLevel, pEntityLiving);
+
+        return pStack.isEmpty() ? new ItemStack(Items.BUCKET) : pStack;
     }
 
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {

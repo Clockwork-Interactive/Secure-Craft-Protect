@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "scprotect:block/grate_block"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.datagen;
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -13,6 +14,8 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 
+import java.util.Locale;
+
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, SCP.MOD_ID, exFileHelper);
@@ -20,12 +23,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        horizontalBlockWithItem(FacilityBlocks.FILECABINET);
         horizontalBlockWithItem(SCPBlocks.SCULPTURE_EXCREMENT);
         blockWithItem(SCPBlocks.AGED_BRICKS);
         blockWithItem(SCPBlocks.AGED_CONCRETE);
 
         blockWithItem(FacilityBlocks.CEMENT_BRICKS);
         blockWithItem(FacilityBlocks.REINFORCED_METAL);
+
+        blockWithItem(FacilityBlocks.DIRTY_METAL);
+        blockWithItem(FacilityBlocks.OFFICE_CEILING);
 
         blockWithItem(FacilityBlocks.EZ_CONCRETE);
         blockWithItem(FacilityBlocks.FLOOR_CONCRETE);
@@ -63,6 +70,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 SCP.MOD_ID, "block/entrance_zone_concrete_striped"), new ResourceLocation(
                 SCP.MOD_ID,"block/entrance_zone_concrete"), new ResourceLocation(
                 SCP.MOD_ID,"block/entrance_zone_concrete"));
+
+        sidedBlock(FacilityBlocks.OFFICE_GRATING_CEILING, new ResourceLocation(
+                SCP.MOD_ID, "block/office_ceiling"), new ResourceLocation(
+                SCP.MOD_ID,"block/office_grating_ceiling"), new ResourceLocation(
+                SCP.MOD_ID,"block/office_ceiling"));
 
         // LC
 
