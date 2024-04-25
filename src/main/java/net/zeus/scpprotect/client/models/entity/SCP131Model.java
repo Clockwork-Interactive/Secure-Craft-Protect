@@ -1,14 +1,10 @@
 package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.entities.SCP111;
 import net.zeus.scpprotect.level.entity.entities.SCP131;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import net.zeus.scpprotect.util.Misc;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SCP131Model extends DefaultModel<SCP131> {
     @Override
@@ -32,5 +28,10 @@ public class SCP131Model extends DefaultModel<SCP131> {
             default -> new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_131/scp_131_a.png");
             case 1 -> new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_131/scp_131_b.png");
         };
+    }
+
+    @Override
+    public void setCustomAnimations(SCP131 animatable, long instanceId, AnimationState<SCP131> animationState) {
+        Misc.rotateGeoHead(this, "scp131", animationState);
     }
 }

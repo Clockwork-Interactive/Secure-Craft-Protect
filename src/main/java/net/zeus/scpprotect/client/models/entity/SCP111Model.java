@@ -1,14 +1,11 @@
 package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.SCP111;
+import net.zeus.scpprotect.util.Misc;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SCP111Model extends DefaultModel<SCP111> {
     @Override
@@ -38,11 +35,6 @@ public class SCP111Model extends DefaultModel<SCP111> {
 
     @Override
     public void setCustomAnimations(SCP111 animatable, long instanceId, AnimationState<SCP111> animationState) {
-        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
-        if (head != null) {
-            EntityModelData modelData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head.setRotX(modelData.headPitch() * Mth.DEG_TO_RAD);
-            head.setRotY(modelData.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
+        Misc.rotateGeoHead(this, "head", animationState);
     }
 }

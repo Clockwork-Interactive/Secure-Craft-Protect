@@ -14,7 +14,7 @@ public class SCP811AttackGoal extends MeleeAttackGoal {
 
     @Override
     protected double getAttackReachSqr(@NotNull LivingEntity pAttackTarget) {
-        double reach = super.getAttackReachSqr(pAttackTarget) * 2.5F;
+        double reach = super.getAttackReachSqr(pAttackTarget) * 1.5F;
         if (this.mob.distanceTo(pAttackTarget) > 7.0F && this.mob.tickCount % 20 == 0) {
             ToxicSpit spit = new ToxicSpit(SCPEntity.TOXIC_SPIT.get(), this.mob.getX(), this.mob.getY() + 1.6F, this.mob.getZ(), this.mob.level());
             spit.shootFromRotation(this.mob, this.mob.getXRot(), this.mob.getYRot(), 0.0F, 3.0F, 0.0F);

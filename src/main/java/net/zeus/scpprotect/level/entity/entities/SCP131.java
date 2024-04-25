@@ -57,20 +57,15 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0f));
-        this.goalSelector.addGoal(3, new FollowMobGoal(this, 1f, 1.0F, 10.0F));
-        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.2f));
-        this.goalSelector.addGoal(2, new PanicGoal(this, 1f));
-
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, SCP173.class, 10.0F));
-
-        this.goalSelector.addGoal(5, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4F));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, SCP173.class, 10.0F));
+        this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(4, new FollowMobGoal(this, 1.2F, 1.0F, 10.0F));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.2F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(5, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(5, new OwnerHurtTargetGoal(this));
-
-        super.registerGoals();
     }
 
     @Nullable
@@ -129,8 +124,7 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         int variant = 2;
         if (stack.is(Items.RED_DYE) && this.getVariant() != 0) {
             variant = 0;
-        }
-        if (stack.is(Items.YELLOW_DYE) && this.getVariant() != 1) {
+        } else if (stack.is(Items.YELLOW_DYE) && this.getVariant() != 1) {
             variant = 1;
         }
         if (variant != 2) {
@@ -143,7 +137,6 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         if (!this.isTame() && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
             this.tame(pPlayer);
             this.navigation.stop();
-            this.setTarget((LivingEntity)null);
             this.setOrderedToSit(true);
             this.level().broadcastEntityEvent(this, (byte)7);
             return InteractionResult.SUCCESS;
@@ -154,16 +147,9 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
         if (this.isOwnedBy(pPlayer) && !stack.is(Items.RED_DYE) || !stack.is(Items.YELLOW_DYE)) {
             this.setOrderedToSit(!this.isOrderedToSit());
-            String isSittingText;
-            if (this.isOrderedToSit()) {
-                isSittingText = "Is Sitting";
-            } else {
-                isSittingText = "Is Roaming";
-            }
-            pPlayer.displayClientMessage(Component.literal("SCP-131 " + isSittingText), true);
+            pPlayer.displayClientMessage(Component.literal(this.isOrderedToSit() ? "SCP-131 is Sitting" : "SCP-131 is now Roaming"), true);
             this.jumping = false;
             this.navigation.stop();
-            this.setTarget((LivingEntity)null);
             return InteractionResult.SUCCESS;
         } else {
             return interactionresult;
@@ -172,7 +158,7 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.setVariant(this.random.nextInt(0, 4));
+        this.setVariant(this.random.nextInt(0, 2));
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

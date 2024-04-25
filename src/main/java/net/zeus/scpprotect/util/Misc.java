@@ -11,9 +11,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
 public class Misc {
-    static RandomSource random = RandomSource.create();
+    public static RandomSource random = RandomSource.create();
     public static int TPS = 20;
 
     public static void summonParticlesAroundEntity(LivingEntity entity, ParticleOptions particle, int amount) {
@@ -50,4 +56,12 @@ public class Misc {
         livingEntity.knockback(strength, Mth.sin(player.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(player.getYRot() * ((float) Math.PI / 180F))));
     }
 
+    public static<E extends GeoEntity> void rotateGeoHead(GeoModel<E> geoModel, String headBone, AnimationState<E> state) {
+        CoreGeoBone head = geoModel.getAnimationProcessor().getBone(headBone);
+        if (head != null) {
+            EntityModelData modelData = state.getData(DataTickets.ENTITY_MODEL_DATA);
+            head.setRotX(modelData.headPitch() * Mth.DEG_TO_RAD);
+            head.setRotY(modelData.netHeadYaw() * Mth.DEG_TO_RAD);
+        }
+    }
 }

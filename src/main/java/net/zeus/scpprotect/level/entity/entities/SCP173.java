@@ -134,35 +134,37 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
         }
 
         for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(32))) {
-            if (entity instanceof ServerPlayer player && !player.isCreative()) {
-                if (this.getTarget() != null) {
-                    if (this.getTarget() != player) {
-                        if (this.getTarget().distanceTo(this) > this.getTarget().distanceTo(entity)) {
-                            this.setTarget(player);
+            if (entity instanceof SCP131 scp131 && scp131.hasLineOfSight(this)) {
+                break;
+            } else {
+                if (entity instanceof ServerPlayer player && !player.isCreative()) {
+                    if (this.getTarget() != null) {
+                        if (this.getTarget() != player) {
+                            if (this.getTarget().distanceTo(this) > this.getTarget().distanceTo(entity)) {
+                                this.setTarget(player);
+                            }
+                            continue;
                         }
-                        continue;
+                    } else {
+                        this.setTarget(player);
                     }
-                } else {
-                    this.setTarget(player);
-                }
-                if (blink && !player.hasEffect(MobEffects.BLINDNESS)) {
-                    if (this.blinkTick + 100 < this.tickCount) {
-                        this.blinkTick = this.tickCount;
-                        toBlink.forEach(sPlayer -> ModMessages.sendToPlayer(new BlinkS2CPacket(true), sPlayer));
-                        this.teleportTowards(player, 20);
-                        this.checkAndPerformAttack(player, this.distanceToSqr(player));
-                    }
-                } else {
-                    if (this.blinkTick + 8 < this.tickCount) {
-                        this.blinkTick = this.tickCount;
-                        this.teleportTowards(player, 5);
-                        this.checkAndPerformAttack(player, this.distanceToSqr(player));
+                    if (blink && !player.hasEffect(MobEffects.BLINDNESS)) {
+                        if (this.blinkTick + 100 < this.tickCount) {
+                            this.blinkTick = this.tickCount;
+                            toBlink.forEach(sPlayer -> ModMessages.sendToPlayer(new BlinkS2CPacket(true), sPlayer));
+                            this.teleportTowards(player, 20);
+                            this.checkAndPerformAttack(player, this.distanceToSqr(player));
+                        }
+                    } else {
+                        if (this.blinkTick + 8 < this.tickCount) {
+                            this.blinkTick = this.tickCount;
+                            this.teleportTowards(player, 5);
+                            this.checkAndPerformAttack(player, this.distanceToSqr(player));
+                        }
                     }
                 }
             }
-
         }
-
     }
 
     protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
@@ -340,6 +342,8 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
             this.fullName = fullName;
         }
 
+        public String getId() {
+            return this.id;
+        }
     }
-
 }
