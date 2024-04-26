@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.level.particle.SCPParticles;
+import net.zeus.scpprotect.util.Misc;
+import net.zeus.scpprotect.util.ModDamageTypes;
 
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class AmputatedEffect extends MobEffect {
             }
         }
         if (pLivingEntity.getEffect(this).getDuration() - 1 <= 0) {
-            pLivingEntity.kill();
+            pLivingEntity.hurt(Misc.damageSource(ModDamageTypes.AMPUTATED, pLivingEntity.level()), 9999999f);
             return;
         }
         if (pLivingEntity.level().isClientSide) {

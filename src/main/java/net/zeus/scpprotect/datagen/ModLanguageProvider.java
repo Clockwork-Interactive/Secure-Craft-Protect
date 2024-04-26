@@ -122,6 +122,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
         addDamageType(ModDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...");
+        addDamageType(ModDamageTypes.AMPUTATED, "%1$s was too greedy!");
         addDamageType(ModDamageTypes.BLEEDING, "%1$s bled to death", "%1$s bled to death by %2$s");
     }
 
