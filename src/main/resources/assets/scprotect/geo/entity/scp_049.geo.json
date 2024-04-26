@@ -4,8 +4,8 @@
 		{
 			"description": {
 				"identifier": "geometry.scp_049",
-				"texture_width": 64,
-				"texture_height": 64,
+				"texture_width": 72,
+				"texture_height": 72,
 				"visible_bounds_width": 3,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
