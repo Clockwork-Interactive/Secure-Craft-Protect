@@ -3,6 +3,7 @@ package net.zeus.scpprotect.datagen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -28,7 +29,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(FacilityBlocks.CEMENT_BRICKS);
         blockWithItem(FacilityBlocks.REINFORCED_METAL);
-
         blockWithItem(FacilityBlocks.DIRTY_METAL);
         blockWithItem(FacilityBlocks.OFFICE_CEILING);
 
@@ -145,6 +145,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void stairBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {
         stairsBlock((StairBlock)block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
         simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
+    }
+
+    private void fenceBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {
+        fenceBlock((FenceBlock) block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
+        //simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
     }
 
     private void sidedBlock(RegistryObject<Block> block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {

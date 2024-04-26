@@ -117,7 +117,6 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (pSource.getEntity() instanceof Player player) {
             if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof PickaxeItem) {
-                this.hurt(this.level().damageSources().generic(), 10.0F);
                 return true;
             }
         }

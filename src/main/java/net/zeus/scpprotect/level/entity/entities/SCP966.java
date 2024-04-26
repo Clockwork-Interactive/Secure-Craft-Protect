@@ -2,6 +2,9 @@ package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +16,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
@@ -42,6 +46,12 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
         this.targetSelector.addGoal(2, new SCP966LookForPlayerGoal(this, Player.class, false));
         this.addBehaviourGoals();
         this.setPersistenceRequired();
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        return !pSource.is(DamageTypes.MAGIC)
+                && super.hurt(pSource, pAmount);
     }
 
     @Nullable

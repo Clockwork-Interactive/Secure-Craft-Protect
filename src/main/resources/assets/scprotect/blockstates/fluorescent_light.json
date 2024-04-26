@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "scprotect:block/fluorescent_light_horizontal",
+      "y": 90
+    },
+    "axis=y": {
       "model": "scprotect:block/fluorescent_light"
+    },
+    "axis=z": {
+      "model": "scprotect:block/fluorescent_light_horizontal",
+      "x": 180
     }
   }
 }

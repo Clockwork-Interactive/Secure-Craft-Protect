@@ -12,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.custom.DecorationBlock;
 import net.zeus.scpprotect.level.block.custom.FileCabinetBlock;
+import net.zeus.scpprotect.level.block.custom.RotatedPillarDecorBlock;
 import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -165,16 +166,18 @@ public class FacilityBlocks {
     // Misc???
 
     public static final RegistryObject<Block> DIRTY_METAL = registerBlock("dirty_metal",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.COPPER)
                     .strength(1.8F)));
 
     public static final RegistryObject<Block> DIRTY_METAL_STAIRS = registerBlock("dirty_metal_stairs",
-            () -> new StairBlock(() -> FacilityBlocks.DIRTY_METAL.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+            () -> new StairBlock(() -> FacilityBlocks.DIRTY_METAL.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.COPPER)
                     .strength(1.8F)));
 
     public static final RegistryObject<Block> DIRTY_METAL_SLAB = registerBlock("dirty_metal_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(1.8F)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(FacilityBlocks.DIRTY_METAL.get())));
+
+    public static final RegistryObject<Block> DIRTY_METAL_FENCE = registerBlock("dirty_metal_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(FacilityBlocks.DIRTY_METAL.get())));
 
     public static final RegistryObject<Block> GRATE_BLOCK = registerBlock("grate_block",
             () -> new GlassBlock(BlockBehaviour.Properties.of().sound(SoundType.COPPER).noOcclusion().mapColor(DyeColor.WHITE)
@@ -213,8 +216,8 @@ public class FacilityBlocks {
                     .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F)));
 
     public static final RegistryObject<Block> FLUORESCENT_LIGHT = registerBlock("fluorescent_light",
-            () -> new DecorationBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
-                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT));
+            () -> new RotatedPillarDecorBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT_X, SCPVoxelShapes.FLUORESCENT_LIGHT_Y, SCPVoxelShapes.FLUORESCENT_LIGHT_Z));
 
     public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
             () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)

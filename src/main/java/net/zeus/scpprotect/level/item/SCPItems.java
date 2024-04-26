@@ -42,6 +42,7 @@ public class SCPItems {
     public static final RegistryObject<Item> SCP_346_SPAWN_EGG = registerEgg("scp_346_spawn_egg", SCPEntity.SCP_346, new Color(40, 37, 36), new Color(40, 37, 36), SCP.SCPTypes.SAFE);
     public static final RegistryObject<Item> SCP_999_SPAWN_EGG = registerEgg("scp_999_spawn_egg", SCPEntity.SCP_999, new Color(254, 115, 10), new Color(254, 166, 44), SCP.SCPTypes.SAFE);
     public static final RegistryObject<Item> SCP_049_SPAWN_EGG = registerEgg("scp_049_spawn_egg", SCPEntity.SCP_049, new Color(66, 66, 66), new Color(96, 231, 204), SCP.SCPTypes.EUCLID);
+    public static final RegistryObject<Item> SCP_049_2_SPAWN_EGG = registerEgg("scp_049_2_spawn_egg", SCPEntity.SCP_049_2, new Color(112, 101, 70), new Color(106, 59, 40), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_096_SPAWN_EGG = registerEgg("scp_096_spawn_egg", SCPEntity.SCP_096, new Color(245, 233, 229), new Color(237, 212, 197), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_173_SPAWN_EGG = registerEgg("scp_173_spawn_egg", SCPEntity.SCP_173, new Color(227, 185, 129), new Color(162, 119, 78, 255), SCP.SCPTypes.EUCLID);
     public static final RegistryObject<Item> SCP_811_SPAWN_EGG = registerEgg("scp_811_spawn_egg", SCPEntity.SCP_811, new Color(40, 103, 54), new Color(50, 148, 89), SCP.SCPTypes.EUCLID);

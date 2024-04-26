@@ -20,6 +20,7 @@ public class SCPBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
 
     // SCPs
+
     public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
             () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
                     .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));
@@ -34,12 +35,15 @@ public class SCPBlocks {
 
 
     // Misc
+
     public static final RegistryObject<Block> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrements",
             () -> new SculptureExcrement(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
                     .strength(2.0F).sound(SoundType.SLIME_BLOCK).noOcclusion().noLootTable()));
 
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender",
             () -> new FlowerBlock(SCPEffects.PESTILENCE, 10, BlockBehaviour.Properties.copy(Blocks.POPPY)));
+
+    // SCP-087
 
     public static final RegistryObject<Block> AGED_BRICKS = registerBlock("aged_bricks",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
@@ -67,6 +71,7 @@ public class SCPBlocks {
 
 
     // Pocket Dimension
+
     public static final RegistryObject<Block> CORRODED_TILES = registerBlock("corroded_tiles",
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
                     .strength(1.8F)));
