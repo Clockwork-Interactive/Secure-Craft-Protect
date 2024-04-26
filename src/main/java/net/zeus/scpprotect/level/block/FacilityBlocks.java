@@ -168,6 +168,14 @@ public class FacilityBlocks {
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
                     .strength(1.8F)));
 
+    public static final RegistryObject<Block> DIRTY_METAL_STAIRS = registerBlock("dirty_metal_stairs",
+            () -> new StairBlock(() -> FacilityBlocks.DIRTY_METAL.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> DIRTY_METAL_SLAB = registerBlock("dirty_metal_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(1.8F)));
+
     public static final RegistryObject<Block> GRATE_BLOCK = registerBlock("grate_block",
             () -> new GlassBlock(BlockBehaviour.Properties.of().sound(SoundType.COPPER).noOcclusion().mapColor(DyeColor.WHITE)
                     .strength(1.8F)));
@@ -192,13 +200,25 @@ public class FacilityBlocks {
     public static final RegistryObject<Block> CEMENT_BRICK_SLAB = registerBlock("cement_brick_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(2.0F)));
 
-
     public static final RegistryObject<Block> REINFORCED_METAL = registerBlock("reinforced_metal",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY)
                     .strength(2.0F)));
 
-    public static final RegistryObject<LiquidBlock> SCP_006 = BLOCKS.register("scp_006", () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)));
+    public static final RegistryObject<Block> OFFICE_LAMP = registerBlock("office_lamp",
+            () -> new DecorationBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPBlockShapes.OFFICE_LAMP));
 
+    public static final RegistryObject<Block> FLUORESCENT_LAMP_BLOCK = registerBlock("fluorescent_lamp_block",
+            () -> new Block(BlockBehaviour.Properties.of().lightLevel(s -> 15)
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F)));
+
+    public static final RegistryObject<Block> FLUORESCENT_LIGHT = registerBlock("fluorescent_light",
+            () -> new DecorationBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPBlockShapes.FLUORESCENT_LIGHT));
+
+    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
+            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noLootTable()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

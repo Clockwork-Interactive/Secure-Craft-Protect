@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "scprotect:block/dirty_metal",
+    "side": "scprotect:block/dirty_metal",
+    "top": "scprotect:block/dirty_metal"
+  }
+}

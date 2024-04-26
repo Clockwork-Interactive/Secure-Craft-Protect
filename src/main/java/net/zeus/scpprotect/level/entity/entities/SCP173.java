@@ -125,6 +125,9 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
         return pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
                 || pSource.is(DamageTypes.DRAGON_BREATH)
                 || pSource.is(DamageTypes.FALLING_ANVIL)
+                || pSource.is(DamageTypes.GENERIC)
+                || pSource.is(DamageTypes.GENERIC_KILL)
+                || pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
                 && super.hurt(pSource, pAmount);
     }
 

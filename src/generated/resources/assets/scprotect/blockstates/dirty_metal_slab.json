@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/dirty_metal_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/dirty_metal"
+    },
+    "type=top": {
+      "model": "scprotect:block/dirty_metal_slab_top"
+    }
+  }
+}

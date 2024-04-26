@@ -111,6 +111,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairBlock(SCPBlocks.AGED_CONCRETE_STAIRS, SCPBlocks.AGED_CONCRETE);
         slabBlock(SCPBlocks.AGED_CONCRETE_SLAB, SCPBlocks.AGED_CONCRETE);
 
+        stairBlock(FacilityBlocks.DIRTY_METAL_STAIRS, FacilityBlocks.DIRTY_METAL);
+        slabBlock(FacilityBlocks.DIRTY_METAL_SLAB, FacilityBlocks.DIRTY_METAL);
+
         stairBlock(FacilityBlocks.CEMENT_BRICK_STAIRS, FacilityBlocks.CEMENT_BRICKS);
         slabBlock(FacilityBlocks.CEMENT_BRICK_SLAB, FacilityBlocks.CEMENT_BRICKS);
 
