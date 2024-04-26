@@ -15,9 +15,12 @@ public class SCPVoxelShapes {
 
     public static final VoxelShape[] SCP_310 = VoxelUtil.makeHorizontalShapes(Stream.of(Block.box(4, 0, 4, 12, 1, 12), Block.box(7, 1, 7, 9, 4, 9)).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
 
-    public static final VoxelShape FLUORESCENT_LIGHT_Y = Block.box(1, 0, 1, 15, 3, 15);
-    public static final VoxelShape FLUORESCENT_LIGHT_Z = Block.box(1, 1, 13, 15, 15, 16);
-    public static final VoxelShape FLUORESCENT_LIGHT_X = Block.box(13, 1, 1, 16, 15, 15);
+    public static final VoxelShape FLUORESCENT_LIGHT_FLOOR = Block.box(1, 0, 1, 15, 3, 15);
+    public static final VoxelShape FLUORESCENT_LIGHT_CEILING = Block.box(1, 13, 1, 15, 16, 15);
+    public static final VoxelShape FLUORESCENT_LIGHT_WALL_EAS = Block.box(0, 1, 1, 3, 15, 15);
+    public static final VoxelShape FLUORESCENT_LIGHT_WALL_WES = Block.box(13, 1, 1, 16, 15, 15);
+    public static final VoxelShape FLUORESCENT_LIGHT_WALL_SOU = Block.box(1, 1, 0, 15, 15, 3);
+    public static final VoxelShape FLUORESCENT_LIGHT_WALL_NOR = Block.box(1, 1, 13, 15, 15, 16);
 
     public static final VoxelShape OFFICE_LAMP = Shapes.or(Block.box(6, 7, 6, 10, 11, 10), Block.box(4, 5, 4, 12, 7, 12));
 

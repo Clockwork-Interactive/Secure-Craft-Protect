@@ -4,6 +4,18 @@
       "scprotect:block/pocket_dimension/pocket_dimension_step"
     ]
   },
+  "scp_049_2_attack": {
+    "sounds": [
+      "scprotect:entity/scp_049_2/scp_049_2_attack"
+    ]
+  },
+  "scp_049_2_idle": {
+    "sounds": [
+      "scprotect:entity/scp_049_2/scp_049_2_idle_1",
+      "scprotect:entity/scp_049_2/scp_049_2_idle_2",
+      "scprotect:entity/scp_049_2/scp_049_2_idle_3"
+    ]
+  },
   "scp_049_attack_fail": {
     "sounds": [
       "scprotect:entity/scp_049/scp_049_attack_fail"

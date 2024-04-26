@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.util.Misc;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -54,23 +55,14 @@ public class SCP049_2 extends Monster implements GeoEntity, Anomaly {
     public boolean doHurtTarget(Entity pEntity) {
         if (pEntity instanceof LivingEntity entity) {
             entity.addEffect(new MobEffectInstance(SCPEffects.BLEEDING.get(), Misc.TPS * 5));
+            this.playSound(SCPSounds.SCP_049_2_ATTACK.get());
         }
         return super.doHurtTarget(pEntity);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.HUSK_AMBIENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.HUSK_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.HUSK_DEATH;
+        return SCPSounds.SCP_049_2_IDLE.get();
     }
 
     @Override

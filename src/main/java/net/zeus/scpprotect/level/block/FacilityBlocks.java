@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.custom.DecorationBlock;
 import net.zeus.scpprotect.level.block.custom.FileCabinetBlock;
-import net.zeus.scpprotect.level.block.custom.RotatedPillarDecorBlock;
+import net.zeus.scpprotect.level.block.custom.MultiDecorBlock;
 import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -216,8 +216,8 @@ public class FacilityBlocks {
                     .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F)));
 
     public static final RegistryObject<Block> FLUORESCENT_LIGHT = registerBlock("fluorescent_light",
-            () -> new RotatedPillarDecorBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
-                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT_X, SCPVoxelShapes.FLUORESCENT_LIGHT_Y, SCPVoxelShapes.FLUORESCENT_LIGHT_Z));
+            () -> new MultiDecorBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT_FLOOR, SCPVoxelShapes.FLUORESCENT_LIGHT_CEILING, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_EAS, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_WES, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_NOR, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_SOU));
 
     public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
             () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)

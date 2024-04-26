@@ -68,24 +68,24 @@ public class ModLanguageProvider extends LanguageProvider {
                     continue;
                 }
             }
-
             if (registry == SCPItems.SCP_3199_EGG_BUCKET) {
                 add(registry.get(), "SCP-3199 Egg Bucket");
                 continue;
             }
-
             if (registry == SCPItems.SCP_999_BUCKET) {
                 add(registry.get(), "Bucket of SCP-999");
                 continue;
             }
-
             if (registry == SCPItems.REBEL_SPAWN_EGG) {
                 add(registry.get(), "Rebel Spawn Egg");
                 continue;
             }
-
             if (registry == SCPItems.SCP_019_2_SPAWN_EGG) {
                 add(registry.get(), "SCP-019-2 Spawn Egg");
+                continue;
+            }
+            if (registry == SCPItems.SCP_049_2_SPAWN_EGG) {
+                add(registry.get(), "SCP-049-2 Spawn Egg");
                 continue;
             }
 

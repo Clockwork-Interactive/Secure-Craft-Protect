@@ -43,6 +43,8 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> SCP_049_LOSE_TARGET = registerSoundEvent("scp_049_lose_target");
     public static final RegistryObject<SoundEvent> SCP_049_RESURRECT = registerSoundEvent("scp_049_resurrect");
     public static final RegistryObject<SoundEvent> SCP_049_SPOTTED_TARGET = registerSoundEvent("scp_049_spot_target");
+    public static final RegistryObject<SoundEvent> SCP_049_2_IDLE = registerSoundEvent("scp_049_2_idle");
+    public static final RegistryObject<SoundEvent> SCP_049_2_ATTACK = registerSoundEvent("scp_049_2_attack");
 
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
