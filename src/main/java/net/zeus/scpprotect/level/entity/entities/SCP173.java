@@ -306,23 +306,15 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
     public void updateTp(ServerPlayer player) {
         this.teleports.putIfAbsent(player, 0);
         this.teleports.put(player, this.teleports.get(player) + 1);
-        switch (this.teleports.get(player)) {
-            case 1 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_1.get());
-            case 2 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_2.get());
-            case 3 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_3.get());
-            case 4 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_4.get());
-            case 5 -> RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR_5.get());
-        }
+        RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());
     }
 
     public void playKillSound() {
-        SoundEvent[] soundEvents = new SoundEvent[]{SCPSounds.SCP_173_KILL_1.get(), SCPSounds.SCP_173_KILL_2.get()};
-        this.playSound(soundEvents[this.getRandom().nextIntBetweenInclusive(0, soundEvents.length - 1)]);
+        this.playSound(SCPSounds.SCP_173_KILL.get());
     }
 
     public void playMoveSounds() {
-        SoundEvent[] soundEvents = new SoundEvent[]{SCPSounds.SCP_173_MOVE_1.get(), SCPSounds.SCP_173_MOVE_2.get(), SCPSounds.SCP_173_MOVE_3.get()};
-        this.playSound(soundEvents[this.getRandom().nextIntBetweenInclusive(0, soundEvents.length - 1)]);
+        this.playSound(SCPSounds.SCP_173_MOVE.get());
     }
 
     public static final RawAnimation IDLE = RawAnimation.begin().thenLoop("scp_173i_idle");

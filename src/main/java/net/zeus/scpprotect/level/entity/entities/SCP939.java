@@ -38,17 +38,12 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class SCP939 extends Monster implements GeoEntity, Anomaly {
-
     AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final float speedModifier = 0.35F;
     private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier("Attacking speed boost 939", speedModifier, AttributeModifier.Operation.ADDITION);
     private final Map<Class<? extends Mob>, SoundEvent> soundCache = new HashMap<>();
     private final List<Class<? extends Mob>> invalidSoundCache = new ArrayList<>();
-    private final List<SoundEvent> ATTACK_SOUNDS = Arrays.asList(SCPSounds.SCP_939_ATTACK_1.get(), SCPSounds.SCP_939_ATTACK_2.get(), SCPSounds.SCP_939_ATTACK_3.get(), SCPSounds.SCP_939_ATTACK_4.get());
-    private final List<SoundEvent> BABY_IDLE_SOUNDS = Arrays.asList(SCPSounds.SCP_939_BABY_IDLE_1.get(), SCPSounds.SCP_939_BABY_IDLE_2.get(), SCPSounds.SCP_939_BABY_IDLE_3.get());
-    private final List<SoundEvent> HURT_SOUNDS = Arrays.asList(SCPSounds.SCP_939_HURT_1.get(), SCPSounds.SCP_939_HURT_2.get());
-    private final SoundEvent SCREECH_SOUND = SCPSounds.SCP_939_SCREECH.get();
-    private final SoundEvent SPOT_TARGET_SOUND = SCPSounds.SCP_939_SPOT_TARGET.get();
+    //private final List<SoundEvent> BABY_IDLE_SOUNDS = Arrays.asList(SCPSounds.SCP_939_BABY_IDLE_1.get(), SCPSounds.SCP_939_BABY_IDLE_2.get(), SCPSounds.SCP_939_BABY_IDLE_3.get());
 
     public SCP939(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -94,7 +89,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         } else {
             if (!attributeinstance.hasModifier(SPEED_MODIFIER_ATTACKING)) {
                 attributeinstance.addTransientModifier(SPEED_MODIFIER_ATTACKING);
-                this.playSound(this.SPOT_TARGET_SOUND);
+                this.playSound(SCPSounds.SCP_939_SPOT_TARGET.get());
             }
         }
 
@@ -189,14 +184,14 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
             player.addEffect(new MobEffectInstance(SCPEffects.AMNESIA.get(), 160, 0, false, false, false));
         }
         if (pEntity instanceof LivingEntity living && living.isAlive())
-            this.playSound(RefractionMisc.getRandom(ATTACK_SOUNDS));
+            this.playSound(SCPSounds.SCP_939_ATTACK.get());
         pEntity.hurt(Misc.damageSource(ModDamageTypes.SCP939_DAMAGE, pEntity.level()), 10.0F);
         return true;
     }
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        this.playSound(RefractionMisc.getRandom(HURT_SOUNDS));
+        this.playSound(SCPSounds.SCP_939_HURT.get());
         return super.hurt(pSource, pAmount);
     }
 

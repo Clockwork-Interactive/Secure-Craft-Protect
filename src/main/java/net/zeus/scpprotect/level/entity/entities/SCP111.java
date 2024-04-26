@@ -46,6 +46,7 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
 
     public SCP111(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.setPersistenceRequired();
     }
 
     @Override
@@ -142,8 +143,7 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        SoundEvent[] idleSounds = new SoundEvent[]{SCPSounds.SCP_111_IDLE_1.get(), SCPSounds.SCP_111_IDLE_2.get()};
-        return idleSounds[this.random.nextInt(0, idleSounds.length - 1)];
+        return SCPSounds.SCP_111_IDLE.get();
     }
 
     @Override

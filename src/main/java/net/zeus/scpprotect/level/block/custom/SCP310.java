@@ -9,6 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.refractionapi.refraction.registry.block.BaseHorizontalEntityBlock;
 import net.refractionapi.refraction.voxels.VoxelUtil;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.SCPVoxelShapes;
 import net.zeus.scpprotect.level.block.entity.custom.SCP310BlockEntity;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +22,7 @@ public class SCP310 extends BaseHorizontalEntityBlock implements Anomaly {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return VoxelShapes.SCP_310[VoxelUtil.getDirection(blockState)];
+        return SCPVoxelShapes.SCP_310[VoxelUtil.getDirection(blockState)];
     }
 
     @Nullable

@@ -13,7 +13,7 @@ public class Idle096TickableSound extends AbstractTickableSoundInstance {
     public boolean isPlaying = false;
 
     public Idle096TickableSound(SCP096 scp096) {
-        super(SCPClientConfig.IDLE_2.get() ? SCPSounds.SCP_096_IDLE_2.get() : SCPSounds.SCP_096_IDLE.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
+        super(SCPSounds.SCP_096_IDLE.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
         this.scp096 = scp096;
         this.looping = true;
         this.x = ((float)scp096.getX());

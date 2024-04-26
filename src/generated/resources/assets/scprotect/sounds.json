@@ -1,312 +1,206 @@
 {
   "pocket_dimension_step": {
     "sounds": [
-      "scprotect:pocket_dimension_step"
+      "scprotect:block/pocket_dimension/pocket_dimension_step"
+    ]
+  },
+  "scp_049_attack_fail": {
+    "sounds": [
+      "scprotect:entity/scp_049/scp_049_attack_fail"
+    ]
+  },
+  "scp_049_kill": {
+    "sounds": [
+      "scprotect:entity/scp_049/scp_049_kill"
+    ]
+  },
+  "scp_049_lose_target": {
+    "sounds": [
+      "scprotect:entity/scp_049/scp_049_lose_target_1",
+      "scprotect:entity/scp_049/scp_049_lose_target_2"
+    ]
+  },
+  "scp_049_resurrect": {
+    "sounds": [
+      "scprotect:entity/scp_049/scp_049_resurrect"
+    ]
+  },
+  "scp_049_spot_target": {
+    "sounds": [
+      "scprotect:entity/scp_049/scp_049_spot_target_1",
+      "scprotect:entity/scp_049/scp_049_spot_target_2",
+      "scprotect:entity/scp_049/scp_049_spot_target_3",
+      "scprotect:entity/scp_049/scp_049_spot_target_4",
+      "scprotect:entity/scp_049/scp_049_spot_target_5"
     ]
   },
   "scp_058_dialog": {
     "sounds": [
-      "scprotect:scp_058_dialog"
+      "scprotect:entity/scp_058/scp_058_dialog"
     ]
   },
   "scp_096_idle": {
     "sounds": [
-      "scprotect:scp_096_idle"
-    ]
-  },
-  "scp_096_idle_2": {
-    "sounds": [
-      "scprotect:scp_096_idle_2"
+      "scprotect:entity/scp_096/scp_096_idle",
+      "scprotect:entity/scp_096/scp_096_idle_2"
     ]
   },
   "scp_096_kill": {
     "sounds": [
-      "scprotect:scp_096_kill"
+      "scprotect:entity/scp_096/scp_096_kill"
     ]
   },
   "scp_096_running": {
     "sounds": [
-      "scprotect:scp_096_running"
+      "scprotect:entity/scp_096/scp_096_running"
     ]
   },
   "scp_096_seen": {
     "sounds": [
-      "scprotect:scp_096_seen"
+      "scprotect:entity/scp_096/scp_096_seen"
     ]
   },
   "scp_096_triggered": {
     "sounds": [
-      "scprotect:scp_096_triggered"
+      "scprotect:entity/scp_096/scp_096_triggered"
     ]
   },
-  "scp_109_pour1": {
+  "scp_109_pour": {
     "sounds": [
-      "scprotect:scp_109_pour1"
+      "scprotect:item/scp_109/scp_109_pour1",
+      "scprotect:item/scp_109/scp_109_pour2",
+      "scprotect:item/scp_109/scp_109_pour3"
     ]
   },
-  "scp_109_pour2": {
+  "scp_111_idle": {
     "sounds": [
-      "scprotect:scp_109_pour2"
-    ]
-  },
-  "scp_109_pour3": {
-    "sounds": [
-      "scprotect:scp_109_pour3"
-    ]
-  },
-  "scp_111_idle_1": {
-    "sounds": [
-      "scprotect:scp_111_idle_1"
-    ]
-  },
-  "scp_111_idle_2": {
-    "sounds": [
-      "scprotect:scp_111_idle_2"
+      "scprotect:entity/scp_111/scp_111_idle_1",
+      "scprotect:entity/scp_111/scp_111_idle_2"
     ]
   },
   "scp_131_hurt": {
     "sounds": [
-      "scprotect:scp_131_hurt"
+      "scprotect:entity/scp_131/scp_131_hurt"
     ]
   },
   "scp_131_idle": {
     "sounds": [
-      "scprotect:scp_131_idle"
+      "scprotect:entity/scp_131/scp_131_idle"
     ]
   },
-  "scp_173_horror_1": {
+  "scp_173_horror": {
     "sounds": [
-      "scprotect:scp_173_horror_1"
+      "scprotect:entity/scp_173/scp_173_horror_1",
+      "scprotect:entity/scp_173/scp_173_horror_2",
+      "scprotect:entity/scp_173/scp_173_horror_3",
+      "scprotect:entity/scp_173/scp_173_horror_4",
+      "scprotect:entity/scp_173/scp_173_horror_5"
     ]
   },
-  "scp_173_horror_2": {
+  "scp_173_kill": {
     "sounds": [
-      "scprotect:scp_173_horror_2"
+      "scprotect:entity/scp_173/scp_173_kill_1",
+      "scprotect:entity/scp_173/scp_173_kill_2"
     ]
   },
-  "scp_173_horror_3": {
+  "scp_173_move": {
     "sounds": [
-      "scprotect:scp_173_horror_3"
-    ]
-  },
-  "scp_173_horror_4": {
-    "sounds": [
-      "scprotect:scp_173_horror_4"
-    ]
-  },
-  "scp_173_horror_5": {
-    "sounds": [
-      "scprotect:scp_173_horror_5"
-    ]
-  },
-  "scp_173_kill_1": {
-    "sounds": [
-      "scprotect:scp_173_kill_1"
-    ]
-  },
-  "scp_173_kill_2": {
-    "sounds": [
-      "scprotect:scp_173_kill_2"
-    ]
-  },
-  "scp_173_move_1": {
-    "sounds": [
-      "scprotect:scp_173_move_1"
-    ]
-  },
-  "scp_173_move_2": {
-    "sounds": [
-      "scprotect:scp_173_move_2"
-    ]
-  },
-  "scp_173_move_3": {
-    "sounds": [
-      "scprotect:scp_173_move_3"
+      "scprotect:entity/scp_173/scp_173_move_1",
+      "scprotect:entity/scp_173/scp_173_move_2",
+      "scprotect:entity/scp_173/scp_173_move_3"
     ]
   },
   "scp_173_strangle_kill": {
     "sounds": [
-      "scprotect:scp_173_strangle_kill"
+      "scprotect:entity/scp_173/scp_173_strangle_kill"
     ]
   },
   "scp_173_strangle_sequence": {
     "sounds": [
-      "scprotect:scp_173_strangle_sequence"
+      "scprotect:entity/scp_173/scp_173_strangle_sequence"
     ]
   },
-  "scp_3199_death_1": {
+  "scp_3199_death": {
     "sounds": [
-      "scprotect:scp_3199_death_1"
+      "scprotect:entity/scp_3199/scp_3199_death_1",
+      "scprotect:entity/scp_3199/scp_3199_death_2",
+      "scprotect:entity/scp_3199/scp_3199_death_3"
     ]
   },
-  "scp_3199_death_2": {
+  "scp_3199_hurt": {
     "sounds": [
-      "scprotect:scp_3199_death_2"
+      "scprotect:entity/scp_3199/scp_3199_hurt_1",
+      "scprotect:entity/scp_3199/scp_3199_hurt_2",
+      "scprotect:entity/scp_3199/scp_3199_hurt_3"
     ]
   },
-  "scp_3199_death_3": {
+  "scp_3199_idle": {
     "sounds": [
-      "scprotect:scp_3199_death_3"
-    ]
-  },
-  "scp_3199_hurt_1": {
-    "sounds": [
-      "scprotect:scp_3199_hurt_1"
-    ]
-  },
-  "scp_3199_hurt_2": {
-    "sounds": [
-      "scprotect:scp_3199_hurt_2"
-    ]
-  },
-  "scp_3199_hurt_3": {
-    "sounds": [
-      "scprotect:scp_3199_hurt_3"
-    ]
-  },
-  "scp_3199_idle_1": {
-    "sounds": [
-      "scprotect:scp_3199_idle_1"
-    ]
-  },
-  "scp_3199_idle_10": {
-    "sounds": [
-      "scprotect:scp_3199_idle_10"
-    ]
-  },
-  "scp_3199_idle_11": {
-    "sounds": [
-      "scprotect:scp_3199_idle_11"
-    ]
-  },
-  "scp_3199_idle_12": {
-    "sounds": [
-      "scprotect:scp_3199_idle_12"
-    ]
-  },
-  "scp_3199_idle_2": {
-    "sounds": [
-      "scprotect:scp_3199_idle_2"
-    ]
-  },
-  "scp_3199_idle_3": {
-    "sounds": [
-      "scprotect:scp_3199_idle_3"
-    ]
-  },
-  "scp_3199_idle_4": {
-    "sounds": [
-      "scprotect:scp_3199_idle_4"
-    ]
-  },
-  "scp_3199_idle_5": {
-    "sounds": [
-      "scprotect:scp_3199_idle_5"
-    ]
-  },
-  "scp_3199_idle_6": {
-    "sounds": [
-      "scprotect:scp_3199_idle_6"
-    ]
-  },
-  "scp_3199_idle_7": {
-    "sounds": [
-      "scprotect:scp_3199_idle_7"
-    ]
-  },
-  "scp_3199_idle_8": {
-    "sounds": [
-      "scprotect:scp_3199_idle_8"
-    ]
-  },
-  "scp_3199_idle_9": {
-    "sounds": [
-      "scprotect:scp_3199_idle_9"
+      "scprotect:entity/scp_3199/scp_3199_idle_1",
+      "scprotect:entity/scp_3199/scp_3199_idle_2",
+      "scprotect:entity/scp_3199/scp_3199_idle_3",
+      "scprotect:entity/scp_3199/scp_3199_idle_4",
+      "scprotect:entity/scp_3199/scp_3199_idle_5",
+      "scprotect:entity/scp_3199/scp_3199_idle_6",
+      "scprotect:entity/scp_3199/scp_3199_idle_7",
+      "scprotect:entity/scp_3199/scp_3199_idle_8",
+      "scprotect:entity/scp_3199/scp_3199_idle_9",
+      "scprotect:entity/scp_3199/scp_3199_idle_10",
+      "scprotect:entity/scp_3199/scp_3199_idle_11",
+      "scprotect:entity/scp_3199/scp_3199_idle_12"
     ]
   },
   "scp_3199_lay": {
     "sounds": [
-      "scprotect:scp_3199_lay"
+      "scprotect:entity/scp_3199/scp_3199_lay"
     ]
   },
   "scp_330_sever": {
     "sounds": [
-      "scprotect:scp_330_sever"
+      "scprotect:block/scp_330/scp_330_sever"
     ]
   },
-  "scp_939_attack_1": {
+  "scp_939_attack": {
     "sounds": [
-      "scprotect:scp_939_attack_1"
+      "scprotect:entity/scp_939/scp_939_attack_1",
+      "scprotect:entity/scp_939/scp_939_attack_2",
+      "scprotect:entity/scp_939/scp_939_attack_3",
+      "scprotect:entity/scp_939/scp_939_attack_4"
     ]
   },
-  "scp_939_attack_2": {
+  "scp_939_baby_idle": {
     "sounds": [
-      "scprotect:scp_939_attack_2"
+      "scprotect:entity/scp_939/scp_939_baby_idle_1",
+      "scprotect:entity/scp_939/scp_939_baby_idle_2",
+      "scprotect:entity/scp_939/scp_939_baby_idle_3"
     ]
   },
-  "scp_939_attack_3": {
+  "scp_939_hurt": {
     "sounds": [
-      "scprotect:scp_939_attack_3"
-    ]
-  },
-  "scp_939_attack_4": {
-    "sounds": [
-      "scprotect:scp_939_attack_4"
-    ]
-  },
-  "scp_939_baby_idle_1": {
-    "sounds": [
-      "scprotect:scp_939_baby_idle_1"
-    ]
-  },
-  "scp_939_baby_idle_2": {
-    "sounds": [
-      "scprotect:scp_939_baby_idle_2"
-    ]
-  },
-  "scp_939_baby_idle_3": {
-    "sounds": [
-      "scprotect:scp_939_baby_idle_3"
-    ]
-  },
-  "scp_939_hurt_1": {
-    "sounds": [
-      "scprotect:scp_939_hurt_1"
-    ]
-  },
-  "scp_939_hurt_2": {
-    "sounds": [
-      "scprotect:scp_939_hurt_2"
+      "scprotect:entity/scp_939/scp_939_hurt_1",
+      "scprotect:entity/scp_939/scp_939_hurt_2"
     ]
   },
   "scp_939_screech": {
     "sounds": [
-      "scprotect:scp_939_screech"
+      "scprotect:entity/scp_939/scp_939_screech"
     ]
   },
   "scp_939_spot_target": {
     "sounds": [
-      "scprotect:scp_939_spot_target"
+      "scprotect:entity/scp_939/scp_939_spot_target"
     ]
   },
   "scp_966_death": {
     "sounds": [
-      "scprotect:scp_966_death"
+      "scprotect:entity/scp_966/scp_966_death"
     ]
   },
-  "scp_966_idle_1": {
+  "scp_966_idle": {
     "sounds": [
-      "scprotect:scp_966_idle_1"
-    ]
-  },
-  "scp_966_idle_2": {
-    "sounds": [
-      "scprotect:scp_966_idle_2"
-    ]
-  },
-  "scp_966_idle_3": {
-    "sounds": [
-      "scprotect:scp_966_idle_3"
+      "scprotect:entity/scp_966/scp_966_idle_1",
+      "scprotect:entity/scp_966/scp_966_idle_2",
+      "scprotect:entity/scp_966/scp_966_idle_3"
     ]
   }
 }

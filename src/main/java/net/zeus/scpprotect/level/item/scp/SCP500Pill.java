@@ -52,7 +52,7 @@ public class SCP500Pill extends Item implements Anomaly, DataGenObj {
         effects.entrySet().removeIf(mobEffectMobEffectInstanceEntry -> !mobEffectMobEffectInstanceEntry.getKey().isBeneficial());
 
 
-        return pStack.isEmpty() ? new ItemStack(Items.BUCKET) : pStack;
+        return super.finishUsingItem(pStack, pLevel, pEntityLiving);
     }
 
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {

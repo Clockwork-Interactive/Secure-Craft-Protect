@@ -8,6 +8,6 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class SCP019_2Renderer extends GeoEntityRenderer<SCP019_2> {
     public SCP019_2Renderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SCP019_2Model());
+        this.shadowRadius = 0.5F;
     }
-
 }

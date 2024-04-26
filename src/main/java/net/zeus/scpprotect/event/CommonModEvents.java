@@ -29,5 +29,7 @@ public class CommonModEvents {
         event.put(SCPEntity.SCP_131.get(), SCP131.createAttributes().build());
         event.put(SCPEntity.SCP_346.get(), SCP346.createAttributes().build());
         event.put(SCPEntity.SCP_999.get(), SCP999.createAttributes().build());
+        event.put(SCPEntity.SCP_049.get(), SCP049.createAttributes().build());
+        event.put(SCPEntity.SCP_049_2.get(), SCP049_2.createAttributes().build());
     }
 }

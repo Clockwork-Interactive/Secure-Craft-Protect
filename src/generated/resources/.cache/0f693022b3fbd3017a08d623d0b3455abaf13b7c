@@ -1,9 +1,10 @@
-// 1.20.1	2024-04-24T08:17:14.7290835	Item Models: scprotect
+// 1.20.1	2024-04-25T12:12:29.411201	Item Models: scprotect
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
 c43f6ce6aa32354c260b1a75a03075954ab9fe9f assets/scprotect/models/item/containment_item.json
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.json
+f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 876fb5f2577a50f2f35e8d806361d28b80f25f9b assets/scprotect/models/item/orange_candy.json
 339b0fb0a964c2b67d12b7a29645c5dc0d006b47 assets/scprotect/models/item/purple_candy.json
@@ -12,6 +13,7 @@ a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.
 9dab8563b5201118e3fae85f13cb4a66509d001b assets/scprotect/models/item/scp_006_bucket.json
 547052f6f5a57f10027cea1f774d0c6fce960525 assets/scprotect/models/item/scp_019.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_019_2_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_049_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_058_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_096_spawn_egg.json
 fee2aed162db7f764d434d03202e3b3e2bc49c93 assets/scprotect/models/item/scp_1025.json

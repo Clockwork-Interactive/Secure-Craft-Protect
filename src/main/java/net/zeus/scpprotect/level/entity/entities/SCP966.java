@@ -37,7 +37,6 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
         super(pEntityType, pLevel);
     }
 
-
     protected void registerGoals() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new SCP966LookForPlayerGoal(this, Player.class, false));
@@ -48,8 +47,7 @@ public class SCP966 extends Monster implements GeoEntity, Anomaly {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        SoundEvent[] idleSounds = new SoundEvent[]{SCPSounds.SCP_966_IDLE1.get(), SCPSounds.SCP_966_IDLE2.get(), SCPSounds.SCP_966_IDLE3.get()};
-        return idleSounds[this.random.nextInt(0, idleSounds.length - 1)];
+        return SCPSounds.SCP_966_IDLE.get();
     }
 
     @Override

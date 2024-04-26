@@ -12,9 +12,9 @@ import net.zeus.scpprotect.level.particle.SCPParticles;
 
 import java.util.List;
 
-public class Amputated extends MobEffect {
+public class AmputatedEffect extends MobEffect {
 
-    public Amputated(MobEffectCategory pCategory, int pColor) {
+    public AmputatedEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
 

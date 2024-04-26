@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,6 +28,7 @@ public class SCPTabs {
             .title(Component.translatable("creativemodetab.securecraftprotecttab.blocks")).icon(() ->
                     new ItemStack(SCPBlocks.SCP_019.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Block> key : SCPBlocks.BLOCKS.getEntries()) {
+                    if (key.get() instanceof FlowerBlock) continue;
                     entries.accept(key.get());
                 }
                 for (RegistryObject<Block> key : FacilityBlocks.BLOCKS.getEntries()) {
@@ -48,16 +50,15 @@ public class SCPTabs {
 
 
     public static final RegistryObject<CreativeModeTab> ITEM_TAB = TABS.register("item_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creativemodetab.securecraftprotecttab.items")).icon(() ->
-                    new ItemStack(SCPItems.SCP_1025.get())).displayItems((enabledFeatures, entries) -> {
-
+            .title(Component.translatable("creativemodetab.securecraftprotecttab.items")).icon(() -> new ItemStack(SCPItems.SCP_1025.get()))
+            .displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
-                    if (!(key.get() instanceof BlockItem || key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem) || key.get() instanceof SolidBucketMobItem) {
-                        entries.accept(key.get());
+                    if (!(key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem)) {
+                        if (!(key.get() instanceof BlockItem) || key.equals(SCPItems.LAVENDER) || key.get() instanceof SolidBucketMobItem) {
+                            entries.accept(key.get());
+                        }
                     }
                 }
-
-
             }).build());
 
 }

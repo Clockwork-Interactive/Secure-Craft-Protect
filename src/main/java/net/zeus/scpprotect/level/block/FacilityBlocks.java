@@ -5,12 +5,12 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.custom.DecorationBlock;
 import net.zeus.scpprotect.level.block.custom.FileCabinetBlock;
 import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
@@ -206,7 +206,7 @@ public class FacilityBlocks {
 
     public static final RegistryObject<Block> OFFICE_LAMP = registerBlock("office_lamp",
             () -> new DecorationBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
-                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPBlockShapes.OFFICE_LAMP));
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.OFFICE_LAMP));
 
     public static final RegistryObject<Block> FLUORESCENT_LAMP_BLOCK = registerBlock("fluorescent_lamp_block",
             () -> new Block(BlockBehaviour.Properties.of().lightLevel(s -> 15)
@@ -214,7 +214,7 @@ public class FacilityBlocks {
 
     public static final RegistryObject<Block> FLUORESCENT_LIGHT = registerBlock("fluorescent_light",
             () -> new DecorationBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
-                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPBlockShapes.FLUORESCENT_LIGHT));
+                    .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT));
 
     public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
             () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)

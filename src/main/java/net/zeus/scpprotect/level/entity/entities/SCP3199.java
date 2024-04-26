@@ -36,44 +36,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
 public class SCP3199 extends Monster implements Anomaly, GeoEntity {
-
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final EntityDataAccessor<Boolean> ENRAGED = SynchedEntityData.defineId(SCP3199.class, net.minecraft.network.syncher.EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(SCP3199.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
     public static final int maxTime = 7200;
     public int timeRemaining = maxTime;
 
-    public static final List<SoundEvent> idles = List.of(
-            SCPSounds.SCP_3199_IDLE_1.get(),
-            SCPSounds.SCP_3199_IDLE_2.get(),
-            SCPSounds.SCP_3199_IDLE_3.get(),
-            SCPSounds.SCP_3199_IDLE_4.get(),
-            SCPSounds.SCP_3199_IDLE_5.get(),
-            SCPSounds.SCP_3199_IDLE_6.get(),
-            SCPSounds.SCP_3199_IDLE_7.get(),
-            SCPSounds.SCP_3199_IDLE_8.get(),
-            SCPSounds.SCP_3199_IDLE_9.get(),
-            SCPSounds.SCP_3199_IDLE_10.get(),
-            SCPSounds.SCP_3199_IDLE_11.get(),
-            SCPSounds.SCP_3199_IDLE_12.get()
-    );
-    public static final List<SoundEvent> hurt = List.of(
-            SCPSounds.SCP_3199_HURT_1.get(),
-            SCPSounds.SCP_3199_HURT_2.get(),
-            SCPSounds.SCP_3199_HURT_3.get()
-    );
-    public static final List<SoundEvent> death = List.of(
-            SCPSounds.SCP_3199_DEATH_1.get(),
-            SCPSounds.SCP_3199_DEATH_2.get(),
-            SCPSounds.SCP_3199_DEATH_3.get()
-    );
-    public static final SoundEvent layEgg = SCPSounds.SCP_3199_LAY.get();
-
-
     public SCP3199(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-
 
     protected void registerGoals() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -142,12 +113,12 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return RefractionMisc.getRandom(idles);
+        return SCPSounds.SCP_3199_IDLE.get();
     }
 
     @Override
     public void die(DamageSource pDamageSource) {
-        SoundEvent soundEvent = RefractionMisc.getRandom(death);
+        SoundEvent soundEvent = SCPSounds.SCP_3199_DEATH.get();
         if (soundEvent != null) {
             this.playSound(soundEvent, 1.0F, 1.0F);
         }
@@ -156,7 +127,7 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return RefractionMisc.getRandom(hurt);
+        return SCPSounds.SCP_3199_HURT.get();
     }
 
     @Override
@@ -216,7 +187,7 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
         areaEffectCloud.setDuration(60);
         this.level().addFreshEntity(areaEffectCloud);
 
-        this.playSound(layEgg, 1.0F, 1.0F);
+        this.playSound(SCPSounds.SCP_3199_LAY.get(), 1.0F, 1.0F);
 
     }
 

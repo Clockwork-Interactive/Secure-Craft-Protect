@@ -1,3 +1,6 @@
 {
-  "parent": "scprotect:block/scp_330"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "scprotect:item/scp_330"
+  }
 }

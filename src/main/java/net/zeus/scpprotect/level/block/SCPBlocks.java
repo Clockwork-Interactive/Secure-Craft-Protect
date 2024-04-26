@@ -11,8 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.custom.*;
-import net.zeus.scpprotect.level.block.fluid.SCP006Block;
-import net.zeus.scpprotect.level.fluid.SCPFluids;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.function.Supplier;
@@ -38,6 +37,9 @@ public class SCPBlocks {
     public static final RegistryObject<Block> SCULPTURE_EXCREMENT = registerBlock("sculpture_excrements",
             () -> new SculptureExcrement(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT)
                     .strength(2.0F).sound(SoundType.SLIME_BLOCK).noOcclusion().noLootTable()));
+
+    public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender",
+            () -> new FlowerBlock(SCPEffects.PESTILENCE, 10, BlockBehaviour.Properties.copy(Blocks.POPPY)));
 
     public static final RegistryObject<Block> AGED_BRICKS = registerBlock("aged_bricks",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)

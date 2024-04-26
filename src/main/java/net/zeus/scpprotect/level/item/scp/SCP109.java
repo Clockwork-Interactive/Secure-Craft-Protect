@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -29,18 +28,11 @@ import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SCP109 extends Item implements Anomaly {
     public SCP109(Properties pProperties) {
         super(pProperties);
-        sounds.add(SCPSounds.SCP_109_POUR1.get());
-        sounds.add(SCPSounds.SCP_109_POUR2.get());
-        sounds.add(SCPSounds.SCP_109_POUR3.get());
     }
-
-    public static List<SoundEvent> sounds = new ArrayList<>();
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
@@ -119,7 +111,7 @@ public class SCP109 extends Item implements Anomaly {
     public static void playEmptySound(Level level, BlockPos pos) {
         RandomSource source = RandomSource.createNewThreadLocalInstance();
         if (level instanceof ServerLevel serverLevel) {
-            serverLevel.playSound(null, pos, sounds.get(source.nextInt(3)), SoundSource.BLOCKS, 1.0F, 1.0F);
+            serverLevel.playSound(null, pos, SCPSounds.SCP_109_POUR.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
 

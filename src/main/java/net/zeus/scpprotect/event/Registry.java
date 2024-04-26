@@ -36,6 +36,8 @@ public class Registry {
         event.registerEntityRenderer(SCPEntity.SCP_131.get(), SCP131Renderer::new);
         event.registerEntityRenderer(SCPEntity.SCP_346.get(), SCP346Renderer::new);
         event.registerEntityRenderer(SCPEntity.SCP_999.get(), SCP999Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_049.get(), SCP049Renderer::new);
+        event.registerEntityRenderer(SCPEntity.SCP_049_2.get(), SCP049_2Renderer::new);
     }
 
     @SubscribeEvent

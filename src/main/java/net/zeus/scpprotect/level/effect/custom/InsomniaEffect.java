@@ -7,8 +7,8 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class Insomnia extends MobEffect {
-    public Insomnia(MobEffectCategory pCategory, int pColor) {
+public class InsomniaEffect extends MobEffect {
+    public InsomniaEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
 

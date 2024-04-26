@@ -1,20 +1,18 @@
 package net.zeus.scpprotect.datagen;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
-
-import java.util.Locale;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -23,8 +21,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        horizontalBlockWithItem(FacilityBlocks.FILECABINET);
-        horizontalBlockWithItem(SCPBlocks.SCULPTURE_EXCREMENT);
+        horizontalBlockWithItem(FacilityBlocks.FILECABINET, true);
+        horizontalBlockWithItem(SCPBlocks.SCULPTURE_EXCREMENT, true);
         blockWithItem(SCPBlocks.AGED_BRICKS);
         blockWithItem(SCPBlocks.AGED_CONCRETE);
 
@@ -50,9 +48,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(FacilityBlocks.METAL_CONTAINER);
         blockWithItem(FacilityBlocks.METAL_CONTAINER_GRIDDED);
 
-        horizontalBlockWithItem(SCPBlocks.SCP_019);
-        horizontalBlockWithItem(SCPBlocks.SCP_330);
-        horizontalBlockWithItem(SCPBlocks.SCP_310);
+        horizontalBlockWithItem(SCPBlocks.SCP_019, false);
+        horizontalBlockWithItem(SCPBlocks.SCP_330, false);
+        horizontalBlockWithItem(SCPBlocks.SCP_310, false);
+
+        flowerBlock(SCPBlocks.LAVENDER);
 
         sidedBlock(SCPBlocks.OLD_STAINED_WALL, new ResourceLocation(
                 SCP.MOD_ID, "block/old_wall_stained"), new ResourceLocation(
@@ -156,15 +156,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
     }
 
-    private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
-        simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+    private void blockWithItem(RegistryObject<Block> block) {
+        simpleBlockWithItem(block.get(), cubeAll(block.get()));
     }
 
-    private void horizontalBlockWithItem(RegistryObject<Block> blockRegistryObject) {
+    private void horizontalBlockWithItem(RegistryObject<Block> blockRegistryObject, boolean hasBlockItem) {
         Block block = blockRegistryObject.get();
         ModelFile.ExistingModelFile model = new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getDescriptionId().replace("block.scprotect.", "")), models().existingFileHelper);
         horizontalBlock(block, model);
-        simpleBlockItem(block, model);
+        if (hasBlockItem) {
+            simpleBlockItem(block, model);
+        }
     }
 
+    private void flowerBlock(RegistryObject<Block> block) {
+        simpleBlock(block.get(), new ConfiguredModel(models().cross(block.getId().getPath(), blockTexture(block.get())).renderType("cutout")));
+    }
 }

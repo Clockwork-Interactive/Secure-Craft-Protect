@@ -9,7 +9,7 @@ public class SCP939Renderer extends GeoEntityRenderer<SCP939> {
 
     public SCP939Renderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SCP939Model());
-        this.shadowRadius = 0.5F;
+        this.shadowRadius = 0.7F;
     }
 
 }
