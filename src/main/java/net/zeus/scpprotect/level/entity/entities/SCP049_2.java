@@ -3,7 +3,10 @@ package net.zeus.scpprotect.level.entity.entities;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -14,7 +17,9 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.util.Misc;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -43,6 +48,14 @@ public class SCP049_2 extends Monster implements GeoEntity, Anomaly {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Zombie.createAttributes();
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity pEntity) {
+        if (pEntity instanceof LivingEntity entity) {
+            entity.addEffect(new MobEffectInstance(SCPEffects.BLEEDING.get(), Misc.TPS * 5));
+        }
+        return super.doHurtTarget(pEntity);
     }
 
     @Override

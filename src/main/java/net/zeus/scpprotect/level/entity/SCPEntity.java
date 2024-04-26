@@ -31,7 +31,7 @@ public class SCPEntity {
 
     public static final RegistryObject<EntityType<SCP173>> SCP_173 = register("scp_173", EntityType.Builder.of(SCP173::new, MobCategory.MONSTER).sized(0.5F, 1.99F));
 
-    public static final RegistryObject<EntityType<SCP346>> SCP_346 = register("scp_346", EntityType.Builder.of(SCP346::new, MobCategory.MISC).sized(0.6F, 0.6F));
+    public static final RegistryObject<EntityType<SCP346>> SCP_346 = register("scp_346", EntityType.Builder.of(SCP346::new, MobCategory.MISC).sized(0.6F, 0.8F));
 
     public static final RegistryObject<EntityType<SCP939>> SCP_939 = register("scp_939", EntityType.Builder.of(SCP939::new, MobCategory.MONSTER).sized(1.4F, 1.3F));
 

@@ -7,7 +7,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +26,7 @@ import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.effect.SCPPotions;
 import net.zeus.scpprotect.level.entity.SCPEntity;
 import net.zeus.scpprotect.level.fluid.SCPFluidTypes;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
@@ -62,6 +68,8 @@ public class SCP {
 
         SCPFluids.FLUIDS.register(modEventBus);
 
+        SCPPotions.POTIONS.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);
 
@@ -73,12 +81,17 @@ public class SCP {
 
     private void setup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
+
             ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
                     new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
                         return SCP500Bottle.getFullnessDisplay(p_174625_);
                     });
-            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
+            BrewingRecipeRegistry.addRecipe(
+                    Ingredient.of(Items.GLASS_BOTTLE),
+                    Ingredient.of(SCPItems.LAVENDER.get()),
+                    PotionUtils.setPotion(new ItemStack(Items.POTION), SCPPotions.PACIFICATION.get()));
         });
     }
 

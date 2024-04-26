@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -15,10 +16,11 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.effect.SCPPotions;
 import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
-import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.util.ModDamageTypes;
 import org.apache.commons.lang3.text.WordUtils;
@@ -106,7 +108,6 @@ public class ModLanguageProvider extends LanguageProvider {
             }
             add(registry.get(), WordUtils.capitalize(registry.get().getDescriptionId().replace("effect.scprotect.", "").replace("_", " ")));
         }
-
         add("sounds.scprotect.scp_096_running", "SCP-096 is running!");
         add("sounds.scprotect.scp_096_idle", "SCP-096 is idle nearby!");
         add("sounds.scprotect.scp_096_triggered", "SCP-096 is triggered nearby!");
@@ -118,12 +119,27 @@ public class ModLanguageProvider extends LanguageProvider {
         add("creativemodetab.securecraftprotecttab.entities", "Secure Craft Protect Entities");
         add("creativemodetab.securecraftprotecttab.items", "Secure Craft Protect Items");
 
-        registerDamageType(ModDamageTypes.SCP939_DAMAGE, "%1$s died to unknown causes...");
+        addPotion(SCPPotions.PACIFICATION, "Pacification");
+
+        addDamageType(ModDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...");
+        addDamageType(ModDamageTypes.BLEEDING, "%1$s bled to death", "%1$s bled to death by %2$s");
     }
 
-    private void registerDamageType(ResourceKey<DamageType> damageType, String deathMessage) {
+    private void addDamageType(ResourceKey<DamageType> damageType, String deathMessage) {
         this.add(damageType.location().toLanguageKey(), deathMessage);
         this.add("death.attack." + damageType.location().toLanguageKey(), deathMessage);
     }
 
+    private void addDamageType(ResourceKey<DamageType> damageType, String deathMessage, String secondMessage) {
+        this.add(damageType.location().toLanguageKey(), deathMessage);
+        this.add("death.attack." + damageType.location().toLanguageKey(), deathMessage);
+        this.add("death.attack." + damageType.location().toLanguageKey() + ".player", secondMessage);
+    }
+
+    private void addPotion(RegistryObject<Potion> key, String name) {
+        add("item.minecraft.potion.effect." + key.getId().getPath(), "Potion of " + name);
+        add("item.minecraft.splash_potion.effect." + key.getId().getPath(), "Splash Potion of " + name);
+        add("item.minecraft.lingering_potion.effect." + key.getId().getPath(), "Lingering Potion of " + name);
+        add("item.minecraft.tipped_arrow.effect." + key.getId().getPath(), "Arrow of " + name);
+    }
 }

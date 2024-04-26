@@ -41,7 +41,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class SCP049 extends Monster implements GeoEntity, Anomaly {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     protected static final EntityDataAccessor<Boolean> DATA_DRUGGED = SynchedEntityData.defineId(SCP049.class, EntityDataSerializers.BOOLEAN);
-    private int friendlyTimer = 150;
+    private int friendlyTimer = Misc.TPS * 10;
+    private int druggedTimer = Misc.TPS * 30;
 
     public SCP049(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -101,7 +102,7 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
         super.tick();
         for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8))) {
             if (entity instanceof Player player && !(player.isCreative() || player.isSpectator()) || entity instanceof Villager) {
-                if (!entity.hasEffect(SCPEffects.PESTILENCE.get())) {
+                if (!entity.hasEffect(SCPEffects.PESTILENCE.get()) && !this.isDrugged()) {
                     if (this.friendlyTimer > 0) {
                         this.friendlyTimer--;
                     } else {
@@ -112,13 +113,21 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
                 }
             }
         }
+        if (this.isDrugged()) {
+            if (this.druggedTimer > 0) {
+                this.druggedTimer--;
+            } else {
+                this.druggedTimer = Misc.TPS * 30;
+                this.setDrugged(false);
+            }
+        }
     }
 
     @Override
     public void awardKillScore(Entity pKilled, int pScoreValue, DamageSource pSource) {
         this.playSound(SCPSounds.SCP_049_KILL.get());
         this.playSound(SCPSounds.SCP_049_RESURRECT.get());
-        this.friendlyTimer = 150;
+        this.friendlyTimer = Misc.TPS * 10;
         if (pKilled instanceof Player) {
             SCP049_2 scp049_2 = SCPEntity.SCP_049_2.get().create(this.level());
             scp049_2.moveTo(pKilled.getX(), pKilled.getY(), pKilled.getZ());

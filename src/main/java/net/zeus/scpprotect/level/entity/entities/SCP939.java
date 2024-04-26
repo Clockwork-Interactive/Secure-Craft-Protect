@@ -185,7 +185,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         }
         if (pEntity instanceof LivingEntity living && living.isAlive())
             this.playSound(SCPSounds.SCP_939_ATTACK.get());
-        pEntity.hurt(Misc.damageSource(ModDamageTypes.SCP939_DAMAGE, pEntity.level()), 10.0F);
+        pEntity.hurt(Misc.damageSource(ModDamageTypes.SCP_939_DAMAGE, pEntity.level()), 10.0F);
         return true;
     }
 

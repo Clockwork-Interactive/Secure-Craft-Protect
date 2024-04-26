@@ -17,5 +17,6 @@ public class SCPEffects {
     public static final RegistryObject<MobEffect> UNEXTINGUISHABLE = MOB_EFFECTS.register("unextinguishable", () -> new UnextinguishableEffect(MobEffectCategory.HARMFUL, 0));
     public static final RegistryObject<MobEffect> ANXIOUS = MOB_EFFECTS.register("anxious", () -> new AnxiousEffect(MobEffectCategory.HARMFUL, 0));
     public static final RegistryObject<MobEffect> PESTILENCE = MOB_EFFECTS.register("pestilence", () -> new PestilenceEffect(MobEffectCategory.HARMFUL, 0));
-
+    public static final RegistryObject<MobEffect> PACIFICATION = MOB_EFFECTS.register("pacification", () -> new PacificationEffect(MobEffectCategory.BENEFICIAL, 11956459));
+    public static final RegistryObject<MobEffect> BLEEDING = MOB_EFFECTS.register("bleeding", () -> new BleedingEffect(MobEffectCategory.BENEFICIAL, 0));
 }

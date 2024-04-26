@@ -1,5 +1,5 @@
 {
   "exhaustion": 1.0,
-  "message_id": "scprotect.scp939_damage",
+  "message_id": "scprotect.scp_939_damage",
   "scaling": "when_caused_by_living_non_player"
 }
