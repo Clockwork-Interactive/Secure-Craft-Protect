@@ -4,10 +4,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 
 public class PacificationEffect extends MobEffect {
+    public static Goal attackGoal;
+
     public PacificationEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
@@ -17,6 +20,7 @@ public class PacificationEffect extends MobEffect {
         if (pLivingEntity instanceof Mob mob) {
             for (WrappedGoal goal : mob.goalSelector.getAvailableGoals()) {
                 if (goal.getGoal() instanceof MeleeAttackGoal) {
+                    attackGoal = goal.getGoal();
                     mob.goalSelector.removeGoal(goal.getGoal());
                 }
             }

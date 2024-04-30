@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Phantom;
@@ -33,6 +34,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.effect.custom.PacificationEffect;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
@@ -186,8 +188,28 @@ public class CommonForgeEvents {
     @SubscribeEvent
     public static void effectRemoved(MobEffectEvent.Remove event) {
         LivingEntity entity = event.getEntity();
-        if (entity instanceof Player && event.getEffectInstance().getEffect().equals(SCPEffects.AMPUTATED.get())) {
-            Minecraft.getInstance().gameRenderer.setRenderHand(true);
+        MobEffect effect = event.getEffect();
+
+        if (effect == SCPEffects.AMPUTATED.get()) {
+            if (entity instanceof Player) {
+                Minecraft.getInstance().gameRenderer.setRenderHand(true);
+            }
+        } else if (effect == SCPEffects.PACIFICATION.get()) {
+            if (entity instanceof Mob mob) {
+                mob.goalSelector.addGoal(1, PacificationEffect.attackGoal);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void effectExpires(MobEffectEvent.Expired event) {
+        LivingEntity entity = event.getEntity();
+        MobEffect effect = event.getEffectInstance().getEffect();
+
+        if (effect == SCPEffects.PACIFICATION.get()) {
+            if (entity instanceof Mob mob) {
+                mob.goalSelector.addGoal(1, PacificationEffect.attackGoal);
+            }
         }
     }
 }
