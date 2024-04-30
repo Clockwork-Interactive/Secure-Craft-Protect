@@ -115,11 +115,11 @@ public class FacilityBlocks {
 
     public static final RegistryObject<Block> METAL_PLATE_STAIRS = registerBlock("metal_plate_stairs",
             () -> new StairBlock(() -> FacilityBlocks.METAL_PLATE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(1.8F)));
+                    .strength(1.8F).sound(SoundType.COPPER)));
 
     public static final RegistryObject<Block> METAL_PLATE_SLAB = registerBlock("metal_plate_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(1.8F)));
+                    .strength(1.8F).sound(SoundType.COPPER)));
 
     public static final RegistryObject<Block> METALLIC_PANELS = registerBlock("metallic_panels",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY)
