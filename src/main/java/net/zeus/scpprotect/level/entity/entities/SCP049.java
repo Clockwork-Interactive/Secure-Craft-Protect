@@ -90,6 +90,7 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         if (stack.is(SCPItems.LAVENDER.get()) && this.isAggressive()) {
             this.setDrugged(true);
+            this.setAggressive(false);
             stack.shrink(1);
             pPlayer.swing(pHand);
             Misc.summonParticlesAroundEntity(this, ParticleTypes.HEART, 4);
@@ -124,6 +125,15 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
     }
 
     @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        Entity source = pSource.getEntity();
+        if (source instanceof LivingEntity entity) {
+            entity.addEffect(new MobEffectInstance(SCPEffects.PESTILENCE.get(), -1));
+        }
+        return super.hurt(pSource, pAmount);
+    }
+
+    @Override
     public void awardKillScore(Entity pKilled, int pScoreValue, DamageSource pSource) {
         this.playSound(SCPSounds.SCP_049_KILL.get());
         this.playSound(SCPSounds.SCP_049_RESURRECT.get());
@@ -145,6 +155,11 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
     @Override
     protected SoundEvent getAmbientSound() {
         return this.isAggressive() ? SCPSounds.SCP_049_ATTACK_FAIL.get() :  super.getAmbientSound();
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return 1.0F;
     }
 
     public boolean isDrugged() {
@@ -171,7 +186,7 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
 
     @Override
     public boolean doArmAnimations(AnimationState<?> state) {
-        return true;
+        return !this.isAggressive();
     }
 
     @Override
