@@ -1,9 +1,8 @@
 package net.zeus.scpprotect.client.models.entity;
 
-import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.entity.entities.SCP3199;
 
-public class SCP3199Model extends BiPedalModel<SCP3199> {
+public class SCP3199Model extends DefaultGeoBiPedalModel<SCP3199> {
 
     @Override
     public String model(int process, SCP3199 animatable) {
@@ -14,7 +13,12 @@ public class SCP3199Model extends BiPedalModel<SCP3199> {
     }
 
     @Override
-    public boolean hasAnimation() {
+    public String type(SCP3199 animatable) {
+        return "entity";
+    }
+
+    @Override
+    public boolean hasAnimation(SCP3199 animatable) {
         return false;
     }
 
@@ -27,4 +31,5 @@ public class SCP3199Model extends BiPedalModel<SCP3199> {
     public float zOffRightArm() {
         return 10.0F;
     }
+
 }

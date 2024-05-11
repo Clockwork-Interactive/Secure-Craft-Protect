@@ -10,8 +10,6 @@ import java.util.HashMap;
 
 public class SCP330BlockEntity extends BaseEntityBlock {
 
-    public HashMap<Player, Integer> candiesTaken = new HashMap<>();
-
     public SCP330BlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SCPBlockEntities.SCP_330_BE.get(), pPos, pBlockState);
     }

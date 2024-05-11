@@ -17,6 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.registry.block.BaseHorizontalEntityBlock;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.level.block.SCPVoxelShapes;
 import net.zeus.scpprotect.level.block.entity.custom.SCP330BlockEntity;
 import net.zeus.scpprotect.level.effect.SCPEffects;
@@ -42,18 +43,19 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
         SCP330BlockEntity scp330BlockEntity = (SCP330BlockEntity) pLevel.getBlockEntity(pPos);
         if (scp330BlockEntity == null) return InteractionResult.FAIL;
 
-        scp330BlockEntity.candiesTaken.putIfAbsent(pPlayer, 0);
-        scp330BlockEntity.candiesTaken.put(pPlayer, scp330BlockEntity.candiesTaken.get(pPlayer) + 1);
+        pPlayer.getCapability(Capabilities.SCP_DATA).ifPresent(scpData -> {
+            scpData.candiesTaken++;
 
-        pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get())), 1));
+            pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get())), 1));
 
-        if (scp330BlockEntity.candiesTaken.get(pPlayer) > 2) {
-            scp330BlockEntity.candiesTaken.put(pPlayer, 0);
-            pPlayer.addEffect(new MobEffectInstance(SCPEffects.AMPUTATED.get(), 250, 0, false, true, true));
-            pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
-            if (pPlayer instanceof ServerPlayer player)
-                ModMessages.sendToPlayer(new VignetteS2CPacket(250, true, false), player);
-        }
+            if (scpData.candiesTaken > 2) {
+                scpData.candiesTaken = 0;
+                pPlayer.addEffect(new MobEffectInstance(SCPEffects.AMPUTATED.get(), 250, 0, false, true, true));
+                pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
+                if (pPlayer instanceof ServerPlayer player)
+                    ModMessages.sendToPlayer(new VignetteS2CPacket(250, true, false), player);
+            }
+        });
 
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }

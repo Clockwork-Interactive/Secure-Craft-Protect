@@ -1,26 +1,23 @@
 package net.zeus.scpprotect.client.models.entity;
 
-import net.minecraft.resources.ResourceLocation;
-import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.entities.SCP811;
 
-public class SCP811Model extends BiPedalModel<SCP811> {
+public class SCP811Model extends DefaultGeoBiPedalModel<SCP811> {
     @Override
     public String model(int process, SCP811 animatable) {
+        if (process == 2)
+            return animatable.isTame() ? "scp_811_tame" : "scp_811";
         return "scp_811";
     }
 
     @Override
-    public ResourceLocation getTextureResource(SCP811 animatable) {
-        if (animatable.isTame()) {
-            return new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_811_tame.png");
-        } else {
-            return new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_811.png");
-        }
+    public String type(SCP811 animatable) {
+        return "entity";
     }
 
     @Override
-    public boolean hasAnimation() {
+    public boolean hasAnimation(SCP811 animatable) {
         return true;
     }
+
 }

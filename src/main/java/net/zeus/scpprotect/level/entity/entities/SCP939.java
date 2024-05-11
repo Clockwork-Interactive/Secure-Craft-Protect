@@ -23,12 +23,9 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.data.DeobfuscatedUtil;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.goals.SCP939ListenTargetGoal;
-import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.util.Misc;
-import net.zeus.scpprotect.util.ModDamageTypes;
+import net.zeus.scpprotect.util.SCPDamageTypes;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
@@ -37,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-public class SCP939 extends Monster implements GeoEntity, Anomaly {
+public class SCP939 extends SCPEntity {
     AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final float speedModifier = 0.35F;
     private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier("Attacking speed boost 939", speedModifier, AttributeModifier.Operation.ADDITION);
@@ -61,11 +58,6 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -163,7 +155,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
                 if (server != null && !server.isSingleplayer()) {
                     if (!this.hasCustomName()) {
                         if (!player.level().players().isEmpty()) {
-                            this.setCustomName(player.level().players().get(RandomSource.create().nextInt(player.level().players().size())).getName());
+                            this.setCustomName(player.level().players().get(this.random.nextInt(player.level().players().size())).getName());
                         }
                     }
                     this.setCustomNameVisible(true);
@@ -185,7 +177,7 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
         }
         if (pEntity instanceof LivingEntity living && living.isAlive())
             this.playSound(SCPSounds.SCP_939_ATTACK.get());
-        pEntity.hurt(Misc.damageSource(ModDamageTypes.SCP_939_DAMAGE, pEntity.level()), 10.0F);
+        pEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.SCP_939_DAMAGE, this), 10.0F);
         return true;
     }
 
@@ -203,6 +195,11 @@ public class SCP939 extends Monster implements GeoEntity, Anomaly {
     @Override
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return false;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
     }
 
     @Override

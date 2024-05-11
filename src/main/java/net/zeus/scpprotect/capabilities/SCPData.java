@@ -2,17 +2,28 @@ package net.zeus.scpprotect.capabilities;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
+import net.refractionapi.refraction.capabilities.Data;
 import net.zeus.scpprotect.SCP;
 
-public class SCPData {
+@AutoRegisterCapability
+public class SCPData extends Data<SCPData> {
 
-    public void saveNBTData(CompoundTag nbt) {
+    public int candiesTaken = 0;
+
+    @Override
+    public void saveNBTData(CompoundTag compoundTag) {
+        compoundTag.putInt("candiesTaken", this.candiesTaken);
     }
 
-    public void loadNBTData(CompoundTag nbt) {
+    @Override
+    public void loadNBTData(CompoundTag compoundTag) {
+        this.candiesTaken = compoundTag.getInt("candiesTaken");
     }
 
-    public void copyFrom(SCPData source) {
+    @Override
+    public void copyFromData(SCPData scpData) {
+        this.candiesTaken = scpData.candiesTaken;
     }
 
 }

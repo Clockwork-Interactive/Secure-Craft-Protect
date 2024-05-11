@@ -23,11 +23,7 @@ public class SCPEggItem extends ForgeSpawnEggItem {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        switch (this.eggType) {
-            case KETER -> pTooltipComponents.add(Component.literal("Keter").withStyle(ChatFormatting.RED));
-            case EUCLID -> pTooltipComponents.add(Component.literal("Euclid").withStyle(ChatFormatting.YELLOW));
-            case SAFE -> pTooltipComponents.add(Component.literal("Safe").withStyle(ChatFormatting.GREEN));
-        }
+        pTooltipComponents.add(this.eggType.component);
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

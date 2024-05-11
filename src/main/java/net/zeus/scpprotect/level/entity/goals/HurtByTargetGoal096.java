@@ -29,7 +29,7 @@ public class HurtByTargetGoal096 extends TargetGoal {
         LivingEntity livingentity = this.scp096.getLastHurtByMob();
         if ((livingentity instanceof Player player && player.isCreative()) || !this.scp096.canTrigger()) return false;
         if (livingentity != null) {
-            this.scp096.targetMap.add(livingentity);
+            this.scp096.targets.add(livingentity);
             return true;
         }
         return false;

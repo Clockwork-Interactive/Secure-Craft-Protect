@@ -58,7 +58,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SCP173 extends Monster implements GeoEntity, Anomaly {
+public class SCP173 extends SCPEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public int blinkTick = 0;
     public final HashMap<Player, Integer> teleports = new HashMap<>();
@@ -121,12 +121,12 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
             }
         }
 
-        return pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
+        return (pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
                 || pSource.is(DamageTypes.DRAGON_BREATH)
                 || pSource.is(DamageTypes.FALLING_ANVIL)
                 || pSource.is(DamageTypes.GENERIC)
                 || pSource.is(DamageTypes.GENERIC_KILL)
-                || pSource.is(DamageTypes.FELL_OUT_OF_WORLD)
+                || pSource.is(DamageTypes.FELL_OUT_OF_WORLD))
                 && super.hurt(pSource, pAmount);
     }
 
@@ -158,10 +158,12 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
         List<ServerPlayer> toBlink = new ArrayList<>();
 
         for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(32))) {
-            if (entity instanceof ServerPlayer player && !player.isCreative()) {
-                boolean hasLos = Vec3Helper.isInAngle(player, this.blockPosition(), 90) && this.hasLineOfSight(player);
+            if (entity instanceof LivingEntity livingEntity) {
+                if (livingEntity instanceof ServerPlayer serverPlayer && serverPlayer.isCreative()) continue;
+                boolean hasLos = Vec3Helper.isInAngle(livingEntity, this.getEyePosition(), 90) && this.hasLineOfSight(livingEntity);
                 if (hasLos) {
-                    toBlink.add(player);
+                    if (livingEntity instanceof ServerPlayer serverPlayer)
+                        toBlink.add(serverPlayer);
                     blink = true;
                 }
             }
@@ -303,9 +305,11 @@ public class SCP173 extends Monster implements GeoEntity, Anomaly {
     }
 
     public void updateTp(ServerPlayer player) {
-        this.teleports.putIfAbsent(player, 0);
-        this.teleports.put(player, this.teleports.get(player) + 1);
-        RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());
+        if (this.distanceTo(player) <= 1.0F) {
+            this.teleports.putIfAbsent(player, 0);
+            this.teleports.put(player, this.teleports.get(player) + 1);
+            RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());
+        }
     }
 
     public void playKillSound() {

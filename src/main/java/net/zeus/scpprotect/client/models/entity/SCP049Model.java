@@ -8,18 +8,18 @@ import software.bernie.geckolib.core.animation.AnimationState;
 
 public class SCP049Model extends DefaultGeoBiPedalModel<SCP049> {
     @Override
-    public ResourceLocation getModelResource(SCP049 scp049) {
-        return new ResourceLocation(SCP.MOD_ID, "geo/entity/scp_049.geo.json");
+    public String model(int process, SCP049 animatable) {
+        return "scp_049";
     }
 
     @Override
-    public ResourceLocation getTextureResource(SCP049 scp049) {
-        return new ResourceLocation(SCP.MOD_ID, "textures/entity/scp_049.png");
+    public String type(SCP049 animatable) {
+        return "entity";
     }
 
     @Override
-    public ResourceLocation getAnimationResource(SCP049 scp049) {
-        return null;
+    public boolean hasAnimation(SCP049 animatable) {
+        return false;
     }
 
     @Override

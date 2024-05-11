@@ -41,14 +41,15 @@ public class ModMessages {
 
     private static <P extends Packet> void registerPacket(Class<P> msgClass, NetworkDirection direction) {
         INSTANCE.messageBuilder(msgClass, id(), direction).decoder((byteBuf) -> {
-            try {
-                return msgClass.getConstructor(FriendlyByteBuf.class).newInstance(byteBuf);
-            } catch (Exception var3) {
-                throw new RuntimeException(var3);
-            }
-        }).encoder(Packet::toBytes).consumerMainThread((msg, supplier) -> {
-            msg.handle(supplier.get());
-        }).add();
+                    try {
+                        return msgClass.getConstructor(FriendlyByteBuf.class).newInstance(byteBuf);
+                    } catch (Exception var3) {
+                        throw new RuntimeException(var3);
+                    }
+                })
+                .encoder(Packet::toBytes)
+                .consumerMainThread((msg, supplier) -> msg.handle(supplier.get()))
+                .add();
     }
 
 }

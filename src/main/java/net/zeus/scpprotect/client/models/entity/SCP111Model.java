@@ -35,6 +35,8 @@ public class SCP111Model extends DefaultModel<SCP111> {
 
     @Override
     public void setCustomAnimations(SCP111 animatable, long instanceId, AnimationState<SCP111> animationState) {
-        Misc.rotateGeoHead(this, "head", animationState);
+        super.setCustomAnimations(animatable, instanceId, animationState);
+        rotateGeoHead("head", animationState);
     }
+
 }

@@ -11,7 +11,7 @@ import net.zeus.scpprotect.client.overlays.BlinkOverlay;
 import net.zeus.scpprotect.client.overlays.NodsOverlay;
 import net.zeus.scpprotect.client.overlays.VignetteOverlay;
 import net.zeus.scpprotect.client.renderer.entity.*;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.particle.custom.GenericParticle;
 
@@ -20,24 +20,24 @@ public class Registry {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(SCPEntity.SCP_019_2.get(), SCP019_2Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_058.get(), SCP058Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_173.get(), SCP173Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_096.get(), SCP096Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_939.get(), SCP939Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_966.get(), SCP966Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_811.get(), SCP811Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_3199.get(), SCP3199Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
-        event.registerEntityRenderer(SCPEntity.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
-        event.registerEntityRenderer(SCPEntity.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
-        event.registerEntityRenderer(SCPEntity.REBEL.get(), RebelRenderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_111.get(), SCP111Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_131.get(), SCP131Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_346.get(), SCP346Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_999.get(), SCP999Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_049.get(), SCP049Renderer::new);
-        event.registerEntityRenderer(SCPEntity.SCP_049_2.get(), SCP049_2Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_019_2.get(), SCP019_2Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_058.get(), SCP058Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_173.get(), SCP173Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_096.get(), SCP096Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_939.get(), SCP939Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_966.get(), SCP966Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_811.get(), SCP811Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_3199.get(), SCP3199Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_3199_EGG.get(), SCP3199EggRenderer::new);
+        event.registerEntityRenderer(SCPEntities.TOXIC_SPIT.get(), ToxicSpitRenderer::new);
+        event.registerEntityRenderer(SCPEntities.CONTAINMENT_BOX.get(), ContainmentRenderer::new);
+        event.registerEntityRenderer(SCPEntities.REBEL.get(), RebelRenderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_111.get(), SCP111Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_131.get(), SCP131Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_346.get(), SCP346Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_999.get(), SCP999Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_049.get(), SCP049Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_049_2.get(), SCP049_2Renderer::new);
     }
 
     @SubscribeEvent

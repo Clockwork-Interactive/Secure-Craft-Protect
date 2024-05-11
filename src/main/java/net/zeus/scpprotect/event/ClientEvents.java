@@ -29,7 +29,7 @@ public class ClientEvents {
     public static void clientTick(TickEvent.ClientTickEvent event) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
-
+            // Holy shit, this is a mess. TODO refactor this. -- Zeus
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get()) && !player.hasEffect(SCPEffects.AMNESIA.get())) {
                 if (!markedNods) {
                     markedNods = true;

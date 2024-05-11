@@ -6,10 +6,9 @@ import net.minecraft.sounds.SoundSource;
 import net.zeus.scpprotect.level.entity.entities.SCP058;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
-public class Idle058TickableSound extends AbstractTickableSoundInstance {
+public class Idle058TickableSound extends PlayableTickableSound {
 
     private final SCP058 scp058;
-    public boolean isPlaying = false;
 
     public Idle058TickableSound(SCP058 scp058) {
         super(SCPSounds.SCP_058_SPEAKING.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());

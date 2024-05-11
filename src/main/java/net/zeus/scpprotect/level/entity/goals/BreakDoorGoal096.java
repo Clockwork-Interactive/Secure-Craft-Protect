@@ -32,7 +32,7 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
      * method as well.
      */
     public boolean canUse() {
-        if (!this.scp096.targetMap.isEmpty()) {
+        if (!this.scp096.targets.isEmpty()) {
             if (!super.canUse()) {
                 return false;
             } else if (!net.minecraftforge.common.ForgeHooks.canEntityDestroy(this.mob.level(), this.doorPos, this.mob)) {
@@ -56,7 +56,7 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     public boolean canContinueToUse() {
-        return this.breakTime <= this.getDoorBreakTime() && !this.isOpen() && this.doorPos.closerToCenterThan(this.mob.position(), 2.0D) && !this.scp096.targetMap.isEmpty();
+        return this.breakTime <= this.getDoorBreakTime() && !this.isOpen() && this.doorPos.closerToCenterThan(this.mob.position(), 2.0D) && !this.scp096.targets.isEmpty();
     }
 
     /**

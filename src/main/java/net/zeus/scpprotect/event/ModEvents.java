@@ -4,38 +4,35 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.refractionapi.refraction.capabilities.CapabilityUtil;
+import net.refractionapi.refraction.capabilities.Data;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.capabilities.SCPDataProvider;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+
+import static net.refractionapi.refraction.capabilities.CapabilityUtil.attachCapability;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player player) {
-            if (!player.getCapability(SCPDataProvider.SCP_DATA).isPresent()) {
-                event.addCapability(new ResourceLocation(SCP.MOD_ID, "propertiesscpdata"), new SCPDataProvider());
-            }
+        if (event.getObject() instanceof Player) {
+            attachCapability(event, new SCPDataProvider(), Capabilities.SCP_DATA);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-
-            event.getOriginal().reviveCaps();
-            event.getOriginal().getCapability(SCPDataProvider.SCP_DATA).ifPresent(oldStore -> {
-                event.getEntity().getCapability(SCPDataProvider.SCP_DATA).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-            event.getOriginal().invalidateCaps();
-
+            CapabilityUtil.playerClone(event, Capabilities.SCP_DATA);
         }
     }
 

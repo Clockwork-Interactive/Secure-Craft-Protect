@@ -27,7 +27,7 @@ import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.SCPPotions;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.fluid.SCPFluidTypes;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -46,7 +46,7 @@ public class SCP {
     public SCP() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        SCPEntity.ENTITIES.register(modEventBus);
+        SCPEntities.ENTITIES.register(modEventBus);
 
         SCPSounds.SOUND_EVENTS.register(modEventBus);
 
@@ -103,7 +103,7 @@ public class SCP {
 
         SCPTypes(String colorModifier, Component component) {
             this.colorModifier = colorModifier;
-            this.component = component.copy().withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.ITALIC);
+            this.component = component;
         }
 
     }

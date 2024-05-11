@@ -9,6 +9,5 @@ import java.lang.reflect.Method;
 public class DeobfuscatedUtil {
 
     public static final Method MobAmbientSound = ObfuscationReflectionHelper.findMethod(Mob.class, "m_7515_");
-    //public static final Method ReadAdditional = ObfuscationReflectionHelper.findMethod(Entity.class, "m_7378_");
 
 }

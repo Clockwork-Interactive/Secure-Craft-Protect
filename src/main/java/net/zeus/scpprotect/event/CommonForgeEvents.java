@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -40,6 +42,7 @@ import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
+import oshi.util.tuples.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,24 +62,12 @@ public class CommonForgeEvents {
     public static void toolTipEvent(ItemTooltipEvent event) {
         if (event.getItemStack().getItem() instanceof Anomaly anomaly) {
             SCP.SCPTypes scpTypes = anomaly.getClassType();
-            if (scpTypes == SCP.SCPTypes.EUCLID) {
-                event.getToolTip().add(Component.literal("Euclid").withStyle(ChatFormatting.YELLOW));
-            } else if (scpTypes == SCP.SCPTypes.KETER) {
-                event.getToolTip().add(Component.literal("Keter").withStyle(ChatFormatting.RED));
-            } else {
-                event.getToolTip().add(Component.literal("Safe").withStyle(ChatFormatting.GREEN));
-            }
+            event.getToolTip().add(scpTypes.component);
             return;
         }
         if (event.getItemStack().getItem() instanceof BlockItem item && item.getBlock() instanceof Anomaly anomaly) {
             SCP.SCPTypes scpTypes = anomaly.getClassType();
-            if (scpTypes == SCP.SCPTypes.EUCLID) {
-                event.getToolTip().add(Component.literal("Euclid").withStyle(ChatFormatting.YELLOW));
-            } else if (scpTypes == SCP.SCPTypes.KETER) {
-                event.getToolTip().add(Component.literal("Keter").withStyle(ChatFormatting.RED));
-            } else {
-                event.getToolTip().add(Component.literal("Safe").withStyle(ChatFormatting.GREEN));
-            }
+            event.getToolTip().add(scpTypes.component);
         }
     }
 
@@ -129,6 +120,13 @@ public class CommonForgeEvents {
     public static void interactEvent(PlayerInteractEvent event) {
         if (!event.isCancelable()) return;
         if (event.getEntity().hasEffect(SCPEffects.AMPUTATED.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onAttack(LivingAttackEvent event) {
+        if (event.isCancelable() && event.getSource().getEntity() instanceof LivingEntity living && living.hasEffect(SCPEffects.AMPUTATED.get())) {
             event.setCanceled(true);
         }
     }
@@ -195,9 +193,7 @@ public class CommonForgeEvents {
                 Minecraft.getInstance().gameRenderer.setRenderHand(true);
             }
         } else if (effect == SCPEffects.PACIFICATION.get()) {
-            if (entity instanceof Mob mob) {
-                mob.goalSelector.addGoal(1, PacificationEffect.attackGoal);
-            }
+            PacificationEffect.onRemove(entity);
         }
     }
 
@@ -207,9 +203,7 @@ public class CommonForgeEvents {
         MobEffect effect = event.getEffectInstance().getEffect();
 
         if (effect == SCPEffects.PACIFICATION.get()) {
-            if (entity instanceof Mob mob) {
-                mob.goalSelector.addGoal(1, PacificationEffect.attackGoal);
-            }
+            PacificationEffect.onRemove(entity);
         }
     }
 }

@@ -21,16 +21,16 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.refractionapi.refraction.vfx.VFXHelper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.entity.goals.AnomalyWalkGoal;
+import net.zeus.scpprotect.level.entity.goals.SCP131LookAtGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.util.Misc;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -38,9 +38,16 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.HashMap;
+
 public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SCP131.class, EntityDataSerializers.INT);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean isStaring = false;
+    private final HashMap<Item, Integer> dyeMap = new HashMap<>() {{
+        put(Items.RED_DYE, 0);
+        put(Items.YELLOW_DYE, 1);
+    }};
 
     public SCP131(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -59,14 +66,22 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4F));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, SCP173.class, 10.0F));
+        this.goalSelector.addGoal(2, new SCP131LookAtGoal(this, SCP173.class, 10.0F));
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new FollowMobGoal(this, 1.2F, 1.0F, 10.0F));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.2F));
+        this.goalSelector.addGoal(5, new AnomalyWalkGoal(this, 1.2F, this::canMove, this::canMove));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(5, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(5, new OwnerHurtTargetGoal(this));
+    }
+
+    public boolean canMove() {
+        return !this.isStaring;
+    }
+
+    public void setStaring(boolean staring) {
+        this.isStaring = staring;
     }
 
     @Nullable
@@ -122,16 +137,11 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
-        int variant = 2;
-        if (stack.is(Items.RED_DYE) && this.getVariant() != 0) {
-            variant = 0;
-        } else if (stack.is(Items.YELLOW_DYE) && this.getVariant() != 1) {
-            variant = 1;
-        }
-        if (variant != 2) {
+        int variant = this.dyeMap.getOrDefault(stack.getItem(), -1);
+        if (variant != -1 && this.getVariant() != variant) {
             this.setVariant(variant);
             this.playSound(SoundEvents.DYE_USE);
-            Misc.summonParticlesAroundEntity(this, ParticleTypes.HAPPY_VILLAGER, 10);
+            VFXHelper.summonParticlesAroundEntity(this, ParticleTypes.HAPPY_VILLAGER, 10);
             stack.shrink(1);
             pPlayer.swing(pHand);
         }

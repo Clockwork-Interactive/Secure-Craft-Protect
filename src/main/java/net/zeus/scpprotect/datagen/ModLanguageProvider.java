@@ -17,12 +17,12 @@ import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.SCPPotions;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
-import net.zeus.scpprotect.util.ModDamageTypes;
+import net.zeus.scpprotect.util.SCPDamageTypes;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class ModLanguageProvider extends LanguageProvider {
@@ -33,7 +33,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        for (RegistryObject<EntityType<?>> registry : SCPEntity.ENTITIES.getEntries()) {
+        for (RegistryObject<EntityType<?>> registry : SCPEntities.ENTITIES.getEntries()) {
             String name = registry.get().toShortString().replace("_", " ");
             if (name.contains(" "))
                 add(registry.get(), registry.get().toShortString().replace("_", "-").toUpperCase());
@@ -121,9 +121,10 @@ public class ModLanguageProvider extends LanguageProvider {
 
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
-        addDamageType(ModDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...");
-        addDamageType(ModDamageTypes.AMPUTATED, "%1$s was too greedy!");
-        addDamageType(ModDamageTypes.BLEEDING, "%1$s bled to death", "%1$s bled to death by %2$s");
+        addDamageType(SCPDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...");
+        addDamageType(SCPDamageTypes.AMPUTATED, "%1$s was too greedy!");
+        addDamageType(SCPDamageTypes.BLEEDING, "%1$s bled to death", "%1$s bled to death by %2$s");
+        addDamageType(SCPDamageTypes.REBEL, "Rebel stole %1$s's skin...");
     }
 
     private void addDamageType(ResourceKey<DamageType> damageType, String deathMessage) {

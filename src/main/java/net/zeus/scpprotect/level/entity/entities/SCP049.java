@@ -23,9 +23,10 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.refractionapi.refraction.vfx.VFXHelper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.effect.SCPEffects;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.goals.SCP049AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -38,7 +39,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SCP049 extends Monster implements GeoEntity, Anomaly {
+public class SCP049 extends SCPEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     protected static final EntityDataAccessor<Boolean> DATA_DRUGGED = SynchedEntityData.defineId(SCP049.class, EntityDataSerializers.BOOLEAN);
     private int friendlyTimer = Misc.TPS * 10;
@@ -93,7 +94,7 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
             this.setAggressive(false);
             stack.shrink(1);
             pPlayer.swing(pHand);
-            Misc.summonParticlesAroundEntity(this, ParticleTypes.HEART, 4);
+            VFXHelper.summonParticlesAroundEntity(this, ParticleTypes.HEART, 4);
         }
         return super.mobInteract(pPlayer, pHand);
     }
@@ -139,7 +140,7 @@ public class SCP049 extends Monster implements GeoEntity, Anomaly {
         this.playSound(SCPSounds.SCP_049_RESURRECT.get());
         this.friendlyTimer = Misc.TPS * 10;
         if (pKilled instanceof Player) {
-            SCP049_2 scp049_2 = SCPEntity.SCP_049_2.get().create(this.level());
+            SCP049_2 scp049_2 = SCPEntities.SCP_049_2.get().create(this.level());
             scp049_2.moveTo(pKilled.getX(), pKilled.getY(), pKilled.getZ());
             this.level().addFreshEntity(scp049_2);
 

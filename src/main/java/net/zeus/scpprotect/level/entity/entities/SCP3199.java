@@ -20,9 +20,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.refractionapi.refraction.misc.RefractionMisc;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.goals.WaterRandomLookAroundGoal;
 import net.zeus.scpprotect.level.entity.goals.WaterSinkingRandomStroll;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
@@ -33,9 +32,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.List;
-
-public class SCP3199 extends Monster implements Anomaly, GeoEntity {
+public class SCP3199 extends SCPEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final EntityDataAccessor<Boolean> ENRAGED = SynchedEntityData.defineId(SCP3199.class, net.minecraft.network.syncher.EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(SCP3199.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
@@ -177,7 +174,7 @@ public class SCP3199 extends Monster implements Anomaly, GeoEntity {
 
     public void layEgg() {
         this.timeRemaining = maxTime;
-        SCP3199Egg scp3199Egg = new SCP3199Egg(SCPEntity.SCP_3199_EGG.get(), this.level());
+        SCP3199Egg scp3199Egg = new SCP3199Egg(SCPEntities.SCP_3199_EGG.get(), this.level());
         scp3199Egg.setPos(this.getX(), this.getY(), this.getZ());
         this.level().addFreshEntity(scp3199Egg);
 

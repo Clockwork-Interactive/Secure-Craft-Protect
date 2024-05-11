@@ -13,25 +13,26 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class SCP058Model extends GeoModel<SCP058> {
+public class SCP058Model extends DefaultModel<SCP058> {
 
 	@Override
-	public ResourceLocation getModelResource(SCP058 animatable) {
-		return new ResourceLocation(SCP.MOD_ID,"geo/entity/scp_058.geo.json");
+	public String model(int process, SCP058 animatable) {
+		return "scp_058";
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(SCP058 animatable) {
-		return new ResourceLocation(SCP.MOD_ID,"textures/entity/scp_058.png");
+	public String type(SCP058 animatable) {
+		return "entity";
 	}
 
 	@Override
-	public ResourceLocation getAnimationResource(SCP058 scp058) {
-		return null;
+	public boolean hasAnimation(SCP058 animatable) {
+		return false;
 	}
 
 	@Override
 	public void setCustomAnimations(SCP058 animatable, long instanceId, AnimationState<SCP058> animationState) {
+		super.setCustomAnimations(animatable, instanceId, animationState);
 		CoreGeoBone bottomLeftLeg = getAnimationProcessor().getBone("leg3");
 		CoreGeoBone bottomRightLeg = getAnimationProcessor().getBone("leg4");
 		CoreGeoBone topRightLeg = getAnimationProcessor().getBone("leg2");

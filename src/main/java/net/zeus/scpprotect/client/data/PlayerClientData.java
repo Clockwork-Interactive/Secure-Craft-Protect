@@ -13,8 +13,6 @@ public class PlayerClientData {
     public static int vignetteTick = 0;
     public static int maxVignette = 100;
     public static boolean persistVignette = false;
-    private static final HashMap<Integer, Idle096TickableSound> idleSounds = new HashMap<>(); // Thi
-    private static final HashMap<Integer, Idle058TickableSound> idleSounds058 = new HashMap<>(); // Thi// s is a bad implementation, too bad.
 
     public static int fovTick = 0;
     public static int currentFov = Integer.MAX_VALUE;
@@ -28,30 +26,13 @@ public class PlayerClientData {
         return blink;
     }
 
-    public static void checkAndUpdateIdle(SCP096 scp096) {
-        Idle096TickableSound tickableSoundIdle = idleSounds.get(scp096.getId());
-        if (tickableSoundIdle == null && scp096.isDefaultCharge()) {
-            tickableSoundIdle = new Idle096TickableSound(scp096);
-            tickableSoundIdle.isPlaying = true;
-            Minecraft.getInstance().getSoundManager().play(tickableSoundIdle);
-            idleSounds.put(scp096.getId(), tickableSoundIdle);
-        }
-        if (tickableSoundIdle != null && !tickableSoundIdle.isPlaying) {
-            idleSounds.remove(scp096.getId());
-        }
+    // Dedicated servers will crash otherwise
+    public static Idle096TickableSound createIdle096(SCP096 scp096) {
+        return new Idle096TickableSound(scp096);
     }
 
-    public static void checkAndUpdateIdle(SCP058 scp058) {
-        Idle058TickableSound tickableSoundIdle = idleSounds058.get(scp058.getId());
-        if (tickableSoundIdle == null) {
-            tickableSoundIdle = new Idle058TickableSound(scp058);
-            tickableSoundIdle.isPlaying = true;
-            Minecraft.getInstance().getSoundManager().play(tickableSoundIdle);
-            idleSounds058.put(scp058.getId(), tickableSoundIdle);
-        }
-        if (!tickableSoundIdle.isPlaying) {
-            idleSounds058.remove(scp058.getId());
-        }
+    public static Idle058TickableSound createIdle058(SCP058 scp058) {
+        return new Idle058TickableSound(scp058);
     }
 
 }

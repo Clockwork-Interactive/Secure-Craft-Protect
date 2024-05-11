@@ -25,6 +25,9 @@ public class ContainmentRenderer extends GeoEntityRenderer<ContainmentBox> {
         if (heldEntity != null) {
             poseStack.pushPose();
             poseStack.rotateAround(Axis.YN.rotationDegrees(entity.yBodyRot), 0, 0, 0);
+            heldEntity.setYBodyRot(entity.yBodyRot);
+            heldEntity.setYRot(entity.yBodyRot);
+            heldEntity.setYHeadRot(entity.yBodyRot);
             this.dispatcher.render(heldEntity,
                     0,
                     0.1F,

@@ -21,15 +21,15 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.refractionapi.refraction.vfx.VFXHelper;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.SCPEntity;
-import net.zeus.scpprotect.level.entity.projectiles.ToxicSpit;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.util.Misc;
@@ -39,10 +39,18 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.HashMap;
+
 public class SCP111 extends Animal implements GeoEntity, Anomaly {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SCP111.class, EntityDataSerializers.INT);
     private int growTimer = Misc.TPS * 120;
+    private final HashMap<Item, Integer> dyeMap = new HashMap<>() {{
+        put(Items.RED_DYE, 0);
+        put(Items.BLUE_DYE, 1);
+        put(Items.GREEN_DYE, 2);
+        put(Items.YELLOW_DYE, 3);
+    }};
 
     public SCP111(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -84,26 +92,17 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
-        int variant = 4;
-        if (stack.is(Items.RED_DYE) && this.getVariant() != 0) {
-            variant = 0;
-        } else if (stack.is(Items.BLUE_DYE) && this.getVariant() != 1) {
-            variant = 1;
-        } else if (stack.is(Items.GREEN_DYE) && this.getVariant() != 2) {
-            variant = 2;
-        } else if (stack.is(Items.YELLOW_DYE) && this.getVariant() != 3) {
-            variant = 3;
-        }
-        if (variant != 4) {
+        int variant = this.dyeMap.getOrDefault(stack.getItem(), -1);
+        if (variant != -1 && this.getVariant() != variant) {
             this.setVariant(variant);
             this.playSound(SoundEvents.DYE_USE);
-            Misc.summonParticlesAroundEntity(this, ParticleTypes.HAPPY_VILLAGER, 10);
+            VFXHelper.summonParticlesAroundEntity(this, ParticleTypes.HAPPY_VILLAGER, 10);
             stack.shrink(1);
             pPlayer.swing(pHand);
         }
         if (stack.is(Items.BONE_MEAL)) {
             if (!this.level().isClientSide) {
-                SmallFireball fireball = new SmallFireball(this.level(), this, this.getX() + 0, this.getY() + 2.0F, this.getZ() + 0);
+                SmallFireball fireball = new SmallFireball(this.level(), this, this.getX(), this.getY() + 2.0F, this.getZ());
                 fireball.shootFromRotation(this, this.getXRot(), this.getYRot(), 1.0F, 5.0F, 0.0F);
                 this.level().addFreshEntity(fireball);
             }
@@ -118,11 +117,12 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
     public void tick() {
         super.tick();
         BlockState blockBelow = this.level().getBlockState(this.getOnPos());
+        if (this.growTimer > 0)
+            this.growTimer--;
         if (blockBelow.getBlock() instanceof BonemealableBlock bonemealableBlock) {
             if (bonemealableBlock.isValidBonemealTarget(level(), this.getOnPos(), blockBelow, level().isClientSide)) {
                 if (this.level() instanceof ServerLevel serverLevel) {
                     if (bonemealableBlock.isBonemealSuccess(level(), this.getRandom(), this.getOnPos(), blockBelow)) {
-                        this.growTimer--;
                         if (this.growTimer <= 0) {
                             bonemealableBlock.performBonemeal(serverLevel, this.getRandom(), this.getOnPos(), blockBelow);
                             this.growTimer = Misc.TPS * 120;

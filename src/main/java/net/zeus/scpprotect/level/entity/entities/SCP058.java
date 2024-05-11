@@ -16,7 +16,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
+import net.zeus.scpprotect.level.entity.goals.AnomalyWalkGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -25,7 +27,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SCP058 extends Monster implements GeoEntity, Anomaly {
+public class SCP058 extends SCPEntity {
     AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public SCP058(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -42,14 +44,25 @@ public class SCP058 extends Monster implements GeoEntity, Anomaly {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5D, true));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new AnomalyWalkGoal(this, 1.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true));
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {PlayerClientData.checkAndUpdateIdle(this); return PlayState.STOP;})
+        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> PlayState.STOP)
                 .triggerableAnim("none", RawAnimation.begin())
         );
+    }
+
+    @Override
+    public boolean hasIdle() {
+        return true;
+    }
+
+    @Override
+    public PlayableTickableSound createIdle() {
+        return PlayerClientData.createIdle058(this);
     }
 
     @Override

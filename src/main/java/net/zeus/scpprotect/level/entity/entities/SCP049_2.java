@@ -27,7 +27,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SCP049_2 extends Monster implements GeoEntity, Anomaly {
+public class SCP049_2 extends SCPEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public SCP049_2(EntityType<? extends Monster> pEntityType, Level pLevel) {

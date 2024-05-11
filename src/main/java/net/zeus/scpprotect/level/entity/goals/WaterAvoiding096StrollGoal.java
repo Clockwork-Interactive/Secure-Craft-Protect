@@ -27,11 +27,10 @@ public class WaterAvoiding096StrollGoal extends RandomStrollGoal {
     protected Vec3 getPosition() {
         if (this.scp096.getChargeTime() == this.scp096.getDefaultChargeTime() && !this.scp096.isTriggered()) {
             if (this.mob.level().getRawBrightness(this.mob.blockPosition(), 0) <= 10) {
-                this.scp096.triggerAnim("controller", "sitting");
+                this.scp096.getEntityData().set(SCP096.SITTING, true);
                 return null;
             } else {
-                if (!this.scp096.isClimbing())
-                    this.scp096.triggerAnim("controller", "none");
+                this.scp096.getEntityData().set(SCP096.SITTING, false);
                 return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
             }
         }

@@ -8,18 +8,18 @@ import net.zeus.scpprotect.level.entity.entities.SCP966;
 public class SCP966Model extends DefaultGeoBiPedalModel<SCP966> {
 
 	@Override
-	public ResourceLocation getModelResource(SCP966 animatable) {
-		return new ResourceLocation(SCP.MOD_ID,"geo/entity/scp_966.geo.json");
+	public String model(int process, SCP966 animatable) {
+		return "scp_966";
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(SCP966 animatable) {
-		return new ResourceLocation(SCP.MOD_ID,"textures/entity/scp_966.png");
+	public String type(SCP966 animatable) {
+		return "entity";
 	}
 
 	@Override
-	public ResourceLocation getAnimationResource(SCP966 animatable) {
-		return null;
+	public boolean hasAnimation(SCP966 animatable) {
+		return false;
 	}
 
 	@Override

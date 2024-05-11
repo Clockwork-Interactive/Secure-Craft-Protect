@@ -4,7 +4,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,8 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
-import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.entity.SCPEntity;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -34,21 +32,21 @@ public class ContainmentBox extends Animal implements GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final EntityDataAccessor<String> ENTITY_ID = SynchedEntityData.defineId(ContainmentBox.class, EntityDataSerializers.STRING);
+    public static final EntityDataAccessor<CompoundTag> SAVED_DATA = SynchedEntityData.defineId(ContainmentBox.class, EntityDataSerializers.COMPOUND_TAG);
     private EntityType<?> heldEntityType;
     private Entity heldEntity;
-    private CompoundTag savedData;
 
     public ContainmentBox(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     public ContainmentBox(Level pLevel, Entity entity) {
-        super(SCPEntity.CONTAINMENT_BOX.get(), pLevel);
+        super(SCPEntities.CONTAINMENT_BOX.get(), pLevel);
         this.containEntity(entity);
     }
 
     public ContainmentBox(Level pLevel) {
-        super(SCPEntity.CONTAINMENT_BOX.get(), pLevel);
+        super(SCPEntities.CONTAINMENT_BOX.get(), pLevel);
     }
 
     @Override
@@ -66,6 +64,7 @@ public class ContainmentBox extends Animal implements GeoEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ENTITY_ID, "");
+        this.entityData.define(SAVED_DATA, new CompoundTag());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -80,19 +79,27 @@ public class ContainmentBox extends Animal implements GeoEntity {
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.0F);
     }
 
+    private void setSavedData(CompoundTag tag) {
+        this.entityData.set(SAVED_DATA, tag);
+    }
+
+    private CompoundTag getSavedData() {
+        return this.entityData.get(SAVED_DATA);
+    }
+
     public void containEntity(Entity entity) {
         this.heldEntityType = entity.getType();
-        this.savedData = entity.saveWithoutId(new CompoundTag());
+        this.setSavedData(entity.saveWithoutId(new CompoundTag()));
 
         String[] split = this.heldEntityType.toString().split("[.]");
-        String id = split[1] + ":" + split[2];
+        String id = "%s:%s".formatted(split[1], split[2]);
         this.setEntityId(id);
     }
 
     public void releaseEntity() {
         Entity entity = this.getHeldEntity();
         if (entity != null) {
-            this.loadData(this.savedData, entity);
+            this.loadData(this.getSavedData(), entity);
             entity.setPos(this.getX(), this.getY(), this.getZ());
             this.level().addFreshEntity(entity);
         }
@@ -116,8 +123,12 @@ public class ContainmentBox extends Animal implements GeoEntity {
             this.heldEntityType = EntityType.byString(this.getEntityId()).orElse(null);
         }
         if (this.heldEntityType == null) return null;
-
-        return this.heldEntity == null ? this.heldEntity = this.heldEntityType.create(this.level()) : this.heldEntity;
+        boolean firstTime = this.heldEntity == null;
+        Entity held = this.heldEntity == null ? this.heldEntity = this.heldEntityType.create(this.level()) : this.heldEntity;
+        if (held != null && firstTime) {
+            this.loadData(this.getSavedData(), held);
+        }
+        return held;
     }
 
     @Override
@@ -125,8 +136,9 @@ public class ContainmentBox extends Animal implements GeoEntity {
         super.addAdditionalSaveData(pCompound);
         if (this.heldEntityType != null) {
             ListTag listTag = new ListTag();
-            listTag.add(this.savedData);
-            this.savedData.putString("id", this.getEntityId());
+            listTag.add(this.getSavedData());
+            this.getSavedData().putString("id", this.getEntityId());
+            this.setSavedData(this.getSavedData()); // I know it looks weird
             pCompound.put("HeldEntity", listTag);
         }
     }
@@ -136,9 +148,9 @@ public class ContainmentBox extends Animal implements GeoEntity {
         ListTag listTag = pCompound.getList("HeldEntity", Tag.TAG_COMPOUND);
 
         if (!listTag.isEmpty()) {
-            this.savedData = listTag.getCompound(0);
-            this.heldEntityType = EntityType.byString(this.savedData.getString("id")).orElse(null);
-            this.setEntityId(this.savedData.getString("id"));
+            this.setSavedData(listTag.getCompound(0));
+            this.heldEntityType = EntityType.byString(this.getSavedData().getString("id")).orElse(null);
+            this.setEntityId(this.getSavedData().getString("id"));
         }
 
         super.readAdditionalSaveData(pCompound);
@@ -188,33 +200,8 @@ public class ContainmentBox extends Animal implements GeoEntity {
     }
 
     private void loadData(CompoundTag tag, Entity entity) {
-        try {
-            entity.setXRot(this.getXRot());
-            entity.setYRot(this.getYRot());
-            if (tag.contains("CustomName", 8)) {
-                String s = tag.getString("CustomName");
-
-                try {
-                    entity.setCustomName(Component.Serializer.fromJson(s));
-                } catch (Exception var16) {
-                    SCP.LOGGER.warn("Failed to parse entity custom name {}", s, var16);
-                }
-            }
-
-            entity.setCustomNameVisible(tag.getBoolean("CustomNameVisible"));
-            entity.setSilent(tag.getBoolean("Silent"));
-            entity.setNoGravity(tag.getBoolean("NoGravity"));
-            entity.setGlowingTag(tag.getBoolean("Glowing"));
-            entity.setTicksFrozen(tag.getInt("TicksFrozen"));
-
-            if (tag.contains("CanUpdate", 99)) {
-                entity.canUpdate(tag.getBoolean("CanUpdate"));
-            }
-
-
-        } catch (Throwable ignored) {
-
-        }
+        if (tag != null)
+            entity.load(tag);
     }
 
 }

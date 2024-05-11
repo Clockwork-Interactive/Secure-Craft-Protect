@@ -32,6 +32,8 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -44,8 +46,11 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 
 public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anomaly {
     private static final EntityDataAccessor<Boolean> DATA_HAS_TARGET = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
@@ -53,6 +58,8 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
     public static final RawAnimation SIT_ANIM = RawAnimation.begin().thenPlay("811_sit");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final HashMap<Integer, Triple<String, RawAnimation, Predicate<AnimationState<?>>>> animations = new HashMap<>();
+    private final AtomicReference<PlayableTickableSound> idle = new AtomicReference<>(null);
 
     public SCP811(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -106,7 +113,10 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     public void setHasTarget(boolean hasTarget) {
         this.entityData.set(DATA_HAS_TARGET, hasTarget);
-        this.triggerAnim("controller", "none");
+    }
+
+    public boolean hasTarget() {
+        return this.entityData.get(DATA_HAS_TARGET);
     }
 
     @Override
@@ -220,11 +230,9 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                     if (!interactionresult.consumesAction() && !this.isOrderedToSit() || this.isBaby()) {
                         setSitting(true);
                         pPlayer.displayClientMessage(Component.literal("SCP-811 Is Sitting"), true);
-                        this.triggerAnim("controller", "811_sit");
                     } else if (!interactionresult.consumesAction() && this.isOrderedToSit() || this.isBaby()) {
                         setSitting(false);
                         pPlayer.displayClientMessage(Component.literal("SCP-811 Is Roaming"), true);
-                        this.triggerAnim("controller", "none");
                     }
 
                     return interactionresult;
@@ -271,6 +279,8 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        this.addDefault("none", RawAnimation.begin());
+        this.addContinuous(0, "811_sit", SIT_ANIM, (state) -> this.isSitting() && !this.hasTarget());
         controllerRegistrar.add(new AnimationController<>(this, "controller", 3, state -> PlayState.STOP)
                 .triggerableAnim("811_sit", SIT_ANIM)
                 .triggerableAnim("none", RawAnimation.begin()));
@@ -300,6 +310,16 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    public HashMap<Integer, Triple<String, RawAnimation, Predicate<AnimationState<?>>>> getAnimations() {
+        return animations;
+    }
+
+    @Override
+    public AtomicReference<PlayableTickableSound> getIdle() {
+        return idle;
     }
 
     @Nullable

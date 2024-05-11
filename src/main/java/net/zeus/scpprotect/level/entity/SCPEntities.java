@@ -12,7 +12,7 @@ import net.zeus.scpprotect.level.entity.entities.SCP173;
 import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.entity.projectiles.ToxicSpit;
 
-public class SCPEntity {
+public class SCPEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SCP.MOD_ID);
 
     /**
@@ -56,6 +56,7 @@ public class SCPEntity {
     /**
      * OTHER
      **/
+    // My girlfriend's dog that is definitely not a skin walker (she has bitten me many times trying to steal my skin) -- Zeus
     public static final RegistryObject<EntityType<Rebel>> REBEL = register("rebel", EntityType.Builder.of(Rebel::new, MobCategory.CREATURE).sized(0.6F, 0.65F));
 
     public static final RegistryObject<EntityType<ContainmentBox>> CONTAINMENT_BOX = register("containment_box", EntityType.Builder.of((EntityType.EntityFactory<ContainmentBox>) ContainmentBox::new, MobCategory.MISC).sized(1.2F, 2.75F));
@@ -64,4 +65,5 @@ public class SCPEntity {
     private static<E extends Entity> RegistryObject<EntityType<E>> register(String name, EntityType.Builder<E> builder) {
         return ENTITIES.register(name, () -> builder.build(name));
     }
+
 }

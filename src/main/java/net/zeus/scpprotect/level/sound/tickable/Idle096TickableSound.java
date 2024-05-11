@@ -7,10 +7,9 @@ import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
-public class Idle096TickableSound extends AbstractTickableSoundInstance {
+public class Idle096TickableSound extends PlayableTickableSound {
 
     private final SCP096 scp096;
-    public boolean isPlaying = false;
 
     public Idle096TickableSound(SCP096 scp096) {
         super(SCPSounds.SCP_096_IDLE.get(), SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
@@ -27,11 +26,9 @@ public class Idle096TickableSound extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        if (this.scp096.isRemoved() || !(this.scp096.getChargeTime() == this.scp096.getDefaultChargeTime())) {
+        if (this.scp096.isRemoved()) {
             this.stop();
-            this.isPlaying = false;
         } else {
-            this.isPlaying = true;
             this.x = ((float) this.scp096.getX());
             this.y = ((float) this.scp096.getY());
             this.z = ((float) this.scp096.getZ());

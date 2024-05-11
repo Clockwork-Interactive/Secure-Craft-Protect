@@ -1,7 +1,6 @@
 package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,13 +34,11 @@ import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
-import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
+import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -49,16 +46,13 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
-public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
+public class SCP096 extends SCPEntity implements NeutralMob {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public final List<LivingEntity> targetMap = new ArrayList<>();
+    public final Set<LivingEntity> targets = new HashSet<>();
     private float speedModifier = 0.33F;
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");
     private static final EntityDataAccessor<Boolean> DATA_IS_TRIGGERED = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
@@ -75,13 +69,16 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
     public static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().then("idle", Animation.LoopType.LOOP);
     public static final RawAnimation WALKING_ANIMATION = RawAnimation.begin().then("walking", Animation.LoopType.LOOP);
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BYTE);
+    public static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
+    public SCP096LookForPlayerGoal lookForPlayerGoal;
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     protected void registerGoals() {
-        this.targetSelector.addGoal(0, new SCP096.SCP096LookForPlayerGoal(this, this::isAngryAt));
+        this.lookForPlayerGoal = new SCP096LookForPlayerGoal(this, this::isAngryAt);
+        this.targetSelector.addGoal(0, this.lookForPlayerGoal);
         this.targetSelector.addGoal(1, new HurtByTargetGoal096(this));
 
         this.addBehaviourGoals();
@@ -151,7 +148,7 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
                 this.setClimbing(this.horizontalCollision);
             }
-            if (this.targetMap.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
+            if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
             }
         }
@@ -173,28 +170,36 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> {
-                    PlayerClientData.checkAndUpdateIdle(this);
-                    return PlayState.STOP;
-                }));
-        controllerRegistrar.add(new AnimationController<>(this, "controller2", 1, state -> {
-            if (state.isMoving() && !this.isTriggered()) {
-                state.getController().setAnimation(WALKING_ANIMATION);
-            }
-            if (this.isTriggered() && state.isMoving()) {
-                state.getController().setAnimation(RUNNING_ANIMATION);
-            }
-            if (!state.isMoving() && !this.hasBeenStaredAt() && !this.isTriggered()) {
-                state.getController().setAnimation(IDLE_ANIMATION);
-            }
-            if (this.isCrouching()) {
-                state.getController().setAnimation(CROUCHING_ANIMATION);
-            }
-            if (this.hasBeenStaredAt() && !state.isMoving()) {
-                state.getController().setAnimation(TRIGGERED_ANIMATION);
-            }
-            return PlayState.CONTINUE;
-        }));
+        this.addDefault("idle", IDLE_ANIMATION);
+        this.addContinuous(0, "climbing", CLIMBING_ANIMATION, (state) -> this.isClimbing());
+        this.addContinuous(1, "sitting", SITTING_ANIMATION, (state) -> this.entityData.get(SITTING));
+        this.addContinuous(2, "triggered", TRIGGERED_ANIMATION, (state) -> !this.isDefaultCharge() && !this.isTriggered());
+        this.addContinuous(3, "running", RUNNING_ANIMATION, (state) -> this.isTriggered() && state.isMoving());
+        this.addContinuous(4, "walking", WALKING_ANIMATION, (state -> Vec3Helper.isEntityMovingClient(this)));
+
+        controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> PlayState.STOP)
+                .triggerableAnim("triggered", TRIGGERED_ANIMATION)
+                .triggerableAnim("running", RUNNING_ANIMATION)
+                .triggerableAnim("walking", WALKING_ANIMATION)
+                .triggerableAnim("crouch", CROUCHING_ANIMATION)
+                .triggerableAnim("sitting", SITTING_ANIMATION)
+                .triggerableAnim("climbing", CLIMBING_ANIMATION)
+                .triggerableAnim("idle", IDLE_ANIMATION));
+    }
+
+    @Override
+    public boolean hasIdle() {
+        return true;
+    }
+
+    @Override
+    public PlayableTickableSound createIdle() {
+        return PlayerClientData.createIdle096(this);
+    }
+
+    @Override
+    public boolean canIdlePlay() {
+        return this.isDefaultCharge();
     }
 
     @Override
@@ -213,10 +218,6 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
             return false;
         }
         return !this.isCurrentAnimation(state, SITTING_ANIMATION) && !this.isCurrentAnimation(state, TRIGGERED_ANIMATION) && !this.isCurrentAnimation(state, CROUCHING_ANIMATION);
-    }
-
-    public boolean isCurrentAnimation(AnimationState<?> state, RawAnimation animation) {
-        return state.isCurrentAnimation(animation) && !state.getController().hasAnimationFinished();
     }
 
     @Override
@@ -257,11 +258,14 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
         return pPose == Pose.STANDING ? 2.1F : pSize.height - 0.1F;
     }
 
-    boolean isLookingAtMe(LivingEntity livingEntity) {
-        boolean can096SeeEntity = Vec3Helper.isInAngle(this, BlockPos.containing(livingEntity.getEyePosition()), 180);
-        boolean canEntitySee096 = Vec3Helper.isInAngle(livingEntity, BlockPos.containing(this.getEyePosition()), 120);
-        return can096SeeEntity && canEntitySee096 && livingEntity.hasLineOfSight(this) &&
-                livingEntity.level() instanceof ServerLevel serverLevel && this.distanceTo(livingEntity) <= serverLevel.getServer().getPlayerList().getSimulationDistance() * 16;
+    public boolean isLookingAtMe(LivingEntity livingEntity) {
+        boolean can096SeeEntity = Vec3Helper.isInAngle(this, livingEntity.getEyePosition(), 180);
+        boolean canEntitySee096 = Vec3Helper.isInAngle(livingEntity, this.getEyePosition(), 120);
+        return can096SeeEntity && canEntitySee096 && livingEntity.hasLineOfSight(this) && this.inRange(livingEntity);
+    }
+
+    public boolean inRange(LivingEntity livingEntity) {
+        return livingEntity.level() instanceof ServerLevel serverLevel && this.distanceTo(livingEntity) <= serverLevel.getServer().getPlayerList().getSimulationDistance() * 16;
     }
 
     protected void defineSynchedData() {
@@ -272,6 +276,7 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
         this.entityData.define(DATA_CHARGE_TIME, this.getDefaultChargeTime());
         this.entityData.define(DATA_HAS_HAD_TARGET, false);
         this.entityData.define(CLIMBING, (byte) 0);
+        this.entityData.define(SITTING, false);
     }
 
     protected SoundEvent getTriggeredSound() {
@@ -368,21 +373,21 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
     }
 
-    static class SCP096LookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
+    public static class SCP096LookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
         private final SCP096 scp096;
         @Nullable
-        private LivingEntity pendingTarget;
+        protected LivingEntity pendingTarget;
         private int aggroTime;
         private final TargetingConditions startAggroTargetConditions;
         private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
-        private final Predicate<LivingEntity> isAngerInducing;
+        public final Predicate<LivingEntity> isAngerInducing;
 
         public SCP096LookForPlayerGoal(SCP096 scp096, @Nullable Predicate<LivingEntity> pSelectionPredicate) {
             super(scp096, Player.class, 0, false, false, pSelectionPredicate);
             this.scp096 = scp096;
 
             this.isAngerInducing = (entity) -> {
-                if (this.scp096.isLookingAtMe(entity) && this.scp096.canTrigger() && !this.scp096.targetMap.contains(entity)) {
+                if (this.scp096.isLookingAtMe(entity) && this.scp096.canTrigger() && !this.scp096.targets.contains(entity)) {
 
                     if (entity instanceof Player player && (player.isCreative() || player.isSpectator()))
                         return false;
@@ -395,21 +400,32 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
                         ModMessages.sendToPlayer(new PlayLocalSeenSoundS2C(), player);
                     }
 
-                    this.scp096.targetMap.add(entity);
+                    this.scp096.targets.add(entity);
                 }
 
-                return scp096.isAngryAt(entity) || this.scp096.targetMap.contains(entity);
+                return scp096.isAngryAt(entity) || this.scp096.targets.contains(entity);
             };
 
             this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing).ignoreLineOfSight();
+        }
+
+        public void add(LivingEntity entity) {
+            if ((entity instanceof Player player && (player.isCreative() || player.isSpectator())) || !this.scp096.canTrigger()) return;
+            if (this.scp096.targets.contains(entity)) return;
+            this.scp096.targets.add(entity);
+            if (this.pendingTarget == null) {
+                this.pendingTarget = entity;
+            }
         }
 
         public boolean canUse() {
             this.refreshTargetList();
             this.pendingTarget = this.scp096.level().getNearestEntity(this.scp096.level().getEntitiesOfClass(LivingEntity.class, this.scp096.getBoundingBox().inflate(this.scp096.getAttributeValue(Attributes.FOLLOW_RANGE))), this.startAggroTargetConditions, this.scp096, this.scp096.getX(), this.scp096.getY(), this.scp096.getZ());
 
-            if (this.scp096.targetMap.isEmpty()) {
+            if (this.scp096.targets.isEmpty()) {
                 return false;
+            } else if (this.pendingTarget == null) {
+                this.pendingTarget = this.scp096.targets.iterator().next();
             }
 
             if (this.scp096.getChargeTime() >= 0) {
@@ -425,7 +441,7 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
                 }
             }
 
-            return !this.scp096.targetMap.isEmpty() && this.scp096.getChargeTime() <= 0;
+            return !this.scp096.targets.isEmpty() && this.scp096.getChargeTime() <= 0;
         }
 
         public boolean canContinueToUse() {
@@ -464,11 +480,11 @@ public class SCP096 extends Monster implements Anomaly, NeutralMob, GeoEntity {
 
 
         public void refreshTargetList() {
-            ListIterator<LivingEntity> iterator = this.scp096.targetMap.listIterator();
+            Iterator<LivingEntity> iterator = this.scp096.targets.iterator();
 
             while (iterator.hasNext()) {
                 LivingEntity entity = iterator.next();
-                if (entity.isDeadOrDying() || entity.isRemoved()) {
+                if (entity.isDeadOrDying() || entity.isRemoved() || (entity instanceof ServerPlayer serverPlayer && serverPlayer.isCreative())) {
                     this.scp096.onKill();
                     this.scp096.setHasHadTarget(true);
                     iterator.remove();

@@ -1,11 +1,14 @@
 package net.zeus.scpprotect.client.models.entity;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
 import software.bernie.geckolib.core.animation.AnimationState;
-public class SCP096Model extends BiPedalModel<SCP096> {
+
+public class SCP096Model extends DefaultGeoBiPedalModel<SCP096> {
     public Running096TickableSound tickableSoundRunning = null;
+
     @Override
     public String model(int process, SCP096 animatable) {
         Player player = Minecraft.getInstance().player;
@@ -35,27 +38,15 @@ public class SCP096Model extends BiPedalModel<SCP096> {
 
         return "scp_096";
     }
+
     @Override
-    public boolean hasAnimation() {
-        return true;
+    public String type(SCP096 animatable) {
+        return "entity";
     }
+
     @Override
-    public void onAnimate(AnimationState<?> state, SCP096 animatable) {
-        if (!animatable.isClimbing() && animatable.isCurrentAnimation(state, SCP096.CLIMBING_ANIMATION)) {
-            animatable.triggerAnim("controller", "none");
-        }
-        if (animatable.isTriggered() && state.getController().hasAnimationFinished()) {
-            if (!animatable.isCurrentAnimation(state, SCP096.RUNNING_ANIMATION))
-                animatable.triggerAnim("controller", "running");
-        }
-        if (animatable.isTriggered()) return;
-        if (state.isMoving() && animatable.isCurrentAnimation(state, SCP096.IDLE_ANIMATION)) {
-            if (!animatable.isCurrentAnimation(state, SCP096.WALKING_ANIMATION))
-                animatable.triggerAnim("controller", "walking");
-        } else if (!state.isMoving() && animatable.isCurrentAnimation(state, SCP096.WALKING_ANIMATION) || (state.getController().getCurrentAnimation() == null)) {
-            if (!animatable.isCurrentAnimation(state, SCP096.IDLE_ANIMATION))
-                animatable.triggerAnim("controller", "idle");
-        }
+    public boolean hasAnimation(SCP096 animatable) {
+        return true;
     }
 
 }

@@ -6,14 +6,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.util.ModDamageTypes;
+import net.zeus.scpprotect.util.SCPDamageTypes;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class DatapackProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrap);
+            .add(Registries.DAMAGE_TYPE, SCPDamageTypes::bootstrap);
 
     public DatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(SCP.MOD_ID));
