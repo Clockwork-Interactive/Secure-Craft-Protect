@@ -158,7 +158,7 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
         InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
         if (this.isOwnedBy(pPlayer) && !stack.is(Items.RED_DYE) || !stack.is(Items.YELLOW_DYE)) {
             this.setOrderedToSit(!this.isOrderedToSit());
-            pPlayer.displayClientMessage(Component.literal(this.isOrderedToSit() ? "SCP-131 is Sitting" : "SCP-131 is now Roaming"), true);
+            pPlayer.displayClientMessage(Component.literal(this.isOrderedToSit() ? "SCP-131 is now Sitting" : "SCP-131 is now Following"), true);
             this.jumping = false;
             this.navigation.stop();
             return InteractionResult.SUCCESS;

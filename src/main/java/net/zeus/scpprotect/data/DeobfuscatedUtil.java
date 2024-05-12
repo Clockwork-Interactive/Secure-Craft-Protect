@@ -1,6 +1,5 @@
 package net.zeus.scpprotect.data;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 

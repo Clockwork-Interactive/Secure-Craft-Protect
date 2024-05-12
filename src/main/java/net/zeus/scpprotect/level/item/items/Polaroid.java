@@ -1,10 +1,7 @@
 package net.zeus.scpprotect.level.item.items;
 
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,21 +14,20 @@ public class Polaroid extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-
-        if (pPlayer.level() instanceof ServerLevel serverLevel) {
+    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+        if (pEntity instanceof ServerPlayer serverPlayer && pIsSelected) {
             SCP096 nearest = null;
-            for (Entity entity : serverLevel.getEntities().getAll()) {
-                if (entity instanceof SCP096 scp096 && entity.isAlive() && scp096.inRange(pPlayer)) {
+            for (Entity entity : serverPlayer.serverLevel().getEntities().getAll()) {
+                if (entity instanceof SCP096 scp096 && entity.isAlive() && scp096.inRange(serverPlayer)) {
                     nearest = scp096;
                     break;
                 }
             }
             if (nearest != null) {
-                nearest.lookForPlayerGoal.add(pPlayer);
+                nearest.lookForPlayerGoal.add(serverPlayer);
             }
         }
-
-        return super.use(pLevel, pPlayer, pUsedHand);
+        super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
     }
+
 }

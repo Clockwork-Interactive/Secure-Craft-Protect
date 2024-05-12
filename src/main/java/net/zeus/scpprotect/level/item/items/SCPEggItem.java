@@ -1,6 +1,5 @@
 package net.zeus.scpprotect.level.item.items;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;

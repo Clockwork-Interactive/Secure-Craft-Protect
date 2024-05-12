@@ -125,8 +125,8 @@ public class SCP939 extends SCPEntity {
         }
 
         if (!this.soundCache.isEmpty()) {
-            if (RandomSource.create().nextFloat() > 0.995F && this.soundCache.values().stream().findFirst().isPresent()) {
-                SoundEvent soundEvent = this.soundCache.values().stream().findFirst().get();
+            if (RandomSource.create().nextFloat() > 0.995F && this.soundCache.values().iterator().hasNext()) {
+                SoundEvent soundEvent = this.soundCache.values().iterator().next();
                 if (this.soundCache.size() > 1) {
                     for (SoundEvent event : this.soundCache.values()) {
                         if (RandomSource.create().nextFloat() > 0.7F) {

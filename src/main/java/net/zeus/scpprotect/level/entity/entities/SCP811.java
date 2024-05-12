@@ -55,6 +55,7 @@ import java.util.function.Predicate;
 public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anomaly {
     private static final EntityDataAccessor<Boolean> DATA_HAS_TARGET = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP811.class, EntityDataSerializers.BOOLEAN);
+
     public static final RawAnimation SIT_ANIM = RawAnimation.begin().thenPlay("811_sit");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -217,7 +218,7 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
         } else {
             if (this.isTame()) {
                 if (this.isOwnedBy(pPlayer)) {
-                    if (itemstack.is(Items.COOKED_BEEF) && !pPlayer.getCooldowns().isOnCooldown(Items.COOKED_BEEF)) {
+                    if (itemstack.isEdible() && itemstack.getFoodProperties(pPlayer).isMeat() && !pPlayer.getCooldowns().isOnCooldown(item)) {
                         this.playSound(SoundEvents.GENERIC_EAT);
                         this.spawnAtLocation(Items.SLIME_BALL);
                         this.usePlayerItem(pPlayer, pHand, itemstack);
@@ -229,10 +230,10 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
                     InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
                     if (!interactionresult.consumesAction() && !this.isOrderedToSit() || this.isBaby()) {
                         setSitting(true);
-                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is Sitting"), true);
+                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is now Sitting"), true);
                     } else if (!interactionresult.consumesAction() && this.isOrderedToSit() || this.isBaby()) {
                         setSitting(false);
-                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is Roaming"), true);
+                        pPlayer.displayClientMessage(Component.literal("SCP-811 Is now Following"), true);
                     }
 
                     return interactionresult;

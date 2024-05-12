@@ -305,7 +305,7 @@ public class SCP173 extends SCPEntity {
     }
 
     public void updateTp(ServerPlayer player) {
-        if (this.distanceTo(player) <= 1.0F) {
+        if (this.distanceTo(player) <= 3.0F) {
             this.teleports.putIfAbsent(player, 0);
             this.teleports.put(player, this.teleports.get(player) + 1);
             RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());

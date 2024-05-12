@@ -104,6 +104,7 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
             if (!this.level().isClientSide) {
                 SmallFireball fireball = new SmallFireball(this.level(), this, this.getX(), this.getY() + 2.0F, this.getZ());
                 fireball.shootFromRotation(this, this.getXRot(), this.getYRot(), 1.0F, 5.0F, 0.0F);
+                VFXHelper.summonParticlesAroundEntity(this, ParticleTypes.FLAME, 10);
                 this.level().addFreshEntity(fireball);
             }
             stack.shrink(1);

@@ -60,8 +60,14 @@ public interface Anomaly {
                     .min(Map.Entry.comparingByKey())
                     .map(Map.Entry::getValue)
                     .orElse(getAnimations().get(-1));
-            if (animation != null && !this.isCurrentAnimation(state, animation.getMiddle()))
-                ((GeoEntity) this).triggerAnim("controller", animation.getLeft());
+            if (animation != null) {
+                if (animation.getLeft().equals("none")) {
+                    state.getController().stop();
+                    return;
+                }
+                if (!this.isCurrentAnimation(state, animation.getMiddle()))
+                    ((GeoEntity) this).triggerAnim("controller", animation.getLeft());
+            }
         }
     }
 
