@@ -1,13 +1,22 @@
 package net.zeus.scpprotect.event;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -17,9 +26,13 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SolidBucketItem;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.TickEvent;
@@ -30,32 +43,62 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.refractionapi.refraction.misc.RefractionMisc;
+import net.refractionapi.refraction.sound.SoundUtil;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.data.PlayerData;
+import net.zeus.scpprotect.level.block.FacilityBlocks;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.custom.PacificationEffect;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
+import net.zeus.scpprotect.level.sound.SCPSounds;
+import net.zeus.scpprotect.level.worldgen.dimension.SCPDimensions;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
 import oshi.util.tuples.Pair;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonForgeEvents {
     public static Map<Player, PlayerData> PlayerRuntimeData = new HashMap<>();
     public static Map<Player, Integer> SCP_966_INSOMNIA = new HashMap<>();
     public static int SCP_966Max = 2000;
+    public static BlockPos SCP106Escape; // Will change per runtime
 
     @SubscribeEvent
     public static void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerData.init(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onLevelChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getTo().equals(SCPDimensions.SCP_106_LEVEL) && !event.getEntity().level().isClientSide) {
+            Player player = event.getEntity();
+            ServerLevel level = Objects.requireNonNull(player.level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
+            if (level == null) throw new IllegalStateException("SCP-106 dimension is null");
+            BlockPos spawn = new BlockPos(0, 0, 0);
+            if (!level.getBlockState(spawn).is(SCPBlocks.DECAY_BLOCK.get())) {
+                Optional<StructureTemplate> optional;
+                try {
+                    optional = level.getStructureManager().get(new ResourceLocation(SCP.MOD_ID, "scp_106"));
+                } catch (ResourceLocationException resourcelocationexception) {
+                    SCP.LOGGER.error("Failed to load structure template {}", resourcelocationexception.getMessage());
+                    return;
+                }
+                optional.ifPresent(structureTemplate -> structureTemplate.placeInWorld(level, new BlockPos(-12, 0, -12), spawn, new StructurePlaceSettings(), player.getRandom(), 2));
+            }
+            player.teleportTo(-0.5F, 2, -0.5F);
+            SoundUtil.playTrackingSound(player, SCPSounds.POCKET_DIMENSION_AMBIENCE.get(), true, -1);
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -85,7 +128,33 @@ public class CommonForgeEvents {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) return;
         Player player = event.player;
-        if (!player.hasEffect(SCPEffects.INSOMNIA.get())) return; else SCP_966_INSOMNIA.putIfAbsent(player, 0);
+
+        if (!player.level().isClientSide) {
+            ServerLevel scp106Dim = Objects.requireNonNull(player.level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
+            if (scp106Dim != null && player.level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
+                if (player.distanceToSqr(0, 0, 0) >= 49) {
+                    SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(8) == 0 ? player.blockPosition() : null : SCP106Escape;
+                    boolean live = SCP106Escape != null && SCP106Escape.distSqr(player.blockPosition()) <= 0.1F;
+                    if (!live) {
+                        player.kill();
+                    } else {
+                        player.getCapability(Capabilities.SCP_DATA).ifPresent(scpData -> {
+                            ServerLevel homeDim = Objects.requireNonNull(player.level().getServer()).getLevel(ResourceKey.create(Registries.DIMENSION, scpData.scp106TakenDim));
+                            if (homeDim == null) {
+                                player.kill();
+                                return;
+                            }
+                            SoundUtil.playLocalSound(player, SCPSounds.POCKET_DIMENSION_EXIT.get());
+                            player.teleportTo(homeDim, scpData.scp106TakenPos.getX(), scpData.scp106TakenPos.getY(), scpData.scp106TakenPos.getZ(), Set.of(), player.getYRot(), player.getXRot());
+                        });
+                    }
+                }
+            }
+        }
+
+        if (!player.hasEffect(SCPEffects.INSOMNIA.get())) return;
+        else SCP_966_INSOMNIA.putIfAbsent(player, 0);
         SCP_966_INSOMNIA.putIfAbsent(player, 0);
         SCP_966_INSOMNIA.put(player, SCP_966_INSOMNIA.get(player) + 1);
         if (SCP_966_INSOMNIA.get(player) > 2000 && !player.level().isClientSide && player.level() instanceof ServerLevel serverLevel) {
@@ -106,6 +175,15 @@ public class CommonForgeEvents {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockEvent(BlockEvent.EntityPlaceEvent event) {
+        if (event.getEntity() == null) return;
+        ServerLevel scp106Dim = Objects.requireNonNull(event.getEntity().level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
+        if (event.isCancelable() && scp106Dim != null && event.getEntity().level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
+            event.setCanceled(true);
         }
     }
 

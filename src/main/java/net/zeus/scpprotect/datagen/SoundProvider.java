@@ -77,6 +77,15 @@ public class SoundProvider extends SoundDefinitionsProvider {
         addSound(SCPSounds.SCP_3199_HURT, create("entity/scp_3199/scp_3199_hurt_1"), create("entity/scp_3199/scp_3199_hurt_2"), create("entity/scp_3199/scp_3199_hurt_3"));
         addSound(SCPSounds.SCP_3199_IDLE, create("entity/scp_3199/scp_3199_idle_1"), create("entity/scp_3199/scp_3199_idle_2"), create("entity/scp_3199/scp_3199_idle_3"), create("entity/scp_3199/scp_3199_idle_4"), create("entity/scp_3199/scp_3199_idle_5"), create("entity/scp_3199/scp_3199_idle_6"), create("entity/scp_3199/scp_3199_idle_7"), create("entity/scp_3199/scp_3199_idle_8"), create("entity/scp_3199/scp_3199_idle_9"), create("entity/scp_3199/scp_3199_idle_10"), create("entity/scp_3199/scp_3199_idle_11"), create("entity/scp_3199/scp_3199_idle_12"));
         addSound(SCPSounds.SCP_3199_LAY, create("entity/scp_3199/scp_3199_lay"));
+
+        // SCP 106
+        addSound(SCPSounds.SCP_106_IDLE_LOOP, create("entity/scp_106/scp_106_idle_1"));
+        addSound(SCPSounds.SCP_106_AMBIENT, create("entity/scp_106/scp_106_idle_2"));
+        addSound(SCPSounds.SCP_106_TELEPORT, create("entity/scp_106/scp_106_teleport"));
+        addSound(SCPSounds.POCKET_DIMENSION_ENTER, create("entity/scp_106/pocket_dimension_enter"));
+        addSound(SCPSounds.POCKET_DIMENSION_EXIT, create("entity/scp_106/pocket_dimension_exit"));
+        addSound(SCPSounds.POCKET_DIMENSION_AMBIENCE, create("entity/scp_106/pocket_dimension_ambience"));
+        addSound(SCPSounds.SCP_106_KILL, create("entity/scp_106/scp_106_kill"));
     }
 
 

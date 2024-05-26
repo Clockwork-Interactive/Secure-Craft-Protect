@@ -78,7 +78,7 @@ public class SCPBlocks {
 
     public static final RegistryObject<Block> DECAY_BLOCK = registerBlock("decay_block",
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
-                    .strength(1.8F)));
+                    .strength(-1.0F)));
 
     public static final RegistryObject<Block> OLD_WALL = registerBlock("old_wall",
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()

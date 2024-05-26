@@ -38,6 +38,11 @@ public abstract class SCPEntity extends Monster implements Anomaly, GeoEntity {
     }
 
     @Override
+    public boolean isPersistenceRequired() {
+        return true;
+    }
+
+    @Override
     public AtomicReference<PlayableTickableSound> getIdle() {
         return idle;
     }

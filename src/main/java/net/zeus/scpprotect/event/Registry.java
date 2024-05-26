@@ -38,6 +38,7 @@ public class Registry {
         event.registerEntityRenderer(SCPEntities.SCP_999.get(), SCP999Renderer::new);
         event.registerEntityRenderer(SCPEntities.SCP_049.get(), SCP049Renderer::new);
         event.registerEntityRenderer(SCPEntities.SCP_049_2.get(), SCP049_2Renderer::new);
+        event.registerEntityRenderer(SCPEntities.SCP_106.get(), SCP106Renderer::new);
     }
 
     @SubscribeEvent

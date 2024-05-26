@@ -1,13 +1,21 @@
 package net.zeus.scpprotect.event;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.entities.*;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
 import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
+import net.zeus.scpprotect.level.worldgen.dimension.SCPDimensions;
+
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonModEvents {
@@ -31,6 +39,7 @@ public class CommonModEvents {
         event.put(SCPEntities.SCP_999.get(), SCP999.createAttributes().build());
         event.put(SCPEntities.SCP_049.get(), SCP049.createAttributes().build());
         event.put(SCPEntities.SCP_049_2.get(), SCP049_2.createAttributes().build());
+        event.put(SCPEntities.SCP_106.get(), SCP106.createAttributes().build());
     }
 
 }

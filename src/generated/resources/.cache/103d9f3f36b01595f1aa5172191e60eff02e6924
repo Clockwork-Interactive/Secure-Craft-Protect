@@ -1,5 +1,9 @@
-// 1.20.1	2024-05-11T16:44:25.4457384	Registries
+// 1.20.1	2024-05-25T21:52:34.7444063	Registries
 fc540545215f5c4d2a253cf26feddb8d4af6e389 data/scprotect/damage_type/amputated.json
 6a8049dba7fccc814f295de97d4f5c8dadb7a02e data/scprotect/damage_type/bleeding.json
 7b781975290f1a09df432e803ad3097aa0b96650 data/scprotect/damage_type/rebel.json
 d0532c783f036a154a7c14f3d96eef404286ca45 data/scprotect/damage_type/scp_939_damage.json
+c113d4e6990be44786bcd013a60e3b227a614a38 data/scprotect/dimension/scp_106.json
+6c2bce8b9244e3545b2f3c483688ce1914cd6343 data/scprotect/dimension_type/scp_106_type.json
+80b9aa04ce96ffae03472233bae8cd9760880e14 data/scprotect/worldgen/structure/scp_106.json
+a04193b57ffa0710ac43947ca6e842f6cb165410 data/scprotect/worldgen/template_pool/scp_106/start.json

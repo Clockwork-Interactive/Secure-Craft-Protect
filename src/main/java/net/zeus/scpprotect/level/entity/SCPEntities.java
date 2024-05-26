@@ -53,6 +53,8 @@ public class SCPEntities {
 
     public static final RegistryObject<EntityType<SCP049_2>> SCP_049_2 = register("scp_049_2", EntityType.Builder.of(SCP049_2::new, MobCategory.MONSTER).sized(0.6F, 1.99F));
 
+    public static final RegistryObject<EntityType<SCP106>> SCP_106 = register("scp_106", EntityType.Builder.of(SCP106::new, MobCategory.MONSTER).sized(0.6F, 1.8F));
+
     /**
      * OTHER
      **/

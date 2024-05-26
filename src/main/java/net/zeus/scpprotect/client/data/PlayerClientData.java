@@ -3,8 +3,10 @@ package net.zeus.scpprotect.client.data;
 import net.minecraft.client.Minecraft;
 import net.zeus.scpprotect.level.entity.entities.SCP058;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
+import net.zeus.scpprotect.level.entity.entities.SCP106;
 import net.zeus.scpprotect.level.sound.tickable.Idle058TickableSound;
 import net.zeus.scpprotect.level.sound.tickable.Idle096TickableSound;
+import net.zeus.scpprotect.level.sound.tickable.Idle106TickableSound;
 
 import java.util.HashMap;
 
@@ -33,6 +35,10 @@ public class PlayerClientData {
 
     public static Idle058TickableSound createIdle058(SCP058 scp058) {
         return new Idle058TickableSound(scp058);
+    }
+
+    public static Idle106TickableSound createIdle106(SCP106 scp106) {
+        return new Idle106TickableSound(scp106);
     }
 
 }

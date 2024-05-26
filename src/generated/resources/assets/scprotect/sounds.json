@@ -1,4 +1,19 @@
 {
+  "pocket_dimension_ambience": {
+    "sounds": [
+      "scprotect:entity/scp_106/pocket_dimension_ambience"
+    ]
+  },
+  "pocket_dimension_enter": {
+    "sounds": [
+      "scprotect:entity/scp_106/pocket_dimension_enter"
+    ]
+  },
+  "pocket_dimension_exit": {
+    "sounds": [
+      "scprotect:entity/scp_106/pocket_dimension_exit"
+    ]
+  },
   "pocket_dimension_step": {
     "sounds": [
       "scprotect:block/pocket_dimension/pocket_dimension_step"
@@ -75,6 +90,26 @@
   "scp_096_triggered": {
     "sounds": [
       "scprotect:entity/scp_096/scp_096_triggered"
+    ]
+  },
+  "scp_106_idle": {
+    "sounds": [
+      "scprotect:entity/scp_106/scp_106_idle_1"
+    ]
+  },
+  "scp_106_kill": {
+    "sounds": [
+      "scprotect:entity/scp_106/scp_106_kill"
+    ]
+  },
+  "scp_106_loop": {
+    "sounds": [
+      "scprotect:entity/scp_106/scp_106_idle_2"
+    ]
+  },
+  "scp_106_teleport": {
+    "sounds": [
+      "scprotect:entity/scp_106/scp_106_teleport"
     ]
   },
   "scp_109_pour": {

@@ -36,6 +36,7 @@ import net.refractionapi.refraction.camerashake.CameraShakeHandler;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.runnable.RunnableCooldownHandler;
 import net.refractionapi.refraction.runnable.RunnableHandler;
+import net.refractionapi.refraction.sound.SoundUtil;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.SCPBlocks;
@@ -308,7 +309,7 @@ public class SCP173 extends SCPEntity {
         if (this.distanceTo(player) <= 3.0F) {
             this.teleports.putIfAbsent(player, 0);
             this.teleports.put(player, this.teleports.get(player) + 1);
-            RefractionMisc.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());
+            SoundUtil.playLocalSound(player, SCPSounds.SCP_173_HORROR.get());
         }
     }
 
