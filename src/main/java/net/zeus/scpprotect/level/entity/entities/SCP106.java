@@ -17,15 +17,18 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.refractionapi.refraction.misc.RefractionMisc;
+import net.minecraft.world.phys.Vec3;
 import net.refractionapi.refraction.runnable.RunnableCooldownHandler;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.goals.AnomalyWalkGoal;
+import net.zeus.scpprotect.level.entity.goals.SCP106WalkThroughBlocksGoal;
+import net.zeus.scpprotect.level.entity.goals.navigation.SCP106Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.level.worldgen.dimension.SCPDimensions;
@@ -47,13 +50,17 @@ public class SCP106 extends SCPEntity {
     private static final RawAnimation FALLING = RawAnimation.begin().thenPlay("scp_106_teleport_fall");
     private static final RawAnimation RISE = RawAnimation.begin().thenPlay("scp_106_teleport_rise");
 
+    private SCP106WalkThroughBlocksGoal walkGoal;
+
     public SCP106(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     @Override
     protected void registerGoals() {
+        this.walkGoal = new SCP106WalkThroughBlocksGoal(this);
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, walkGoal);
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5D, true));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new AnomalyWalkGoal(this, 1.0F, () -> this.getFrozenTicks() <= 0, () -> this.getFrozenTicks() <= 0));
@@ -62,12 +69,17 @@ public class SCP106 extends SCPEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.1F)
+                .add(Attributes.MOVEMENT_SPEED, 0.16F)
                 .add(Attributes.ATTACK_DAMAGE, 20.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
                 .add(Attributes.MAX_HEALTH, 200.0F)
                 .add(Attributes.FOLLOW_RANGE, 70.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 13.0F);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level pLevel) {
+        return new SCP106Navigation(this, pLevel);
     }
 
     @Override
@@ -133,12 +145,23 @@ public class SCP106 extends SCPEntity {
             this.getNavigation().stop();
             this.setFrozenTicks(this.getFrozenTicks() - 1);
         }
+        if (!this.walkGoal.passed) {
+            if (this.noPhysics) { // Used for going through blocks
+                this.setNoGravity(true);
+                Vec3 delta = this.getDeltaMovement();
+                this.setDeltaMovement(delta.x, -delta.y, delta.z);
+            }
+        } else {
+            this.setNoGravity(false);
+            this.noPhysics = false;
+        }
     }
 
     @Override
     public boolean doHurtTarget(Entity pEntity) {
         if (this.getFrozenTicks() > 0) return false;
         if (pEntity instanceof ServerPlayer serverPlayer) {
+            this.teleportTo(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ()); // Prevents 106 from being stuck in a wall
             ServerLevel scp106Dim = serverPlayer.serverLevel().getServer().getLevel(SCPDimensions.SCP_106_LEVEL);
             if (scp106Dim == null) {
                 throw new IllegalStateException("SCP-106 dimension is null");
