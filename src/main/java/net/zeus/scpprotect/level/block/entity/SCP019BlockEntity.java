@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.block.entity.custom;
+package net.zeus.scpprotect.level.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.FireBlock;
@@ -8,9 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
+import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
-import net.zeus.scpprotect.level.entity.SCPEntities;
-import net.zeus.scpprotect.level.entity.entities.SCP019_2;
 
 public class SCP019BlockEntity extends BaseEntityBlock {
 
@@ -43,9 +42,7 @@ public class SCP019BlockEntity extends BaseEntityBlock {
         }
 
         if (this.tickCount % this.spawnTimer == 0) {
-            SCP019_2 scp019_2 = new SCP019_2(SCPEntities.SCP_019_2.get(), this.level);
-            scp019_2.teleportTo(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ());
-            this.level.addFreshEntity(scp019_2);
+            AnomalyRegistry.SCP_019_2.createRaw(this.level, this.getBlockPos().above().getCenter());
         }
 
     }

@@ -68,7 +68,11 @@
   },
   "scp_096_idle": {
     "sounds": [
-      "scprotect:entity/scp_096/scp_096_idle",
+      "scprotect:entity/scp_096/scp_096_idle"
+    ]
+  },
+  "scp_096_idle_2": {
+    "sounds": [
       "scprotect:entity/scp_096/scp_096_idle_2"
     ]
   },

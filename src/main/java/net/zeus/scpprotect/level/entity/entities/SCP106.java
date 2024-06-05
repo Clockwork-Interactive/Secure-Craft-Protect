@@ -191,6 +191,11 @@ public class SCP106 extends SCPEntity {
     }
 
     @Override
+    public boolean canContain() {
+        return false;
+    }
+
+    @Override
     public boolean hasIdle() {
         return true;
     }

@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.effect.custom;
+package net.zeus.scpprotect.level.effect.effects;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;

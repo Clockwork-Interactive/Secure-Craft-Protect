@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import org.jetbrains.annotations.NotNull;
@@ -119,7 +120,7 @@ public class SCP346 extends Animal implements Anomaly, GeoEntity, FlyingAnimal {
 
     @Nullable
     public SCP346 getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return SCPEntities.SCP_346.get().create(pLevel);
+        return AnomalyRegistry.SCP_346.create(pLevel);
     }
 
     @Override

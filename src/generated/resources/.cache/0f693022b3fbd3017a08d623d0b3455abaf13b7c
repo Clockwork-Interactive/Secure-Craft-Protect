@@ -1,4 +1,5 @@
-// 1.20.1	2024-05-11T13:08:44.5661242	Item Models: scprotect
+// 1.20.1	2024-05-29T15:07:13.665842	Item Models: scprotect
+0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
 c43f6ce6aa32354c260b1a75a03075954ab9fe9f assets/scprotect/models/item/containment_item.json
@@ -9,6 +10,7 @@ f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.j
 876fb5f2577a50f2f35e8d806361d28b80f25f9b assets/scprotect/models/item/orange_candy.json
 23c0d58aaf7a6192427d1ab4dcc9cb330659925d assets/scprotect/models/item/polaroid.json
 339b0fb0a964c2b67d12b7a29645c5dc0d006b47 assets/scprotect/models/item/purple_candy.json
+6c35357c30507a94ee3958b72124c904c84064a7 assets/scprotect/models/item/reality_scanner.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/rebel_spawn_egg.json
 161c45a420ac716ce09cb1d844d3f388cc2b8b76 assets/scprotect/models/item/red_candy.json
 9dab8563b5201118e3fae85f13cb4a66509d001b assets/scprotect/models/item/scp_006_bucket.json

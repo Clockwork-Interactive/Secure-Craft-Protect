@@ -303,6 +303,11 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     //Data Stuff
 
+    @Override
+    public boolean canContain() {
+        return true;
+    }
+
     public boolean isTriggered() {
         return this.entityData.get(DATA_IS_TRIGGERED);
     }

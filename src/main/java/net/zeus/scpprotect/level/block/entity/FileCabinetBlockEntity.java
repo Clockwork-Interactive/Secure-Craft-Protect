@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
-import net.zeus.scpprotect.level.block.custom.FileCabinetBlock;
+import net.zeus.scpprotect.level.block.blocks.FileCabinetBlock;
 
 public class FileCabinetBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);

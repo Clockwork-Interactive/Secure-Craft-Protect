@@ -2,11 +2,13 @@ package net.zeus.scpprotect.level.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.effect.custom.*;
+import net.zeus.scpprotect.level.effect.effects.*;
 
 public class SCPEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, SCP.MOD_ID);
@@ -19,4 +21,6 @@ public class SCPEffects {
     public static final RegistryObject<MobEffect> PESTILENCE = MOB_EFFECTS.register("pestilence", () -> new PestilenceEffect(MobEffectCategory.HARMFUL, 0));
     public static final RegistryObject<MobEffect> PACIFICATION = MOB_EFFECTS.register("pacification", () -> new PacificationEffect(MobEffectCategory.BENEFICIAL, 11956459));
     public static final RegistryObject<MobEffect> BLEEDING = MOB_EFFECTS.register("bleeding", () -> new BleedingEffect(MobEffectCategory.BENEFICIAL, 0));
+    public static final RegistryObject<MobEffect> CORROSION = MOB_EFFECTS.register("corrosion", () -> new CorrosionEffect(MobEffectCategory.HARMFUL, 0));
+
 }

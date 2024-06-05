@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.refractionapi.refraction.vfx.VFXHelper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.goals.SCP049AttackGoal;
@@ -140,10 +141,8 @@ public class SCP049 extends SCPEntity {
         this.playSound(SCPSounds.SCP_049_RESURRECT.get());
         this.friendlyTimer = Misc.TPS * 10;
         if (pKilled instanceof Player) {
-            SCP049_2 scp049_2 = SCPEntities.SCP_049_2.get().create(this.level());
-            scp049_2.moveTo(pKilled.getX(), pKilled.getY(), pKilled.getZ());
+            SCP049_2 scp049_2 = AnomalyRegistry.SCP_049_2.create(this.level(), pKilled.position());
             this.level().addFreshEntity(scp049_2);
-
         } else if (pKilled instanceof Villager) {
             ZombieVillager zombieVillager = EntityType.ZOMBIE_VILLAGER.create(this.level());
             zombieVillager.moveTo(pKilled.getX(), pKilled.getY(), pKilled.getZ());

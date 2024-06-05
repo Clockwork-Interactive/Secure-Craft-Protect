@@ -1,22 +1,36 @@
 package net.zeus.scpprotect.event;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.refractionapi.refraction.quest.client.ClientQuestInfo;
+import net.refractionapi.refraction.quest.points.LocationPoint;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.entities.SCP966;
 import net.zeus.scpprotect.level.item.SCPItems;
 import software.bernie.geckolib.event.GeoRenderEvent;
+
+import java.awt.*;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -68,6 +82,42 @@ public class ClientEvents {
         } else {
             PlayerClientData.fovTick = 0;
             PlayerClientData.currentFov = Integer.MAX_VALUE;
+        }
+    }
+
+    @SubscribeEvent
+    public static void renderArrow(RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS) {
+            Player player = Minecraft.getInstance().player;
+            if (player == null || Minecraft.getInstance().gameRenderer.getMainCamera().isDetached()) return;
+            CompoundTag questInfo = ClientQuestInfo.tag;
+            if (questInfo == null || questInfo.isEmpty()) return;
+            ListTag points = questInfo.getList("points", Tag.TAG_COMPOUND);
+            for (Tag point : points) {
+                CompoundTag pointTag = (CompoundTag) point;
+                String genericID = pointTag.getString("genericID");
+                if (pointTag.contains("scpClass") && genericID.equals(LocationPoint.class.getSimpleName())) {
+                    double x = pointTag.getDouble("x");
+                    double y = pointTag.getDouble("y");
+                    double z = pointTag.getDouble("z");
+                    PlayerClientData.color = new Color(SCP.SCPTypes.values()[pointTag.getInt("scpClass")].component.getStyle().getColor().getValue());
+                    Vec3 targetPos = new Vec3(x, y, z);
+                    Vec3 playerPos = player.position();
+                    double angle = Math.atan2(targetPos.z - playerPos.z, targetPos.x - playerPos.x);
+                    double radius = 0.3D;
+                    Vec3 renderPos = new Vec3(radius * Math.cos(angle), -0.2D, radius * Math.sin(angle));
+                    PoseStack stack = event.getPoseStack();
+
+                    stack.pushPose();
+                    stack.translate(renderPos.x, renderPos.y, renderPos.z);
+                    stack.rotateAround(Axis.XP.rotationDegrees(90), 0, 0, 0);
+                    stack.rotateAround(Axis.ZP.rotationDegrees((float) (angle * 180 / Math.PI + 270)), 0, 0, 0);
+                    ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+                    MultiBufferSource.BufferSource source = Minecraft.getInstance().renderBuffers().bufferSource();
+                    itemRenderer.renderStatic(SCPItems.ARROW.get().getDefaultInstance(), ItemDisplayContext.GROUND, 140, 0, event.getPoseStack(), source, player.level(), 0);
+                    stack.popPose();
+                }
+            }
         }
     }
 

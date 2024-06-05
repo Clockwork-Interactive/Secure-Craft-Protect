@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.block.custom;
+package net.zeus.scpprotect.level.block.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,7 +19,7 @@ import net.refractionapi.refraction.registry.block.BaseHorizontalEntityBlock;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.level.block.SCPVoxelShapes;
-import net.zeus.scpprotect.level.block.entity.custom.SCP330BlockEntity;
+import net.zeus.scpprotect.level.block.entity.SCP330BlockEntity;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;

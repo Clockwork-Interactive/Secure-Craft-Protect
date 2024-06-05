@@ -10,7 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.custom.*;
+import net.zeus.scpprotect.level.block.blocks.*;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.item.SCPItems;
 
@@ -87,6 +87,12 @@ public class SCPBlocks {
     public static final RegistryObject<Block> OLD_STAINED_WALL = registerBlock("old_wall_stained",
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
                     .strength(1.8F)));
+
+    // Functional
+
+    public static final RegistryObject<Block> CONTAINMENT_BLOCK = registerBlock("containment_block",
+            () -> new ContainmentBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).noLootTable()
+                    .strength(2.0F)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

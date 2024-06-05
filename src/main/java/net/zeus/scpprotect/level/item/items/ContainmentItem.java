@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
+import net.zeus.scpprotect.level.interfaces.Anomaly;
 
 public class ContainmentItem extends Item {
     public ContainmentItem(Properties pProperties) {
@@ -19,6 +20,7 @@ public class ContainmentItem extends Item {
         if (pPlayer.level().isClientSide) return InteractionResult.FAIL;
 
         if (pInteractionTarget instanceof LivingEntity && !(pInteractionTarget instanceof Player || pInteractionTarget instanceof ContainmentBox)) {
+            if (pInteractionTarget instanceof Anomaly anomaly && !anomaly.canContain()) return InteractionResult.FAIL;
 
             ContainmentBox containmentBox = new ContainmentBox(pPlayer.level());
             containmentBox.setPos(pInteractionTarget.getX(), pInteractionTarget.getY(), pInteractionTarget.getZ());
@@ -35,6 +37,7 @@ public class ContainmentItem extends Item {
 
             pInteractionTarget.discard();
             pPlayer.level().addFreshEntity(containmentBox);
+            if (!pPlayer.isCreative()) pStack.shrink(1);
             return InteractionResult.SUCCESS;
         }
 

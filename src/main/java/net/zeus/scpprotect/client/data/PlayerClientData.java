@@ -8,6 +8,7 @@ import net.zeus.scpprotect.level.sound.tickable.Idle058TickableSound;
 import net.zeus.scpprotect.level.sound.tickable.Idle096TickableSound;
 import net.zeus.scpprotect.level.sound.tickable.Idle106TickableSound;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class PlayerClientData {
@@ -19,6 +20,8 @@ public class PlayerClientData {
     public static int fovTick = 0;
     public static int currentFov = Integer.MAX_VALUE;
     public static boolean pulse = false;
+
+    public static Color color = Color.WHITE;
 
     public static void setBlink(boolean blink) {
         PlayerClientData.blink = blink;

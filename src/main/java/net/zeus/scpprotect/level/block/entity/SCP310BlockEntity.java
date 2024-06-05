@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.block.entity.custom;
+package net.zeus.scpprotect.level.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

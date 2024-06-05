@@ -16,12 +16,14 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.zeus.scpprotect.level.entity.SCPEntities;
+import net.zeus.scpprotect.level.item.SCPItems;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -110,6 +112,8 @@ public class ContainmentBox extends Animal implements GeoEntity {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (pPlayer.isCrouching()) {
             this.releaseEntity();
+            ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(SCPItems.CONTAINMENT_ITEM.get()));
+            this.level().addFreshEntity(itemEntity);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(pPlayer, pHand);

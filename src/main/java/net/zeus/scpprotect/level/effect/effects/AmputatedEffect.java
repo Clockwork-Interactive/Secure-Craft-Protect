@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.effect.custom;
+package net.zeus.scpprotect.level.effect.effects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;

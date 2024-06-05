@@ -1,12 +1,9 @@
-package net.zeus.scpprotect.level.block.entity.custom;
+package net.zeus.scpprotect.level.block.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
-
-import java.util.HashMap;
 
 public class SCP330BlockEntity extends BaseEntityBlock {
 

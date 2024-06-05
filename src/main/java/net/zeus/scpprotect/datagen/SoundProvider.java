@@ -41,7 +41,8 @@ public class SoundProvider extends SoundDefinitionsProvider {
         addSound(SCPSounds.SCP_058_SPEAKING, create("entity/scp_058/scp_058_dialog"));
 
         // SCP 096
-        addSound(SCPSounds.SCP_096_IDLE, create("entity/scp_096/scp_096_idle"), create("entity/scp_096/scp_096_idle_2"));
+        addSound(SCPSounds.SCP_096_IDLE, create("entity/scp_096/scp_096_idle"));
+        addSound(SCPSounds.SCP_096_IDLE_2, create("entity/scp_096/scp_096_idle_2"));
         addSound(SCPSounds.SCP_096_KILL, create("entity/scp_096/scp_096_kill"));
         addSound(SCPSounds.SCP_096_RUNNING, create("entity/scp_096/scp_096_running"));
         addSound(SCPSounds.SCP_096_SEEN, create("entity/scp_096/scp_096_seen"));

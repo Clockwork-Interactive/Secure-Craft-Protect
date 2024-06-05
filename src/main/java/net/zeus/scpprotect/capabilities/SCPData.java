@@ -10,8 +10,8 @@ import net.refractionapi.refraction.capabilities.Data;
 public class SCPData extends Data<SCPData> {
 
     public int candiesTaken = 0;
-    public BlockPos scp106TakenPos = null;
-    public ResourceLocation scp106TakenDim = null;
+    public BlockPos scp106TakenPos = BlockPos.ZERO;
+    public ResourceLocation scp106TakenDim = new ResourceLocation("minecraft:overworld");
 
     @Override
     public void saveNBTData(CompoundTag compoundTag) {

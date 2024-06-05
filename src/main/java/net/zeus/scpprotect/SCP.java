@@ -20,8 +20,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.refractionapi.refraction.quest.client.ClientQuestInfo;
 import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
+import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
@@ -47,35 +49,28 @@ public class SCP {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         SCPEntities.ENTITIES.register(modEventBus);
-
         SCPSounds.SOUND_EVENTS.register(modEventBus);
-
         SCPItems.ITEMS.register(modEventBus);
-
         SCPBlocks.BLOCKS.register(modEventBus);
-
         FacilityBlocks.BLOCKS.register(modEventBus);
-
         SCPBlockEntities.BLOCK_ENTITIES.register(modEventBus);
-
         SCPEffects.MOB_EFFECTS.register(modEventBus);
-
         SCPTabs.TABS.register(modEventBus);
-
         SCPParticles.PARTICLES.register(modEventBus);
-
         SCPFluidTypes.FLUID_TYPES.register(modEventBus);
-
         SCPFluids.FLUIDS.register(modEventBus);
-
         SCPPotions.POTIONS.register(modEventBus);
+
+        AnomalyRegistry.init();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SCPCommonConfig.SPEC, "scprotect-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SCPClientConfig.SPEC, "scprotect-client.toml");
-        
+
+        ClientQuestInfo.setDefaultRenderer(false);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -95,7 +90,8 @@ public class SCP {
     public enum SCPTypes {
         KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED)),
         EUCLID("§6", Component.literal("Euclid").withStyle(ChatFormatting.YELLOW)),
-        SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN))
+        SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN)),
+        UNCLASSIFIED("§7", Component.literal("Unclassified").withStyle(ChatFormatting.GRAY))
         ;
 
         public final String colorModifier;

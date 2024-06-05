@@ -1,4 +1,4 @@
-package net.zeus.scpprotect.level.block.custom;
+package net.zeus.scpprotect.level.block.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;

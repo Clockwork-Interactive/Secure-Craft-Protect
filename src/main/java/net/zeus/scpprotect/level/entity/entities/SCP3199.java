@@ -21,6 +21,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.goals.WaterRandomLookAroundGoal;
 import net.zeus.scpprotect.level.entity.goals.WaterSinkingRandomStroll;
@@ -174,9 +175,8 @@ public class SCP3199 extends SCPEntity {
 
     public void layEgg() {
         this.timeRemaining = maxTime;
-        SCP3199Egg scp3199Egg = new SCP3199Egg(SCPEntities.SCP_3199_EGG.get(), this.level());
-        scp3199Egg.setPos(this.getX(), this.getY(), this.getZ());
-        this.level().addFreshEntity(scp3199Egg);
+        SCP3199Egg scp3199 = AnomalyRegistry.SCP_3199_EGG.create(this.level(), this.position());
+        this.level().addFreshEntity(scp3199);
 
         AreaEffectCloud areaEffectCloud = new AreaEffectCloud(EntityType.AREA_EFFECT_CLOUD, this.level());
         areaEffectCloud.setPos(this.getX(), this.getY(), this.getZ());

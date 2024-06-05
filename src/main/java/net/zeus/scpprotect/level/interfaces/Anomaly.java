@@ -2,6 +2,7 @@ package net.zeus.scpprotect.level.interfaces;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import org.apache.commons.lang3.tuple.Triple;
@@ -119,6 +120,10 @@ public interface Anomaly {
     
     default AtomicReference<PlayableTickableSound> getIdle() {
         return null;
+    }
+
+    default boolean canContain() {
+        return true;
     }
 
 }
