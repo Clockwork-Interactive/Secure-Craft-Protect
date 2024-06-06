@@ -11,9 +11,9 @@
     }
   },
   "pattern": [
-    " ba",
-    " ba",
-    "  a"
+    "ba",
+    "ba",
+    " a"
   ],
   "result": {
     "item": "scprotect:hairbrush"

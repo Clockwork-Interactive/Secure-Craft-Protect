@@ -2,7 +2,12 @@
   "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "doctor_doctor": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "entity": {
+          "type": "scprotect:scp_049"
+        }
+      },
+      "trigger": "scprotect:seen"
     }
   },
   "display": {

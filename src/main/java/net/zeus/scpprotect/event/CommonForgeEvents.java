@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,10 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SolidBucketItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,9 +25,12 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -50,6 +51,7 @@ import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.effects.PacificationEffect;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 import net.zeus.scpprotect.level.sound.SCPSounds;
@@ -134,6 +136,17 @@ public class CommonForgeEvents {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) return;
         Player player = event.player;
+        ItemStack itemstack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        Item item = itemstack.getItem();
+
+        if (itemstack.is(SCPItems.ODD_CLIMBERS.get())) {
+            if (player.horizontalCollision) {
+                Vec3 initialVec = player.getDeltaMovement();
+                Vec3 climbVec = new Vec3(initialVec.x, 0.2D, initialVec.z);
+                player.setDeltaMovement(climbVec.x * 0.91D,
+                        climbVec.y * 0.98D, climbVec.z * 0.91D);
+            }
+        }
 
         if (!player.level().isClientSide) {
 

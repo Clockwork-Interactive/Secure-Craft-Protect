@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-06T04:47:58.879143	Item Models: scprotect
+// 1.20.1	2024-06-06T10:26:11.9194594	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -8,6 +8,7 @@ a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.
 f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 6a51a0d8520a005e717513b56ddb7321d8c817d7 assets/scprotect/models/item/odd_claw.json
+78cf5f88e4fe12bc7620302b9a3612083f6a7894 assets/scprotect/models/item/odd_climbers.json
 876fb5f2577a50f2f35e8d806361d28b80f25f9b assets/scprotect/models/item/orange_candy.json
 23c0d58aaf7a6192427d1ab4dcc9cb330659925d assets/scprotect/models/item/polaroid.json
 339b0fb0a964c2b67d12b7a29645c5dc0d006b47 assets/scprotect/models/item/purple_candy.json

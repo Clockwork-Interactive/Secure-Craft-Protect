@@ -17,7 +17,7 @@ public class SCPConfiguredFeatures {
 
     public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, SCP.MOD_ID);
 
-    public static final RegistryObject<ConfiguredFeature<?, ?>> LAVENDER = CONFIGURED_FEATURES.register("lavender", () -> new ConfiguredFeature<>(Feature.FLOWER,
-            new RandomPatchConfiguration(16, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(SCPBlocks.LAVENDER.get()))))));
+    //public static final RegistryObject<ConfiguredFeature<?, ?>> LAVENDER = CONFIGURED_FEATURES.register("lavender", () -> new ConfiguredFeature<>(Feature.FLOWER,
+    //        new RandomPatchConfiguration(16, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(SCPBlocks.LAVENDER.get()))))));
 
 }
