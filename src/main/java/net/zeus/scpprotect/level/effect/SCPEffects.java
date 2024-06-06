@@ -21,6 +21,6 @@ public class SCPEffects {
     public static final RegistryObject<MobEffect> PESTILENCE = MOB_EFFECTS.register("pestilence", () -> new PestilenceEffect(MobEffectCategory.HARMFUL, 0));
     public static final RegistryObject<MobEffect> PACIFICATION = MOB_EFFECTS.register("pacification", () -> new PacificationEffect(MobEffectCategory.BENEFICIAL, 11956459));
     public static final RegistryObject<MobEffect> BLEEDING = MOB_EFFECTS.register("bleeding", () -> new BleedingEffect(MobEffectCategory.BENEFICIAL, 0));
-    public static final RegistryObject<MobEffect> CORROSION = MOB_EFFECTS.register("corrosion", () -> new CorrosionEffect(MobEffectCategory.HARMFUL, 0));
+    public static final RegistryObject<MobEffect> CORROSION = MOB_EFFECTS.register("corrosion", () -> new CorrosionEffect(MobEffectCategory.HARMFUL, 0).addAttributeModifier(Attributes.MAX_HEALTH, "5D6F0BA2-1186-46AC-B896-C61C5CEE99CC", -50, AttributeModifier.Operation.ADDITION));
 
 }

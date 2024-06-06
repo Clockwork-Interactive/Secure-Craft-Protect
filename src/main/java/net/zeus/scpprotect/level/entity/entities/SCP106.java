@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -54,6 +55,12 @@ public class SCP106 extends SCPEntity {
 
     public SCP106(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+    }
+
+    @Override
+    protected void onEffectAdded(MobEffectInstance pEffectInstance, @Nullable Entity pEntity) {
+        this.removeAllEffects();
+        super.onEffectAdded(pEffectInstance, pEntity);
     }
 
     @Override

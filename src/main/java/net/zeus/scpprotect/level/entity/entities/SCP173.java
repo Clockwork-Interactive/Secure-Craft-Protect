@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -45,6 +46,7 @@ import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.BlinkS2CPacket;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSoundS2C;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -70,6 +72,12 @@ public class SCP173 extends SCPEntity {
     protected void registerGoals() {
         this.setPersistenceRequired();
         this.setPassable(true);
+    }
+
+    @Override
+    protected void onEffectAdded(MobEffectInstance pEffectInstance, @Nullable Entity pEntity) {
+        this.removeAllEffects();
+        super.onEffectAdded(pEffectInstance, pEntity);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

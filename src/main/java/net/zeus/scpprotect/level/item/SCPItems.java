@@ -49,6 +49,7 @@ public class SCPItems {
     public static final RegistryObject<Item> SCP_966_SPAWN_EGG = registerEgg("scp_966_spawn_egg", SCPEntities.SCP_966, new Color(193, 163, 163), new Color(232, 180, 180));
     public static final RegistryObject<Item> SCP_019_2_SPAWN_EGG = registerEgg("scp_019_2_spawn_egg", SCPEntities.SCP_019_2, new Color(211, 162, 181), new Color(253, 220, 220));
     public static final RegistryObject<Item> SCP_058_SPAWN_EGG = registerEgg("scp_058_spawn_egg", SCPEntities.SCP_058, new Color(162, 0, 0), new Color(255, 201, 132));
+    public static final RegistryObject<Item> SCP_106_SPAWN_EGG = registerEgg("scp_106_spawn_egg", SCPEntities.SCP_106, new Color(81, 53, 54), new Color(11, 0, 4));
     public static final RegistryObject<Item> SCP_939_SPAWN_EGG = registerEgg("scp_939_spawn_egg", SCPEntities.SCP_939, new Color(249, 6, 12), new Color(42, 0, 0));
     public static final RegistryObject<Item> SCP_3199_SPAWN_EGG = registerEgg("scp_3199_spawn_egg", SCPEntities.SCP_3199, new Color(238, 203, 201), new Color(183, 131, 131));
     public static final RegistryObject<Item> REBEL_SPAWN_EGG = registerEgg("rebel_spawn_egg", SCPEntities.REBEL, new Color(231, 190, 132), new Color(208, 129, 74));
@@ -62,7 +63,7 @@ public class SCPItems {
     public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_999_BUCKET = ITEMS.register("scp_999_bucket", () -> new SCP999BucketItem(SCPEntities.SCP_999, () -> Fluids.EMPTY, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().stacksTo(1))));
     public static final RegistryObject<Item> SCP_3199_EGG_BUCKET = ITEMS.register("scp_3199_egg_bucket", () -> new SolidBucketMobItem(Blocks.POWDER_SNOW, SCPEntities.SCP_3199_EGG::get, SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> CONTAINMENT_ITEM = ITEMS.register("containment_item", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CONTAINMENT_CAGE = ITEMS.register("containment_cage", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> POLAROID = ITEMS.register("polaroid", () -> new Polaroid(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ARROW = ITEMS.register("arrow", () -> new InstantDeleteItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> REALITY_SCANNER = ITEMS.register("reality_scanner", () -> new RealityScanner(new Item.Properties().stacksTo(1).fireResistant()));

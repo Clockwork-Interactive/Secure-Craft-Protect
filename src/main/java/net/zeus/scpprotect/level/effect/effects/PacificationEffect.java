@@ -7,6 +7,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.player.Player;
+import net.zeus.scpprotect.level.effect.SCPEffects;
 import oshi.util.tuples.Pair;
 
 import java.util.HashMap;
@@ -27,6 +29,8 @@ public class PacificationEffect extends MobEffect {
                     mob.goalSelector.removeGoal(goal.getGoal());
                 }
             }
+        } else if (pLivingEntity instanceof Player player) {
+            player.removeEffect(SCPEffects.PACIFICATION.get());
         }
     }
 

@@ -112,7 +112,7 @@ public class ContainmentBox extends Animal implements GeoEntity {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (pPlayer.isCrouching()) {
             this.releaseEntity();
-            ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(SCPItems.CONTAINMENT_ITEM.get()));
+            ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(SCPItems.CONTAINMENT_CAGE.get()));
             this.level().addFreshEntity(itemEntity);
             return InteractionResult.SUCCESS;
         }

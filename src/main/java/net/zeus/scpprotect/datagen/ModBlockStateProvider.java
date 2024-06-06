@@ -59,6 +59,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 SCP.MOD_ID,"block/old_wall"), new ResourceLocation(
                 SCP.MOD_ID,"block/old_wall"));
 
+        sidedBlock(SCPBlocks.CONTAINMENT_BLOCK, new ResourceLocation(
+                SCP.MOD_ID, "block/containment_crate_side"), new ResourceLocation(
+                SCP.MOD_ID,"block/containment_crate_bottom"), new ResourceLocation(
+                SCP.MOD_ID,"block/containment_crate_top"));
+
         // Ez
 
         sidedBlock(FacilityBlocks.EZ_CONCRETE_BORDER, new ResourceLocation(

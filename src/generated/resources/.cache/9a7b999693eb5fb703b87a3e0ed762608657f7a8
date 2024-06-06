@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-26T14:18:33.7050388	Block States: scprotect
+// 1.20.1	2024-06-06T00:58:11.6836731	Block States: scprotect
 ffefaaed8f94ef42871d02da94781c728b17afb8 assets/scprotect/blockstates/aged_bricks.json
 3ad7d39d28197f8fad61de87aa7350677f53e4bd assets/scprotect/blockstates/aged_brick_slab.json
 aaee92c9bf1118adc6ee6a7a467fb1d9efe671c0 assets/scprotect/blockstates/aged_brick_stairs.json
@@ -8,6 +8,7 @@ c341bb06752d9ddc34a49b071ff9dfac338e7286 assets/scprotect/blockstates/aged_concr
 128051035befce1896ffc7294576448be95c75e1 assets/scprotect/blockstates/cement_bricks.json
 8917f78c7a2f3ad81bb84b5870f320590f00d904 assets/scprotect/blockstates/cement_brick_slab.json
 60b79f25046bce9f57be5271cb487c1075dad56f assets/scprotect/blockstates/cement_brick_stairs.json
+efeeb895035d06bfaca408734da6c239b881aca0 assets/scprotect/blockstates/containment_block.json
 a6727d9ed0ed0235e8e0683adb21baae605f8bac assets/scprotect/blockstates/corroded_tiles.json
 3c4ca4f14d4d6f2ebf7afe1e7616388d74460c2f assets/scprotect/blockstates/decay_block.json
 5c726e929e7c5707678a7154ed04519785afd4a1 assets/scprotect/blockstates/dirty_metal.json
@@ -75,6 +76,7 @@ a58398d4803d53b1638f869aee117894c01e5f4b assets/scprotect/models/block/cement_br
 f0caf9f1b28a6f217223ce3a7877226bab1b965e assets/scprotect/models/block/cement_brick_stairs.json
 886d610732de25c5ff8b2a56b67c439b4904f3fb assets/scprotect/models/block/cement_brick_stairs_inner.json
 d2836785cc3e9e9b74948ace09e480ff91ec66ca assets/scprotect/models/block/cement_brick_stairs_outer.json
+592379c4afe06ce0846468c72666df957bf43006 assets/scprotect/models/block/containment_block.json
 3890c68cc853350500b4566bbe6d0b8cf62c103a assets/scprotect/models/block/corroded_tiles.json
 05c6166d4a99d66164424de7f53f4339bb0f75e3 assets/scprotect/models/block/decay_block.json
 caa004d0db99c673e34904adc3338e570e40598c assets/scprotect/models/block/dirty_metal.json
@@ -155,6 +157,7 @@ f733d433d525d6083fcc8e114f0f81445d9c412e assets/scprotect/models/item/aged_brick
 026909075c875f6ca3f38141e32e8af842214355 assets/scprotect/models/item/cement_bricks.json
 2936084fac2a065a938ac0dcea6b2ad9b9832e4b assets/scprotect/models/item/cement_brick_slab.json
 06f09bf535621509fb771d7e8e994d1322913296 assets/scprotect/models/item/cement_brick_stairs.json
+b227626e8b4e3a18b8f7acf9deedb257ccd19f8d assets/scprotect/models/item/containment_block.json
 83917e691ca4c957871438931f6a68184e78b2af assets/scprotect/models/item/corroded_tiles.json
 d5a23eb2e3c13ceae1ee6132c6192fff99f1675a assets/scprotect/models/item/decay_block.json
 d2114ce0df859fda9fc621b1143309706af7f7a7 assets/scprotect/models/item/dirty_metal.json

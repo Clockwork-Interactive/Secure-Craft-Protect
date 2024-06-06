@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:copper_ingot"
+    },
+    "b": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "c": {
+      "item": "minecraft:redstone"
+    },
+    "d": {
+      "item": "minecraft:recovery_compass"
+    }
+  },
+  "pattern": [
+    "bab",
+    "cdc",
+    "aaa"
+  ],
+  "result": {
+    "item": "scprotect:reality_scanner"
+  }
+}

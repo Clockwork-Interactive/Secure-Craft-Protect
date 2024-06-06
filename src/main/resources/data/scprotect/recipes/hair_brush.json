@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:stick"
+    },
+    "b": {
+      "item": "minecraft:feather"
+    }
+  },
+  "pattern": [
+    " ba",
+    " ba",
+    "  a"
+  ],
+  "result": {
+    "item": "scprotect:hairbrush"
+  }
+}

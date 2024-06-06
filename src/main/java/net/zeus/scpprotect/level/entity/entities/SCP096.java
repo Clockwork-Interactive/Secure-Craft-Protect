@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -83,6 +84,12 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
         this.addBehaviourGoals();
         this.setPersistenceRequired();
+    }
+
+    @Override
+    protected void onEffectAdded(MobEffectInstance pEffectInstance, @org.jetbrains.annotations.Nullable Entity pEntity) {
+        this.removeAllEffects();
+        super.onEffectAdded(pEffectInstance, pEntity);
     }
 
     protected void addBehaviourGoals() {
