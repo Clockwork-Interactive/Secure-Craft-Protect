@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "secure_contain_protect": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "scprotect:block/decay_block",
+    "description": {
+      "text": "Welcome."
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:scp_999_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Secure Contain Protect"
+    }
+  },
+  "requirements": [
+    [
+      "secure_contain_protect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

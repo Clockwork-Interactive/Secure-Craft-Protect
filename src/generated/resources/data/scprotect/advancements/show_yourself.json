@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "show_yourself": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Encounter SCP-939"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:odd_claw"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Show Yourself"
+    }
+  },
+  "requirements": [
+    [
+      "show_yourself"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

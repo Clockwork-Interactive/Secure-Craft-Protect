@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "nine_tailed_fox": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Contain an SCP with the Containment Cage"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:containment_cage"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Nine Tailed Fox"
+    }
+  },
+  "requirements": [
+    [
+      "nine_tailed_fox"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

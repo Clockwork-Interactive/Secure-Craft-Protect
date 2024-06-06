@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "a_taste_of_immortality": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Use an SCP-500 pill"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:scp_500_bottle"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "A Taste Of Immortality"
+    }
+  },
+  "requirements": [
+    [
+      "a_taste_of_immortality"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

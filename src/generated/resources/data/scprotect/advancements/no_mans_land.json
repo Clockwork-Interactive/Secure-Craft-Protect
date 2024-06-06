@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "no_mans_land": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Escape the Pocket Dimension"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:corroded_tiles"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "No Mans Land"
+    }
+  },
+  "requirements": [
+    [
+      "no_mans_land"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

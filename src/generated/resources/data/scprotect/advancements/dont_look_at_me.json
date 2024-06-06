@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "dont_look_at_me": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Encounter SCP-096"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:polaroid"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Don't Look At Me"
+    }
+  },
+  "requirements": [
+    [
+      "dont_look_at_me"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

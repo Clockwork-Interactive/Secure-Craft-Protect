@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "bravo_six_going_dark": {
+      "conditions": {
+        "recipe_id": "scprotect:night_vision_goggles"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Craft the Night Vision Goggles"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:night_vision_goggles",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Bravo Six, Going Dark"
+    }
+  },
+  "requirements": [
+    [
+      "bravo_six_going_dark"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

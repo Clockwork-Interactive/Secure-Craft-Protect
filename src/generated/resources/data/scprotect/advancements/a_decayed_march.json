@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "a_decayed_march": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Encounter SCP-106"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:decay_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "A Decayed March"
+    }
+  },
+  "requirements": [
+    [
+      "a_decayed_march"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

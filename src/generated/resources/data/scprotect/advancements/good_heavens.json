@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "good_heavens": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Catch the mysterious Pestilence Effect"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:lavender"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Good Heavens"
+    }
+  },
+  "requirements": [
+    [
+      "good_heavens"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

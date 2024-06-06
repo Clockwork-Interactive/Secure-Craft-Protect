@@ -41,6 +41,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.level.block.SCPBlocks;
@@ -65,6 +66,7 @@ public class CommonForgeEvents {
 
     @SubscribeEvent
     public static void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        SCPAdvancements.grant(event.getEntity(), SCPAdvancements.SECURE_CONTAIN_PROTECT);
         PlayerData.init(event.getEntity());
     }
 

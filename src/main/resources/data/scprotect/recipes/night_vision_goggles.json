@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_ingot"
+    },
+    "b": {
+      "item": "minecraft:iron_helmet"
+    },
+    "c": {
+      "item": "minecraft:redstone"
+    },
+    "d": {
+      "item": "minecraft:tinted_glass"
+    },
+    "e": {
+      "item": "minecraft:dried_kelp"
+    }
+  },
+  "pattern": [
+    "aba",
+    "dcd",
+    "e e"
+  ],
+  "result": {
+    "item": "scprotect:night_vision_goggles"
+  }
+}

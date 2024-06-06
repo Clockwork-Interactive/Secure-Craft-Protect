@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -41,6 +42,7 @@ public class SCP1025 extends Item implements Anomaly {
                         return e.getKey().equals(effect.getKey());
                     })
             ).findAny().map(Map.Entry::getValue).orElse(MobEffects.CONFUSION);
+            SCPAdvancements.grant(pPlayer, SCPAdvancements.POTENTIAL_BIOWEAPON);
             pPlayer.getCooldowns().addCooldown(SCPItems.SCP_1025.get(), 40);
             pPlayer.addEffect(new MobEffectInstance(pick, RandomSource.create().nextInt(400, 600)));
             pPlayer.displayClientMessage(Component.literal("You read a page on ").append(Component.translatable(pick.getDescriptionId())).append("..."), true);

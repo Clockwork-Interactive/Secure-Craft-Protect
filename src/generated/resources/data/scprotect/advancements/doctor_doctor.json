@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "doctor_doctor": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Encounter SCP-049"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:lavender"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Doctor, Doctor"
+    }
+  },
+  "requirements": [
+    [
+      "doctor_doctor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

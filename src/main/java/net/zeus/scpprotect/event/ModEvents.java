@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.refractionapi.refraction.capabilities.CapabilityUtil;
 import net.refractionapi.refraction.capabilities.Data;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.capabilities.SCPDataProvider;
 import net.zeus.scpprotect.level.effect.SCPEffects;

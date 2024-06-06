@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -50,7 +51,7 @@ public class SCP500Pill extends Item implements Anomaly, DataGenObj {
 
         Map<MobEffect, MobEffectInstance> effects = pEntityLiving.getActiveEffectsMap();
         effects.entrySet().removeIf(mobEffectMobEffectInstanceEntry -> !mobEffectMobEffectInstanceEntry.getKey().isBeneficial());
-
+        SCPAdvancements.grant(((Player) pEntityLiving), SCPAdvancements.A_TASTE_OF_IMMORTALITY);
 
         return super.finishUsingItem(pStack, pLevel, pEntityLiving);
     }

@@ -32,6 +32,7 @@ public class DataGenerators {
         generator.addProvider(true, new ModLanguageProvider(packOutput));
         generator.addProvider(true, new ModFluidTagProvider(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new DatapackProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new AdvancementProvider(packOutput, lookupProvider, existingFileHelper));
     }
 
 }

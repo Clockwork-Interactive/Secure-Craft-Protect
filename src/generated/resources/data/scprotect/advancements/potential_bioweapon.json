@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "potential_bioweapon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Read a page from SCP-1025"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "scprotect:scp_1025"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "'Potential Bioweapon'"
+    }
+  },
+  "requirements": [
+    [
+      "potential_bioweapon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

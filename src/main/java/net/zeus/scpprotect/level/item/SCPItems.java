@@ -58,6 +58,7 @@ public class SCPItems {
     public static final RegistryObject<Item> NODS = ITEMS.register("night_vision_goggles", () -> new NightVisionGoggles(ArmorMaterials.DIAMOND, ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
 
     // MISC
+    public static final RegistryObject<Item> ODD_CLAW = ITEMS.register("odd_claw", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(SCPBlocks.LAVENDER.get(), new Item.Properties()));
     public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));

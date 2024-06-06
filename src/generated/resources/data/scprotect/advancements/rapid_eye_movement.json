@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "rapid_eye_movement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Encounter SCP-966"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:gray_bed"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Rapid Eye Movement"
+    }
+  },
+  "requirements": [
+    [
+      "rapid_eye_movement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
