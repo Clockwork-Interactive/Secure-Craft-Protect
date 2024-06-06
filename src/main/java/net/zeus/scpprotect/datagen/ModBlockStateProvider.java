@@ -48,6 +48,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(FacilityBlocks.METAL_CONTAINER);
         blockWithItem(FacilityBlocks.METAL_CONTAINER_GRIDDED);
 
+        blockWithItem(SCPBlocks.MAGNETIZED_BLOCK);
+
         horizontalBlockWithItem(SCPBlocks.SCP_019, false);
         horizontalBlockWithItem(SCPBlocks.SCP_330, false);
         horizontalBlockWithItem(SCPBlocks.SCP_310, false);

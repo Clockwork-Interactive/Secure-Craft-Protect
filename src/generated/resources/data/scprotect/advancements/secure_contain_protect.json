@@ -7,7 +7,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "scprotect:block/decay_block",
+    "background": "scprotect:textures/block/decay_block.png",
     "description": {
       "text": "Welcome."
     },

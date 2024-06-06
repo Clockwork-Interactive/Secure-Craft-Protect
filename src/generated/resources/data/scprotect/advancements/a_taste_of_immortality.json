@@ -1,7 +1,15 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "a_taste_of_immortality": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "item": {
+          "items": [
+            "scprotect:scp_500"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
     }
   },
   "display": {

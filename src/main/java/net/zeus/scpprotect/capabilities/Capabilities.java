@@ -7,5 +7,6 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 public class Capabilities {
 
     public static Capability<SCPData> SCP_DATA = CapabilityManager.get(new CapabilityToken<>() {});
+    public static Capability<SCPSavedData> SCP_SAVED_DATA = CapabilityManager.get(new CapabilityToken<>() {});
 
 }

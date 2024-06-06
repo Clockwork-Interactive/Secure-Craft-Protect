@@ -1,4 +1,5 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "bravo_six_going_dark": {
       "conditions": {

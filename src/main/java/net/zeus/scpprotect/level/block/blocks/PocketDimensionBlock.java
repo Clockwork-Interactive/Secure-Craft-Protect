@@ -25,4 +25,5 @@ public class PocketDimensionBlock extends Block {
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
         pEntity.makeStuckInBlock(pState, new Vec3(0.7D, 0.07F, 0.7D));
     }
+
 }

@@ -22,6 +22,7 @@ public class SCPAdvancements {
     public static final ResourceLocation BRAVO_SIX_GOING_DARK = get("bravo_six_going_dark");
 
     public static void grant(Player player, ResourceLocation res) {
+        if (player.level().isClientSide) return;
         Advancement resAdv = player.getServer().getAdvancements().getAdvancement(res);
         if (resAdv == null) return;
         if (player instanceof ServerPlayer serverPlayer)

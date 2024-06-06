@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.refractionapi.refraction.quest.QuestHandler;
 import net.zeus.scpprotect.level.quest.LocateSCPQuest;
 
@@ -21,7 +22,7 @@ public class RealityScanner extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack stack = pPlayer.getItemInHand(pUsedHand);
         CompoundTag tag = stack.getOrCreateTag();
-        if (pLevel.isClientSide) return super.use(pLevel, pPlayer, pUsedHand);
+        if (pLevel.isClientSide || !pLevel.dimensionTypeId().equals(BuiltinDimensionTypes.OVERWORLD)) return super.use(pLevel, pPlayer, pUsedHand);
         if (!tag.contains("quest") && pPlayer instanceof ServerPlayer serverPlayer) {
             LocateSCPQuest quest = new LocateSCPQuest(serverPlayer, stack, null);
             CompoundTag questTag = new CompoundTag();

@@ -4,26 +4,27 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.refractionapi.refraction.quest.Quest;
 import net.refractionapi.refraction.quest.points.LocationPoint;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
+import net.zeus.scpprotect.level.anomaly.creator.EntityAnomalyType;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.quest.points.LocateSCPPoint;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LocateSCPQuest extends Quest {
 
     public final ItemStack stack;
-    private static final List<AnomalyType<?, ?>> SCPS = new ArrayList<>() {{
-        addAll(AnomalyRegistry.ANOMALY_TYPES.values());
-        remove(AnomalyRegistry.REBEL); // Sorry Rebel :(
-    }};
+    private AnomalyType<?, ?> scpType;
 
     public LocateSCPQuest(ServerPlayer player, ItemStack stack, CompoundTag tag) {
         super(player, tag);
@@ -31,10 +32,19 @@ public class LocateSCPQuest extends Quest {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void generate() {
         int x = this.getPlayer().getBlockX() + this.getPlayer().level().getRandom().nextInt(1000) - 450;
         int z = this.getPlayer().getBlockZ() + this.getPlayer().level().getRandom().nextInt(1000) - 450;
-        final AnomalyType<? extends Anomaly, ?> scpType = (AnomalyType<? extends Anomaly, ?>) SCPS.get(this.getPlayer().level().getRandom().nextInt(SCPS.size()));
+        List<AnomalyType<?, ?>> SCPS = this.getSCPs();
+        if (SCPS.isEmpty()) {
+            this.end(false);
+            return;
+        }
+        final AnomalyType<? extends Anomaly, ?> scpType =
+                this.scpType == null ?
+                        (AnomalyType<? extends Anomaly, ?>) (this.scpType = SCPS.get(this.getPlayer().level().getRandom().nextInt(SCPS.size()))) :
+                        (AnomalyType<? extends Anomaly, ?>) this.scpType;
         SCP.SCPTypes classification = scpType.getClassType();
         this.newPart(Component.empty())
                 .addQuestPoint(new LocationPoint(this, Vec3Helper.findSolid(this.getPlayer().level(), new BlockPos(x, 0, z)).getCenter(), 20.0D)
@@ -43,17 +53,60 @@ public class LocateSCPQuest extends Quest {
                 .onTick((q) -> {
                     if (!this.getPlayer().getInventory().contains(this.stack)) {
                         this.end(false);
+                        return;
                     }
+                    CompoundTag tag = new CompoundTag();
+                    this.serializeNBT(tag);
+                    this.stack.getOrCreateTag().put("quest", tag);
                 })
                 .newPart(Component.empty())
                 .addQuestPoint(new LocateSCPPoint(this, scpType))
-                .onCompletion((q) -> this.stack.getOrCreateTag().remove("quest"))
+                .onCompletion((q) -> {
+                    this.stack.getOrCreateTag().remove("quest");
+                    if (this.scpType instanceof EntityAnomalyType<?> entityAnomalyType)
+                        this.getPlayer().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) -> {
+                            data.addSCP((EntityType<? extends Anomaly>) entityAnomalyType.getType().get());
+                        });
+                })
                 .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<AnomalyType<?, ?>> getSCPs() {
+        return new ArrayList<>() {{
+            addAll(AnomalyRegistry.ANOMALY_TYPES.values());
+            remove(AnomalyRegistry.REBEL); // Sorry Rebel :(
+            remove(AnomalyRegistry.SCP_3199_EGG);
+            remove(AnomalyRegistry.SCP_049_2);
+            remove(AnomalyRegistry.SCP_019_2);
+            removeIf((type) -> { // Remove discovered SCPs 🥰 (I don't like this idea, but whatever -- Zeus)
+                AtomicBoolean remove = new AtomicBoolean(false);
+                if (type instanceof EntityAnomalyType<?> entityAnomalyType) {
+                    LocateSCPQuest.this.getPlayer().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) -> {
+                        if (data.hasSCP((EntityType<? extends Anomaly>) entityAnomalyType.getType().get())) {
+                            remove.set(true);
+                        }
+                    });
+                }
+                return remove.get();
+            });
+        }};
     }
 
     @Override
     public Component questName() {
         return Component.empty();
+    }
+
+    @Override
+    public void serializeNBT(CompoundTag tag) {
+        super.serializeNBT(tag);
+        tag.putString("scpType", this.scpType.getType().toString());
+    }
+
+    @Override
+    protected void deserializePreGen(CompoundTag tag) {
+        this.scpType = AnomalyType.getAnomalyType(tag.getString("scpType"));
     }
 
 }

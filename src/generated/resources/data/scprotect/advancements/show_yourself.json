@@ -1,7 +1,13 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "show_yourself": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "entity": {
+          "type": "scprotect:scp_939"
+        }
+      },
+      "trigger": "scprotect:seen"
     }
   },
   "display": {

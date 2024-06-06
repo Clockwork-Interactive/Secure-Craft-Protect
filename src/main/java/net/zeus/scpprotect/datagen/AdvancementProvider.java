@@ -2,9 +2,7 @@ package net.zeus.scpprotect.datagen;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.ImpossibleTrigger;
-import net.minecraft.advancements.critereon.PlayerTrigger;
-import net.minecraft.advancements.critereon.RecipeCraftedTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -14,7 +12,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.datagen.advancements.SeenTrigger;
 import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                             SCPItems.SCP_999_BUCKET.get(),
                             Component.literal("Secure Contain Protect"),
                             Component.literal("Welcome."),
-                            new ResourceLocation(SCP.MOD_ID,"block/decay_block"),
+                            new ResourceLocation(SCP.MOD_ID,"textures/block/decay_block.png"),
                             FrameType.GOAL,
                             true,
                             true,
@@ -51,6 +51,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "secure_contain_protect"), existingFileHelper);
 
             Advancement DOCTOR_DOCTOR = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.LAVENDER.get(),
                             Component.literal("Doctor, Doctor"),
@@ -61,10 +62,11 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                             true,
                             true
                     )
-                    .addCriterion("doctor_doctor", Empty())
+                    .addCriterion("doctor_doctor", SeenTrigger.TriggerInstance.seen(new EntityPredicate.Builder().of(SCPEntities.SCP_049.get())))
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "doctor_doctor"), existingFileHelper);
 
             Advancement GOOD_HEAVENS = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.LAVENDER.get(),
                             Component.literal("Good Heavens"),
@@ -80,6 +82,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
 
 
             Advancement DONT_LOOK_AT_ME = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.POLAROID.get(),
                             Component.literal("Don't Look At Me"),
@@ -94,6 +97,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "dont_look_at_me"), existingFileHelper);
 
             Advancement A_DECAYED_MARCH = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPBlocks.DECAY_BLOCK.get(),
                             Component.literal("A Decayed March"),
@@ -108,6 +112,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "a_decayed_march"), existingFileHelper);
 
             Advancement A_TASTE_OF_IMMORTALITY = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.SCP_500_BOTTLE.get(),
                             Component.literal("A Taste Of Immortality"),
@@ -118,10 +123,11 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                             true,
                             true
                     )
-                    .addCriterion("a_taste_of_immortality", Empty())
+                    .addCriterion("a_taste_of_immortality", ConsumeItemTrigger.TriggerInstance.usedItem(SCPItems.SCP_500.get()))
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "a_taste_of_immortality"), existingFileHelper);
 
             Advancement SHOW_YOURSELF = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.ODD_CLAW.get(),
                             Component.literal("Show Yourself"),
@@ -132,10 +138,11 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                             true,
                             true
                     )
-                    .addCriterion("show_yourself", Empty())
+                    .addCriterion("show_yourself", SeenTrigger.TriggerInstance.seen(new EntityPredicate.Builder().of(SCPEntities.SCP_939.get())))
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "show_yourself"), existingFileHelper);
 
             Advancement RAPID_EYE_MOVEMENT = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             Blocks.GRAY_BED,
                             Component.literal("Rapid Eye Movement"),
@@ -150,6 +157,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "rapid_eye_movement"), existingFileHelper);
 
             Advancement POTENTIAL_BIOWEAPON = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.SCP_1025.get(),
                             Component.literal("'Potential Bioweapon'"),
@@ -164,6 +172,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "potential_bioweapon"), existingFileHelper);
 
             Advancement NO_MANS_LAND = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPBlocks.CORRODED_TILES.get(),
                             Component.literal("No Mans Land"),
@@ -178,6 +187,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "no_mans_land"), existingFileHelper);
 
             Advancement NINE_TAILED_FOX = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.CONTAINMENT_CAGE.get(),
                             Component.literal("Nine Tailed Fox"),
@@ -192,6 +202,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .save(saver, new ResourceLocation(SCP.MOD_ID, "nine_tailed_fox"), existingFileHelper);
 
             Advancement BRAVO_SIX_GOING_DARK = Advancement.Builder.advancement()
+                    .parent(BASE)
                     .display(
                             SCPItems.NODS.get(),
                             Component.literal("Bravo Six, Going Dark"),

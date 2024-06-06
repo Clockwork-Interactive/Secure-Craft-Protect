@@ -3,8 +3,10 @@ package net.zeus.scpprotect.level.entity.goals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.entity.entities.SCP106;
 
 public class SCP106WalkThroughBlocksGoal extends Goal {
@@ -43,7 +45,8 @@ public class SCP106WalkThroughBlocksGoal extends Goal {
                     Node node = path.getNode(i);
                     this.blockPos = new BlockPos(node.x, node.y, node.z);
                     if (!(this.scp106.distanceToSqr(this.blockPos.getX(), this.scp106.getY(), this.blockPos.getZ()) > 2.0D)) {
-                        this.hasBlock = !this.scp106.level().getBlockState(this.blockPos).isAir();
+                        BlockState state = this.scp106.level().getBlockState(this.blockPos);
+                        this.hasBlock = !state.isAir() && !state.is(SCPBlocks.MAGNETIZED_BLOCK.get());
                         if (this.hasBlock) {
                             return true;
                         }
@@ -51,7 +54,8 @@ public class SCP106WalkThroughBlocksGoal extends Goal {
                 }
 
                 this.blockPos = this.scp106.blockPosition();
-                this.hasBlock = !this.scp106.level().getBlockState(this.blockPos).isAir();
+                BlockState state = this.scp106.level().getBlockState(this.blockPos);
+                this.hasBlock = !state.isAir() && !state.is(SCPBlocks.MAGNETIZED_BLOCK.get());
                 return this.hasBlock;
             } else {
                 return false;

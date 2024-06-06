@@ -1,4 +1,5 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "nine_tailed_fox": {
       "trigger": "minecraft:impossible"

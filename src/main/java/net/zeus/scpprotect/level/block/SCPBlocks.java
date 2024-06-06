@@ -92,7 +92,11 @@ public class SCPBlocks {
 
     public static final RegistryObject<Block> CONTAINMENT_BLOCK = registerBlock("containment_block",
             () -> new ContainmentBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).noLootTable()
-                    .strength(2.0F)));
+                    .strength(3.0F)));
+
+    public static final RegistryObject<Block> MAGNETIZED_BLOCK = registerBlock("magnetized_block",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).noLootTable()
+                    .strength(5.0F)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

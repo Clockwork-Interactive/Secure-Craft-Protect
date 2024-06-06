@@ -1,4 +1,5 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "no_mans_land": {
       "trigger": "minecraft:impossible"

@@ -1,4 +1,5 @@
 {
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
     "rapid_eye_movement": {
       "trigger": "minecraft:impossible"

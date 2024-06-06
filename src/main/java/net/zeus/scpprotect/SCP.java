@@ -23,6 +23,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.refractionapi.refraction.quest.client.ClientQuestInfo;
 import net.zeus.scpprotect.configs.SCPClientConfig;
 import net.zeus.scpprotect.configs.SCPCommonConfig;
+import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
@@ -37,6 +38,8 @@ import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
+import net.zeus.scpprotect.level.worldgen.features.SCPConfiguredFeatures;
+import net.zeus.scpprotect.level.worldgen.features.SCPPlacedFeatures;
 import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
 
@@ -60,8 +63,11 @@ public class SCP {
         SCPFluidTypes.FLUID_TYPES.register(modEventBus);
         SCPFluids.FLUIDS.register(modEventBus);
         SCPPotions.POTIONS.register(modEventBus);
+        SCPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
+        SCPPlacedFeatures.PLACED_FEATURES.register(modEventBus);
 
         AnomalyRegistry.init();
+        SCPCriteriaTriggers.init();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);

@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import net.refractionapi.refraction.runnable.RunnableCooldownHandler;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.goals.AnomalyWalkGoal;
@@ -183,6 +184,7 @@ public class SCP106 extends SCPEntity {
                     scp.scp106TakenPos = pEntity.blockPosition();
                 });
                 pEntity.teleportTo(scp106Dim, -0.5F, 2, -0.5F, Set.of(), pEntity.getYRot(), pEntity.getXRot());
+                SCPAdvancements.grant(serverPlayer, SCPAdvancements.A_DECAYED_MARCH);
             }
             SoundUtil.playLocalSound(serverPlayer, SCPSounds.POCKET_DIMENSION_ENTER.get());
             return false;

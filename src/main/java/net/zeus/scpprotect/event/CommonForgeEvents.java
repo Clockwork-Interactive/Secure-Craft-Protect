@@ -40,10 +40,12 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.refractionapi.refraction.sound.SoundUtil;
+import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.data.PlayerData;
+import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.effects.PacificationEffect;
@@ -68,6 +70,13 @@ public class CommonForgeEvents {
     public static void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         SCPAdvancements.grant(event.getEntity(), SCPAdvancements.SECURE_CONTAIN_PROTECT);
         PlayerData.init(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onAddEffect(MobEffectEvent.Added event) {
+        if (event.getEntity() instanceof Player player) {
+            SCPAdvancements.grant(player, SCPAdvancements.GOOD_HEAVENS);
+        }
     }
 
     @SubscribeEvent
@@ -105,13 +114,19 @@ public class CommonForgeEvents {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SuppressWarnings("unchecked")
     public static void livingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player player) {
             SCP_966_INSOMNIA.put(player, 0);
             if (player instanceof ServerPlayer serverPlayer) {
                 ModMessages.sendToPlayer(new VignetteS2CPacket(0, true, false), serverPlayer);
             }
+        }
+        if (event.getEntity() instanceof Anomaly) {
+            event.getEntity().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) ->
+                    data.removeSCP((EntityType<? extends Anomaly>) event.getEntity().getType())
+            );
         }
     }
 
@@ -121,6 +136,13 @@ public class CommonForgeEvents {
         Player player = event.player;
 
         if (!player.level().isClientSide) {
+
+            player.level().getEntities(player, player.getBoundingBox().inflate(12.0F), entity -> entity instanceof Anomaly).forEach(entity -> {
+                if (Vec3Helper.isInAngle(player, entity.getEyePosition(), 90)) {
+                    SCPCriteriaTriggers.SEEN.trigger((ServerPlayer) player, entity);
+                }
+            });
+
             ServerLevel scp106Dim = Objects.requireNonNull(player.level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
             if (scp106Dim != null && player.level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
@@ -175,6 +197,10 @@ public class CommonForgeEvents {
         ServerLevel scp106Dim = Objects.requireNonNull(event.getEntity().level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
         if (event.isCancelable() && scp106Dim != null && event.getEntity().level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
             event.setCanceled(true);
+            return;
+        }
+        if (event.getEntity() instanceof Player player && event.getPlacedBlock().getBlock().equals(SCPBlocks.MAGNETIZED_BLOCK.get())) {
+            SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
         }
     }
 
@@ -195,8 +221,12 @@ public class CommonForgeEvents {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onAttack(LivingAttackEvent event) {
-        if (event.isCancelable() && event.getSource().getEntity() instanceof LivingEntity living && living.hasEffect(SCPEffects.AMPUTATED.get())) {
+        if (!event.isCancelable()) return;
+        if (event.getSource().getEntity() instanceof LivingEntity living && living.hasEffect(SCPEffects.AMPUTATED.get())) {
             event.setCanceled(true);
+        }
+        if (event.getEntity().hasEffect(SCPEffects.PACIFICATION.get())) {
+            event.getEntity().removeEffect(SCPEffects.PACIFICATION.get());
         }
     }
 
@@ -275,4 +305,5 @@ public class CommonForgeEvents {
             PacificationEffect.onRemove(entity);
         }
     }
+
 }

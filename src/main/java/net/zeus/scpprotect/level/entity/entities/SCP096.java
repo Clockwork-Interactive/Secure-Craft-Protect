@@ -31,6 +31,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
@@ -411,7 +412,9 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
                         ModMessages.sendToPlayer(new PlayLocalSeenSoundS2C(), player);
                     }
-
+                    if (entity instanceof Player player) {
+                        SCPAdvancements.grant(player, SCPAdvancements.DONT_LOOK_AT_ME);
+                    }
                     this.scp096.targets.add(entity);
                 }
 
