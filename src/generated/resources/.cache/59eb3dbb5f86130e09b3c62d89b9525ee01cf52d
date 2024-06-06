@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-25T20:35:13.0305799	Loot Tables
+// 1.20.1	2024-06-06T10:18:00.7045916	Loot Tables
 da61f3446ed91483f23282ac41c0ad52eede3403 data/scprotect/loot_tables/blocks/lavender.json
 4dc0909f216b9768cb521a3b0930e75c2edfebd9 data/scprotect/loot_tables/blocks/scp_019.json
 b5f14f7b775a2ce887474f7c63393068e538f626 data/scprotect/loot_tables/blocks/scp_310.json
@@ -15,5 +15,5 @@ eeaa9e4b68abec9c06ec1881858dc4803c90385e data/scprotect/loot_tables/entities/scp
 bce96f5878df600a06f3c51dbf6f0628a722c923 data/scprotect/loot_tables/entities/scp_3199.json
 ae1f77c3c4f9cdc5be4be4cde444281255e30c14 data/scprotect/loot_tables/entities/scp_3199_egg.json
 82eaf2db86a38cca9a85ce3b2f4b98409baefa09 data/scprotect/loot_tables/entities/scp_811.json
-87ae8a7b93f9547429f4c2da945ca2351b22aad7 data/scprotect/loot_tables/entities/scp_939.json
+515dc3bc7340661c3846ca13692e99739123734e data/scprotect/loot_tables/entities/scp_939.json
 3acdf12b83eabc182c25f5890e16c9eff38e865b data/scprotect/loot_tables/entities/scp_966.json

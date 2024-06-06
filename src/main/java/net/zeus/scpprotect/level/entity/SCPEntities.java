@@ -28,7 +28,7 @@ public class SCPEntities {
     public static final RegistryObject<EntityType<SCP131>> SCP_131 = register("scp_131", EntityType.Builder.of(SCP131::new, MobCategory.MISC).sized(0.6F, 0.6F));
     public static final RegistryObject<EntityType<SCP173>> SCP_173 = register("scp_173", EntityType.Builder.of(SCP173::new, MobCategory.MONSTER).sized(0.5F, 1.99F));
     public static final RegistryObject<EntityType<SCP346>> SCP_346 = register("scp_346", EntityType.Builder.of(SCP346::new, MobCategory.MISC).sized(0.6F, 0.8F));
-    public static final RegistryObject<EntityType<SCP939>> SCP_939 = register("scp_939", EntityType.Builder.of(SCP939::new, MobCategory.MONSTER).sized(1.4F, 1.3F));
+    public static final RegistryObject<EntityType<SCP939>> SCP_939 = register("scp_939", EntityType.Builder.of(SCP939::new, MobCategory.MONSTER).sized(1.0F, 1.4F));
     public static final RegistryObject<EntityType<SCP966>> SCP_966 = register("scp_966", EntityType.Builder.of(SCP966::new, MobCategory.MONSTER).sized(0.5F, 2.2F));
     public static final RegistryObject<EntityType<SCP999>> SCP_999 = register("scp_999", EntityType.Builder.of(SCP999::new, MobCategory.MISC).sized(0.6F, 0.6F));
     public static final RegistryObject<EntityType<SCP019_2>> SCP_019_2 = register("scp_019_2", EntityType.Builder.of(SCP019_2::new, MobCategory.MONSTER).sized(0.7F, 0.6F));

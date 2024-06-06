@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:odd_claw"
+    },
+    "b": {
+      "item": "minecraft:iron_ingot"
+    },
+    "c": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "cbc"
+  ],
+  "result": {
+    "item": "scprotect:odd_climbers"
+  }
+}
