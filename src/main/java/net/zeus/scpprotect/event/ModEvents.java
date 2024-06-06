@@ -41,7 +41,6 @@ public class ModEvents {
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             CapabilityUtil.playerClone(event, Capabilities.SCP_DATA);
-            CapabilityUtil.playerClone(event, Capabilities.SCP_SAVED_DATA);
         }
     }
 
