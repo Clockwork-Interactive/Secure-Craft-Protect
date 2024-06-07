@@ -2,10 +2,7 @@ package net.zeus.scpprotect.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -58,59 +55,59 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         sidedBlock(SCPBlocks.OLD_STAINED_WALL, new ResourceLocation(
                 SCP.MOD_ID, "block/old_wall_stained"), new ResourceLocation(
-                SCP.MOD_ID,"block/old_wall"), new ResourceLocation(
-                SCP.MOD_ID,"block/old_wall"));
+                SCP.MOD_ID, "block/old_wall"), new ResourceLocation(
+                SCP.MOD_ID, "block/old_wall"));
 
         sidedBlock(SCPBlocks.CONTAINMENT_BLOCK, new ResourceLocation(
                 SCP.MOD_ID, "block/containment_crate_side"), new ResourceLocation(
-                SCP.MOD_ID,"block/containment_crate_bottom"), new ResourceLocation(
-                SCP.MOD_ID,"block/containment_crate_top"));
+                SCP.MOD_ID, "block/containment_crate_bottom"), new ResourceLocation(
+                SCP.MOD_ID, "block/containment_crate_top"));
 
         // Ez
 
         sidedBlock(FacilityBlocks.EZ_CONCRETE_BORDER, new ResourceLocation(
                 SCP.MOD_ID, "block/entrance_zone_concrete_border"), new ResourceLocation(
-                SCP.MOD_ID,"block/entrance_zone_concrete"), new ResourceLocation(
-                SCP.MOD_ID,"block/entrance_zone_concrete"));
+                SCP.MOD_ID, "block/entrance_zone_concrete"), new ResourceLocation(
+                SCP.MOD_ID, "block/entrance_zone_concrete"));
 
         sidedBlock(FacilityBlocks.EZ_CONCRETE_STRIPED, new ResourceLocation(
                 SCP.MOD_ID, "block/entrance_zone_concrete_striped"), new ResourceLocation(
-                SCP.MOD_ID,"block/entrance_zone_concrete"), new ResourceLocation(
-                SCP.MOD_ID,"block/entrance_zone_concrete"));
+                SCP.MOD_ID, "block/entrance_zone_concrete"), new ResourceLocation(
+                SCP.MOD_ID, "block/entrance_zone_concrete"));
 
         sidedBlock(FacilityBlocks.OFFICE_GRATING_CEILING, new ResourceLocation(
                 SCP.MOD_ID, "block/office_ceiling"), new ResourceLocation(
-                SCP.MOD_ID,"block/office_grating_ceiling"), new ResourceLocation(
-                SCP.MOD_ID,"block/office_ceiling"));
+                SCP.MOD_ID, "block/office_grating_ceiling"), new ResourceLocation(
+                SCP.MOD_ID, "block/office_ceiling"));
 
         // LC
 
         sidedBlock(FacilityBlocks.LC_CONCRETE_BLACK_BORDER, new ResourceLocation(
                 SCP.MOD_ID, "block/light_containment_concrete_black_border"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"));
+                SCP.MOD_ID, "block/light_containment_concrete"), new ResourceLocation(
+                SCP.MOD_ID, "block/light_containment_concrete"));
 
         sidedBlock(FacilityBlocks.LC_CONCRETE_METAL_BORDER_BOTTOM, new ResourceLocation(
                 SCP.MOD_ID, "block/light_containment_concrete_ridged_bottom"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"));
+                SCP.MOD_ID, "block/light_containment_concrete"), new ResourceLocation(
+                SCP.MOD_ID, "block/light_containment_concrete"));
 
         sidedBlock(FacilityBlocks.LC_CONCRETE_METAL_BORDER_TOP, new ResourceLocation(
                 SCP.MOD_ID, "block/light_containment_concrete_ridged_top"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"), new ResourceLocation(
-                SCP.MOD_ID,"block/light_containment_concrete"));
+                SCP.MOD_ID, "block/light_containment_concrete"), new ResourceLocation(
+                SCP.MOD_ID, "block/light_containment_concrete"));
 
         // Containers
 
         sidedBlock(FacilityBlocks.METAL_CONTAINER_LINED, new ResourceLocation(
                 SCP.MOD_ID, "block/lined_metal_container"), new ResourceLocation(
-                SCP.MOD_ID,"block/metal_container"), new ResourceLocation(
-                SCP.MOD_ID,"block/metal_container"));
+                SCP.MOD_ID, "block/metal_container"), new ResourceLocation(
+                SCP.MOD_ID, "block/metal_container"));
 
         sidedBlock(FacilityBlocks.METAL_CONTAINER_LINED_GRIDDED, new ResourceLocation(
                 SCP.MOD_ID, "block/lined_gridded_metal_container"), new ResourceLocation(
-                SCP.MOD_ID,"block/gridded_metal_container"), new ResourceLocation(
-                SCP.MOD_ID,"block/gridded_metal_container"));
+                SCP.MOD_ID, "block/gridded_metal_container"), new ResourceLocation(
+                SCP.MOD_ID, "block/gridded_metal_container"));
 
         stairBlock(SCPBlocks.AGED_BRICK_STAIRS, SCPBlocks.AGED_BRICKS);
         slabBlock(SCPBlocks.AGED_BRICK_SLAB, SCPBlocks.AGED_BRICKS);
@@ -150,7 +147,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void stairBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {
-        stairsBlock((StairBlock)block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
+        stairsBlock((StairBlock) block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
         simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
     }
 
@@ -164,7 +161,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void slabBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {
-        slabBlock((SlabBlock)block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
+        slabBlock((SlabBlock) block.get(), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()), new ResourceLocation(SCP.MOD_ID, "block/" + ogBlock.getId().getPath()));
         simpleBlockItem(block.get(), new ModelFile.ExistingModelFile(new ResourceLocation(SCP.MOD_ID, "block/" + block.getId().getPath()), models().existingFileHelper));
     }
 

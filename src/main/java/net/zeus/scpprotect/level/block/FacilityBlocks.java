@@ -5,12 +5,13 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.blocks.ContainmentBlock;
 import net.zeus.scpprotect.level.block.blocks.DecorationBlock;
 import net.zeus.scpprotect.level.block.blocks.FileCabinetBlock;
 import net.zeus.scpprotect.level.block.blocks.MultiDecorBlock;
@@ -163,6 +164,20 @@ public class FacilityBlocks {
     public static final RegistryObject<Block> METAL_CONTAINER_LINED_GRIDDED = registerBlock("lined_gridded_metal_container",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
                     .strength(1.8F).sound(SoundType.COPPER)));
+
+    // Doors
+
+    public static final RegistryObject<Block> EZ_DOOR = registerBlock("entrance_zone_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
+
+    public static final RegistryObject<Block> LCZ_DOOR = registerBlock("light_containment_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
+
+    public static final RegistryObject<Block> HCZ_DOOR = registerBlock("heavy_containment_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
 
     // Misc???
 

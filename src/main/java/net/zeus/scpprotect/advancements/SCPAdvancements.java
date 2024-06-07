@@ -38,4 +38,5 @@ public class SCPAdvancements {
     private static ResourceLocation get(String name) {
         return new ResourceLocation(SCP.MOD_ID, name);
     }
+
 }

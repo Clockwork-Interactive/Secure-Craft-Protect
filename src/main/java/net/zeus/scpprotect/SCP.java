@@ -63,8 +63,6 @@ public class SCP {
         SCPFluidTypes.FLUID_TYPES.register(modEventBus);
         SCPFluids.FLUIDS.register(modEventBus);
         SCPPotions.POTIONS.register(modEventBus);
-        SCPConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
-        SCPPlacedFeatures.PLACED_FEATURES.register(modEventBus);
 
         AnomalyRegistry.init();
         SCPCriteriaTriggers.init();
