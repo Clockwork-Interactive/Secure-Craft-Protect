@@ -1,28 +1,28 @@
 {
-  "parent": "scprotect:doctor_doctor",
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
-    "good_heavens": {
+    "controlled_chaos": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Catch the mysterious Pestilence Effect"
+      "text": "Locate a Euclid class SCP"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:potion"
+      "item": "scprotect:euclid_achievement"
     },
     "show_toast": true,
     "title": {
-      "text": "Good Heavens"
+      "text": "Controlled Chaos"
     }
   },
   "requirements": [
     [
-      "good_heavens"
+      "controlled_chaos"
     ]
   ],
   "sends_telemetry_event": true

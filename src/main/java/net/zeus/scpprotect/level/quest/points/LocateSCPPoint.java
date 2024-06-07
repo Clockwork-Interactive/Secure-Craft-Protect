@@ -3,11 +3,15 @@ package net.zeus.scpprotect.level.quest.points;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.refractionapi.refraction.quest.Quest;
 import net.refractionapi.refraction.quest.points.QuestPoint;
 import net.refractionapi.refraction.vec3.Vec3Helper;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
+import net.zeus.scpprotect.level.item.SCPItems;
 
 public class LocateSCPPoint extends QuestPoint {
 
@@ -25,6 +29,8 @@ public class LocateSCPPoint extends QuestPoint {
         int z = this.quest.getPlayer().getBlockZ() + this.quest.getPlayer().getRandom().nextInt(50) - 25;
         BlockPos pos = Vec3Helper.findSolid(this.quest.getPlayer().level(), new BlockPos(x, 0, z));
         this.scpType.createContained(this.quest.getPlayer().level(), pos.above().getCenter());
+        this.quest.getPlayer().getCooldowns().addCooldown(SCPItems.REALITY_SCANNER.get(), 4100);
+        SCPAdvancements scpAdvancements = new SCPAdvancements();
         this.quest.getPlayer().displayClientMessage(Component.literal("Overwatch: SCP tag is near you (%.1f)".formatted(Math.sqrt(pos.distSqr(this.quest.getPlayer().blockPosition())))), true);
     }
 

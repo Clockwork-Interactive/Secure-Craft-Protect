@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.refractionapi.refraction.vfx.VFXHelper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.entity.SCPEntities;
@@ -110,6 +111,9 @@ public class SCP049 extends SCPEntity {
                         this.friendlyTimer--;
                     } else {
                         if (this.random.nextFloat() > 0.99F) {
+                            if (entity instanceof Player player) {
+                                SCPAdvancements.grant(player, SCPAdvancements.GOOD_HEAVENS);
+                            }
                             entity.addEffect(new MobEffectInstance(SCPEffects.PESTILENCE.get(), -1));
                         }
                     }

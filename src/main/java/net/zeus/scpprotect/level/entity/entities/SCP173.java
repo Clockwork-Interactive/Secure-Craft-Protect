@@ -39,6 +39,7 @@ import net.refractionapi.refraction.runnable.RunnableHandler;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.blocks.SculptureExcrement;
 import net.zeus.scpprotect.level.sound.SCPSounds;
@@ -201,6 +202,7 @@ public class SCP173 extends SCPEntity {
                         if (this.blinkTick + 8 < this.tickCount) {
                             this.blinkTick = this.tickCount;
                             this.teleportTowards(player, 5);
+                            SCPAdvancements.grant(player, SCPAdvancements.IT_MOVES);
                             this.checkAndPerformAttack(player, this.distanceToSqr(player));
                         }
                     }

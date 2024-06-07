@@ -69,9 +69,9 @@ public class SCPItems {
     public static final RegistryObject<Item> POLAROID = ITEMS.register("polaroid", () -> new Polaroid(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ARROW = ITEMS.register("arrow", () -> new InstantDeleteItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> REALITY_SCANNER = ITEMS.register("reality_scanner", () -> new RealityScanner(new Item.Properties().stacksTo(1).fireResistant()));
-    //public static final RegistryObject<Item> BLOCKS_TAB_ICON = ITEMS.register("blocks_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
-    //public static final RegistryObject<Item> ENTITIES_TAB_ICON = ITEMS.register("entities_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
-    //public static final RegistryObject<Item> ITEMS_TAB_ICON = ITEMS.register("items_tab_icon", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    public static final RegistryObject<Item> SAFE_ACHIEVEMENT = ITEMS.register("safe_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    public static final RegistryObject<Item> EUCLID_ACHIEVEMENT = ITEMS.register("euclid_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
+    public static final RegistryObject<Item> KETER_ACHIEVEMENT = ITEMS.register("keter_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
 
 
     public static RegistryObject<Item> registerEgg(String name, Supplier<? extends EntityType<? extends Mob>> entityType, Color backgroundColor, Color highlightColor) {

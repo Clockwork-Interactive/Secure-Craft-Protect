@@ -10,6 +10,8 @@ public class SCPAdvancements {
 
     public static final ResourceLocation SECURE_CONTAIN_PROTECT = get("secure_contain_protect");
     public static final ResourceLocation DOCTOR_DOCTOR = get("doctor_doctor");
+    public static final ResourceLocation ITS_JUST_A_STATUE = get("its_just_a_statue");
+    public static final ResourceLocation IT_MOVES = get("it_moves");
     public static final ResourceLocation GOOD_HEAVENS = get("good_heavens");
     public static final ResourceLocation DONT_LOOK_AT_ME = get("dont_look_at_me");
     public static final ResourceLocation A_DECAYED_MARCH = get("a_decayed_march");
@@ -20,6 +22,10 @@ public class SCPAdvancements {
     public static final ResourceLocation NO_MANS_LAND = get("no_mans_land");
     public static final ResourceLocation NINE_TAILED_FOX = get("nine_tailed_fox");
     public static final ResourceLocation BRAVO_SIX_GOING_DARK = get("bravo_six_going_dark");
+
+    public static final ResourceLocation SAFE_ADVANCEMENT = get("its_not_dangerous_right");
+    public static final ResourceLocation EUCLID_ADVANCEMENT = get("controlled_chaos");
+    public static final ResourceLocation KETER_ADVANCEMENT = get("dead_men_tell_no_tales");
 
     public static void grant(Player player, ResourceLocation res) {
         if (player.level().isClientSide) return;

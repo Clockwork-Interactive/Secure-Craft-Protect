@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 
@@ -37,6 +38,7 @@ public class ContainmentItem extends Item {
 
             pInteractionTarget.discard();
             pPlayer.level().addFreshEntity(containmentBox);
+            SCPAdvancements.grant(pPlayer, SCPAdvancements.NINE_TAILED_FOX);
             if (!pPlayer.isCreative()) pStack.shrink(1);
             return InteractionResult.SUCCESS;
         }

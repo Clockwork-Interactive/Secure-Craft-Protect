@@ -1,10 +1,12 @@
-// 1.20.1	2024-06-06T10:26:11.9194594	Item Models: scprotect
+// 1.20.1	2024-06-07T00:51:27.4741348	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
 69ed99712fdd4e2c396f85f1cb973aa9132ef383 assets/scprotect/models/item/containment_cage.json
+ddf638e697ec64903dfc7330e0c182f754bf90e3 assets/scprotect/models/item/euclid_achievement.json
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.json
+34cf8368eb911b53625d680b4d6c0c01337c6136 assets/scprotect/models/item/keter_achievement.json
 f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 6a51a0d8520a005e717513b56ddb7321d8c817d7 assets/scprotect/models/item/odd_claw.json
@@ -15,6 +17,7 @@ f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.j
 6c35357c30507a94ee3958b72124c904c84064a7 assets/scprotect/models/item/reality_scanner.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/rebel_spawn_egg.json
 161c45a420ac716ce09cb1d844d3f388cc2b8b76 assets/scprotect/models/item/red_candy.json
+ffc9ff80e9b0ea4718f1e05fb20e4219bbf26507 assets/scprotect/models/item/safe_achievement.json
 9dab8563b5201118e3fae85f13cb4a66509d001b assets/scprotect/models/item/scp_006_bucket.json
 547052f6f5a57f10027cea1f774d0c6fce960525 assets/scprotect/models/item/scp_019.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_019_2_spawn_egg.json

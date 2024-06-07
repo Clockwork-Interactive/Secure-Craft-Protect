@@ -10,8 +10,8 @@
     "description": {
       "text": "Contain an SCP with the Containment Cage"
     },
-    "frame": "goal",
-    "hidden": true,
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "scprotect:containment_cage"
     },

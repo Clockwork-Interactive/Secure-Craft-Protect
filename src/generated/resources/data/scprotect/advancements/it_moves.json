@@ -1,28 +1,28 @@
 {
-  "parent": "scprotect:doctor_doctor",
+  "parent": "scprotect:its_just_a_statue",
   "criteria": {
-    "good_heavens": {
+    "it_moves": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Catch the mysterious Pestilence Effect"
+      "text": "Blink around SCP-173"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "minecraft:potion"
+      "item": "minecraft:yellow_concrete_powder"
     },
     "show_toast": true,
     "title": {
-      "text": "Good Heavens"
+      "text": "It Moves"
     }
   },
   "requirements": [
     [
-      "good_heavens"
+      "it_moves"
     ]
   ],
   "sends_telemetry_event": true

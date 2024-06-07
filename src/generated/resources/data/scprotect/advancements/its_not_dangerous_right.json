@@ -1,28 +1,28 @@
 {
-  "parent": "scprotect:doctor_doctor",
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
-    "good_heavens": {
+    "its_not_dangerous_right": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Catch the mysterious Pestilence Effect"
+      "text": "Locate a Safe class SCP"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:potion"
+      "item": "scprotect:safe_achievement"
     },
     "show_toast": true,
     "title": {
-      "text": "Good Heavens"
+      "text": "Its Not Dangerous, Right?"
     }
   },
   "requirements": [
     [
-      "good_heavens"
+      "its_not_dangerous_right"
     ]
   ],
   "sends_telemetry_event": true

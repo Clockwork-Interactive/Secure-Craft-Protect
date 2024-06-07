@@ -1,5 +1,5 @@
 {
-  "parent": "scprotect:secure_contain_protect",
+  "parent": "scprotect:controlled_chaos",
   "criteria": {
     "doctor_doctor": {
       "conditions": {
@@ -16,7 +16,7 @@
       "text": "Encounter SCP-049"
     },
     "frame": "goal",
-    "hidden": true,
+    "hidden": false,
     "icon": {
       "item": "scprotect:lavender"
     },

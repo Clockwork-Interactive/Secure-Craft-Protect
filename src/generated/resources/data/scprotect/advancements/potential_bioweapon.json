@@ -1,5 +1,5 @@
 {
-  "parent": "scprotect:secure_contain_protect",
+  "parent": "scprotect:its_not_dangerous_right",
   "criteria": {
     "potential_bioweapon": {
       "trigger": "minecraft:impossible"
@@ -11,7 +11,7 @@
       "text": "Read a page from SCP-1025"
     },
     "frame": "goal",
-    "hidden": true,
+    "hidden": false,
     "icon": {
       "item": "scprotect:scp_1025"
     },

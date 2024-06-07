@@ -50,6 +50,7 @@ import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.effects.PacificationEffect;
+import net.zeus.scpprotect.level.effect.effects.PestilenceEffect;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SCP999BucketItem;
@@ -67,19 +68,6 @@ public class CommonForgeEvents {
     public static Map<Player, Integer> SCP_966_INSOMNIA = new HashMap<>();
     public static int SCP_966Max = 2000;
     public static BlockPos SCP106Escape; // Will change per runtime
-
-    @SubscribeEvent
-    public static void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        SCPAdvancements.grant(event.getEntity(), SCPAdvancements.SECURE_CONTAIN_PROTECT);
-        PlayerData.init(event.getEntity());
-    }
-
-    @SubscribeEvent
-    public static void onAddEffect(MobEffectEvent.Added event) {
-        if (event.getEntity() instanceof Player player) {
-            SCPAdvancements.grant(player, SCPAdvancements.GOOD_HEAVENS);
-        }
-    }
 
     @SubscribeEvent
     public static void onLevelChange(PlayerEvent.PlayerChangedDimensionEvent event) {
@@ -136,10 +124,10 @@ public class CommonForgeEvents {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) return;
         Player player = event.player;
-        ItemStack itemstack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        Item item = itemstack.getItem();
+        ItemStack itemstackMain = player.getMainHandItem();
+        ItemStack itemstackOff = player.getOffhandItem();
 
-        if (itemstack.is(SCPItems.ODD_CLIMBERS.get())) {
+        if (itemstackMain.is(SCPItems.ODD_CLIMBERS.get()) || itemstackOff.is(SCPItems.ODD_CLIMBERS.get())) {
             if (player.horizontalCollision) {
                 Vec3 initialVec = player.getDeltaMovement();
                 Vec3 climbVec = new Vec3(initialVec.x, 0.2D, initialVec.z);
@@ -172,6 +160,7 @@ public class CommonForgeEvents {
                                 return;
                             }
                             SoundUtil.playLocalSound(player, SCPSounds.POCKET_DIMENSION_EXIT.get());
+                            SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
                             player.teleportTo(homeDim, scpData.scp106TakenPos.getX(), scpData.scp106TakenPos.getY(), scpData.scp106TakenPos.getZ(), Set.of(), player.getYRot(), player.getXRot());
                         });
                     }

@@ -1,5 +1,5 @@
 {
-  "parent": "scprotect:secure_contain_protect",
+  "parent": "scprotect:a_decayed_march",
   "criteria": {
     "no_mans_land": {
       "trigger": "minecraft:impossible"
@@ -10,8 +10,8 @@
     "description": {
       "text": "Escape the Pocket Dimension"
     },
-    "frame": "goal",
-    "hidden": true,
+    "frame": "challenge",
+    "hidden": false,
     "icon": {
       "item": "scprotect:corroded_tiles"
     },

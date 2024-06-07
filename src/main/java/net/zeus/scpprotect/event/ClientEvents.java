@@ -66,6 +66,11 @@ public class ClientEvents {
                 Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
             }
 
+            if (player.hasEffect(SCPEffects.CORROSION.get())) {
+                Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
+                Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation(SCP.MOD_ID, "shader/motion_blur.json"));
+            }
+
         }
         if (event.phase.equals(TickEvent.Phase.END)) return;
         clientTick++;

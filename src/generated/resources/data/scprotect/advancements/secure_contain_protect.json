@@ -1,24 +1,26 @@
 {
   "criteria": {
     "secure_contain_protect": {
-      "conditions": {},
-      "trigger": "minecraft:tick"
+      "conditions": {
+        "recipe_id": "scprotect:reality_scanner"
+      },
+      "trigger": "minecraft:recipe_crafted"
     }
   },
   "display": {
     "announce_to_chat": true,
     "background": "scprotect:textures/block/decay_block.png",
     "description": {
-      "text": "Welcome."
+      "text": "Welcome, to the world of SCP"
     },
     "frame": "goal",
-    "hidden": true,
+    "hidden": false,
     "icon": {
-      "item": "scprotect:scp_999_bucket"
+      "item": "scprotect:reality_scanner"
     },
     "show_toast": true,
     "title": {
-      "text": "Secure Contain Protect"
+      "text": "Secure, Contain, Protect"
     }
   },
   "requirements": [

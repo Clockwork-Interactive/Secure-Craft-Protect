@@ -1,28 +1,28 @@
 {
-  "parent": "scprotect:doctor_doctor",
+  "parent": "scprotect:secure_contain_protect",
   "criteria": {
-    "good_heavens": {
+    "dead_men_tell_no_tales": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Catch the mysterious Pestilence Effect"
+      "text": "Locate a Keter class SCP"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:potion"
+      "item": "scprotect:keter_achievement"
     },
     "show_toast": true,
     "title": {
-      "text": "Good Heavens"
+      "text": "'Dead Men Tell No Tales'"
     }
   },
   "requirements": [
     [
-      "good_heavens"
+      "dead_men_tell_no_tales"
     ]
   ],
   "sends_telemetry_event": true

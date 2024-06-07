@@ -1,5 +1,5 @@
 {
-  "parent": "scprotect:secure_contain_protect",
+  "parent": "scprotect:rapid_eye_movement",
   "criteria": {
     "bravo_six_going_dark": {
       "conditions": {
@@ -13,8 +13,8 @@
     "description": {
       "text": "Craft the Night Vision Goggles"
     },
-    "frame": "goal",
-    "hidden": true,
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "scprotect:night_vision_goggles",
       "nbt": "{Damage:0}"

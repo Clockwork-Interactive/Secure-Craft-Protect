@@ -1,8 +1,13 @@
 {
-  "parent": "scprotect:secure_contain_protect",
+  "parent": "scprotect:dead_men_tell_no_tales",
   "criteria": {
     "a_decayed_march": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "entity": {
+          "type": "scprotect:scp_106"
+        }
+      },
+      "trigger": "scprotect:seen"
     }
   },
   "display": {
@@ -11,7 +16,7 @@
       "text": "Encounter SCP-106"
     },
     "frame": "goal",
-    "hidden": true,
+    "hidden": false,
     "icon": {
       "item": "scprotect:decay_block"
     },
