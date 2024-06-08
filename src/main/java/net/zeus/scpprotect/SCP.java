@@ -9,9 +9,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -83,10 +86,10 @@ public class SCP {
             ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
 
+            PotionBrewing.addMix(Potions.AWKWARD, SCPBlocks.LAVENDER.get().asItem(), SCPPotions.PACIFICATION.get());
+
             ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
-                    new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
-                        return SCP500Bottle.getFullnessDisplay(p_174625_);
-                    });
+                    new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> SCP500Bottle.getFullnessDisplay(p_174625_));
         });
     }
 

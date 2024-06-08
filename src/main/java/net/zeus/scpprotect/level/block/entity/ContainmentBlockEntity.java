@@ -1,6 +1,7 @@
 package net.zeus.scpprotect.level.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +50,6 @@ public class ContainmentBlockEntity extends BaseEntityBlock {
 
     @Override
     public void tick() {
-
     }
 
     @Override

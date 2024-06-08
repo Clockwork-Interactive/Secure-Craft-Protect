@@ -11,7 +11,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.blocks.*;
+import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.function.Supplier;
@@ -20,6 +22,10 @@ public class SCPBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
 
     // SCPs
+
+    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
+            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noLootTable()));
 
     public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
             () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)

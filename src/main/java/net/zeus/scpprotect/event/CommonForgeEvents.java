@@ -201,9 +201,9 @@ public class CommonForgeEvents {
             event.setCanceled(true);
             return;
         }
-        if (event.getEntity() instanceof Player player && event.getPlacedBlock().getBlock().equals(SCPBlocks.MAGNETIZED_BLOCK.get())) {
-            SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
-        }
+//        if (event.getEntity() instanceof Player player && event.getPlacedBlock().getBlock().equals(SCPBlocks.MAGNETIZED_BLOCK.get())) {
+//            SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
+//        }
     }
 
     @SubscribeEvent

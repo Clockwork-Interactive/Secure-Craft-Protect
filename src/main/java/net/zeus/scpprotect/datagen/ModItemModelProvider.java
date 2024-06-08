@@ -11,6 +11,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
@@ -40,6 +41,13 @@ public class ModItemModelProvider extends ItemModelProvider {
             }
         }
         handHeldItem(SCPItems.HAIRBRUSH);
+
+        blockItemWithTexture(FacilityBlocks.EZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/ez_door"));
+        blockItemWithTexture(FacilityBlocks.LCZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/lcz_door"));
+        blockItemWithTexture(FacilityBlocks.HCZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/hcz_door"));
+
+        blockItemWithTexture(FacilityBlocks.BUTTON, new ResourceLocation(SCP.MOD_ID, "item/button"));
+
         blockItemWithTexture(SCPBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
         blockItemWithTexture(SCPBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));
         blockItemWithTexture(SCPBlocks.SCP_330, new ResourceLocation(SCP.MOD_ID, "item/scp_330"));

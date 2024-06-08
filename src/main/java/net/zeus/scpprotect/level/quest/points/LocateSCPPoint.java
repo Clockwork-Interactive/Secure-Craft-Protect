@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.refractionapi.refraction.quest.Quest;
 import net.refractionapi.refraction.quest.points.QuestPoint;
 import net.refractionapi.refraction.vec3.Vec3Helper;
+import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -30,7 +31,15 @@ public class LocateSCPPoint extends QuestPoint {
         BlockPos pos = Vec3Helper.findSolid(this.quest.getPlayer().level(), new BlockPos(x, 0, z));
         this.scpType.createContained(this.quest.getPlayer().level(), pos.above().getCenter());
         this.quest.getPlayer().getCooldowns().addCooldown(SCPItems.REALITY_SCANNER.get(), 4100);
-        SCPAdvancements scpAdvancements = new SCPAdvancements();
+        if (this.scpType.getClassType().equals(SCP.SCPTypes.SAFE)) {
+            SCPAdvancements.grant(quest.getPlayer(), SCPAdvancements.SAFE_ADVANCEMENT);
+        }
+        if (this.scpType.getClassType().equals(SCP.SCPTypes.EUCLID)) {
+            SCPAdvancements.grant(quest.getPlayer(), SCPAdvancements.EUCLID_ADVANCEMENT);
+        }
+        if (this.scpType.getClassType().equals(SCP.SCPTypes.KETER)) {
+            SCPAdvancements.grant(quest.getPlayer(), SCPAdvancements.KETER_ADVANCEMENT);
+        }
         this.quest.getPlayer().displayClientMessage(Component.literal("Overwatch: SCP tag is near you (%.1f)".formatted(Math.sqrt(pos.distSqr(this.quest.getPlayer().blockPosition())))), true);
     }
 

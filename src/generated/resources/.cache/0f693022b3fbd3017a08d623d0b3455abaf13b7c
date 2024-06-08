@@ -1,13 +1,17 @@
-// 1.20.1	2024-06-07T00:51:27.4741348	Item Models: scprotect
+// 1.20.1	2024-06-07T18:33:56.4944579	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
+26fd2d2d642af15b19af25029ff5cdda53365936 assets/scprotect/models/item/button.json
 69ed99712fdd4e2c396f85f1cb973aa9132ef383 assets/scprotect/models/item/containment_cage.json
+a289795d0f2a088937641277ab0177c6963493ab assets/scprotect/models/item/entrance_zone_door.json
 ddf638e697ec64903dfc7330e0c182f754bf90e3 assets/scprotect/models/item/euclid_achievement.json
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.json
+a0dd37287d6a0cd2f98f51c58a609e208da924b7 assets/scprotect/models/item/heavy_containment_door.json
 34cf8368eb911b53625d680b4d6c0c01337c6136 assets/scprotect/models/item/keter_achievement.json
 f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
+2800451845bb29194cab1f4f61ae54f268039389 assets/scprotect/models/item/light_containment_door.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 6a51a0d8520a005e717513b56ddb7321d8c817d7 assets/scprotect/models/item/odd_claw.json
 78cf5f88e4fe12bc7620302b9a3612083f6a7894 assets/scprotect/models/item/odd_climbers.json

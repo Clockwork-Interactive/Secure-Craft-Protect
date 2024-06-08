@@ -1,0 +1,63 @@
+{
+  "variants": {
+    "facing=east,half=lower,open=false": {
+      "model": "scprotect:block/lcz_door_bottom",
+      "y": 90
+    },
+    "facing=east,half=lower,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=east,half=upper,open=false": {
+      "model": "scprotect:block/lcz_door_top",
+      "y": 90
+    },
+    "facing=east,half=upper,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=north,half=lower,open=false": {
+      "model": "scprotect:block/lcz_door_bottom"
+    },
+    "facing=north,half=lower,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=north,half=upper,open=false": {
+      "model": "scprotect:block/lcz_door_top"
+    },
+    "facing=north,half=upper,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=south,half=lower,open=false": {
+      "model": "scprotect:block/lcz_door_bottom"
+    },
+    "facing=south,half=lower,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=south,half=upper,open=false": {
+      "model": "scprotect:block/lcz_door_top"
+    },
+    "facing=south,half=upper,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=west,half=lower,open=false": {
+      "model": "scprotect:block/lcz_door_bottom",
+      "y": 90
+    },
+    "facing=west,half=lower,open=true": {
+      "model": "scprotect:block/empty"
+    },
+
+    "facing=west,half=upper,open=false": {
+      "model": "scprotect:block/lcz_door_top",
+      "y": 90
+    },
+    "facing=west,half=upper,open=true": {
+      "model": "scprotect:block/empty"
+    }
+  }
+}

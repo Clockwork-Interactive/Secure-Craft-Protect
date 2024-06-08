@@ -12,9 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
-import net.zeus.scpprotect.level.block.blocks.DecorationBlock;
-import net.zeus.scpprotect.level.block.blocks.FileCabinetBlock;
-import net.zeus.scpprotect.level.block.blocks.MultiDecorBlock;
+import net.zeus.scpprotect.level.block.blocks.*;
 import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
@@ -165,20 +163,6 @@ public class FacilityBlocks {
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
                     .strength(1.8F).sound(SoundType.COPPER)));
 
-    // Doors
-
-    public static final RegistryObject<Block> EZ_DOOR = registerBlock("entrance_zone_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
-
-    public static final RegistryObject<Block> LCZ_DOOR = registerBlock("light_containment_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
-
-    public static final RegistryObject<Block> HCZ_DOOR = registerBlock("heavy_containment_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
-
     // Misc???
 
     public static final RegistryObject<Block> DIRTY_METAL = registerBlock("dirty_metal",
@@ -235,9 +219,23 @@ public class FacilityBlocks {
             () -> new MultiDecorBlock(BlockBehaviour.Properties.of().lightLevel(s -> 15)
                     .mapColor(MapColor.TERRACOTTA_WHITE).noOcclusion().strength(0.2F), SCPVoxelShapes.FLUORESCENT_LIGHT_FLOOR, SCPVoxelShapes.FLUORESCENT_LIGHT_CEILING, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_EAS, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_WES, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_NOR, SCPVoxelShapes.FLUORESCENT_LIGHT_WALL_SOU));
 
-    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
-            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
-                    .noLootTable()));
+    // Doors
+
+    public static final RegistryObject<Block> EZ_DOOR = registerBlock("entrance_zone_door",
+            () -> new FacilityDoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), FacilityDoorTypes.ENTRANCE));
+
+    public static final RegistryObject<Block> LCZ_DOOR = registerBlock("light_containment_door",
+            () -> new FacilityDoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), FacilityDoorTypes.LIGHT));
+
+    public static final RegistryObject<Block> HCZ_DOOR = registerBlock("heavy_containment_door",
+            () -> new FacilityDoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), FacilityDoorTypes.HEAVY));
+
+    public static final RegistryObject<Block> BUTTON = registerBlock("button",
+            () -> new FacilityButtonBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).noCollission().sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON, true, true));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

@@ -1,4 +1,34 @@
 {
+  "ez_door_close": {
+    "sounds": [
+      "scprotect:block/doors/ez_door_close"
+    ]
+  },
+  "ez_door_open": {
+    "sounds": [
+      "scprotect:block/doors/ez_door_open"
+    ]
+  },
+  "hcz_door_close": {
+    "sounds": [
+      "scprotect:block/doors/hcz_door_close"
+    ]
+  },
+  "hcz_door_open": {
+    "sounds": [
+      "scprotect:block/doors/hcz_door_open"
+    ]
+  },
+  "lcz_door_close": {
+    "sounds": [
+      "scprotect:block/doors/lcz_door_close"
+    ]
+  },
+  "lcz_door_open": {
+    "sounds": [
+      "scprotect:block/doors/lcz_door_open"
+    ]
+  },
   "pocket_dimension_ambience": {
     "sounds": [
       "scprotect:entity/scp_106/pocket_dimension_ambience"

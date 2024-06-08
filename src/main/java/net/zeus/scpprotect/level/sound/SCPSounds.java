@@ -54,6 +54,13 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> POCKET_DIMENSION_AMBIENCE = registerSoundEvent("pocket_dimension_ambience");
     public static final RegistryObject<SoundEvent> SCP_106_KILL = registerSoundEvent("scp_106_kill");
 
+    public static final RegistryObject<SoundEvent> EZ_DOOR_OPEN = registerSoundEvent("ez_door_open");
+    public static final RegistryObject<SoundEvent> EZ_DOOR_CLOSE = registerSoundEvent("ez_door_close");
+    public static final RegistryObject<SoundEvent> LCZ_DOOR_OPEN = registerSoundEvent("lcz_door_open");
+    public static final RegistryObject<SoundEvent> LCZ_DOOR_CLOSE = registerSoundEvent("lcz_door_close");
+    public static final RegistryObject<SoundEvent> HCZ_DOOR_OPEN = registerSoundEvent("hcz_door_open");
+    public static final RegistryObject<SoundEvent> HCZ_DOOR_CLOSE = registerSoundEvent("hcz_door_close");
+
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
 
