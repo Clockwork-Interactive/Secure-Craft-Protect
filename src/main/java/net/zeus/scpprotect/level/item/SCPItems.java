@@ -34,6 +34,7 @@ public class SCPItems {
     public static final RegistryObject<Item> CANDY_YELLOW = ITEMS.register("yellow_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_ORANGE = ITEMS.register("orange_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_PURPLE = ITEMS.register("purple_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
+    public static final RegistryObject<Item> CANDY_PINK = ITEMS.register("pink_candy", () -> new PinkCandy(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> BOOK_OF_CHANGE = ITEMS.register("awcy", () -> new BookOfChange(new Item.Properties().stacksTo(1)));
 
     // SPAWN EGGS
@@ -69,6 +70,12 @@ public class SCPItems {
     public static final RegistryObject<Item> POLAROID = ITEMS.register("polaroid", () -> new Polaroid(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ARROW = ITEMS.register("arrow", () -> new InstantDeleteItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> REALITY_SCANNER = ITEMS.register("reality_scanner", () -> new RealityScanner(new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> LEVEL_1_KEYCARD = ITEMS.register("keycard_1", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEVEL_2_KEYCARD = ITEMS.register("keycard_2", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEVEL_3_KEYCARD = ITEMS.register("keycard_3", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEVEL_4_KEYCARD = ITEMS.register("keycard_4", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEVEL_5_KEYCARD = ITEMS.register("keycard_5", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEVEL_OMNI_KEYCARD = ITEMS.register("keycard_omni", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SAFE_ACHIEVEMENT = ITEMS.register("safe_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> EUCLID_ACHIEVEMENT = ITEMS.register("euclid_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> KETER_ACHIEVEMENT = ITEMS.register("keter_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));

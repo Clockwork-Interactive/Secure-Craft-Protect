@@ -60,6 +60,7 @@ import net.zeus.scpprotect.level.worldgen.dimension.SCPDimensions;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
 
+import java.awt.event.ItemEvent;
 import java.util.*;
 
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)

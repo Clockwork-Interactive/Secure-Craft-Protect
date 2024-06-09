@@ -18,6 +18,6 @@ public class SCPFluids {
     public static final RegistryObject<FlowingFluid> FLOWING_SCP_006 = FLUIDS.register("flowing_scp_006", () -> new ForgeFlowingFluid.Flowing(SCPFluids.SCP_006_PROPERTIES));
 
     public static final ForgeFlowingFluid.Properties SCP_006_PROPERTIES = new ForgeFlowingFluid.Properties(SCPFluidTypes.SCP_006_FLUID_TYPE, SOURCE_SCP_006, FLOWING_SCP_006)
-            .block(SCPBlocks.SCP_006)
+            .block(FacilityBlocks.SCP_006)
             .bucket(SCPItems.SCP_006_BUCKET);
 }

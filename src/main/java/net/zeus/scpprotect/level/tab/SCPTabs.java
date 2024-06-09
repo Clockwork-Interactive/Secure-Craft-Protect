@@ -15,8 +15,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.block.fluid.SCP006Block;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.InstantDeleteItem;
+import net.zeus.scpprotect.level.item.items.PinkCandy;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
 
 public class SCPTabs {
@@ -55,6 +57,7 @@ public class SCPTabs {
                 for (RegistryObject<Item> key : SCPItems.ITEMS.getEntries()) {
                     if (!(key.get() instanceof InstantDeleteItem || key.get() instanceof ForgeSpawnEggItem)) {
                         if (!(key.get() instanceof BlockItem) || key.equals(SCPItems.LAVENDER) || key.get() instanceof SolidBucketMobItem) {
+                            if (key.equals(SCPItems.CANDY_PINK)) continue;
                             entries.accept(key.get());
                         }
                     }

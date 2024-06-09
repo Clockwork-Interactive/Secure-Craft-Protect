@@ -2,6 +2,7 @@ package net.zeus.scpprotect.level.block.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -46,9 +47,13 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
         pPlayer.getCapability(Capabilities.SCP_DATA).ifPresent(scpData -> {
             scpData.candiesTaken++;
 
-            pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get())), 1));
+            if (RandomSource.create().nextInt() > 0.00001) {
+                pPlayer.getInventory().add(new ItemStack(SCPItems.CANDY_PINK.get(), 1));
+            } else {
+                pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get())), 1));
+            }
 
-            if (scpData.candiesTaken > 2) {
+            if (scpData.candiesTaken > 2 && !pPlayer.isCreative()) {
                 scpData.candiesTaken = 0;
                 pPlayer.addEffect(new MobEffectInstance(SCPEffects.AMPUTATED.get(), 250, 0, false, true, true));
                 pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.SCP_330_SEVER.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
@@ -57,7 +62,7 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
             }
         });
 
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

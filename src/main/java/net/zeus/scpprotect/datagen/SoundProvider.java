@@ -96,6 +96,11 @@ public class SoundProvider extends SoundDefinitionsProvider {
         addSound(SCPSounds.LCZ_DOOR_OPEN, create("block/doors/lcz_door_open"));
         addSound(SCPSounds.HCZ_DOOR_CLOSE, create("block/doors/hcz_door_close"));
         addSound(SCPSounds.HCZ_DOOR_OPEN, create("block/doors/hcz_door_open"));
+
+        // Buttons
+
+        addSound(SCPSounds.ELECTRONIC_BUTTON_USE, create("block/electronic_button_use"));
+        addSound(SCPSounds.KEYCARD_READER_USE, create("block/keycard_reader_use"));
     }
 
 

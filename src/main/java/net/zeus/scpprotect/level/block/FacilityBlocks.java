@@ -233,9 +233,17 @@ public class FacilityBlocks {
             () -> new FacilityDoorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
                     .strength(3.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), FacilityDoorTypes.HEAVY));
 
-    public static final RegistryObject<Block> BUTTON = registerBlock("button",
+    public static final RegistryObject<Block> ELECTRONIC_BUTTON = registerBlock("electronic_button",
             () -> new FacilityButtonBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
-                    .strength(3.0F).noCollission().sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), BlockSetType.IRON, true, true));
+                    .strength(3.0F).noCollission().sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), false, true));
+
+    public static final RegistryObject<Block> KEYCARD_READER = registerBlock("keycard_reader",
+            () -> new FacilityButtonBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE)
+                    .strength(3.0F).noCollission().sound(SoundType.METAL).pushReaction(PushReaction.DESTROY), true, false));
+
+    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
+            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noLootTable()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

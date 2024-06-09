@@ -1,4 +1,9 @@
 {
+  "electronic_button_use": {
+    "sounds": [
+      "scprotect:block/electronic_button_use"
+    ]
+  },
   "ez_door_close": {
     "sounds": [
       "scprotect:block/doors/ez_door_close"
@@ -17,6 +22,11 @@
   "hcz_door_open": {
     "sounds": [
       "scprotect:block/doors/hcz_door_open"
+    ]
+  },
+  "keycard_reader_use": {
+    "sounds": [
+      "scprotect:block/keycard_reader_use"
     ]
   },
   "lcz_door_close": {

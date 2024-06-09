@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-06T11:37:40.7084456	Block States: scprotect
+// 1.20.1	2024-06-08T15:26:46.9949558	Block States: scprotect
 ffefaaed8f94ef42871d02da94781c728b17afb8 assets/scprotect/blockstates/aged_bricks.json
 3ad7d39d28197f8fad61de87aa7350677f53e4bd assets/scprotect/blockstates/aged_brick_slab.json
 aaee92c9bf1118adc6ee6a7a467fb1d9efe671c0 assets/scprotect/blockstates/aged_brick_stairs.json
@@ -113,7 +113,7 @@ de79e579bd208e3ec6356a7c29d9a9a1872aa100 assets/scprotect/models/block/light_con
 609daccc6e0151a99d97be100a1156840544497b assets/scprotect/models/block/light_containment_concrete_stairs_outer.json
 77364451859634b2402a1c099e70a1167cd45ffd assets/scprotect/models/block/lined_gridded_metal_container.json
 2b560b0eff523fd07d0e4b08ccb3de258491a7bc assets/scprotect/models/block/lined_metal_container.json
-7294167b68a48b8bdac62c02e1009c4f57f684dd assets/scprotect/models/block/magnetized_block.json
+8ee00a0b52115be3747f6658a098bd76a9cb60b1 assets/scprotect/models/block/magnetized_block.json
 a9f4d97c48c2f03d11be81f795aa74e3b68b903d assets/scprotect/models/block/metallic_panels.json
 c30b55adb0dce6826968beb5730b772e346b52f2 assets/scprotect/models/block/metallic_panel_slab.json
 752b9585f87a8bf52c273dfc0217d08187df5355 assets/scprotect/models/block/metallic_panel_slab_top.json

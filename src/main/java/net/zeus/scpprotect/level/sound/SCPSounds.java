@@ -61,6 +61,9 @@ public class SCPSounds {
     public static final RegistryObject<SoundEvent> HCZ_DOOR_OPEN = registerSoundEvent("hcz_door_open");
     public static final RegistryObject<SoundEvent> HCZ_DOOR_CLOSE = registerSoundEvent("hcz_door_close");
 
+    public static final RegistryObject<SoundEvent> ELECTRONIC_BUTTON_USE = registerSoundEvent("electronic_button_use");
+    public static final RegistryObject<SoundEvent> KEYCARD_READER_USE = registerSoundEvent("keycard_reader_use");
+
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
 

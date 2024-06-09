@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.zeus.scpprotect.level.block.blocks.FacilityButtonBlock;
 import net.zeus.scpprotect.level.entity.entities.SCP173;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 

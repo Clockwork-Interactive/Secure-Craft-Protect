@@ -46,7 +46,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItemWithTexture(FacilityBlocks.LCZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/lcz_door"));
         blockItemWithTexture(FacilityBlocks.HCZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/hcz_door"));
 
-        blockItemWithTexture(FacilityBlocks.BUTTON, new ResourceLocation(SCP.MOD_ID, "item/button"));
+        blockItemWithTexture(FacilityBlocks.ELECTRONIC_BUTTON, new ResourceLocation(SCP.MOD_ID, "item/electronic_button"));
+        blockItemWithTexture(FacilityBlocks.KEYCARD_READER, new ResourceLocation(SCP.MOD_ID, "item/keycard_reader"));
 
         blockItemWithTexture(SCPBlocks.SCP_019, new ResourceLocation(SCP.MOD_ID, "item/scp_019"));
         blockItemWithTexture(SCPBlocks.SCP_310, new ResourceLocation(SCP.MOD_ID, "item/scp_310"));

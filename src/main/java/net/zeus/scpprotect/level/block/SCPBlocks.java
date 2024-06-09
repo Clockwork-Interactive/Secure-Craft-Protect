@@ -23,10 +23,6 @@ public class SCPBlocks {
 
     // SCPs
 
-    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
-            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
-                    .noLootTable()));
-
     public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
             () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
                     .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));

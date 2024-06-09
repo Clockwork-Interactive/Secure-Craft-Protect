@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scprotect:item/button"
+    "layer0": "scprotect:item/keycard_2"
   }
 }

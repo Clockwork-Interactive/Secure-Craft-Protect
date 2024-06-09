@@ -45,8 +45,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(FacilityBlocks.METAL_CONTAINER);
         blockWithItem(FacilityBlocks.METAL_CONTAINER_GRIDDED);
 
-        blockWithItem(SCPBlocks.MAGNETIZED_BLOCK);
-
         horizontalBlockWithItem(SCPBlocks.SCP_019, false);
         horizontalBlockWithItem(SCPBlocks.SCP_330, false);
         horizontalBlockWithItem(SCPBlocks.SCP_310, false);
@@ -62,6 +60,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 SCP.MOD_ID, "block/containment_crate_side"), new ResourceLocation(
                 SCP.MOD_ID, "block/containment_crate_bottom"), new ResourceLocation(
                 SCP.MOD_ID, "block/containment_crate_top"));
+
+        sidedBlock(SCPBlocks.MAGNETIZED_BLOCK, new ResourceLocation(
+                SCP.MOD_ID, "block/magnetized_side"), new ResourceLocation(
+                SCP.MOD_ID, "block/magnetized_flat"), new ResourceLocation(
+                SCP.MOD_ID, "block/magnetized_flat"));
 
         // Ez
 
