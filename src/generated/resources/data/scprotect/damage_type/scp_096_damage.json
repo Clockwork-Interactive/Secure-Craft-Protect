@@ -1,0 +1,5 @@
+{
+  "exhaustion": 1.0,
+  "message_id": "scprotect.scp_096_damage",
+  "scaling": "when_caused_by_living_non_player"
+}

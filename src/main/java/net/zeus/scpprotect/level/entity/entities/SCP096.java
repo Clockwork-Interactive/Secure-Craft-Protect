@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -33,6 +34,7 @@ import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.client.data.PlayerClientData;
+import net.zeus.scpprotect.configs.SCPCommonConfig;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
@@ -40,6 +42,7 @@ import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
+import net.zeus.scpprotect.util.SCPDamageTypes;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
@@ -135,7 +138,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
         } else {
             this.entityData.set(DATA_IS_TRIGGERED, true);
             if (!attributeinstance.hasModifier(SPEED_MODIFIER_ATTACKING)) {
-                this.speedModifier = Mth.lerp(Math.min(pLivingEntity.distanceTo(this) / 20.0F, 1.0F), 0.2F, 0.45F);
+                this.speedModifier = Mth.lerp(Math.min(pLivingEntity.distanceTo(this) / 50.0F, 1.0F), 0.2F, 0.45F);
                 SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", this.speedModifier, AttributeModifier.Operation.ADDITION);
                 attributeinstance.addTransientModifier(SPEED_MODIFIER_ATTACKING);
             }
@@ -146,7 +149,8 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     @Override
     public boolean doHurtTarget(Entity pEntity) {
-        pEntity.kill(); // TODO create damage source for this
+        if (pEntity instanceof LivingEntity livingEntity)
+            pEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.SCP_096_DAMAGE, this), livingEntity.getMaxHealth());
         return true;
     }
 

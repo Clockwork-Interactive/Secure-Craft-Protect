@@ -121,7 +121,8 @@ public class ModLanguageProvider extends LanguageProvider {
 
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
-        addDamageType(SCPDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...");
+        addDamageType(SCPDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...", "%1$s died to unknown causes while fighting %2$s");
+        addDamageType(SCPDamageTypes.SCP_096_DAMAGE, "%1$s was torn to shreds by SCP-096", "%1$s was torn to shreds by SCP-096 while fighting %2$s");
         addDamageType(SCPDamageTypes.AMPUTATED, "%1$s was too greedy!");
         addDamageType(SCPDamageTypes.BLEEDING, "%1$s bled to death", "%1$s bled to death by %2$s");
         addDamageType(SCPDamageTypes.REBEL, "Rebel stole %1$s's skin...");

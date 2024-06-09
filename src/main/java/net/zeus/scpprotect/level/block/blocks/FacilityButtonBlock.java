@@ -113,28 +113,28 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         if (!blockEntity.locked) {
             pLevel.scheduleTick(pPos, this, 40);
         }
-        if (this.needsKeycards) {
+        if (this.needsKeycards || blockEntity.locked) {
             pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.KEYCARD_READER_USE.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
         } else {
             pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.ELECTRONIC_BUTTON_USE.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
         }
 
-        if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(SCPItems.BOOK_OF_CHANGE.get())) {
+        if (itemStack.is(SCPItems.BOOK_OF_CHANGE.get())) {
             blockEntity.locked = !blockEntity.locked;
             pPlayer.displayClientMessage(Component.literal("State Set To: %s".formatted(blockEntity.locked ? "Locked" : "Unlocked")), true);
             blockEntity.setChanged();
-        } else if (pPlayer.isCrouching() && this.needsKeycards) {
+        } else if (pPlayer.getItemInHand(InteractionHand.OFF_HAND).is(SCPItems.BOOK_OF_CHANGE.get()) && this.needsKeycards) {
             blockEntity.keycardLevel = (blockEntity.keycardLevel) % 5 + 1;
             pPlayer.displayClientMessage(Component.literal("Now Requires Level %d Keycards".formatted(blockEntity.keycardLevel)), true);
             blockEntity.setChanged();
-        } else if (this.needsKeycards) {
+        } else if (this.needsKeycards && !blockEntity.locked) {
             int keycardLevel = blockEntity.keycardLevel;
             int currentKeycardLevel = KEYCARDS.entrySet().stream().filter(entry -> itemStack.is(entry.getKey().get())).mapToInt(HashMap.Entry::getValue).findFirst().orElse(-1);
-            if (!itemStack.is(SCPTags.KEYCARDS)) {
-                pPlayer.displayClientMessage(Component.literal("You Need A Level %d Keycard!".formatted(blockEntity.keycardLevel)), true);
-            } else if (currentKeycardLevel >= keycardLevel || itemStack.is(SCPItems.LEVEL_OMNI_KEYCARD.get())) {
+            if (currentKeycardLevel >= keycardLevel || itemStack.is(SCPItems.LEVEL_OMNI_KEYCARD.get())) {
                 state = this.press(pState, pLevel, pPos);
                 pLevel.gameEvent(pPlayer, state.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
+            } else {
+                pPlayer.displayClientMessage(Component.literal("You Need A Level %d Keycard!".formatted(blockEntity.keycardLevel)), true);
             }
         } else if (blockEntity.locked) {
             pPlayer.displayClientMessage(Component.literal("It's Locked."), true);
