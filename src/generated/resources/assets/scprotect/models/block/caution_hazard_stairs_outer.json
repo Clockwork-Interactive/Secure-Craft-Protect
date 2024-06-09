@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "scprotect:block/caution_hazard_block",
+    "side": "scprotect:block/caution_hazard_block",
+    "top": "scprotect:block/caution_hazard_block"
+  }
+}

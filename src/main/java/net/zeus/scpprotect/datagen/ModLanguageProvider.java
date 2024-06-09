@@ -89,6 +89,31 @@ public class ModLanguageProvider extends LanguageProvider {
                 continue;
             }
 
+            if (registry == SCPItems.LEVEL_1_KEYCARD) {
+                add(registry.get(), "Level 1 Keycard");
+                continue;
+            }
+            if (registry == SCPItems.LEVEL_2_KEYCARD) {
+                add(registry.get(), "Level 2 Keycard");
+                continue;
+            }
+            if (registry == SCPItems.LEVEL_3_KEYCARD) {
+                add(registry.get(), "Level 3 Keycard");
+                continue;
+            }
+            if (registry == SCPItems.LEVEL_4_KEYCARD) {
+                add(registry.get(), "Level 4 Keycard");
+                continue;
+            }
+            if (registry == SCPItems.LEVEL_5_KEYCARD) {
+                add(registry.get(), "Level 5 Keycard");
+                continue;
+            }
+            if (registry == SCPItems.LEVEL_OMNI_KEYCARD) {
+                add(registry.get(), "Omni Keycard");
+                continue;
+            }
+
             if (registry.get() instanceof Anomaly) {
                 add(registry.get(), registry.get().getDescriptionId().replace("item.scprotect.", "").replace("_", "-").toUpperCase());
             } else if (registry.get() instanceof ForgeSpawnEggItem) {

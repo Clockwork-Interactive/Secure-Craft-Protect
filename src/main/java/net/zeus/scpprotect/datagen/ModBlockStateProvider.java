@@ -41,6 +41,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(SCPBlocks.CORRODED_TILES);
         blockWithItem(SCPBlocks.DECAY_BLOCK);
         blockWithItem(SCPBlocks.OLD_WALL);
+        blockWithItem(SCPBlocks.DECOMPOSED_PLANKS);
+        blockWithItem(SCPBlocks.RAGGED_BRICKS);
+        blockWithItem(SCPBlocks.SHABBY_MUD);
+        blockWithItem(SCPBlocks.WORN_STONE);
 
         blockWithItem(FacilityBlocks.METAL_CONTAINER);
         blockWithItem(FacilityBlocks.METAL_CONTAINER_GRIDDED);
@@ -147,6 +151,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         stairBlock(FacilityBlocks.REINFORCED_CONCRETE_STAIRS, FacilityBlocks.REINFORCED_CONCRETE);
         slabBlock(FacilityBlocks.REINFORCED_CONCRETE_SLAB, FacilityBlocks.REINFORCED_CONCRETE);
+
+        stairBlock(FacilityBlocks.CAUTION_HAZARD_STAIRS, FacilityBlocks.CAUTION_HAZARD_BLOCK);
+        slabBlock(FacilityBlocks.CAUTION_HAZARD_SLAB, FacilityBlocks.CAUTION_HAZARD_BLOCK);
+
+        stairBlock(FacilityBlocks.CAUTION_TRAFFIC_STAIRS, FacilityBlocks.CAUTION_TRAFFIC_BLOCK);
+        slabBlock(FacilityBlocks.CAUTION_TRAFFIC_SLAB, FacilityBlocks.CAUTION_TRAFFIC_BLOCK);
     }
 
     private void stairBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {

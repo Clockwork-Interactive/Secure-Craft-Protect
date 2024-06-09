@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "scprotect:block/caution_hazard_slab"
+    },
+    "type=double": {
+      "model": "scprotect:block/caution_hazard_block"
+    },
+    "type=top": {
+      "model": "scprotect:block/caution_hazard_slab_top"
+    }
+  }
+}

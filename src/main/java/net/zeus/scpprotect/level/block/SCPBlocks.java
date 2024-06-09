@@ -90,6 +90,22 @@ public class SCPBlocks {
             () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
                     .strength(1.8F)));
 
+    public static final RegistryObject<Block> DECOMPOSED_PLANKS = registerBlock("decomposed_planks",
+            () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> RAGGED_BRICKS = registerBlock("ragged_bricks",
+            () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> SHABBY_MUD = registerBlock("shabby_mud",
+            () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
+                    .strength(1.8F)));
+
+    public static final RegistryObject<Block> WORN_STONE = registerBlock("worn_stone",
+            () -> new PocketDimensionBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.BLACK).noLootTable()
+                    .strength(1.8F)));
+
     // Functional
 
     public static final RegistryObject<Block> CONTAINMENT_BLOCK = registerBlock("containment_block",

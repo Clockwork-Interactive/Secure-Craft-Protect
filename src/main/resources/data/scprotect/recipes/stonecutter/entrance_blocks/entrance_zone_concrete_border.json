@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:white_concrete"
+  },
+  "result": "scprotect:entrance_zone_concrete_border",
+  "count": 1
+}
