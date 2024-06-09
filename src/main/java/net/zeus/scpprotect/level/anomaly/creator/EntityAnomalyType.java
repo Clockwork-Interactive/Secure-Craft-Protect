@@ -15,8 +15,15 @@ import java.util.function.Supplier;
 
 public class EntityAnomalyType<E extends Entity> extends AnomalyType<Supplier<EntityType<E>>, E> {
 
+    private final int spawnCount;
+
     public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes) {
+        this(type, scptypes, 1);
+    }
+
+    public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes, int spawnCount) {
         super(type, scptypes);
+        this.spawnCount = spawnCount;
     }
 
     @Override
@@ -37,6 +44,17 @@ public class EntityAnomalyType<E extends Entity> extends AnomalyType<Supplier<En
             level.addFreshEntity(entity);
         }
         return (R) entity;
+    }
+
+    @Override
+    public <R extends E> R createContained(Level level, Vec3 pos) {
+        if (this.spawnCount > 1) {
+            int spawnCount = level.random.nextInt(this.spawnCount);
+            for (int i = 0; i < spawnCount; i++) {
+                super.createContained(level, pos);
+            }
+        }
+        return super.createContained(level, pos);
     }
 
     @Override

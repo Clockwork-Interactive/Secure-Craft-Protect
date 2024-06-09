@@ -3,6 +3,8 @@ package net.zeus.scpprotect.level.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,6 +52,18 @@ public class ContainmentBlockEntity extends BaseEntityBlock {
 
     @Override
     public void tick() {
+        if (this.anomalyRegistry != null && this.level instanceof ServerLevel serverLevel) {
+            RandomSource random = serverLevel.getRandom();
+            for (int i = 0; i < 2; ++i) {
+                double d0 = random.nextGaussian() * 0.02;
+                double d1 = random.nextGaussian() * 0.02;
+                double d2 = random.nextGaussian() * 0.02;
+                double x = this.getBlockPos().getX() + random.nextDouble() * 1.5 - 0.25;
+                double y = this.getBlockPos().getY() + random.nextDouble();
+                double z = this.getBlockPos().getZ() + random.nextDouble() * 1.5 - 0.25;
+                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, x, y, z, 2, d0, d1, d2, 0.0);
+            }
+        }
     }
 
     @Override

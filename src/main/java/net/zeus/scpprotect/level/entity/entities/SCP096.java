@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -34,7 +33,7 @@ import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.client.data.PlayerClientData;
-import net.zeus.scpprotect.configs.SCPCommonConfig;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
@@ -53,11 +52,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SCP096 extends SCPEntity implements NeutralMob {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public final Set<LivingEntity> targets = new HashSet<>();
+    public Set<LivingEntity> targets = new HashSet<>();
     private float speedModifier = 0.33F;
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E292A0");
     private static final EntityDataAccessor<Boolean> DATA_IS_TRIGGERED = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
@@ -419,7 +419,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
                     if (entity instanceof Player player) {
                         SCPAdvancements.grant(player, SCPAdvancements.DONT_LOOK_AT_ME);
                     }
-                    this.scp096.targets.add(entity);
+                    this.add(entity);
                 }
 
                 return scp096.isAngryAt(entity) || this.scp096.targets.contains(entity);
@@ -429,7 +429,9 @@ public class SCP096 extends SCPEntity implements NeutralMob {
         }
 
         public void add(LivingEntity entity) {
-            if ((entity instanceof Player player && (player.isCreative() || player.isSpectator())) || !this.scp096.canTrigger()) return;
+            if (!(entity instanceof Player) && !SCPServerConfig.SCP_096_REACT_TO_ENTITIES.get()) return;
+            if ((entity instanceof Player player && (player.isCreative() || player.isSpectator())) || !this.scp096.canTrigger())
+                return;
             if (this.scp096.targets.contains(entity)) return;
             this.scp096.targets.add(entity);
             if (this.pendingTarget == null) {
@@ -494,7 +496,6 @@ public class SCP096 extends SCPEntity implements NeutralMob {
                     super.start();
                 }
             }
-
         }
 
 
@@ -510,6 +511,8 @@ public class SCP096 extends SCPEntity implements NeutralMob {
                 }
             }
 
+            this.scp096.targets = this.scp096.targets.stream().sorted(Comparator.comparingDouble(this.scp096::distanceTo)).collect(Collectors.toCollection(LinkedHashSet::new));
+            this.pendingTarget = this.scp096.targets.isEmpty() ? null : this.scp096.targets.iterator().next();
         }
 
     }

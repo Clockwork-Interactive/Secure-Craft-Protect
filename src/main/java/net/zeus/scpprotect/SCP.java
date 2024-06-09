@@ -14,7 +14,6 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -24,8 +23,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.refractionapi.refraction.quest.client.ClientQuestInfo;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.configs.SCPClientConfig;
-import net.zeus.scpprotect.configs.SCPCommonConfig;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
@@ -41,8 +41,6 @@ import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
-import net.zeus.scpprotect.level.worldgen.features.SCPConfiguredFeatures;
-import net.zeus.scpprotect.level.worldgen.features.SCPPlacedFeatures;
 import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
 
@@ -73,7 +71,7 @@ public class SCP {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SCPCommonConfig.SPEC, "scprotect-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SCPServerConfig.SPEC, "scprotect-server.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SCPClientConfig.SPEC, "scprotect-client.toml");
 
         ClientQuestInfo.setDefaultRenderer(false);
@@ -95,18 +93,20 @@ public class SCP {
 
 
     public enum SCPTypes {
-        KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED)),
-        EUCLID("§6", Component.literal("Euclid").withStyle(ChatFormatting.YELLOW)),
-        SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN)),
-        UNCLASSIFIED("§7", Component.literal("Unclassified").withStyle(ChatFormatting.GRAY))
+        KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED), SCPAdvancements.KETER_ADVANCEMENT),
+        EUCLID("§6", Component.literal("Euclid").withStyle(ChatFormatting.YELLOW), SCPAdvancements.EUCLID_ADVANCEMENT),
+        SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN), SCPAdvancements.SAFE_ADVANCEMENT),
+        UNCLASSIFIED("§7", Component.literal("Unclassified").withStyle(ChatFormatting.GRAY), SCPAdvancements.SAFE_ADVANCEMENT)
         ;
 
         public final String colorModifier;
         public final Component component;
+        public final ResourceLocation advancement;
 
-        SCPTypes(String colorModifier, Component component) {
+        SCPTypes(String colorModifier, Component component, ResourceLocation advancement) {
             this.colorModifier = colorModifier;
             this.component = component;
+            this.advancement = advancement;
         }
 
     }

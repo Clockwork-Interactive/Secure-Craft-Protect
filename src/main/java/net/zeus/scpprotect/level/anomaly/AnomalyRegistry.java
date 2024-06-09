@@ -26,14 +26,14 @@ public class AnomalyRegistry {
     public static final EntityAnomalyType<SCP131> SCP_131 = new EntityAnomalyType<>(SCPEntities.SCP_131, SCP.SCPTypes.SAFE);
     public static final EntityAnomalyType<SCP173> SCP_173 = new EntityAnomalyType<>(SCPEntities.SCP_173, SCP.SCPTypes.EUCLID);
     public static final EntityAnomalyType<SCP346> SCP_346 = new EntityAnomalyType<>(SCPEntities.SCP_346, SCP.SCPTypes.SAFE);
-    public static final EntityAnomalyType<SCP939> SCP_939 = new EntityAnomalyType<>(SCPEntities.SCP_939, SCP.SCPTypes.KETER);
+    public static final EntityAnomalyType<SCP939> SCP_939 = new EntityAnomalyType<>(SCPEntities.SCP_939, SCP.SCPTypes.KETER, 4);
     public static final EntityAnomalyType<SCP966> SCP_966 = new EntityAnomalyType<>(SCPEntities.SCP_966, SCP.SCPTypes.EUCLID);
     public static final EntityAnomalyType<SCP999> SCP_999 = new EntityAnomalyType<>(SCPEntities.SCP_999, SCP.SCPTypes.SAFE);
     public static final EntityAnomalyType<SCP019_2> SCP_019_2 = new EntityAnomalyType<>(SCPEntities.SCP_019_2, SCP.SCPTypes.KETER);
     public static final EntityAnomalyType<SCP811> SCP_811 = new EntityAnomalyType<>(SCPEntities.SCP_811, SCP.SCPTypes.EUCLID);
-    public static final EntityAnomalyType<SCP3199> SCP_3199 = new EntityAnomalyType<>(SCPEntities.SCP_3199, SCP.SCPTypes.KETER);
+    public static final EntityAnomalyType<SCP3199> SCP_3199 = new EntityAnomalyType<>(SCPEntities.SCP_3199, SCP.SCPTypes.KETER, 3);
     public static final EntityAnomalyType<SCP3199Egg> SCP_3199_EGG = new EntityAnomalyType<>(SCPEntities.SCP_3199_EGG, SCP.SCPTypes.KETER);
-    public static final EntityAnomalyType<SCP111> SCP_111 = new EntityAnomalyType<>(SCPEntities.SCP_111, SCP.SCPTypes.SAFE);
+    public static final EntityAnomalyType<SCP111> SCP_111 = new EntityAnomalyType<>(SCPEntities.SCP_111, SCP.SCPTypes.SAFE, 2);
     public static final EntityAnomalyType<SCP049> SCP_049 = new EntityAnomalyType<>(SCPEntities.SCP_049, SCP.SCPTypes.EUCLID);
     public static final EntityAnomalyType<SCP049_2> SCP_049_2 = new EntityAnomalyType<>(SCPEntities.SCP_049_2, SCP.SCPTypes.EUCLID);
     public static final EntityAnomalyType<SCP106> SCP_106 = new EntityAnomalyType<>(SCPEntities.SCP_106, SCP.SCPTypes.KETER);

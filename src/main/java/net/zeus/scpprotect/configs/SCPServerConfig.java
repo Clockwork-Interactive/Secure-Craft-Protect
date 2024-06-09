@@ -2,7 +2,7 @@ package net.zeus.scpprotect.configs;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class SCPCommonConfig {
+public class SCPServerConfig {
 
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;

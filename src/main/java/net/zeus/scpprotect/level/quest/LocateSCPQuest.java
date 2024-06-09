@@ -10,11 +10,13 @@ import net.refractionapi.refraction.quest.Quest;
 import net.refractionapi.refraction.quest.points.LocationPoint;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
 import net.zeus.scpprotect.level.anomaly.creator.EntityAnomalyType;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.quest.points.LocateSCPPoint;
 
 import java.util.ArrayList;
@@ -64,9 +66,10 @@ public class LocateSCPQuest extends Quest {
                 .onCompletion((q) -> {
                     this.stack.getOrCreateTag().remove("quest");
                     if (this.scpType instanceof EntityAnomalyType<?> entityAnomalyType)
-                        this.getPlayer().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) -> {
-                            data.addSCP((EntityType<? extends Anomaly>) entityAnomalyType.getType().get());
-                        });
+                        this.getPlayer().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) ->
+                                data.addSCP((EntityType<? extends Anomaly>) entityAnomalyType.getType().get()));
+                    this.getPlayer().getCooldowns().addCooldown(SCPItems.REALITY_SCANNER.get(), 4100);
+                    SCPAdvancements.grant(this.getPlayer(), this.scpType.getClassType().advancement);
                 })
                 .build();
     }
