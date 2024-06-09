@@ -18,6 +18,7 @@ public class SCPBlockEntities {
     public static final RegistryObject<BlockEntityType<SCP310BlockEntity>> SCP_310_BE = register("scp_310_be", SCPBlocks.SCP_310, SCP310BlockEntity::new);
     public static final RegistryObject<BlockEntityType<FileCabinetBlockEntity>> FILE_CABINET_BE = register("file_cabinet_be", FacilityBlocks.FILECABINET, FileCabinetBlockEntity::new);
     public static final RegistryObject<BlockEntityType<ContainmentBlockEntity>> CONTAINMENT_BE = register("containment_be", SCPBlocks.CONTAINMENT_BLOCK, ContainmentBlockEntity::new);
+    public static final RegistryObject<BlockEntityType<FacilityButtonBlockEntity>> FACILITY_BUTTON_BE = register("facility_button_be", FacilityBlocks.KEYCARD_READER, FacilityButtonBlockEntity::new);
 
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, RegistryObject<Block> registryObject, BlockEntityType.BlockEntitySupplier<? extends BlockEntity> factory) {

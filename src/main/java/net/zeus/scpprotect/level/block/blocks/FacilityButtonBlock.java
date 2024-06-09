@@ -21,30 +21,33 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.block.entity.FacilityButtonBlockEntity;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.misc.SCPTags;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
-public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
+public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock {
     public static final BooleanProperty POWERED;
     protected static final VoxelShape CEILING_AABB_X;
     protected static final VoxelShape CEILING_AABB_Z;
@@ -54,17 +57,25 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
     protected static final VoxelShape SOUTH_AABB;
     protected static final VoxelShape WEST_AABB;
     protected static final VoxelShape EAST_AABB;
-    private boolean tempOpen = true;
-    private boolean needsKeycards;
-    private int keycardLevel = 1;
-    private boolean isLocked = false;
+    private final boolean needsKeycards;
     private final boolean arrowsCanPress;
+    private final HashMap<RegistryObject<Item>, Integer> KEYCARDS = new HashMap<>() {{
+        put(SCPItems.LEVEL_1_KEYCARD, 1);
+        put(SCPItems.LEVEL_2_KEYCARD, 2);
+        put(SCPItems.LEVEL_3_KEYCARD, 3);
+        put(SCPItems.LEVEL_4_KEYCARD, 4);
+        put(SCPItems.LEVEL_5_KEYCARD, 5);
+    }};
 
-    public FacilityButtonBlock(BlockBehaviour.Properties pProperties, boolean pNeedsKeycards, boolean pArrowsCanPress) {
+    public FacilityButtonBlock(BlockBehaviour.Properties pProperties, boolean needsKeycards, boolean arrowsCanPress) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(FACE, AttachFace.WALL));
-        this.needsKeycards = pNeedsKeycards;
-        this.arrowsCanPress = pArrowsCanPress;
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(POWERED, false)
+                .setValue(FACE, AttachFace.WALL)
+        );
+        this.needsKeycards = needsKeycards;
+        this.arrowsCanPress = arrowsCanPress;
     }
 
     public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
@@ -78,7 +89,6 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
 
                 return FLOOR_AABB_Z;
             case WALL:
-
                 return switch ($$4) {
                     case EAST -> EAST_AABB;
                     case WEST -> WEST_AABB;
@@ -96,9 +106,11 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
     }
 
     public @NotNull InteractionResult use(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
-        BlockState $$6;
+        BlockState state;
         ItemStack itemStack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-        if (this.tempOpen && !this.isLocked) {
+        FacilityButtonBlockEntity blockEntity = (FacilityButtonBlockEntity) pLevel.getBlockEntity(pPos);
+        if (blockEntity == null) return InteractionResult.FAIL;
+        if (!blockEntity.locked) {
             pLevel.scheduleTick(pPos, this, 40);
         }
         if (this.needsKeycards) {
@@ -108,33 +120,27 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         }
 
         if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(SCPItems.BOOK_OF_CHANGE.get())) {
-            if (this.isLocked) {
-                this.isLocked = false;
-                pPlayer.displayClientMessage(Component.literal("State Set To: Unlocked"), true);
-            } else {
-                this.isLocked = true;
-                pPlayer.displayClientMessage(Component.literal("State Set To: Locked"), true);
-            }
+            blockEntity.locked = !blockEntity.locked;
+            pPlayer.displayClientMessage(Component.literal("State Set To: %s".formatted(blockEntity.locked ? "Locked" : "Unlocked")), true);
+            blockEntity.setChanged();
         } else if (pPlayer.isCrouching() && this.needsKeycards) {
-            if (keycardLevel < 5) {
-                keycardLevel++;
-                pPlayer.displayClientMessage(Component.literal("Now Requires Level " + keycardLevel + " Keycards"), true);
-            } else {
-                keycardLevel = 1;
-                pPlayer.displayClientMessage(Component.literal("Now Requires Level 1 Keycards"), true);
-            }
+            blockEntity.keycardLevel = (blockEntity.keycardLevel) % 5 + 1;
+            pPlayer.displayClientMessage(Component.literal("Now Requires Level %d Keycards".formatted(blockEntity.keycardLevel)), true);
+            blockEntity.setChanged();
         } else if (this.needsKeycards) {
+            int keycardLevel = blockEntity.keycardLevel;
+            int currentKeycardLevel = KEYCARDS.entrySet().stream().filter(entry -> itemStack.is(entry.getKey().get())).mapToInt(HashMap.Entry::getValue).findFirst().orElse(-1);
             if (!itemStack.is(SCPTags.KEYCARDS)) {
-                pPlayer.displayClientMessage(Component.literal("You Need A Level " + keycardLevel + " Keycard!"), true);
-            } else if (itemStack.is(SCPItems.LEVEL_OMNI_KEYCARD.get())) {
-                $$6 = this.press(pState, pLevel, pPos);
-                pLevel.gameEvent(pPlayer, $$6.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
+                pPlayer.displayClientMessage(Component.literal("You Need A Level %d Keycard!".formatted(blockEntity.keycardLevel)), true);
+            } else if (currentKeycardLevel >= keycardLevel || itemStack.is(SCPItems.LEVEL_OMNI_KEYCARD.get())) {
+                state = this.press(pState, pLevel, pPos);
+                pLevel.gameEvent(pPlayer, state.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
             }
-        } else if (this.isLocked) {
+        } else if (blockEntity.locked) {
             pPlayer.displayClientMessage(Component.literal("It's Locked."), true);
         } else {
-            $$6 = this.press(pState, pLevel, pPos);
-            pLevel.gameEvent(pPlayer, $$6.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
+            state = this.press(pState, pLevel, pPos);
+            pLevel.gameEvent(pPlayer, state.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
         }
         return InteractionResult.SUCCESS;
     }
@@ -175,7 +181,7 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
     }
 
     public void entityInside(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Entity pEntity) {
-        if (!pLevel.isClientSide && this.arrowsCanPress && !(Boolean)pState.getValue(POWERED)) {
+        if (!pLevel.isClientSide && this.arrowsCanPress && !(Boolean) pState.getValue(POWERED)) {
             this.checkPressed(pState, pLevel, pPos);
         }
     }
@@ -185,7 +191,7 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         boolean $$4 = $$3 != null;
         boolean $$5 = pState.getValue(POWERED);
         if ($$4 != $$5) {
-            pLevel.setBlock(pPos, (BlockState)pState.setValue(POWERED, $$4), 3);
+            pLevel.setBlock(pPos, pState.setValue(POWERED, $$4), 3);
             this.updateNeighbours(pState, pLevel, pPos);
             pLevel.gameEvent($$3, $$4 ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pPos);
         }
@@ -215,6 +221,12 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         SOUTH_AABB = Block.box(5, 3.5, 0, 11, 12.5, 2);
         WEST_AABB = Block.box(14, 3.5, 5, 16, 12.5, 11);
         EAST_AABB = Block.box(0, 3.5, 5, 2, 12.5, 11);
-
     }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new FacilityButtonBlockEntity(pPos, pState);
+    }
+
 }
