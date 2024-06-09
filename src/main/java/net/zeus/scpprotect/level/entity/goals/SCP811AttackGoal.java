@@ -26,4 +26,5 @@ public class SCP811AttackGoal extends MeleeAttackGoal {
         }
         return reach * reach;
     }
+
 }

@@ -29,7 +29,7 @@ public class RealityScanner extends Item {
             quest.serializeNBT(questTag);
             tag.put("quest", questTag);
         } else if (tag.contains("quest") && pPlayer instanceof ServerPlayer serverPlayer) {
-            if (QuestHandler.QUEUE.get(serverPlayer) == null)
+            if (QuestHandler.QUESTS.get(serverPlayer.getUUID()) == null)
                 new LocateSCPQuest(serverPlayer, stack, tag.getCompound("quest"));
         }
         return super.use(pLevel, pPlayer, pUsedHand);
