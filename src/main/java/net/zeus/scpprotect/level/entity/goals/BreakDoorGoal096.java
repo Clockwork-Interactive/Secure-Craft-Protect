@@ -1,9 +1,17 @@
 package net.zeus.scpprotect.level.entity.goals;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.DoorInteractGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.Node;
+import net.minecraft.world.level.pathfinder.Path;
+import net.zeus.scpprotect.level.block.blocks.FacilityDoorBlock;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
+import net.zeus.scpprotect.util.Misc;
 
 public class BreakDoorGoal096 extends DoorInteractGoal {
     protected int breakTime;
@@ -33,15 +41,42 @@ public class BreakDoorGoal096 extends DoorInteractGoal {
      */
     public boolean canUse() {
         if (!this.scp096.targets.isEmpty()) {
-            if (!super.canUse()) {
+            if (!this.checkForDoor()) {
                 return false;
-            } else if (!net.minecraftforge.common.ForgeHooks.canEntityDestroy(this.mob.level(), this.doorPos, this.mob)) {
+            } else if (!Misc.isDoor(this.mob.level(), this.doorPos)) {
                 return false;
             } else {
                 return !this.isOpen();
             }
         }
         return false;
+    }
+
+    public boolean checkForDoor() {
+        if (!this.mob.horizontalCollision) {
+            return false;
+        } else {
+            GroundPathNavigation groundpathnavigation = (GroundPathNavigation)this.mob.getNavigation();
+            Path path = groundpathnavigation.getPath();
+            if (path != null && !path.isDone() && groundpathnavigation.canOpenDoors()) {
+                for(int i = 0; i < Math.min(path.getNextNodeIndex() + 2, path.getNodeCount()); ++i) {
+                    Node node = path.getNode(i);
+                    this.doorPos = new BlockPos(node.x, node.y + 1, node.z);
+                    if (!(this.mob.distanceToSqr(this.doorPos.getX(), this.mob.getY(), this.doorPos.getZ()) > 2.25D)) {
+                        this.hasDoor = Misc.isDoor(this.mob.level(), this.doorPos);
+                        if (this.hasDoor) {
+                            return true;
+                        }
+                    }
+                }
+
+                this.doorPos = this.mob.blockPosition().above();
+                this.hasDoor = Misc.isDoor(this.mob.level(), this.doorPos);
+                return this.hasDoor;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**

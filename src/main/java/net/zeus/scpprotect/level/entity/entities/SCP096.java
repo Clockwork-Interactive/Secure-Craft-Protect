@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.vec3.Vec3Helper;
@@ -37,6 +38,7 @@ import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
+import net.zeus.scpprotect.level.entity.goals.navigation.SCP096Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.networking.ModMessages;
@@ -158,7 +160,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     public void tick() {
         if (!level().isClientSide) {
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
-                this.setClimbing(this.horizontalCollision);
+                this.setClimbing(this.horizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir());
             }
             if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
@@ -239,7 +241,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return new WallClimberNavigation(this, pLevel);
+        return new SCP096Navigation(this, pLevel);
     }
 
     @Override
