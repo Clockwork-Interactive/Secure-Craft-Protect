@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:iron_block"
+  },
+  "result": "scprotect:dirty_metal_slab",
+  "count": 2
+}

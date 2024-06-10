@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:chest"
+    },
+    "b": {
+      "item": "minecraft:quartz"
+    },
+    "c": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " b ",
+    "cac",
+    " b "
+  ],
+  "result": {
+    "item": "scprotect:file_cabinet",
+    "count": 1
+  }
+}

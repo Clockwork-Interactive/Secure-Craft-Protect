@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:metal_container"
+  },
+  "result": "scprotect:gridded_metal_container",
+  "count": 1
+}

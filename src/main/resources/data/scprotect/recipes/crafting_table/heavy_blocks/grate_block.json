@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "result": {
+    "item": "scprotect:grate_block",
+    "count": 4
+  }
+}

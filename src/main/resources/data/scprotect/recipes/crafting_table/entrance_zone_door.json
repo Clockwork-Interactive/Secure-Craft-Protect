@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "minecraft:iron_door"
+    },
+    "c": {
+      "item": "minecraft:white_stained_glass_pane"
+    }
+  },
+  "pattern": [
+    " c ",
+    "bab"
+  ],
+  "result": {
+    "item": "scprotect:entrance_zone_door",
+    "count": 2
+  }
+}

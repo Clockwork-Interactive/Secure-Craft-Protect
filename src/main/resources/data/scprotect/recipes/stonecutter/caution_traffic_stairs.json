@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:caution_hazard_block"
+  },
+  "result": "scprotect:caution_traffic_stairs",
+  "count": 1
+}

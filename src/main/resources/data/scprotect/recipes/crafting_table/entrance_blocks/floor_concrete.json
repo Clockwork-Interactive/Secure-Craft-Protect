@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:deepslate"
+    },
+    "b": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "pattern": [
+    "ab",
+    "ba"
+  ],
+  "result": {
+    "item": "scprotect:floor_concrete",
+    "count": 4
+  }
+}

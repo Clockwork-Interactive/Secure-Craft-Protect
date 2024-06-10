@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-09T03:48:15.2068283	Item Models: scprotect
+// 1.20.1	2024-06-10T03:57:27.0653248	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -54,4 +54,5 @@ c704d262ee06b9f903fe844cb4f7d1cd7e9cb171 assets/scprotect/models/item/scp_310.js
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_966_spawn_egg.json
 ada9320750913e2c1e4014d398e369c3d2191e10 assets/scprotect/models/item/scp_999_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_999_spawn_egg.json
+7c2febca63873b63e695257aad59172a001f36fa assets/scprotect/models/item/wrench.json
 96b34c14e06290105cb48b0540bffc0215b45b72 assets/scprotect/models/item/yellow_candy.json

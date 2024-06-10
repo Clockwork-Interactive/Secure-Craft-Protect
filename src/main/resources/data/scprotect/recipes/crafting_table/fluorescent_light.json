@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:white_stained_glass_pane"
+    },
+    "b": {
+      "item": "minecraft:glowstone"
+    },
+    "c": {
+      "item": "minecraft:iron_ingot"
+    },
+    "d": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " a ",
+    "cbc",
+    " d "
+  ],
+  "result": {
+    "item": "scprotect:fluorescent_light",
+    "count": 1
+  }
+}

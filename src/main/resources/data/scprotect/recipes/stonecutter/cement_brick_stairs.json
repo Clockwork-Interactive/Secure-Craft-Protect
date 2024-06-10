@@ -2,8 +2,8 @@
   "type": "minecraft:stonecutting",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:white_concrete"
+    "item": "scprotect:cement_bricks"
   },
-  "result": "scprotect:entrance_zone_concrete_striped",
+  "result": "scprotect:cement_brick_stairs",
   "count": 1
 }

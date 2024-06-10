@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:white_concrete"
+    "item": "scprotect:light_containment_concrete"
   },
   "result": "scprotect:light_containment_concrete_stairs",
   "count": 1

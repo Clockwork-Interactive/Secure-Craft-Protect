@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:white_tiles"
+  },
+  "result": "scprotect:white_tile_slab",
+  "count": 2
+}

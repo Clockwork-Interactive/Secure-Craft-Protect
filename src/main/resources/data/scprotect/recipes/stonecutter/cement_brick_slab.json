@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:cement_bricks"
+  },
+  "result": "scprotect:cement_brick_slab",
+  "count": 2
+}

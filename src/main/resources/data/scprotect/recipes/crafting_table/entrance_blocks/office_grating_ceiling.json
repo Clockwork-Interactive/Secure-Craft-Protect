@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:office_ceiling"
+    },
+    "b": {
+      "item": "scprotect:grate_block"
+    }
+  },
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "result": {
+    "item": "scprotect:office_grating_ceiling",
+    "count": 1
+  }
+}

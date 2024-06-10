@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:white_tiles"
+  },
+  "result": "scprotect:mosaic_tiles",
+  "count": 1
+}

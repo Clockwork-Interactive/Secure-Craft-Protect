@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_block"
+    },
+    "b": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "minecraft:copper_ingot"
+    },
+    "d": {
+      "item": "minecraft:lightning_rod"
+    }
+  },
+  "pattern": [
+    " a ",
+    "cdc",
+    "bab"
+  ],
+  "result": {
+    "item": "scprotect:magnetized_block",
+    "count": 1
+  }
+}

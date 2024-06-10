@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:floor_concrete"
+    },
+    "b": {
+      "item": "minecraft:iron_ingot"
+    },
+    "c": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " b ",
+    "cac"
+  ],
+  "result": {
+    "item": "scprotect:reinforced_metal",
+    "count": 2
+  }
+}

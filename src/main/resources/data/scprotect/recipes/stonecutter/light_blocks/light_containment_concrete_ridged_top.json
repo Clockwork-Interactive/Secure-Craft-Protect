@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "category": "misc",
-  "ingredient": {
-    "item": "minecraft:white_concrete"
-  },
-  "result": "scprotect:light_containment_concrete_ridged_top",
-  "count": 1
-}

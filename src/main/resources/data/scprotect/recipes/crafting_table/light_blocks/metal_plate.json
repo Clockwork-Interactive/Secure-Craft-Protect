@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_nugget"
+    },
+    "b": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "bab",
+    "aba",
+    "bab"
+  ],
+  "result": {
+    "item": "scprotect:metal_plate",
+    "count": 8
+  }
+}

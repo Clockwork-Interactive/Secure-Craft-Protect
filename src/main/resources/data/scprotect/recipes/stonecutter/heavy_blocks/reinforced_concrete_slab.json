@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:reinforced_concrete"
+  },
+  "result": "scprotect:reinforced_concrete_slab",
+  "count": 2
+}

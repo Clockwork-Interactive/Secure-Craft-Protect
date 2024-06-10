@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:gold_ingot"
+    },
+    "b": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "ab",
+    "ba"
+  ],
+  "result": {
+    "item": "scprotect:caution_hazard_block",
+    "count": 4
+  }
+}

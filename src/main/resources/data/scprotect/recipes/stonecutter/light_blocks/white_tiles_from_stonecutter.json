@@ -2,8 +2,8 @@
   "type": "minecraft:stonecutting",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:white_concrete"
+    "item": "minecraft:calcite"
   },
-  "result": "scprotect:entrance_zone_concrete_border",
+  "result": "scprotect:white_tiles",
   "count": 1
 }

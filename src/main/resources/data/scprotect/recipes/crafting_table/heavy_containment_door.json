@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "minecraft:iron_door"
+    },
+    "c": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "bab",
+    " c "
+  ],
+  "result": {
+    "item": "scprotect:heavy_containment_door",
+    "count": 2
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_nugget"
+    },
+    "b": {
+      "item": "minecraft:redstone_torch"
+    },
+    "c": {
+      "item": "minecraft:iron_ingot"
+    },
+    "d": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " c ",
+    "aba",
+    " d "
+  ],
+  "result": {
+    "item": "scprotect:keycard_reader",
+    "count": 1
+  }
+}

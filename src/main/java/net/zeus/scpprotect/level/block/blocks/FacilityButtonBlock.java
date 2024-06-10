@@ -119,11 +119,11 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
             pPlayer.level().playSound(null, pPlayer.blockPosition(), SCPSounds.ELECTRONIC_BUTTON_USE.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
         }
 
-        if (itemStack.is(SCPItems.BOOK_OF_CHANGE.get())) {
+        if (itemStack.is(SCPItems.WRENCH.get())) {
             blockEntity.locked = !blockEntity.locked;
             pPlayer.displayClientMessage(Component.literal("State Set To: %s".formatted(blockEntity.locked ? "Locked" : "Unlocked")), true);
             blockEntity.setChanged();
-        } else if (pPlayer.getItemInHand(InteractionHand.OFF_HAND).is(SCPItems.BOOK_OF_CHANGE.get()) && this.needsKeycards) {
+        } else if (pPlayer.getItemInHand(InteractionHand.OFF_HAND).is(SCPItems.WRENCH.get()) && this.needsKeycards) {
             blockEntity.keycardLevel = (blockEntity.keycardLevel) % 5 + 1;
             pPlayer.displayClientMessage(Component.literal("Now Requires Level %d Keycards".formatted(blockEntity.keycardLevel)), true);
             blockEntity.setChanged();

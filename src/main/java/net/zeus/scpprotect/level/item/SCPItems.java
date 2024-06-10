@@ -69,6 +69,7 @@ public class SCPItems {
     public static final RegistryObject<Item> CONTAINMENT_CAGE = ITEMS.register("containment_cage", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> POLAROID = ITEMS.register("polaroid", () -> new Polaroid(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ARROW = ITEMS.register("arrow", () -> new InstantDeleteItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> REALITY_SCANNER = ITEMS.register("reality_scanner", () -> new RealityScanner(new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<Item> LEVEL_1_KEYCARD = ITEMS.register("keycard_1", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEVEL_2_KEYCARD = ITEMS.register("keycard_2", () -> new Item(new Item.Properties().stacksTo(1)));

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:light_containment_concrete"
+    },
+    "b": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "b",
+    "a"
+  ],
+  "result": {
+    "item": "scprotect:light_containment_concrete_ridged_top"
+  }
+}

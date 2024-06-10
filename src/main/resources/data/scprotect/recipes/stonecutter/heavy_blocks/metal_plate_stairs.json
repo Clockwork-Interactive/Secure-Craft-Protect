@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:metal_plate"
+  },
+  "result": "scprotect:metal_plate_stairs",
+  "count": 1
+}

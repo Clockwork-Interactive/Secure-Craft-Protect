@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "minecraft:iron_door"
+    }
+  },
+  "pattern": [
+    "bab"
+  ],
+  "result": {
+    "item": "scprotect:light_containment_door",
+    "count": 2
+  }
+}

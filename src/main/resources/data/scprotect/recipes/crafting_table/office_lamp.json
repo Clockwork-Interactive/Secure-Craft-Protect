@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:copper_ingot"
+    },
+    "b": {
+      "item": "minecraft:glowstone"
+    },
+    "c": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    " c ",
+    " a",
+    "aba"
+  ],
+  "result": {
+    "item": "scprotect:office_lamp",
+    "count": 1
+  }
+}

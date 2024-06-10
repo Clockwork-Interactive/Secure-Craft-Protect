@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:entrance_zone_concrete"
+    },
+    "b": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "result": {
+    "item": "scprotect:entrance_zone_concrete_border"
+  }
+}

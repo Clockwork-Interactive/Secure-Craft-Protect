@@ -46,8 +46,8 @@ public class ContainmentBlockEntity extends BaseEntityBlock {
             ItemStack stack = this.anomalyRegistry.getItemized();
             ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), stack);
             this.level.addFreshEntity(entity);
+            this.anomalyRegistry = null;
         }
-        this.level.removeBlock(this.worldPosition, false);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ContainmentBlockEntity extends BaseEntityBlock {
                 double x = this.getBlockPos().getX() + random.nextDouble() * 1.5 - 0.25;
                 double y = this.getBlockPos().getY() + random.nextDouble();
                 double z = this.getBlockPos().getZ() + random.nextDouble() * 1.5 - 0.25;
-                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, x, y, z, 2, d0, d1, d2, 0.0);
+                serverLevel.sendParticles(ParticleTypes.GLOW, x, y, z, 2, d0, d1, d2, 0.0);
             }
         }
     }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:white_stained_glass_pane"
+    },
+    "b": {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "result": {
+    "item": "scprotect:fluorescent_lamp_block",
+    "count": 1
+  }
+}

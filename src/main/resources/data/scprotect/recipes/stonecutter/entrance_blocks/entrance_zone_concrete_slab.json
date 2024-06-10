@@ -2,8 +2,8 @@
   "type": "minecraft:stonecutting",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:white_concrete"
+    "item": "scprotect:entrance_zone_concrete"
   },
   "result": "scprotect:entrance_zone_concrete_slab",
-  "count": 1
+  "count": 2
 }
