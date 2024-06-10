@@ -23,6 +23,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.PickaxeItem;
@@ -154,6 +155,8 @@ public class SCP173 extends SCPEntity {
     public void tick() {
         super.tick();
 
+        if (this.level().isClientSide) return;
+
         if (this.getRandom().nextInt(5000) == 1 && !this.level().isClientSide) {
             BlockPos pos1 = new BlockPos((int) this.getX(), (int) this.getBoundingBox().minY, (int) this.getZ());
             BlockPos pos2 = new BlockPos((int) this.getX(), (int) (this.getBoundingBox().minY - 1), (int) this.getZ());
@@ -164,7 +167,7 @@ public class SCP173 extends SCPEntity {
         boolean blink = false;
         List<ServerPlayer> toBlink = new ArrayList<>();
 
-        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(32))) {
+        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64))) {
             if (entity instanceof LivingEntity livingEntity) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && serverPlayer.isCreative()) continue;
                 boolean hasLos = Vec3Helper.isInAngle(livingEntity, this.getEyePosition(), 90) && this.hasLineOfSight(livingEntity);
@@ -176,35 +179,39 @@ public class SCP173 extends SCPEntity {
             }
         }
 
-        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(32))) {
+        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64), (e) -> e instanceof LivingEntity livingEntity && livingEntity.isAlive() && !(e instanceof ArmorStand) && !(e instanceof ServerPlayer player && player.isCreative()))) {
+            LivingEntity livingEntity = (LivingEntity) entity;
             if (entity instanceof SCP131 scp131 && scp131.hasLineOfSight(this)) {
                 break;
             } else {
-                if (entity instanceof ServerPlayer player && !player.isCreative()) {
-                    if (this.getTarget() != null) {
-                        if (this.getTarget() != player) {
-                            if (this.getTarget().distanceTo(this) > this.getTarget().distanceTo(entity)) {
-                                this.setTarget(player);
-                            }
-                            continue;
+                LivingEntity target = this.getTarget();
+                if (target != null && target.isDeadOrDying()) {
+                    this.setTarget(null);
+                }
+                if (target != null) {
+                    if (target != livingEntity) {
+                        if (this.distanceTo(target) > this.distanceTo(livingEntity)) {
+                            this.setTarget(livingEntity);
                         }
-                    } else {
-                        this.setTarget(player);
+                        continue;
                     }
-                    if (blink && !player.hasEffect(MobEffects.BLINDNESS)) {
-                        if (this.blinkTick + 100 < this.tickCount) {
-                            this.blinkTick = this.tickCount;
-                            toBlink.forEach(sPlayer -> ModMessages.sendToPlayer(new BlinkS2CPacket(true), sPlayer));
-                            this.teleportTowards(player, 20);
-                            this.checkAndPerformAttack(player, this.distanceToSqr(player));
-                        }
-                    } else {
-                        if (this.blinkTick + 8 < this.tickCount) {
-                            this.blinkTick = this.tickCount;
-                            this.teleportTowards(player, 5);
+                } else {
+                    this.setTarget(livingEntity);
+                }
+                if (blink && !livingEntity.hasEffect(MobEffects.BLINDNESS)) {
+                    if (this.blinkTick + 100 < this.tickCount) {
+                        this.blinkTick = this.tickCount;
+                        toBlink.forEach(serverPlayer -> ModMessages.sendToPlayer(new BlinkS2CPacket(true), serverPlayer));
+                        this.teleportTowards(livingEntity, 20);
+                        this.checkAndPerformAttack(livingEntity, this.distanceToSqr(livingEntity));
+                    }
+                } else {
+                    if (this.blinkTick + 8 < this.tickCount) {
+                        this.blinkTick = this.tickCount;
+                        this.teleportTowards(livingEntity, 5);
+                        if (livingEntity instanceof Player player)
                             SCPAdvancements.grant(player, SCPAdvancements.IT_MOVES);
-                            this.checkAndPerformAttack(player, this.distanceToSqr(player));
-                        }
+                        this.checkAndPerformAttack(livingEntity, this.distanceToSqr(livingEntity));
                     }
                 }
             }
