@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "scprotect:block/caution_traffic_block",
-    "side": "scprotect:block/caution_traffic_block",
-    "top": "scprotect:block/caution_traffic_block"
-  }
-}

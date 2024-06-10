@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "category": "misc",
+  "ingredient": {
+    "item": "scprotect:entrance_zone_concrete_border"
+  },
+  "result": "scprotect:entrance_zone_concrete_striped",
+  "count": 1
+}

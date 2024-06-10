@@ -151,12 +151,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         stairBlock(FacilityBlocks.REINFORCED_CONCRETE_STAIRS, FacilityBlocks.REINFORCED_CONCRETE);
         slabBlock(FacilityBlocks.REINFORCED_CONCRETE_SLAB, FacilityBlocks.REINFORCED_CONCRETE);
-
-        stairBlock(FacilityBlocks.CAUTION_HAZARD_STAIRS, FacilityBlocks.CAUTION_HAZARD_BLOCK);
-        slabBlock(FacilityBlocks.CAUTION_HAZARD_SLAB, FacilityBlocks.CAUTION_HAZARD_BLOCK);
-
-        stairBlock(FacilityBlocks.CAUTION_TRAFFIC_STAIRS, FacilityBlocks.CAUTION_TRAFFIC_BLOCK);
-        slabBlock(FacilityBlocks.CAUTION_TRAFFIC_SLAB, FacilityBlocks.CAUTION_TRAFFIC_BLOCK);
     }
 
     private void stairBlock(RegistryObject<Block> block, RegistryObject<Block> ogBlock) {

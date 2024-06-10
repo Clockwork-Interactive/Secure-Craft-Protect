@@ -146,7 +146,7 @@ public class FacilityBlocks {
             () -> new FenceBlock(BlockBehaviour.Properties.copy(FacilityBlocks.DIRTY_METAL.get())));
 
     public static final RegistryObject<Block> GRATE_BLOCK = registerBlock("grate_block",
-            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).noOcclusion()));
 
     public static final RegistryObject<Block> FILECABINET = registerBlock("file_cabinet", () ->
             new FileCabinetBlock(BlockBehaviour.Properties.of().strength(1.8F).sound(SoundType.METAL)));
@@ -187,20 +187,8 @@ public class FacilityBlocks {
     public static final RegistryObject<Block> CAUTION_HAZARD_BLOCK = registerBlock("caution_hazard_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.NETHERITE_BLOCK)));
 
-    public static final RegistryObject<Block> CAUTION_HAZARD_STAIRS = registerBlock("caution_hazard_stairs",
-            () -> new StairBlock(() -> FacilityBlocks.CAUTION_HAZARD_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.copy(FacilityBlocks.CAUTION_HAZARD_BLOCK.get())));
-
-    public static final RegistryObject<Block> CAUTION_HAZARD_SLAB = registerBlock("caution_hazard_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(FacilityBlocks.CAUTION_HAZARD_BLOCK.get())));
-
     public static final RegistryObject<Block> CAUTION_TRAFFIC_BLOCK = registerBlock("caution_traffic_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.NETHERITE_BLOCK)));
-
-    public static final RegistryObject<Block> CAUTION_TRAFFIC_STAIRS = registerBlock("caution_traffic_stairs",
-            () -> new StairBlock(() -> FacilityBlocks.CAUTION_TRAFFIC_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.copy(FacilityBlocks.CAUTION_TRAFFIC_BLOCK.get())));
-
-    public static final RegistryObject<Block> CAUTION_TRAFFIC_SLAB = registerBlock("caution_traffic_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(FacilityBlocks.CAUTION_TRAFFIC_BLOCK.get())));
 
     // Doors
 

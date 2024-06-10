@@ -2,19 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "group": "item",
-  "key": {
-    "a": {
+  "ingredients": [
+    {
       "item": "minecraft:bricks"
     },
-    "b": {
+    {
       "item": "minecraft:white_dye"
     }
-  },
-  "pattern": [
-    "a",
-    "b"
   ],
   "result": {
-    "item": "scprotect:cement_bricks"
+    "item": "scprotect:cement_bricks",
+    "count": 1
   }
 }

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "category": "misc",
-  "ingredient": {
-    "item": "scprotect:floor_concrete"
-  },
-  "result": "scprotect:floor_concrete_stairs",
-  "count": 1
-}
