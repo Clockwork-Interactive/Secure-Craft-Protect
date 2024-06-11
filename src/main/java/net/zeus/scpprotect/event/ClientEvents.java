@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -23,6 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.refractionapi.refraction.quest.client.ClientQuestInfo;
 import net.refractionapi.refraction.quest.points.LocationPoint;
+import net.refractionapi.refraction.runnable.PriorityTicker;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.effect.SCPEffects;
@@ -35,43 +37,36 @@ import java.awt.*;
 @Mod.EventBusSubscriber(modid = SCP.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 
-    private static boolean markedNods = false;
-    private static boolean markedAmnesia = false;
     public static int clientTick = 0;
+    private static final ResourceLocation EMPTY = new ResourceLocation("empty");
+    private static final ResourceLocation MOTION_BLUR = new ResourceLocation(SCP.MOD_ID, "shader/motion_blur.json");
+    private static final ResourceLocation BLUR = new ResourceLocation(SCP.MOD_ID, "shader/blur.json");
+    private static final ResourceLocation NODS = new ResourceLocation(SCP.MOD_ID, "shader/nods.json");
+    private static ResourceLocation currentShader = EMPTY;
+    private static final PriorityTicker<Player> tickable = new PriorityTicker<>() {{
+        addTask(0, (player) -> player.hasEffect(SCPEffects.CORROSION.get()), (player) -> currentShader = MOTION_BLUR);
+        addTask(1, (player) -> player.hasEffect(SCPEffects.AMNESIA.get()), (player) -> currentShader = BLUR);
+        addTask(2, (player) -> player.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get()), (player) -> currentShader = NODS);
+        sideTask((player) -> {
+            PostChain currentEffect = Minecraft.getInstance().gameRenderer.currentEffect();
+            if ((currentEffect == null || !currentEffect.getName().equals(currentShader.toString())) && !currentShader.equals(EMPTY)) {
+                Minecraft.getInstance().gameRenderer.loadEffect(currentShader);
+            }
+        });
+        onNoTask((player) -> {
+            Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
+            currentShader = EMPTY;
+        });
+    }};
 
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
         Player player = Minecraft.getInstance().player;
+
         if (player != null) {
-            // Holy shit, this is a mess. TODO refactor this. -- Zeus
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(SCPItems.NODS.get()) && !player.hasEffect(SCPEffects.AMNESIA.get())) {
-                if (!markedNods) {
-                    markedNods = true;
-                    Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation(SCP.MOD_ID, "shader/nods.json"));
-                }
-            } else if (markedNods) {
-                markedNods = false;
-                Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
-            }
-
-            if (player.hasEffect(SCPEffects.AMNESIA.get())) {
-                if (!markedAmnesia) {
-                    Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
-                    markedAmnesia = true;
-                    Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation(SCP.MOD_ID, "shader/blur.json"));
-                }
-            } else if (markedAmnesia) {
-                markedAmnesia = false;
-                markedNods = false;
-                Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
-            }
-
-            if (player.hasEffect(SCPEffects.CORROSION.get())) {
-                Minecraft.getInstance().gameRenderer.checkEntityPostEffect(null);
-                Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation(SCP.MOD_ID, "shader/motion_blur.json"));
-            }
-
+            tickable.tick(player);
         }
+
         if (event.phase.equals(TickEvent.Phase.END)) return;
         clientTick++;
         if (PlayerClientData.vignetteTick > 0) {

@@ -160,7 +160,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     public void tick() {
         if (!level().isClientSide) {
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
-                this.setClimbing(this.horizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir());
+                this.setClimbing(this.horizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir() && this.getTarget() != null);
             }
             if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
@@ -186,10 +186,10 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         this.addDefault("idle", IDLE_ANIMATION);
         this.addContinuous(0, "climbing", CLIMBING_ANIMATION, (state) -> this.isClimbing());
-        this.addContinuous(1, "sitting", SITTING_ANIMATION, (state) -> this.entityData.get(SITTING));
-        this.addContinuous(2, "triggered", TRIGGERED_ANIMATION, (state) -> !this.isDefaultCharge() && !this.isTriggered());
-        this.addContinuous(3, "running", RUNNING_ANIMATION, (state) -> this.isTriggered() && state.isMoving());
-        this.addContinuous(4, "walking", WALKING_ANIMATION, (state -> Vec3Helper.isEntityMovingClient(this)));
+        this.addContinuous(1, "triggered", TRIGGERED_ANIMATION, (state) -> !this.isDefaultCharge() && !this.isTriggered());
+        this.addContinuous(2, "running", RUNNING_ANIMATION, (state) -> this.isTriggered() && state.isMoving());
+        this.addContinuous(3, "walking", WALKING_ANIMATION, (state) -> Vec3Helper.isEntityMovingClient(this));
+        this.addContinuous(4, "sitting", SITTING_ANIMATION, (state) -> this.entityData.get(SITTING));
 
         controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> PlayState.STOP)
                 .triggerableAnim("triggered", TRIGGERED_ANIMATION)

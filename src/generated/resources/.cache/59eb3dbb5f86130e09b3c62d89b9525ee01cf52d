@@ -1,4 +1,5 @@
-// 1.20.1	2024-06-06T10:18:00.7045916	Loot Tables
+// 1.20.1	2024-06-10T19:57:34.5571667	Loot Tables
+3a1186f4e4a8d2a749042a1de93383244bff90a3 data/scprotect/loot_tables/blocks/containment_block.json
 da61f3446ed91483f23282ac41c0ad52eede3403 data/scprotect/loot_tables/blocks/lavender.json
 4dc0909f216b9768cb521a3b0930e75c2edfebd9 data/scprotect/loot_tables/blocks/scp_019.json
 b5f14f7b775a2ce887474f7c63393068e538f626 data/scprotect/loot_tables/blocks/scp_310.json

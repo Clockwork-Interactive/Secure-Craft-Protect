@@ -140,7 +140,7 @@ public class CommonForgeEvents {
         if (!player.level().isClientSide) {
 
             player.level().getEntities(player, player.getBoundingBox().inflate(12.0F), entity -> entity instanceof Anomaly).forEach(entity -> {
-                if (Vec3Helper.isInAngle(player, entity.getEyePosition(), 90)) {
+                if (Vec3Helper.isInAngle(player, entity.getEyePosition(), 90) && player.hasLineOfSight(entity)) {
                     SCPCriteriaTriggers.SEEN.trigger((ServerPlayer) player, entity);
                 }
             });
@@ -149,8 +149,8 @@ public class CommonForgeEvents {
             if (scp106Dim != null && player.level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
                 if (player.distanceToSqr(0, 0, 0) >= 49) {
-                    SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(8) == 0 ? player.blockPosition() : null : SCP106Escape;
-                    boolean live = SCP106Escape != null && SCP106Escape.distSqr(player.blockPosition()) <= 0.1F;
+                    SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(1) == 0 ? player.blockPosition() : null : SCP106Escape;
+                    boolean live = SCP106Escape != null && Math.sqrt(SCP106Escape.distSqr(player.blockPosition())) <= 1.5F;
                     if (!live) {
                         player.kill();
                     } else {
@@ -162,6 +162,7 @@ public class CommonForgeEvents {
                             }
                             SoundUtil.playLocalSound(player, SCPSounds.POCKET_DIMENSION_EXIT.get());
                             SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
+                            player.fallDistance = 0.0F;
                             player.teleportTo(homeDim, scpData.scp106TakenPos.getX(), scpData.scp106TakenPos.getY(), scpData.scp106TakenPos.getZ(), Set.of(), player.getYRot(), player.getXRot());
                         });
                     }
@@ -200,11 +201,7 @@ public class CommonForgeEvents {
         ServerLevel scp106Dim = Objects.requireNonNull(event.getEntity().level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
         if (event.isCancelable() && scp106Dim != null && event.getEntity().level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
             event.setCanceled(true);
-            return;
         }
-//        if (event.getEntity() instanceof Player player && event.getPlacedBlock().getBlock().equals(SCPBlocks.MAGNETIZED_BLOCK.get())) {
-//            SCPAdvancements.grant(player, SCPAdvancements.NO_MANS_LAND);
-//        }
     }
 
     @SubscribeEvent

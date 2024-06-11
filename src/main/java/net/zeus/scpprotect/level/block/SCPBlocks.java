@@ -109,8 +109,8 @@ public class SCPBlocks {
     // Functional
 
     public static final RegistryObject<Block> CONTAINMENT_BLOCK = registerBlock("containment_block",
-            () -> new ContainmentBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).noLootTable().sound(SoundType.NETHERITE_BLOCK)
-                    .strength(3.0F)));
+            () -> new ContainmentBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.NETHERITE_BLOCK)
+                    .strength(2.0F)));
 
     public static final RegistryObject<Block> MAGNETIZED_BLOCK = registerBlock("magnetized_block",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.NETHERITE_BLOCK).noLootTable()

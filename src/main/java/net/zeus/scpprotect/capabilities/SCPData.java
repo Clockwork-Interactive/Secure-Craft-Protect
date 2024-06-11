@@ -11,7 +11,7 @@ public class SCPData extends Data<SCPData> {
 
     public int candiesTaken = 0;
     public BlockPos scp106TakenPos = BlockPos.ZERO;
-    public ResourceLocation scp106TakenDim = new ResourceLocation("minecraft:overworld");
+    public ResourceLocation scp106TakenDim = new ResourceLocation("overworld");
 
     @Override
     public void saveNBTData(CompoundTag compoundTag) {
