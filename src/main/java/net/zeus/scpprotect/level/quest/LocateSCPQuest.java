@@ -78,10 +78,6 @@ public class LocateSCPQuest extends Quest {
     public List<AnomalyType<?, ?>> getSCPs() {
         return new ArrayList<>() {{
             addAll(AnomalyRegistry.ANOMALY_TYPES.values());
-            remove(AnomalyRegistry.REBEL); // Sorry Rebel :(
-            remove(AnomalyRegistry.SCP_3199_EGG);
-            remove(AnomalyRegistry.SCP_049_2);
-            remove(AnomalyRegistry.SCP_019_2);
             removeIf((type) -> { // Remove discovered SCPs 🥰 (I don't like this idea, but whatever -- Zeus)
                 AtomicBoolean remove = new AtomicBoolean(false);
                 if (type instanceof EntityAnomalyType<?> entityAnomalyType) {
