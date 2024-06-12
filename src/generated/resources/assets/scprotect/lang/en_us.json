@@ -180,5 +180,8 @@
   "sounds.scprotect.scp_096_running": "SCP-096 is running!",
   "sounds.scprotect.scp_096_seen": "You've looked at it...",
   "sounds.scprotect.scp_096_triggered": "SCP-096 is triggered nearby!",
-  "sounds.scprotect.scp_109_pour": "Someone has poured SCP-109!"
+  "sounds.scprotect.scp_109_pour": "Someone has poured SCP-109!",
+  "tooltip.scprotect.awcy": "Use on certain SCPs to change variants",
+  "tooltip.scprotect.hairbrush": "Use to tame SCP-811",
+  "tooltip.scprotect.wrench": "Put in offhand to change Keycard Reader level"
 }

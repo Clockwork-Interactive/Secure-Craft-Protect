@@ -42,6 +42,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             }
         }
         handHeldItem(SCPItems.HAIRBRUSH);
+        handHeldItem(SCPItems.WRENCH);
 
         blockItemWithTexture(FacilityBlocks.EZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/ez_door"));
         blockItemWithTexture(FacilityBlocks.LCZ_DOOR, new ResourceLocation(SCP.MOD_ID, "item/lcz_door"));

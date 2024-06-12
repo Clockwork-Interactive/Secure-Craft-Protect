@@ -144,6 +144,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add("creativemodetab.securecraftprotecttab.entities", "Secure Craft Protect Entities");
         add("creativemodetab.securecraftprotecttab.items", "Secure Craft Protect Items");
 
+        add("tooltip.scprotect.wrench", "Put in offhand to change Keycard Reader level");
+        add("tooltip.scprotect.awcy", "Use on certain SCPs to change variants");
+        add("tooltip.scprotect.hairbrush", "Use to tame SCP-811");
+
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
         addDamageType(SCPDamageTypes.SCP_939_DAMAGE, "%1$s died to unknown causes...", "%1$s died to unknown causes while fighting %2$s");

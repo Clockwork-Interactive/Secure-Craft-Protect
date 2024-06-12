@@ -1,8 +1,10 @@
 package net.zeus.scpprotect.level.item.scp;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +22,6 @@ import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
 public class SCP063 extends Item implements Anomaly {
-
     public SCP063(Properties pProperties) {
         super(pProperties);
     }
@@ -35,9 +36,12 @@ public class SCP063 extends Item implements Anomaly {
         if (!pLevel.isClientSide) {
             HitResult hitResult = this.calculateHitResult(pLivingEntity);
             if (hitResult instanceof BlockHitResult blockHitResult) {
-                BlockState blockState = pLevel.getBlockState(blockHitResult.getBlockPos());
-                if (blockState.getBlock().defaultDestroyTime() >= 0.0F)
-                    pLevel.setBlockAndUpdate(blockHitResult.getBlockPos(), Blocks.AIR.defaultBlockState());
+                BlockPos pos = blockHitResult.getBlockPos();
+                BlockState blockState = pLevel.getBlockState(pos);
+                if (blockState.getBlock().defaultDestroyTime() >= 0.0F) {
+                    pLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                    pLevel.playSound(null, pos, blockState.getSoundType().getBreakSound(), SoundSource.BLOCKS);
+                }
             }
         }
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
@@ -88,5 +92,4 @@ public class SCP063 extends Item implements Anomaly {
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.SAFE;
     }
-
 }

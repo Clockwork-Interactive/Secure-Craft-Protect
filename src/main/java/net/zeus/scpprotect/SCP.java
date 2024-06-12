@@ -111,10 +111,6 @@ public class SCP {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModMessages.register();
-//            BrewingRecipeRegistry.addRecipe(
-//                    Ingredient.of(Items.GLASS_BOTTLE),
-//                    Ingredient.of(SCPItems.LAVENDER.get()),
-//                    PotionUtils.setPotion(new ItemStack(Items.POTION), SCPPotions.PACIFICATION.get()));
         });
     }
 }

@@ -1,5 +1,7 @@
 package net.zeus.scpprotect.level.item;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -25,11 +27,11 @@ public class SCPItems {
 
     // SCP ITEMS
     public static final RegistryObject<Item> SCP_006_BUCKET = ITEMS.register("scp_006_bucket", () -> new SCP006BucketItem(SCPFluids.SOURCE_SCP_006, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_063 = ITEMS.register("scp_063", () -> new SCP063(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_500 = ITEMS.register("scp_500", () -> new SCP500Pill(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> SCP_1025 = ITEMS.register("scp_1025", () -> new SCP1025(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_109 = ITEMS.register("scp_109", () -> new SCP109(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_207 = ITEMS.register("scp_207", () -> new SCP207(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> SCP_063 = ITEMS.register("scp_063", () -> new SCP063(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CANDY_RED = ITEMS.register("red_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_BLUE = ITEMS.register("blue_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_GREEN = ITEMS.register("green_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
@@ -63,7 +65,7 @@ public class SCPItems {
     // MISC
     public static final RegistryObject<Item> ODD_CLAW = ITEMS.register("odd_claw", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ODD_CLIMBERS = ITEMS.register("odd_climbers", () -> new Item(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new TooltipItem(new Item.Properties().stacksTo(1), Component.translatable("tooltip.scprotect.hairbrush").withStyle(ChatFormatting.GRAY)));
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(SCPBlocks.LAVENDER.get(), new Item.Properties()));
     public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_999_BUCKET = ITEMS.register("scp_999_bucket", () -> new SCP999BucketItem(SCPEntities.SCP_999, () -> Fluids.EMPTY, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().stacksTo(1))));
@@ -71,7 +73,7 @@ public class SCPItems {
     public static final RegistryObject<Item> CONTAINMENT_CAGE = ITEMS.register("containment_cage", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> POLAROID = ITEMS.register("polaroid", () -> new Polaroid(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ARROW = ITEMS.register("arrow", () -> new InstantDeleteItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench", () -> new TooltipItem(new Item.Properties().stacksTo(1), Component.translatable("tooltip.scprotect.wrench").withStyle(ChatFormatting.GRAY)));
     public static final RegistryObject<Item> REALITY_SCANNER = ITEMS.register("reality_scanner", () -> new RealityScanner(new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<Item> LEVEL_1_KEYCARD = ITEMS.register("keycard_1", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEVEL_2_KEYCARD = ITEMS.register("keycard_2", () -> new Item(new Item.Properties().stacksTo(1)));
