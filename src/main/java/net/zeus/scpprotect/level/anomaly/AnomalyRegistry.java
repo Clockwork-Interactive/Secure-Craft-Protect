@@ -1,6 +1,7 @@
 package net.zeus.scpprotect.level.anomaly;
 
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
@@ -11,6 +12,7 @@ import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.entities.*;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 
 import java.util.HashMap;
 
@@ -50,7 +52,13 @@ public class AnomalyRegistry {
      * Item SCPs
      */
     public static final ItemAnomalyType<Item> SCP_006_BUCKET = new ItemAnomalyType<>(SCPItems.SCP_006_BUCKET, SCP.SCPTypes.SAFE);
-    public static final ItemAnomalyType<Item> SCP_500_PILL = new ItemAnomalyType<>(SCPItems.SCP_500, SCP.SCPTypes.SAFE);
+    public static final ItemAnomalyType<Item> SCP_500_PILL = new ItemAnomalyType<>(SCPItems.SCP_500, () -> {
+        ItemStack bottle = new ItemStack(SCPItems.SCP_500_BOTTLE.get());
+        ItemStack pills = new ItemStack(SCPItems.SCP_500.get());
+        pills.setCount(16);
+        SCP500Bottle.add(bottle, pills);
+        return bottle;
+    }, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_1025 = new ItemAnomalyType<>(SCPItems.SCP_1025, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_109 = new ItemAnomalyType<>(SCPItems.SCP_109, SCP.SCPTypes.EUCLID);
     public static final ItemAnomalyType<Item> SCP_207 = new ItemAnomalyType<>(SCPItems.SCP_207, SCP.SCPTypes.EUCLID);

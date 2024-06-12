@@ -64,7 +64,7 @@ public class SCP500Bottle extends BundleItem implements DataGenObj {
         }
     }
 
-    private static int add(ItemStack pBundleStack, ItemStack pInsertedStack) {
+    public static int add(ItemStack pBundleStack, ItemStack pInsertedStack) {
         if (!pInsertedStack.isEmpty() && pInsertedStack.getItem().canFitInsideContainerItems()) {
             CompoundTag compoundtag = pBundleStack.getOrCreateTag();
             if (!compoundtag.contains("Items")) {

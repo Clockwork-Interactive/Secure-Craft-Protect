@@ -15,8 +15,15 @@ import java.util.function.Supplier;
 
 public class ItemAnomalyType<E extends Item> extends AnomalyType<Supplier<E>, ItemStack> {
 
+    public Supplier<ItemStack> itemized;
+
     public ItemAnomalyType(Supplier<E> type, SCP.SCPTypes scptypes) {
         super(type, scptypes);
+    }
+
+    public ItemAnomalyType(Supplier<E> type, Supplier<ItemStack> itemized, SCP.SCPTypes scptypes) {
+        super(type, scptypes);
+        this.itemized = itemized;
     }
 
     @Override
@@ -39,6 +46,7 @@ public class ItemAnomalyType<E extends Item> extends AnomalyType<Supplier<E>, It
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <R extends ItemStack> R createContained(Level level, Vec3 pos) {
         BlockPos spawn = BlockPos.containing(pos);
         level.setBlock(spawn, SCPBlocks.CONTAINMENT_BLOCK.get().defaultBlockState(), 3);
@@ -51,7 +59,7 @@ public class ItemAnomalyType<E extends Item> extends AnomalyType<Supplier<E>, It
 
     @Override
     public ItemStack getItemized() {
-        return new ItemStack(this.type.get());
+        return this.itemized != null ? this.itemized.get() : new ItemStack(this.type.get());
     }
 
 }

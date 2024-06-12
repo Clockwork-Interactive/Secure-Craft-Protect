@@ -45,6 +45,7 @@ import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.blocks.SculptureExcrement;
 import net.zeus.scpprotect.level.entity.goals.navigation.AnomalyNavigation;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.BlinkS2CPacket;
@@ -187,7 +188,7 @@ public class SCP173 extends SCPEntity {
             }
         }
 
-        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64), (e) -> e instanceof LivingEntity livingEntity && livingEntity.isAlive() && !(e instanceof ArmorStand) && !(e instanceof ServerPlayer player && (player.isCreative() || player.isSpectator())))) {
+        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64), (e) -> e instanceof LivingEntity livingEntity && livingEntity.canBeSeenAsEnemy() && livingEntity.isAlive() && !(e instanceof ArmorStand || e instanceof ContainmentBox))) {
             LivingEntity livingEntity = (LivingEntity) entity;
             if (entity instanceof SCP131 scp131 && scp131.hasLineOfSight(this)) {
                 break;
