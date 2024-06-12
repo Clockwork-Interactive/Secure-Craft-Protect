@@ -29,6 +29,7 @@ public class SCPItems {
     public static final RegistryObject<Item> SCP_1025 = ITEMS.register("scp_1025", () -> new SCP1025(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_109 = ITEMS.register("scp_109", () -> new SCP109(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_207 = ITEMS.register("scp_207", () -> new SCP207(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_063 = ITEMS.register("scp_063", () -> new SCP063(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CANDY_RED = ITEMS.register("red_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_BLUE = ITEMS.register("blue_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));
     public static final RegistryObject<Item> CANDY_GREEN = ITEMS.register("green_candy", () -> new Item(new Item.Properties().stacksTo(16).food(SCPFoods.CANDY)));

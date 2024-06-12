@@ -88,6 +88,9 @@ public class SoundProvider extends SoundDefinitionsProvider {
         addSound(SCPSounds.POCKET_DIMENSION_AMBIENCE, create("entity/scp_106/pocket_dimension_ambience"));
         addSound(SCPSounds.SCP_106_KILL, create("entity/scp_106/scp_106_kill"));
 
+        // SCP 063
+        addSound(SCPSounds.SCP_063, create("item/scp_063/scp_063"));
+
         // Doors
 
         addSound(SCPSounds.EZ_DOOR_CLOSE, create("block/doors/ez_door_close"));

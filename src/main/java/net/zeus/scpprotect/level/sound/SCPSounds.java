@@ -67,6 +67,8 @@ public class SCPSounds {
     // Blocks
     public static final RegistryObject<SoundEvent> PD_WALK = registerSoundEvent("pocket_dimension_step");
 
+    // Items
+    public static final RegistryObject<SoundEvent> SCP_063 = registerSoundEvent("scp_063");
 
     private static RegistryObject<SoundEvent> registerDistanceSoundEvent(String name, float distance) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(new ResourceLocation(SCP.MOD_ID, name), distance));
