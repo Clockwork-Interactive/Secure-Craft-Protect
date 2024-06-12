@@ -26,6 +26,7 @@ public class PlayLocalSeenSoundS2C extends Packet {
     @Override
     public void handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
+            assert Minecraft.getInstance().player != null;
             Minecraft.getInstance().getSoundManager().play(new EntityBoundSoundInstance(SCPSounds.SCP_096_SEEN.get(), SoundSource.AMBIENT, 1.0F, 1.0F, Minecraft.getInstance().player, RandomSource.create().nextLong()));
         });
         context.setPacketHandled(true);

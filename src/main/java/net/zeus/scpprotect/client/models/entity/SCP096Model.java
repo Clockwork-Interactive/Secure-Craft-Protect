@@ -4,29 +4,32 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
 import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
-import software.bernie.geckolib.core.animation.AnimationState;
+
+import java.util.HashMap;
 
 public class SCP096Model extends DefaultGeoBiPedalModel<SCP096> {
-    public Running096TickableSound tickableSoundRunning = null;
+    public HashMap<SCP096, Running096TickableSound> SOUNDS = new HashMap<>();
 
     @Override
     public String model(int process, SCP096 animatable) {
         Player player = Minecraft.getInstance().player;
-        if (player == null) return "scp_096";
-        if (animatable.isTriggered() && animatable.isAlive() && animatable.distanceTo(player) < 30.0F) {
-            if (this.tickableSoundRunning == null) {
-                this.tickableSoundRunning = new Running096TickableSound(animatable);
+        if (player == null || animatable == null) return "scp_096";
+        if (animatable.isTriggered() && animatable.isAlive() && animatable.distanceTo(player) <= 32.0F) {
+            if (!this.SOUNDS.containsKey(animatable)) {
+                this.SOUNDS.put(animatable, new Running096TickableSound(animatable));
             }
-            if (!this.tickableSoundRunning.isPlaying) {
+            Running096TickableSound tickableSoundRunning = this.SOUNDS.get(animatable);
+            if (!tickableSoundRunning.isPlaying) {
                 Minecraft minecraft = Minecraft.getInstance();
-                minecraft.getSoundManager().play(this.tickableSoundRunning);
-                this.tickableSoundRunning.isPlaying = true;
+                minecraft.getSoundManager().play(tickableSoundRunning);
+                tickableSoundRunning.isPlaying = true;
             }
         } else {
-            if (this.tickableSoundRunning != null) {
-                this.tickableSoundRunning.isPlaying = false;
-                this.tickableSoundRunning.stopped = true;
-                this.tickableSoundRunning = null;
+            if (this.SOUNDS.containsKey(animatable) && this.SOUNDS.get(animatable).isPlaying) {
+                Running096TickableSound tickableSoundRunning = this.SOUNDS.get(animatable);
+                tickableSoundRunning.isPlaying = false;
+                tickableSoundRunning.stopped = true;
+                this.SOUNDS.remove(animatable);
             }
         }
 

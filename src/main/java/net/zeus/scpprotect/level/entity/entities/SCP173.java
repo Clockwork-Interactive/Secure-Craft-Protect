@@ -23,6 +23,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -43,11 +44,13 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.blocks.SculptureExcrement;
+import net.zeus.scpprotect.level.entity.goals.navigation.AnomalyNavigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.BlinkS2CPacket;
 import net.zeus.scpprotect.networking.S2C.PlayLocalSoundS2C;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
+import net.zeus.scpprotect.util.Misc;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -149,6 +152,11 @@ public class SCP173 extends SCPEntity {
 
     public SCP173Types get173Type() {
         return SCP173Types.values()[this.entityData.get(TYPE)];
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level pLevel) {
+        return new AnomalyNavigation(this, pLevel);
     }
 
     @Override
@@ -286,7 +294,7 @@ public class SCP173 extends SCPEntity {
                     for (int i = 0; i < path.getNodeCount(); ++i) {
                         Node node1 = path.getNode(i);
                         doorPos = new BlockPos(node1.x, node1.y + 1, node1.z);
-                        if (this.level().getBlockState(doorPos).getBlock() instanceof DoorBlock && DoorBlock.isWoodenDoor(this.level().getBlockState(doorPos))) {
+                        if (Misc.isDoor(this.level(), doorPos)) {
                             hasDoor = true;
                             break;
                         }

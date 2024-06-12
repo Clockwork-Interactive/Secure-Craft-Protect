@@ -37,6 +37,7 @@ import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
+import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
 
 @Mod(SCP.MOD_ID)
@@ -109,7 +110,7 @@ public class SCP {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-//            ModMessages.register();
+            ModMessages.register();
 //            BrewingRecipeRegistry.addRecipe(
 //                    Ingredient.of(Items.GLASS_BOTTLE),
 //                    Ingredient.of(SCPItems.LAVENDER.get()),

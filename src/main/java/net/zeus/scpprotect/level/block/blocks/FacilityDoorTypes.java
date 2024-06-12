@@ -61,4 +61,5 @@ public record FacilityDoorTypes(String name, boolean canOpenByHand, SoundType so
         LIGHT = register(new FacilityDoorTypes("light", false, SoundType.METAL, SCPSounds.LCZ_DOOR_CLOSE.get(), SCPSounds.LCZ_DOOR_OPEN.get()));
         HEAVY = register(new FacilityDoorTypes("heavy", false, SoundType.STONE, SCPSounds.HCZ_DOOR_CLOSE.get(), SCPSounds.HCZ_DOOR_OPEN.get()));
     }
+
 }

@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
+import net.refractionapi.refraction.sound.SoundUtil;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
@@ -38,6 +39,7 @@ import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
+import net.zeus.scpprotect.level.entity.goals.navigation.AnomalyNavigation;
 import net.zeus.scpprotect.level.entity.goals.navigation.SCP096Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
@@ -78,6 +80,9 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BYTE);
     public static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     public SCP096LookForPlayerGoal lookForPlayerGoal;
+
+    private AnomalyNavigation regularNavigation;
+    private SCP096Navigation scp096Navigation;
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -152,15 +157,16 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     @Override
     public boolean doHurtTarget(Entity pEntity) {
         if (pEntity instanceof LivingEntity livingEntity)
-            pEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.SCP_096_DAMAGE, this), livingEntity.getMaxHealth());
+            pEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.SCP_096_DAMAGE, this), livingEntity.getMaxHealth() * 2);
         return true;
     }
 
     @Override
     public void tick() {
         if (!level().isClientSide) {
+            LivingEntity target = this.getTarget();
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
-                this.setClimbing(this.horizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir() && this.getTarget() != null);
+                this.setClimbing(this.horizontalCollision && !this.minorHorizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir() && target != null && target.getY() - this.getY() >= 2.0D);
             }
             if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
@@ -241,7 +247,17 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return new SCP096Navigation(this, pLevel);
+        this.regularNavigation = new AnomalyNavigation(this, pLevel);
+        this.scp096Navigation = new SCP096Navigation(this, pLevel);
+        return this.regularNavigation;
+    }
+
+    @Override
+    public PathNavigation getNavigation() {
+        if (this.getTarget() != null && this.getTarget().getY() - this.getY() >= 2.0D) {
+            return this.scp096Navigation;
+        }
+        return super.getNavigation();
     }
 
     @Override
@@ -416,7 +432,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
                             return false;
                         }
 
-                        ModMessages.sendToPlayer(new PlayLocalSeenSoundS2C(), player);
+                        SoundUtil.playLocalSound(player, SCPSounds.SCP_096_SEEN.get());
                     }
                     if (entity instanceof Player player) {
                         SCPAdvancements.grant(player, SCPAdvancements.DONT_LOOK_AT_ME);

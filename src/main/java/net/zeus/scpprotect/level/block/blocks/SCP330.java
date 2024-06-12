@@ -49,13 +49,8 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
         pPlayer.getCapability(Capabilities.SCP_DATA).ifPresent(scpData -> {
             scpData.candiesTaken++;
 
-            WeightedRandom<List<Item>> random = new WeightedRandom<>() {{
-                add(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get()), 0.9677F);
-                add(List.of(SCPItems.CANDY_PINK.get()), 0.0323F);
-            }};
-
-            List<Item> items = random.get();
-            pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(items), 1));
+            List<Item> candies = List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get());
+            pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(candies), 1));
 
             if (scpData.candiesTaken > 2 && !pPlayer.isCreative()) {
                 scpData.candiesTaken = 0;

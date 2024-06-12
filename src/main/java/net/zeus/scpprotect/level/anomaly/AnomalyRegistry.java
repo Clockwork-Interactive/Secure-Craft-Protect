@@ -53,6 +53,8 @@ public class AnomalyRegistry {
     public static final ItemAnomalyType<Item> SCP_500_PILL = new ItemAnomalyType<>(SCPItems.SCP_500, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_1025 = new ItemAnomalyType<>(SCPItems.SCP_1025, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_109 = new ItemAnomalyType<>(SCPItems.SCP_109, SCP.SCPTypes.EUCLID);
+    public static final ItemAnomalyType<Item> SCP_207 = new ItemAnomalyType<>(SCPItems.SCP_207, SCP.SCPTypes.EUCLID);
+    public static final ItemAnomalyType<Item> SCP_063 = new ItemAnomalyType<>(SCPItems.SCP_063, SCP.SCPTypes.SAFE);
 
     // Static initializer, don't remove 🥰
     public static void init() { }

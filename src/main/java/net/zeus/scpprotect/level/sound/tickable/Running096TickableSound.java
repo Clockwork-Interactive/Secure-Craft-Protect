@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.sound.tickable;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +28,7 @@ public class Running096TickableSound extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        if (this.scp096.isRemoved() || this.stopped || !this.scp096.isTriggered()) {
+        if (this.scp096.isRemoved() || this.stopped) {
             this.stop();
             this.isPlaying = false;
         } else {
