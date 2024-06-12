@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,7 +16,10 @@ import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import org.jetbrains.annotations.NotNull;
 
+import static net.refractionapi.refraction.event.CommonForgeEvents.tag;
+
 public class SCP207 extends Item implements Anomaly, DataGenObj {
+    private int sips;
 
     public SCP207(Properties pProperties) {
         super(pProperties);
@@ -35,12 +39,14 @@ public class SCP207 extends Item implements Anomaly, DataGenObj {
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         CompoundTag tag = pStack.getOrCreateTag();
         if (!tag.contains("sips")) tag.putInt("sips", 0);
-        if (pLivingEntity instanceof Player player && !player.getAbilities().instabuild && tag.getInt("sips") != 4) {
+        sips = tag.getInt("sips");
+        if (pLivingEntity instanceof Player player && !player.getAbilities().instabuild && !(tag.getInt("sips") == 3)) {
             tag.putInt("sips", tag.getInt("sips") + 1);
-        } else {
+            pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, sips));
+            if (tag.getInt("sips") == 3)
+                pLivingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 600, 1));
+        } else if (tag.getInt("sips") == 3) {
             pStack.shrink(1);
-            pLivingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 600, 2));
-            pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 2));
         }
 
         return pStack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : pStack;

@@ -20,6 +20,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         horizontalBlockWithItem(FacilityBlocks.FILECABINET, true);
+        horizontalBlockWithItem(FacilityBlocks.IDENTIFIER, true);
         horizontalBlockWithItem(SCPBlocks.SCULPTURE_EXCREMENT, true);
         blockWithItem(SCPBlocks.AGED_BRICKS);
         blockWithItem(SCPBlocks.AGED_CONCRETE);

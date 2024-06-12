@@ -127,7 +127,7 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
             blockEntity.keycardLevel = (blockEntity.keycardLevel) % 5 + 1;
             pPlayer.displayClientMessage(Component.literal("Now Requires Level %d Keycards".formatted(blockEntity.keycardLevel)), true);
             blockEntity.setChanged();
-        } else if (this.needsKeycards && !blockEntity.locked) {
+        } else if (this.needsKeycards && !blockEntity.locked && !pPlayer.isCreative()) {
             int keycardLevel = blockEntity.keycardLevel;
             int currentKeycardLevel = KEYCARDS.entrySet().stream().filter(entry -> itemStack.is(entry.getKey().get())).mapToInt(HashMap.Entry::getValue).findFirst().orElse(-1);
             if (currentKeycardLevel >= keycardLevel || itemStack.is(SCPItems.LEVEL_OMNI_KEYCARD.get())) {

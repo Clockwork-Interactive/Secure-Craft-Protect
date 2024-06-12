@@ -21,6 +21,7 @@ import net.refractionapi.refraction.randomizer.WeightedRandom;
 import net.refractionapi.refraction.registry.block.BaseHorizontalEntityBlock;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.capabilities.Capabilities;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.block.SCPVoxelShapes;
 import net.zeus.scpprotect.level.block.entity.SCP330BlockEntity;
 import net.zeus.scpprotect.level.effect.SCPEffects;
@@ -49,8 +50,17 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
         pPlayer.getCapability(Capabilities.SCP_DATA).ifPresent(scpData -> {
             scpData.candiesTaken++;
 
-            List<Item> candies = List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get());
-            pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(candies), 1));
+            if (SCPServerConfig.PINK_CANDY_FROM_SCP_330.get()) {
+                WeightedRandom<List<Item>> random = new WeightedRandom<>() {{
+                    add(List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get()), 0.9677F);
+                    add(List.of(SCPItems.CANDY_PINK.get()), 0.0323F);
+                }};
+                List<Item> candies = random.get();
+                pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(candies), 1));
+            } else {
+                List<Item> candies = List.of(SCPItems.CANDY_RED.get(), SCPItems.CANDY_BLUE.get(), SCPItems.CANDY_GREEN.get(), SCPItems.CANDY_YELLOW.get(), SCPItems.CANDY_ORANGE.get(), SCPItems.CANDY_PURPLE.get());
+                pPlayer.getInventory().add(new ItemStack(RefractionMisc.getRandom(candies), 1));
+            }
 
             if (scpData.candiesTaken > 2 && !pPlayer.isCreative()) {
                 scpData.candiesTaken = 0;

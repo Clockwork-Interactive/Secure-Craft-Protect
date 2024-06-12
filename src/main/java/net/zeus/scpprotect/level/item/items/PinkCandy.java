@@ -40,7 +40,7 @@ public class PinkCandy extends Item {
 
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
         pEntityLiving.kill();
-        pLevel.explode(pEntityLiving, pEntityLiving.getX(), pEntityLiving.getY(), pEntityLiving.getZ(), 10, Level.ExplosionInteraction.TNT);
+        pLevel.explode(pEntityLiving, pEntityLiving.getX(), pEntityLiving.getY(), pEntityLiving.getZ(), 5, Level.ExplosionInteraction.MOB);
         return super.finishUsingItem(pStack, pLevel, pEntityLiving);
     }
 

@@ -12,6 +12,7 @@ import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.entities.*;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP207;
 import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 
 import java.util.HashMap;
@@ -61,7 +62,11 @@ public class AnomalyRegistry {
     }, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_1025 = new ItemAnomalyType<>(SCPItems.SCP_1025, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_109 = new ItemAnomalyType<>(SCPItems.SCP_109, SCP.SCPTypes.EUCLID);
-    public static final ItemAnomalyType<Item> SCP_207 = new ItemAnomalyType<>(SCPItems.SCP_207, SCP.SCPTypes.EUCLID);
+    public static final ItemAnomalyType<Item> SCP_207 = new ItemAnomalyType<>(SCPItems.SCP_207, () -> {
+        ItemStack bottles = new ItemStack(SCPItems.SCP_207.get());
+        bottles.setCount(24);
+        return bottles;
+    }, SCP.SCPTypes.SAFE);
     public static final ItemAnomalyType<Item> SCP_063 = new ItemAnomalyType<>(SCPItems.SCP_063, SCP.SCPTypes.SAFE);
 
     // Static initializer, don't remove 🥰

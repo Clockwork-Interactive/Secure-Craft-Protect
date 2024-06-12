@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-10T13:51:25.4893463	Block States: scprotect
+// 1.20.1	2024-06-12T16:07:58.850919	Block States: scprotect
 ffefaaed8f94ef42871d02da94781c728b17afb8 assets/scprotect/blockstates/aged_bricks.json
 3ad7d39d28197f8fad61de87aa7350677f53e4bd assets/scprotect/blockstates/aged_brick_slab.json
 aaee92c9bf1118adc6ee6a7a467fb1d9efe671c0 assets/scprotect/blockstates/aged_brick_stairs.json
@@ -25,6 +25,7 @@ cf219f5015108b2fae01d60bb8f3625cc6f97d7e assets/scprotect/blockstates/entrance_z
 8ab2cdc3395098ad6ec17e17f17407c3c99f83d5 assets/scprotect/blockstates/floor_concrete_slab.json
 c6436e24438d844fddae370703e6b75020a011cb assets/scprotect/blockstates/floor_concrete_stairs.json
 95d1fd912ab0eca5560815f78411f6833efcd3bf assets/scprotect/blockstates/gridded_metal_container.json
+d4ba2d773b6b4282d7279e5fb3517d0ef3393c08 assets/scprotect/blockstates/identifier.json
 a9afa5392d219aaa495007b3fcab15662f51a97e assets/scprotect/blockstates/lavender.json
 59265e5e50d09c67fd239f889f408373e448795b assets/scprotect/blockstates/light_containment_concrete.json
 187827e0912d014a82635db9bd63efd21883d0fc assets/scprotect/blockstates/light_containment_concrete_black_border.json
@@ -184,6 +185,7 @@ bd99c72b38cc213d2424cea0b482a5ed8587109a assets/scprotect/models/item/entrance_z
 c03c452a12e4a700fe369d90a89e8acabbb22fff assets/scprotect/models/item/floor_concrete_slab.json
 62f7124906a1451e28f377a9b02ba5552a659d81 assets/scprotect/models/item/floor_concrete_stairs.json
 f1651bf1dcf56c698edeea78eb92deed21a2d6d4 assets/scprotect/models/item/gridded_metal_container.json
+7d6eae6609809a6772a29274645b375393d1a54b assets/scprotect/models/item/identifier.json
 64bac913960b00345524a06eecd74396cb00d17f assets/scprotect/models/item/light_containment_concrete.json
 063c79b9c553012723affd99e9855d6fab00f790 assets/scprotect/models/item/light_containment_concrete_black_border.json
 e8b8b1181f038c455a6ed11c1c784e354d20d353 assets/scprotect/models/item/light_containment_concrete_ridged_bottom.json
