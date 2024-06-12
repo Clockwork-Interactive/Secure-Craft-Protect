@@ -1,8 +1,6 @@
 package net.zeus.scpprotect.level.item.scp;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -15,14 +13,8 @@ import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-import java.util.stream.Stream;
-
-import static net.refractionapi.refraction.event.CommonForgeEvents.tag;
-
 public class SCP207 extends Item implements Anomaly, DataGenObj {
-    private static final String TAG_SIPS = "Sips";
-    static int sips = tag.getInt("Sips");
+
     public SCP207(Properties pProperties) {
         super(pProperties);
     }
@@ -39,9 +31,11 @@ public class SCP207 extends Item implements Anomaly, DataGenObj {
 
     @Override
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
-        if (pLivingEntity instanceof Player player && player.getAbilities().instabuild && getSips(pStack) != 4) {
-            player.displayClientMessage(Component.literal("Sips: " + getSips(pStack)), true);
-            setSips(pStack, ++sips);
+        CompoundTag tag = pStack.getOrCreateTag();
+        if (!tag.contains("sips")) tag.putInt("sips", 0);
+        if (pLivingEntity instanceof Player player && player.getAbilities().instabuild && tag.getInt("sips") != 4) {
+            tag.putInt("sips", tag.getInt("sips") + 1);
+            player.displayClientMessage(Component.literal("Sips: %d".formatted(tag.getInt("sips"))), true);
         } else {
             pStack.shrink(1);
         }
@@ -51,18 +45,6 @@ public class SCP207 extends Item implements Anomaly, DataGenObj {
 
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pHand) {
         return ItemUtils.startUsingInstantly(pLevel, pPlayer, pHand);
-    }
-
-    public static int getSips(ItemStack pItemStack) {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.getInt("Sips");
-        pItemStack.setTag(compoundTag);
-        return sips;
-    }
-
-    public void setSips(ItemStack pItemStack, int pSips) {
-        CompoundTag tag = pItemStack.getOrCreateTag();
-        if (!tag.contains("Sips")) tag.putInt("Sips", 0);
     }
 
     @Override

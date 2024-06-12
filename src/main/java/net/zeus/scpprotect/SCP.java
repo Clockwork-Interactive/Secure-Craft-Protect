@@ -84,7 +84,7 @@ public class SCP {
             ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
                     new ResourceLocation(SCP.MOD_ID, "filled"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP500Bottle.getFullnessDisplay(pStack));
             ItemProperties.register(SCPItems.SCP_207.get(),
-                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP207.getSips(pStack));
+                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> pStack.getOrCreateTag().getInt("sips"));
         });
     }
 
