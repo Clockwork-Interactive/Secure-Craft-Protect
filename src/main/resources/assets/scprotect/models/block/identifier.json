@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "down": "scprotect:block/identifier_vertical",
+    "up": "scprotect:block/identifier_vertical",
+    "north": "scprotect:block/identifier_front",
+    "east": "scprotect:block/identifier_side",
+    "south": "scprotect:block/identifier_back",
+    "west": "scprotect:block/identifier_side",
+    "particle": "scprotect:block/identifier_front"
+  }
+}
