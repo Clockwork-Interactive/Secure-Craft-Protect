@@ -7,14 +7,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -29,19 +24,19 @@ import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.block.FacilityBlocks;
-import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
 import net.zeus.scpprotect.level.effect.SCPPotions;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.fluid.SCPFluidTypes;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP207;
 import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
-import net.zeus.scpprotect.networking.ModMessages;
 import org.slf4j.Logger;
 
 @Mod(SCP.MOD_ID)
@@ -87,7 +82,9 @@ public class SCP {
             PotionBrewing.addMix(Potions.AWKWARD, SCPBlocks.LAVENDER.get().asItem(), SCPPotions.PACIFICATION.get());
 
             ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
-                    new ResourceLocation(SCP.MOD_ID, "filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> SCP500Bottle.getFullnessDisplay(p_174625_));
+                    new ResourceLocation(SCP.MOD_ID, "filled"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP500Bottle.getFullnessDisplay(pStack));
+            ItemProperties.register(SCPItems.SCP_207.get(),
+                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP207.getSips(pStack));
         });
     }
 
@@ -96,8 +93,7 @@ public class SCP {
         KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED), SCPAdvancements.KETER_ADVANCEMENT),
         EUCLID("§6", Component.literal("Euclid").withStyle(ChatFormatting.YELLOW), SCPAdvancements.EUCLID_ADVANCEMENT),
         SAFE("§2", Component.literal("Safe").withStyle(ChatFormatting.GREEN), SCPAdvancements.SAFE_ADVANCEMENT),
-        UNCLASSIFIED("§7", Component.literal("Unclassified").withStyle(ChatFormatting.GRAY), SCPAdvancements.SAFE_ADVANCEMENT)
-        ;
+        UNCLASSIFIED("§7", Component.literal("Unclassified").withStyle(ChatFormatting.GRAY), SCPAdvancements.SAFE_ADVANCEMENT);
 
         public final String colorModifier;
         public final Component component;
@@ -113,11 +109,11 @@ public class SCP {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ModMessages.register();
-            BrewingRecipeRegistry.addRecipe(
-                    Ingredient.of(Items.GLASS_BOTTLE),
-                    Ingredient.of(SCPItems.LAVENDER.get()),
-                    PotionUtils.setPotion(new ItemStack(Items.POTION), SCPPotions.PACIFICATION.get()));
+//            ModMessages.register();
+//            BrewingRecipeRegistry.addRecipe(
+//                    Ingredient.of(Items.GLASS_BOTTLE),
+//                    Ingredient.of(SCPItems.LAVENDER.get()),
+//                    PotionUtils.setPotion(new ItemStack(Items.POTION), SCPPotions.PACIFICATION.get()));
         });
     }
 }

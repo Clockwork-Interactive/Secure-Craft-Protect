@@ -15,6 +15,7 @@ import net.zeus.scpprotect.level.block.FacilityBlocks;
 import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.SolidBucketMobItem;
+import net.zeus.scpprotect.level.item.scp.SCP207;
 import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -30,7 +31,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 continue;
             }
 
-            if (registry.get() instanceof SCP500Bottle) continue;
+            if (registry.get() instanceof SCP500Bottle || registry.get() instanceof SCP207) continue;
 
             if (registry.get() instanceof BlockItem && !(registry.get() instanceof SolidBucketMobItem)) continue;
 

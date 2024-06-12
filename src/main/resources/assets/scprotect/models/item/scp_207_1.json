@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "scprotect:item/scp207/scp_207_1"
+  }
+}

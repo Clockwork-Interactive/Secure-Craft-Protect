@@ -1,0 +1,26 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "scprotect:item/scp207/scp_207"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "scprotect:sips": 1
+      },
+      "model": "scprotect:item/scp_207_1"
+    },
+    {
+      "predicate": {
+        "scprotect:sips": 2
+      },
+      "model": "scprotect:item/scp_207_2"
+    },
+    {
+      "predicate": {
+        "scprotect:sips": 3
+      },
+      "model": "scprotect:item/scp_207_3"
+    }
+  ]
+}
