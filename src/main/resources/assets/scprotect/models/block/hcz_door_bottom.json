@@ -2,7 +2,6 @@
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"texture_size": [64, 64],
-	"render_type": "minecraft:translucent",
 	"textures": {
 		"1": "scprotect:block/doors/hcz_door_bottom",
 		"particle": "scprotect:block/doors/hcz_door_bottom"
