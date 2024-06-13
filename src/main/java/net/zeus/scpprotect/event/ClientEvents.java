@@ -3,9 +3,12 @@ package net.zeus.scpprotect.event;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.PostChain;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -15,6 +18,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
@@ -22,14 +27,19 @@ import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.refractionapi.refraction.quest.client.ClientQuestInfo;
 import net.refractionapi.refraction.quest.points.LocationPoint;
 import net.refractionapi.refraction.runnable.PriorityTicker;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.data.PlayerClientData;
+import net.zeus.scpprotect.level.block.SCPBlocks;
 import net.zeus.scpprotect.level.effect.SCPEffects;
+import net.zeus.scpprotect.level.effect.SCPPotions;
 import net.zeus.scpprotect.level.entity.entities.SCP966;
+import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import software.bernie.geckolib.event.GeoRenderEvent;
 
 import java.awt.*;
@@ -83,6 +93,21 @@ public class ClientEvents {
             PlayerClientData.fovTick = 0;
             PlayerClientData.currentFov = Integer.MAX_VALUE;
         }
+    }
+
+    @SubscribeEvent
+    public static void setup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
+
+            PotionBrewing.addMix(Potions.AWKWARD, SCPBlocks.LAVENDER.get().asItem(), SCPPotions.PACIFICATION.get());
+
+            ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
+                    new ResourceLocation(SCP.MOD_ID, "filled"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP500Bottle.getFullnessDisplay(pStack));
+            ItemProperties.register(SCPItems.SCP_207.get(),
+                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> pStack.getOrCreateTag().getInt("sips"));
+        });
     }
 
     @SubscribeEvent

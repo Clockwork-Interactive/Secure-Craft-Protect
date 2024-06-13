@@ -27,12 +27,10 @@ import net.refractionapi.refraction.sound.SoundUtil;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
-import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.goals.AnomalyWalkGoal;
 import net.zeus.scpprotect.level.entity.goals.SCP106WalkThroughBlocksGoal;
 import net.zeus.scpprotect.level.entity.goals.navigation.SCP106Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.level.worldgen.dimension.SCPDimensions;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -202,16 +200,6 @@ public class SCP106 extends SCPEntity {
     @Override
     public boolean canContain() {
         return false;
-    }
-
-    @Override
-    public boolean hasIdle() {
-        return true;
-    }
-
-    @Override
-    public PlayableTickableSound createIdle() {
-        return PlayerClientData.createIdle106(this);
     }
 
     @Nullable

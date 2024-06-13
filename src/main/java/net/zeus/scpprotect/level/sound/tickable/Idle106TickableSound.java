@@ -1,6 +1,5 @@
 package net.zeus.scpprotect.level.sound.tickable;
 
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.zeus.scpprotect.level.entity.entities.SCP106;

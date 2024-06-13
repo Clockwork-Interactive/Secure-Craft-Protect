@@ -18,10 +18,10 @@ public class SCPEntities {
     /**
      * Projectiles
      **/
-    public static final RegistryObject<EntityType<ToxicSpit>> TOXIC_SPIT = register("toxic_spit",EntityType.Builder.of((EntityType.EntityFactory<ToxicSpit>) ToxicSpit::new, MobCategory.MISC).sized(0.2F, 0.2F));
+    public static final RegistryObject<EntityType<ToxicSpit>> TOXIC_SPIT = register("toxic_spit", EntityType.Builder.of((EntityType.EntityFactory<ToxicSpit>) ToxicSpit::new, MobCategory.MISC).sized(0.2F, 0.2F));
 
     /**
-     * SCP'S
+     * SCPs
      **/
     public static final RegistryObject<EntityType<SCP058>> SCP_058 = register("scp_058", EntityType.Builder.of(SCP058::new, MobCategory.MONSTER).sized(0.6F, 0.6F));
     public static final RegistryObject<EntityType<SCP096>> SCP_096 = register("scp_096", EntityType.Builder.of(SCP096::new, MobCategory.MONSTER).sized(0.5F, 1.9F).clientTrackingRange(1000));
@@ -48,7 +48,7 @@ public class SCPEntities {
     public static final RegistryObject<EntityType<ContainmentBox>> CONTAINMENT_BOX = register("containment_box", EntityType.Builder.of((EntityType.EntityFactory<ContainmentBox>) ContainmentBox::new, MobCategory.MISC).sized(1.2F, 2.75F));
 
 
-    private static<E extends Entity> RegistryObject<EntityType<E>> register(String name, EntityType.Builder<E> builder) {
+    private static <E extends Entity> RegistryObject<EntityType<E>> register(String name, EntityType.Builder<E> builder) {
         return ENTITIES.register(name, () -> builder.build(name));
     }
 

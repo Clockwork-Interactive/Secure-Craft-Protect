@@ -149,7 +149,7 @@ public class CommonForgeEvents {
             if (scp106Dim != null && player.level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
                 if (player.distanceToSqr(0, 0, 0) >= 49) {
-                    SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(1) == 0 ? player.blockPosition() : null : SCP106Escape;
+                    SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(8) == 0 ? player.blockPosition() : null : SCP106Escape;
                     boolean live = SCP106Escape != null && Math.sqrt(SCP106Escape.distSqr(player.blockPosition())) <= 1.5F;
                     if (!live) {
                         player.kill();

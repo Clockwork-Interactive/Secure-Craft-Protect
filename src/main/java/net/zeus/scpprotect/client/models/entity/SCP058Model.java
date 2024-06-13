@@ -6,7 +6,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.entities.SCP058;
+import net.zeus.scpprotect.level.sound.tickable.Idle058TickableSound;
+import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -56,4 +59,16 @@ public class SCP058Model extends DefaultModel<SCP058> {
 			topLeftLeg.updateRotation(Mth.cos(position * 0.6662F + (float) Math.PI) * 1.4F * speed * 0.5F, 0.0F, 0.0F);
 		}
 	}
+
+	@Override
+	public boolean hasIdle() {
+		return true;
+	}
+
+	@Override
+	public PlayableTickableSound createIdle(SCP058 animatable) {
+		return new Idle058TickableSound(animatable);
+	}
+
+
 }

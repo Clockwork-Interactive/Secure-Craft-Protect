@@ -2,19 +2,13 @@ package net.zeus.scpprotect;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.refractionapi.refraction.quest.client.ClientQuestInfo;
@@ -32,8 +26,6 @@ import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.fluid.SCPFluidTypes;
 import net.zeus.scpprotect.level.fluid.SCPFluids;
 import net.zeus.scpprotect.level.item.SCPItems;
-import net.zeus.scpprotect.level.item.scp.SCP207;
-import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.level.tab.SCPTabs;
@@ -65,7 +57,6 @@ public class SCP {
         SCPCriteriaTriggers.init();
 
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::setup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SCPServerConfig.SPEC, "scprotect-server.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SCPClientConfig.SPEC, "scprotect-client.toml");
@@ -74,21 +65,6 @@ public class SCP {
 
         MinecraftForge.EVENT_BUS.register(this);
     }
-
-    private void setup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
-
-            PotionBrewing.addMix(Potions.AWKWARD, SCPBlocks.LAVENDER.get().asItem(), SCPPotions.PACIFICATION.get());
-
-            ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
-                    new ResourceLocation(SCP.MOD_ID, "filled"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP500Bottle.getFullnessDisplay(pStack));
-            ItemProperties.register(SCPItems.SCP_207.get(),
-                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> pStack.getOrCreateTag().getInt("sips"));
-        });
-    }
-
 
     public enum SCPTypes {
         KETER("§4", Component.literal("Keter").withStyle(ChatFormatting.RED), SCPAdvancements.KETER_ADVANCEMENT),
@@ -113,4 +89,5 @@ public class SCP {
             ModMessages.register();
         });
     }
+
 }

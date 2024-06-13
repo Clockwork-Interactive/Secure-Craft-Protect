@@ -190,8 +190,8 @@ public class FacilityBlocks {
     public static final RegistryObject<Block> CAUTION_TRAFFIC_BLOCK = registerBlock("caution_traffic_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.NETHERITE_BLOCK)));
 
-    public static final RegistryObject<Block> IDENTIFIER = registerBlock("identifier",
-            () -> new IdentifierBlock(BlockBehaviour.Properties.copy(Blocks.OBSERVER)));
+    //public static final RegistryObject<Block> IDENTIFIER = registerBlock("identifier",
+    //        () -> new IdentifierBlock(BlockBehaviour.Properties.copy(Blocks.OBSERVER)));
 
     // Doors
 

@@ -22,19 +22,16 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
-import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
@@ -42,9 +39,6 @@ import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
 import net.zeus.scpprotect.level.entity.goals.navigation.AnomalyNavigation;
 import net.zeus.scpprotect.level.entity.goals.navigation.SCP096Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
-import net.zeus.scpprotect.networking.ModMessages;
-import net.zeus.scpprotect.networking.S2C.PlayLocalSeenSoundS2C;
 import net.zeus.scpprotect.util.SCPDamageTypes;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -205,21 +199,6 @@ public class SCP096 extends SCPEntity implements NeutralMob {
                 .triggerableAnim("sitting", SITTING_ANIMATION)
                 .triggerableAnim("climbing", CLIMBING_ANIMATION)
                 .triggerableAnim("idle", IDLE_ANIMATION));
-    }
-
-    @Override
-    public boolean hasIdle() {
-        return true;
-    }
-
-    @Override
-    public PlayableTickableSound createIdle() {
-        return PlayerClientData.createIdle096(this);
-    }
-
-    @Override
-    public boolean canIdlePlay() {
-        return this.isDefaultCharge();
     }
 
     @Override

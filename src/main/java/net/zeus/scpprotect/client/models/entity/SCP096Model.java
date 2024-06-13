@@ -2,7 +2,10 @@ package net.zeus.scpprotect.client.models.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+import net.zeus.scpprotect.client.data.PlayerClientData;
 import net.zeus.scpprotect.level.entity.entities.SCP096;
+import net.zeus.scpprotect.level.sound.tickable.Idle096TickableSound;
+import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import net.zeus.scpprotect.level.sound.tickable.Running096TickableSound;
 
 import java.util.HashMap;
@@ -50,6 +53,22 @@ public class SCP096Model extends DefaultGeoBiPedalModel<SCP096> {
     @Override
     public boolean hasAnimation(SCP096 animatable) {
         return true;
+    }
+
+
+    @Override
+    public boolean hasIdle() {
+        return true;
+    }
+
+    @Override
+    public PlayableTickableSound createIdle(SCP096 animatable) {
+        return new Idle096TickableSound(animatable);
+    }
+
+    @Override
+    public boolean canIdlePlay(SCP096 animatable) {
+        return animatable.isDefaultCharge();
     }
 
 }

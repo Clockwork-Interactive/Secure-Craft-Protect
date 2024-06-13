@@ -32,14 +32,12 @@ import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.level.entity.goals.SCP811AttackGoal;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.item.SCPItems;
-import net.zeus.scpprotect.level.sound.tickable.PlayableTickableSound;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -49,7 +47,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 
 public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anomaly {
@@ -60,7 +57,6 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final HashMap<Integer, Triple<String, RawAnimation, Predicate<AnimationState<?>>>> animations = new HashMap<>();
-    private final AtomicReference<PlayableTickableSound> idle = new AtomicReference<>(null);
 
     public SCP811(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -316,11 +312,6 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
     @Override
     public HashMap<Integer, Triple<String, RawAnimation, Predicate<AnimationState<?>>>> getAnimations() {
         return animations;
-    }
-
-    @Override
-    public AtomicReference<PlayableTickableSound> getIdle() {
-        return idle;
     }
 
     @Nullable
