@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
@@ -25,6 +26,7 @@ import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.entity.SCPEntities;
 import net.zeus.scpprotect.level.entity.goals.WaterRandomLookAroundGoal;
 import net.zeus.scpprotect.level.entity.goals.WaterSinkingRandomStroll;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import org.jetbrains.annotations.Nullable;
@@ -209,7 +211,7 @@ public class SCP3199 extends SCPEntity {
 
     @Override
     public boolean canAttack(LivingEntity pTarget) {
-        return !(pTarget instanceof SCP3199Egg || pTarget instanceof SCP3199) && super.canAttack(pTarget);
+        return !(pTarget instanceof SCP3199Egg || pTarget instanceof SCP3199 || pTarget instanceof ContainmentBox || pTarget instanceof ArmorStand) && super.canAttack(pTarget);
     }
 
     public int babyDuration() {

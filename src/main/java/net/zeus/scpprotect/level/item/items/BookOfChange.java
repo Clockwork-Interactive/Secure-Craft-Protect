@@ -37,7 +37,7 @@ public class BookOfChange extends TooltipItem implements DataGenObj {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        if (player.isCreative() && entity != player)
+        if (player.isCreative() && !(entity instanceof Player))
             entity.discard();
         return super.onLeftClickEntity(stack, player, entity);
     }

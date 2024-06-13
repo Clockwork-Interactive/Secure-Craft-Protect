@@ -206,7 +206,7 @@ public class CommonForgeEvents {
 
     @SubscribeEvent
     public static void sleepEvent(PlayerSleepInBedEvent event) {
-        if (SCP_966_INSOMNIA.get(event.getEntity()) > SCP_966Max) {
+        if (event.getEntity().hasEffect(SCPEffects.INSOMNIA.get())) {
             event.setResult(Player.BedSleepingProblem.NOT_SAFE);
         }
     }

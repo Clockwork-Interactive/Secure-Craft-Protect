@@ -3,9 +3,11 @@ package net.zeus.scpprotect.level.entity.goals;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.phys.AABB;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.level.entity.entities.SCP939;
+import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 
 import javax.annotation.Nullable;
 
@@ -20,7 +22,7 @@ public class SCP939ListenTargetGoal extends TargetGoal {
 
     public SCP939ListenTargetGoal(SCP939 scp939) {
         super(scp939, false);
-        this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(livingEntity -> true);
+        this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(livingEntity -> !(livingEntity instanceof ContainmentBox || livingEntity instanceof ArmorStand));
     }
 
     public boolean canUse() {
