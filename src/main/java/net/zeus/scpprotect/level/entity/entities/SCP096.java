@@ -158,9 +158,8 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     @Override
     public void tick() {
         if (!level().isClientSide) {
-            LivingEntity target = this.getTarget();
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
-                this.setClimbing(this.horizontalCollision && !this.minorHorizontalCollision && this.level().getBlockState(this.blockPosition().above()).isAir() && target != null && target.getY() - this.getY() >= 2.0D);
+                this.setClimbing(this.horizontalCollision && this.getNavigation() instanceof SCP096Navigation);
             }
             if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
@@ -232,11 +231,19 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     }
 
     @Override
+    protected void customServerAiStep() {
+        if (this.getNavigation() instanceof SCP096Navigation nav) {
+            nav.tick();
+        }
+    }
+
+    @Override
     public PathNavigation getNavigation() {
-        if (this.getTarget() != null && this.getTarget().getY() - this.getY() >= 2.0D) {
+        float yDifference = (float) (this.getTarget() != null ? this.getTarget().getY() - this.getY() : 0.0D);
+        if (this.getTarget() != null && (yDifference >= 2.0D || (this.getTarget().distanceTo(this) <= 4.0D && yDifference >= 0.0D))) {
             return this.scp096Navigation;
         }
-        return super.getNavigation();
+        return this.regularNavigation;
     }
 
     @Override
