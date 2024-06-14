@@ -182,13 +182,11 @@ public class CommonForgeEvents {
                 FluidState fluidstate = player.level().getFluidState(blockpos1);
                 if (NaturalSpawner.isValidEmptySpawnBlock(player.level(), blockpos1, blockstate, fluidstate, EntityType.PHANTOM)) {
                     SpawnGroupData spawngroupdata = null;
-                    for (int i1 = 0; i1 < 10; ++i1) {
-                        Phantom phantom = EntityType.PHANTOM.create(player.level());
-                        if (phantom != null) {
-                            phantom.moveTo(blockpos1, 0.0F, 0.0F);
-                            spawngroupdata = phantom.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.NATURAL, spawngroupdata, null);
-                            serverLevel.addFreshEntityWithPassengers(phantom);
-                        }
+                    Phantom phantom = EntityType.PHANTOM.create(player.level());
+                    if (phantom != null) {
+                        phantom.moveTo(blockpos1, 0.0F, 0.0F);
+                        spawngroupdata = phantom.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.NATURAL, spawngroupdata, null);
+                        serverLevel.addFreshEntityWithPassengers(phantom);
                     }
                 }
             }

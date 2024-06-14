@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-12T17:53:41.5795269	Item Models: scprotect
+// 1.20.1	2024-06-14T17:49:13.8967414	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -10,14 +10,14 @@ ddf638e697ec64903dfc7330e0c182f754bf90e3 assets/scprotect/models/item/euclid_ach
 a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.json
 a0dd37287d6a0cd2f98f51c58a609e208da924b7 assets/scprotect/models/item/heavy_containment_door.json
 34cf8368eb911b53625d680b4d6c0c01337c6136 assets/scprotect/models/item/keter_achievement.json
-7bde8e20707ba8d25a0aa5e265aab6686b1401ed assets/scprotect/models/item/keycard_1.json
-3bbf045ed55acef04938ab33ec5779fe5494fcc1 assets/scprotect/models/item/keycard_2.json
-a66632c314b0d0930c0c18b247407d21e52fdd82 assets/scprotect/models/item/keycard_3.json
-a4329f2683b9505ec6a0f4ec4c0b7d502f812976 assets/scprotect/models/item/keycard_4.json
-69dd5d561245388a32e89d018f79c56bf13a35d7 assets/scprotect/models/item/keycard_5.json
-c7722bd55318fb62ad15ef2b54be06a0b448c6ef assets/scprotect/models/item/keycard_omni.json
 4dfd78ad4ec2c5f1a885bd92d0ac970e6a0a39a6 assets/scprotect/models/item/keycard_reader.json
 f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
+5e4817b868470ea13a4fb963b6bab55849dac699 assets/scprotect/models/item/level_1_keycard.json
+cd12713621e63690ed4ab3b7baf5ffa0fa098a16 assets/scprotect/models/item/level_2_keycard.json
+5417c9988a6e001bbef0091989013a3e9627f305 assets/scprotect/models/item/level_3_keycard.json
+c4ac2aeceee80ef42669fc824eca907a65b8639c assets/scprotect/models/item/level_4_keycard.json
+61e8b2c8965446f254b99e376ca8a5f425af0aec assets/scprotect/models/item/level_5_keycard.json
+37e13a8f621bb26b7ad7026e2ae660de78c59fd8 assets/scprotect/models/item/level_omni_keycard.json
 2800451845bb29194cab1f4f61ae54f268039389 assets/scprotect/models/item/light_containment_door.json
 8ea906cf0d27298c14bdac21710e01f33f1ba044 assets/scprotect/models/item/night_vision_goggles.json
 6a51a0d8520a005e717513b56ddb7321d8c817d7 assets/scprotect/models/item/odd_claw.json

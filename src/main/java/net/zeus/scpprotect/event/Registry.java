@@ -1,17 +1,29 @@
 package net.zeus.scpprotect.event;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.client.overlays.BlinkOverlay;
 import net.zeus.scpprotect.client.overlays.NodsOverlay;
 import net.zeus.scpprotect.client.overlays.VignetteOverlay;
 import net.zeus.scpprotect.client.renderer.entity.*;
+import net.zeus.scpprotect.level.block.SCPBlocks;
+import net.zeus.scpprotect.level.effect.SCPPotions;
 import net.zeus.scpprotect.level.entity.SCPEntities;
+import net.zeus.scpprotect.level.fluid.SCPFluids;
+import net.zeus.scpprotect.level.item.SCPItems;
+import net.zeus.scpprotect.level.item.scp.SCP500Bottle;
 import net.zeus.scpprotect.level.particle.SCPParticles;
 import net.zeus.scpprotect.level.particle.custom.GenericParticle;
 
@@ -46,6 +58,21 @@ public class Registry {
         event.registerAboveAll("vignette_overlay_966", VignetteOverlay.VIGNETTE_OVERLAY);
         event.registerAboveAll("nods_overlay", NodsOverlay.NODS_OVERLAY);
         event.registerAboveAll("blink_overlay", BlinkOverlay.BLINK_OVERLAY);
+    }
+
+    @SubscribeEvent
+    public static void setup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.SOURCE_SCP_006.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(SCPFluids.FLOWING_SCP_006.get(), RenderType.translucent());
+
+            PotionBrewing.addMix(Potions.AWKWARD, SCPBlocks.LAVENDER.get().asItem(), SCPPotions.PACIFICATION.get());
+
+            ItemProperties.register(SCPItems.SCP_500_BOTTLE.get(),
+                    new ResourceLocation(SCP.MOD_ID, "filled"), (pStack, pClientLevel, pLivingEntity, pId) -> SCP500Bottle.getFullnessDisplay(pStack));
+            ItemProperties.register(SCPItems.SCP_207.get(),
+                    new ResourceLocation(SCP.MOD_ID, "sips"), (pStack, pClientLevel, pLivingEntity, pId) -> pStack.getOrCreateTag().getInt("sips"));
+        });
     }
 
     @SubscribeEvent

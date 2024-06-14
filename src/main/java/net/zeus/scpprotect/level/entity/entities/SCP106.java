@@ -182,6 +182,7 @@ public class SCP106 extends SCPEntity {
                     scp.scp106TakenPos = pEntity.blockPosition();
                 });
                 pEntity.teleportTo(scp106Dim, -0.5F, 2, -0.5F, Set.of(), pEntity.getYRot(), pEntity.getXRot());
+                this.setTarget(null);
                 SCPAdvancements.grant(serverPlayer, SCPAdvancements.A_DECAYED_MARCH);
             }
             SoundUtil.playLocalSound(serverPlayer, SCPSounds.POCKET_DIMENSION_ENTER.get());

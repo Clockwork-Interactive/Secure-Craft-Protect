@@ -50,8 +50,8 @@ public class ToxicSpit extends AbstractArrow implements GeoEntity {
         if (pResult.getEntity() instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 600, 1, false, true, true));
             livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 600, 0, false, true, true));
+            livingEntity.hurt(this.damageSources().arrow(this, this), 1.0F);
         }
-        super.onHitEntity(pResult);
     }
 
     @Override

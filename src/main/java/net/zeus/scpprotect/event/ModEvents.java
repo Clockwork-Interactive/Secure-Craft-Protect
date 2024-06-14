@@ -45,7 +45,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void render(RenderPlayerEvent event) {
+    public static void render(RenderPlayerEvent.Pre event) {
         if (event.getEntity().hasEffect(SCPEffects.AMPUTATED.get())) {
             event.getRenderer().getModel().rightArm.visible = false;
             event.getRenderer().getModel().leftArm.visible = false;

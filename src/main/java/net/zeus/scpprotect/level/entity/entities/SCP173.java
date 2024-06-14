@@ -188,7 +188,7 @@ public class SCP173 extends SCPEntity {
             }
         }
 
-        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64), (e) -> e instanceof LivingEntity livingEntity && livingEntity.canBeSeenAsEnemy() && livingEntity.isAlive() && !(e instanceof ArmorStand || e instanceof ContainmentBox))) {
+        for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(64), (e) -> e instanceof LivingEntity livingEntity && livingEntity.canBeSeenAsEnemy() && !(e instanceof ArmorStand || e instanceof ContainmentBox))) {
             LivingEntity livingEntity = (LivingEntity) entity;
             if (entity instanceof SCP131 scp131 && scp131.hasLineOfSight(this)) {
                 break;

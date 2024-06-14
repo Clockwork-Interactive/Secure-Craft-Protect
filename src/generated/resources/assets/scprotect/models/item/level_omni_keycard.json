@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scprotect:item/keycard_omni"
+    "layer0": "scprotect:item/level_omni_keycard"
   }
 }

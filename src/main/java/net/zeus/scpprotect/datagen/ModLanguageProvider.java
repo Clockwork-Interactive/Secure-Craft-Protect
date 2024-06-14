@@ -34,6 +34,10 @@ public class ModLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         for (RegistryObject<EntityType<?>> registry : SCPEntities.ENTITIES.getEntries()) {
+            if (registry.equals(SCPEntities.TOXIC_SPIT)) {
+                add(registry.get(), "acidity");
+                continue;
+            }
             String name = registry.get().toShortString().replace("_", " ");
             if (name.contains(" "))
                 add(registry.get(), registry.get().toShortString().replace("_", "-").toUpperCase());
@@ -86,31 +90,6 @@ public class ModLanguageProvider extends LanguageProvider {
             }
             if (registry == SCPItems.SCP_049_2_SPAWN_EGG) {
                 add(registry.get(), "SCP-049-2 Spawn Egg");
-                continue;
-            }
-
-            if (registry == SCPItems.LEVEL_1_KEYCARD) {
-                add(registry.get(), "Level 1 Keycard");
-                continue;
-            }
-            if (registry == SCPItems.LEVEL_2_KEYCARD) {
-                add(registry.get(), "Level 2 Keycard");
-                continue;
-            }
-            if (registry == SCPItems.LEVEL_3_KEYCARD) {
-                add(registry.get(), "Level 3 Keycard");
-                continue;
-            }
-            if (registry == SCPItems.LEVEL_4_KEYCARD) {
-                add(registry.get(), "Level 4 Keycard");
-                continue;
-            }
-            if (registry == SCPItems.LEVEL_5_KEYCARD) {
-                add(registry.get(), "Level 5 Keycard");
-                continue;
-            }
-            if (registry == SCPItems.LEVEL_OMNI_KEYCARD) {
-                add(registry.get(), "Omni Keycard");
                 continue;
             }
 

@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import static net.refractionapi.refraction.event.CommonForgeEvents.tag;
 
 public class SCP207 extends Item implements Anomaly, DataGenObj {
-    private int sips;
 
     public SCP207(Properties pProperties) {
         super(pProperties);
@@ -39,7 +38,7 @@ public class SCP207 extends Item implements Anomaly, DataGenObj {
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         CompoundTag tag = pStack.getOrCreateTag();
         if (!tag.contains("sips")) tag.putInt("sips", 0);
-        sips = tag.getInt("sips");
+        int sips = tag.getInt("sips");
         if (pLivingEntity instanceof Player player && !player.getAbilities().instabuild && !(tag.getInt("sips") == 3)) {
             tag.putInt("sips", tag.getInt("sips") + 1);
             pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, sips));
