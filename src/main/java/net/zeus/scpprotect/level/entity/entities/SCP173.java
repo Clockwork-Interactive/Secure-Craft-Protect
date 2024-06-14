@@ -49,7 +49,6 @@ import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 import net.zeus.scpprotect.networking.ModMessages;
 import net.zeus.scpprotect.networking.S2C.BlinkS2CPacket;
-import net.zeus.scpprotect.networking.S2C.PlayLocalSoundS2C;
 import net.zeus.scpprotect.networking.S2C.VignetteS2CPacket;
 import net.zeus.scpprotect.util.Misc;
 import org.jetbrains.annotations.Nullable;
@@ -234,7 +233,7 @@ public class SCP173 extends SCPEntity {
             if ((enemy instanceof ServerPlayer player && player.isAlive()) && (this.getRandom().nextInt(5) == 2 && inRange)) {
                 this.inEvent = true;
                 this.setPose(Pose.EMERGING);
-                ModMessages.sendToPlayer(new PlayLocalSoundS2C(SCPSounds.SCP_173_STRANGLE_SEQUENCE.get()), player);
+                SoundUtil.playLocalSound(player, SCPSounds.SCP_173_STRANGLE_SEQUENCE.get());
                 ModMessages.sendToPlayer(new VignetteS2CPacket(140, false, false), player);
                 RefractionMisc.enableMovement(player, 140);
                 CameraShakeHandler.invokeCameraShakeToPlayer(140, 5, player);
