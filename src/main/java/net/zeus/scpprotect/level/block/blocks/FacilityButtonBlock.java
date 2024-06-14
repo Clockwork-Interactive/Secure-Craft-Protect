@@ -35,6 +35,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.block.entity.FacilityButtonBlockEntity;
 import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.misc.SCPTags;
@@ -110,7 +111,7 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         ItemStack itemStack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
         FacilityButtonBlockEntity blockEntity = (FacilityButtonBlockEntity) pLevel.getBlockEntity(pPos);
         if (blockEntity == null) return InteractionResult.FAIL;
-        if (!blockEntity.locked) {
+        if (!blockEntity.locked && SCPServerConfig.DOORS_TEMP_OPEN.get()) {
             pLevel.scheduleTick(pPos, this, 40);
         }
         if (this.needsKeycards || blockEntity.locked) {

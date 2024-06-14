@@ -9,6 +9,7 @@ public class SCPServerConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SCP_096_REACT_TO_ENTITIES;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PINK_CANDY_FROM_SCP_330;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DOORS_TEMP_OPEN;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_SCPS;
 
     static {
@@ -23,6 +24,10 @@ public class SCPServerConfig {
 
         BUILDER.push("Pink Candy");
         PINK_CANDY_FROM_SCP_330 = BUILDER.comment("Toggle being able to get Pink candy from SCP-330, you may want to turn mobGriefing off.").define("Pink candy from 330", false);
+        BUILDER.pop();
+
+        BUILDER.push("Doors Temp Open");
+        DOORS_TEMP_OPEN = BUILDER.comment("Toggle doors staying open or automatically closing").define("Doors Temp Open", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }
