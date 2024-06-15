@@ -74,7 +74,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
 
             Advancement SAFE_ADVANCEMENT = buildAdvancement(SCPItems.SAFE_ACHIEVEMENT.get(), "Its Not Dangerous, Right?", "Locate a Safe class SCP", "its_not_dangerous_right", FrameType.TASK, empty(), BASE, saver, existingFileHelper);
             Advancement A_TASTE_OF_IMMORTALITY = buildAdvancement(SCPItems.SCP_500_BOTTLE.get(), "A Taste of Immortality", "Use a SCP-500 Pill", "a_taste_of_immortality", FrameType.GOAL, usedItem(SCPItems.SCP_500), SAFE_ADVANCEMENT, saver, existingFileHelper);
-            Advancement POTENTIAL_BIOWEAPON = buildAdvancement(SCPItems.SCP_1025.get(), "Potential Bioweapon", "Read a page from SCP-1025", "potential_bioweapon", FrameType.GOAL, empty(), SAFE_ADVANCEMENT, saver, existingFileHelper);
+            Advancement POTENTIAL_BIOWEAPON = buildAdvancement(SCPItems.SCP_1025.get(), "'Potential Bioweapon'", "Read a page from SCP-1025", "potential_bioweapon", FrameType.GOAL, empty(), SAFE_ADVANCEMENT, saver, existingFileHelper);
 
             Advancement EUCLID_ADVANCEMENT = buildAdvancement(SCPItems.EUCLID_ACHIEVEMENT.get(), "Controlled Chaos", "Locate a Euclid class SCP", "controlled_chaos", FrameType.TASK, empty(), BASE, saver, existingFileHelper);
             Advancement DOCTOR_DOCTOR = buildAdvancement(SCPItems.LAVENDER.get(), "Doctor, Doctor", "Encounter SCP-049", "doctor_doctor", FrameType.GOAL, seenEntity(SCPEntities.SCP_049), EUCLID_ADVANCEMENT, saver, existingFileHelper);

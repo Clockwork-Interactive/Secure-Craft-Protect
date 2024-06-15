@@ -56,7 +56,7 @@ public class Registry {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("vignette_overlay_966", VignetteOverlay.VIGNETTE_OVERLAY);
-        event.registerAboveAll("nods_overlay", NodsOverlay.NODS_OVERLAY);
+        event.registerBelowAll("nods_overlay", NodsOverlay.NODS_OVERLAY);
         event.registerAboveAll("blink_overlay", BlinkOverlay.BLINK_OVERLAY);
     }
 

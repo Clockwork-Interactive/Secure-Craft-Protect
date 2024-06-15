@@ -19,6 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.sound.SCPSounds;
 
@@ -39,7 +40,7 @@ public class SCP063 extends Item implements Anomaly {
             if (hitResult instanceof BlockHitResult blockHitResult) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 BlockState blockState = pLevel.getBlockState(pos);
-                if (blockState.getBlock().defaultDestroyTime() >= 0.0F) {
+                if (SCPServerConfig.BREAKING_BEDROCK_WITH_SCP_063.get() ? blockState.getBlock().defaultDestroyTime() >= -1.0F : blockState.getBlock().defaultDestroyTime() >= 0.0F) {
                     pLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                     pLevel.playSound(null, pos, blockState.getSoundType().getBreakSound(), SoundSource.BLOCKS);
                 }
