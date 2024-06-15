@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Craft the Night Vision Goggles"
+      "text": "Craft Night Vision Goggles"
     },
     "frame": "task",
     "hidden": false,

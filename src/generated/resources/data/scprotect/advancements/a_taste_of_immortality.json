@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Use an SCP-500 pill"
+      "text": "Use a SCP-500 Pill"
     },
     "frame": "goal",
     "hidden": false,

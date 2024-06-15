@@ -126,6 +126,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.scprotect.wrench", "Put in offhand to change Keycard Reader level");
         add("tooltip.scprotect.awcy", "Use on certain SCPs to change variants");
         add("tooltip.scprotect.hairbrush", "Use to tame SCP-811");
+        add("tooltip.scprotect.reality_scanner", "Locates SCPs nearby");
 
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
