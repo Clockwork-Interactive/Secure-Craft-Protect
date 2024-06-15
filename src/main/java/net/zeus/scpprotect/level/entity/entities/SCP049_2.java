@@ -67,11 +67,11 @@ public class SCP049_2 extends SCPEntity {
 
     @Override
     public SCP.SCPTypes getClassType() {
-        return null;
+        return SCP.SCPTypes.UNCLASSIFIED;
     }
     @Override
     public SCP.SCPNames getSCPName() {
-        return null;
+        return SCP.SCPNames.UNDEFINED;
     }
 
     @Override

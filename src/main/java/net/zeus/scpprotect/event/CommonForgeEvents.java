@@ -91,12 +91,25 @@ public class CommonForgeEvents {
     public static void toolTipEvent(ItemTooltipEvent event) {
         if (event.getItemStack().getItem() instanceof Anomaly anomaly) {
             SCP.SCPTypes scpTypes = anomaly.getClassType();
-            event.getToolTip().add(scpTypes.component);
+            SCP.SCPNames scpNames = anomaly.getSCPName();
+            if (scpTypes != SCP.SCPTypes.UNCLASSIFIED) {
+                event.getToolTip().add(scpTypes.component);
+            }
+            if (scpNames != SCP.SCPNames.UNDEFINED) {
+                event.getToolTip().add(scpNames.component);
+            }
             return;
         }
+
         if (event.getItemStack().getItem() instanceof BlockItem item && item.getBlock() instanceof Anomaly anomaly) {
             SCP.SCPTypes scpTypes = anomaly.getClassType();
-            event.getToolTip().add(scpTypes.component);
+            SCP.SCPNames scpNames = anomaly.getSCPName();
+            if (scpTypes != SCP.SCPTypes.UNCLASSIFIED) {
+                event.getToolTip().add(scpTypes.component);
+            }
+            if (scpNames != SCP.SCPNames.UNDEFINED) {
+                event.getToolTip().add(scpNames.component);
+            }
         }
     }
 

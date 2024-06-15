@@ -32,8 +32,12 @@ public class SCPEggItem extends ForgeSpawnEggItem {
             this.eggType = EntityAnomalyType.getAnomalyType(this.getType(null)).getClassType();
             this.eggName = EntityAnomalyType.getAnomalyType(this.getType(null)).getClassName();
         }
-        pTooltipComponents.add(this.eggType.component);
-        pTooltipComponents.add(this.eggName.component);
+        if (eggType != SCP.SCPTypes.UNCLASSIFIED) {
+            pTooltipComponents.add(this.eggType.component);
+        }
+        if (eggName != SCP.SCPNames.UNDEFINED) {
+            pTooltipComponents.add(this.eggName.component);
+        }
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

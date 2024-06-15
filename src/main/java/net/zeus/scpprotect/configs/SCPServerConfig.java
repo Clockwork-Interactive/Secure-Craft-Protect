@@ -2,6 +2,7 @@ package net.zeus.scpprotect.configs;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class SCPServerConfig {
@@ -11,6 +12,7 @@ public class SCPServerConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PINK_CANDY_FROM_SCP_330;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DOORS_TEMP_OPEN;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_SCPS;
+    Calendar calendar = Calendar.getInstance();
 
     static {
         BUILDER.push("SCP-096");

@@ -77,7 +77,7 @@ public class SCP019_2 extends SCPEntity {
 
     @Override
     public SCP.SCPTypes getClassType() {
-        return SCP.SCPTypes.KETER;
+        return SCP.SCPTypes.UNCLASSIFIED;
     }
 
     @Override

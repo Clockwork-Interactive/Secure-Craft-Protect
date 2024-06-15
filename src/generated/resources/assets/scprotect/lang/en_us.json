@@ -183,18 +183,5 @@
   "sounds.scprotect.scp_109_pour": "Someone has poured SCP-109!",
   "tooltip.scprotect.awcy": "Use on certain SCPs to change variants",
   "tooltip.scprotect.hairbrush": "Use to tame SCP-811",
-  "tooltip.scprotect.scp_049_spawn_egg": "Plague Doctor",
-  "tooltip.scprotect.scp_058_spawn_egg": "Heart of Darkness",
-  "tooltip.scprotect.scp_096_spawn_egg": "The 'Shy Guy'",
-  "tooltip.scprotect.scp_106_spawn_egg": "The Old Man",
-  "tooltip.scprotect.scp_111_spawn_egg": "Dragon-Snails™",
-  "tooltip.scprotect.scp_131_spawn_egg": "The 'Eye Pods'",
-  "tooltip.scprotect.scp_173_spawn_egg": "The Sculpture",
-  "tooltip.scprotect.scp_3199_spawn_egg": "Humans, Refuted",
-  "tooltip.scprotect.scp_346_spawn_egg": "'Pterry' the Pterodactyl",
-  "tooltip.scprotect.scp_811_spawn_egg": "Swamp Woman",
-  "tooltip.scprotect.scp_939_spawn_egg": "With Many Voices",
-  "tooltip.scprotect.scp_966_spawn_egg": "Sleep Killer",
-  "tooltip.scprotect.scp_999_spawn_egg": "The Tickle Monster",
   "tooltip.scprotect.wrench": "Put in offhand to change Keycard Reader level"
 }
