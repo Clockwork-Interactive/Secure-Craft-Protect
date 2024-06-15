@@ -35,4 +35,9 @@ public class SCP019 extends BaseHorizontalEntityBlock implements Anomaly {
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.KETER;
     }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_019;
+    }
 }

@@ -3,6 +3,7 @@ package net.zeus.scpprotect.level.item.scp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -86,6 +87,11 @@ public class SCP063 extends Item implements Anomaly {
                 serverLevel.sendParticles(blockparticleoption, vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
             }
         }
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_063;
     }
 
     @Override

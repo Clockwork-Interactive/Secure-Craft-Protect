@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.item.scp;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.material.Fluid;
 import net.zeus.scpprotect.SCP;
@@ -16,6 +17,11 @@ public class SCP006BucketItem extends BucketItem implements Anomaly, DataGenObj 
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.SAFE;
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_006;
     }
 
     @Override

@@ -260,6 +260,11 @@ public class SCP811 extends TamableAnimal implements GeoEntity, NeutralMob, Anom
         return SCP.SCPTypes.EUCLID;
     }
 
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_811;
+    }
+
     private boolean isCurrentAnimation(AnimationState<?> state) {
         return !state.isCurrentAnimation(SIT_ANIM) || state.getController().hasAnimationFinished();
     }

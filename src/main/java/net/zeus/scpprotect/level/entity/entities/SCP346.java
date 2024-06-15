@@ -129,6 +129,11 @@ public class SCP346 extends Animal implements Anomaly, GeoEntity, FlyingAnimal {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_346;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, state -> {
             if (state.isMoving() && getBlockStateOn().isAir()) {

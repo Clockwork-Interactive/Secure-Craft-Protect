@@ -28,6 +28,7 @@ public class SCPItems {
     // SCP ITEMS
     public static final RegistryObject<Item> SCP_006_BUCKET = ITEMS.register("scp_006_bucket", () -> new SCP006BucketItem(SCPFluids.SOURCE_SCP_006, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_063 = ITEMS.register("scp_063", () -> new SCP063(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_500 = ITEMS.register("scp_500", () -> new SCP500Pill(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> SCP_1025 = ITEMS.register("scp_1025", () -> new SCP1025(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_109 = ITEMS.register("scp_109", () -> new SCP109(new Item.Properties().stacksTo(1)));
@@ -67,7 +68,6 @@ public class SCPItems {
     public static final RegistryObject<Item> ODD_CLIMBERS = ITEMS.register("odd_climbers", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> HAIRBRUSH = ITEMS.register("hairbrush", () -> new TooltipItem(new Item.Properties().stacksTo(1), Component.translatable("tooltip.scprotect.hairbrush").withStyle(ChatFormatting.GRAY)));
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(SCPBlocks.LAVENDER.get(), new Item.Properties()));
-    public static final RegistryObject<Item> SCP_500_BOTTLE = ITEMS.register("scp_500_bottle", () -> new SCP500Bottle(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCP_999_BUCKET = ITEMS.register("scp_999_bucket", () -> new SCP999BucketItem(SCPEntities.SCP_999, () -> Fluids.EMPTY, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().stacksTo(1))));
     public static final RegistryObject<Item> SCP_3199_EGG_BUCKET = ITEMS.register("scp_3199_egg_bucket", () -> new SolidBucketMobItem(Blocks.POWDER_SNOW, SCPEntities.SCP_3199_EGG::get, SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CONTAINMENT_CAGE = ITEMS.register("containment_cage", () -> new ContainmentItem(new Item.Properties().stacksTo(1)));

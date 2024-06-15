@@ -104,6 +104,11 @@ public class SCP999 extends Animal implements Anomaly, Bucketable, GeoEntity {
         return SCP.SCPTypes.SAFE;
     }
 
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_999;
+    }
+
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin().then("scp_999_idle", Animation.LoopType.LOOP);
     private static final RawAnimation WALK_ANIM = RawAnimation.begin().then("scp_999_movement", Animation.LoopType.LOOP);
 

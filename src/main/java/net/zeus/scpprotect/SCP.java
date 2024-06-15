@@ -84,6 +84,47 @@ public class SCP {
 
     }
 
+    public enum SCPNames {
+        // Rebel.
+        UNDEFINED(Component.empty()),
+
+        // Items
+        SCP_006(Component.literal("Fountain of Youth").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_063(Component.literal("'The World's Best TothBrush'").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_109(Component.literal("Infinite Canteen").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_207(Component.literal("Cola Bottles").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_500(Component.literal("Panacea").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_1025(Component.literal("Encyclopedia of Diseases").withStyle(ChatFormatting.DARK_GRAY)),
+
+        // Entities
+        SCP_049(Component.literal("Plague Doctor").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_058(Component.literal("Heart of Darkness").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_096(Component.literal("The 'Shy Guy'").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_106(Component.literal("The Old Man").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_111(Component.literal("Dragon-Snails™").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_131(Component.literal("The 'Eye Pods'").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_173(Component.literal("The Sculpture").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_346(Component.literal("'Pterry' the Pterodactyl").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_811(Component.literal("Swamp Woman").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_939(Component.literal("With Many Voices").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_966(Component.literal("Sleep Killer").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_999(Component.literal("The Tickle Monster").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_3199(Component.literal("Humans, Refuted").withStyle(ChatFormatting.DARK_GRAY)),
+
+        // Blocks
+        SCP_019(Component.literal("The Monster Pot").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_310(Component.literal("Eternal Flame").withStyle(ChatFormatting.DARK_GRAY)),
+        SCP_330(Component.literal("Take Only Two").withStyle(ChatFormatting.DARK_GRAY));
+
+
+        public final Component component;
+
+        SCPNames(Component component) {
+            this.component = component;
+        }
+
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModMessages.register();

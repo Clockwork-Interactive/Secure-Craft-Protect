@@ -17,12 +17,12 @@ public class EntityAnomalyType<E extends Entity> extends AnomalyType<Supplier<En
 
     private final int spawnCount;
 
-    public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes) {
-        this(type, scptypes, 1);
+    public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes, SCP.SCPNames scpNames) {
+        this(type, scptypes, scpNames, 1);
     }
 
-    public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes, int spawnCount) {
-        super(type, scptypes);
+    public EntityAnomalyType(Supplier<EntityType<E>> type, SCP.SCPTypes scptypes, SCP.SCPNames scpNames, int spawnCount) {
+        super(type, scptypes, scpNames);
         this.spawnCount = spawnCount;
     }
 
@@ -70,13 +70,15 @@ public class EntityAnomalyType<E extends Entity> extends AnomalyType<Supplier<En
     }
 
     @SuppressWarnings("unchecked")
-    public static <H extends Entity> EntityAnomalyType<H> getAnomalyType(EntityType<H> type) {
+    public static <H extends Entity> EntityAnomalyType<H> getAnomalyType(EntityType<H> name) {
         return AnomalyRegistry.ANOMALY_TYPES.values()
                 .stream()
-                .filter(registry -> Objects.equals(registry.rawTypeString(), type.toString()))
+                .filter(registry -> Objects.equals(registry.rawTypeString(), name.toString()))
                 .map(anomalyType -> (EntityAnomalyType<H>) anomalyType)
                 .findFirst()
                 .orElse(null);
     }
+
+
 
 }

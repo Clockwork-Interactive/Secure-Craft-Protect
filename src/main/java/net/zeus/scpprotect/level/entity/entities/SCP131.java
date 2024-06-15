@@ -96,6 +96,11 @@ public class SCP131 extends TamableAnimal implements Anomaly, GeoEntity {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_131;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
 
     }

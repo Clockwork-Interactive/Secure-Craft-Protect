@@ -2,6 +2,7 @@ package net.zeus.scpprotect.level.item.scp;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -9,12 +10,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.zeus.scpprotect.SCP;
+import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.Optional;
 
-public class SCP500Bottle extends BundleItem implements DataGenObj {
+public class SCP500Bottle extends BundleItem implements Anomaly, DataGenObj {
     public SCP500Bottle(Item.Properties pProperties) {
         super(pProperties);
     }
@@ -98,6 +101,16 @@ public class SCP500Bottle extends BundleItem implements DataGenObj {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_500;
+    }
+
+    @Override
+    public SCP.SCPTypes getClassType() {
+        return SCP.SCPTypes.SAFE;
     }
 
     @Override

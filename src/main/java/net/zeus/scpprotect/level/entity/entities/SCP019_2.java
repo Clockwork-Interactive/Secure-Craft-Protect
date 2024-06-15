@@ -6,10 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -54,17 +51,18 @@ public class SCP019_2 extends SCPEntity {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, (livingEntity) -> !(livingEntity instanceof SCP019_2 || livingEntity instanceof ContainmentBox || livingEntity instanceof ArmorStand)));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.MOVEMENT_SPEED, 0.33F)
                 .add(Attributes.ATTACK_DAMAGE, 5.0F)
                 .add(Attributes.ATTACK_SPEED, 0.1F)
                 .add(Attributes.MAX_HEALTH, 5.0F)
                 .add(Attributes.FOLLOW_RANGE, 1000.0F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 10.0F);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0F);
     }
 
     @Override
@@ -80,5 +78,10 @@ public class SCP019_2 extends SCPEntity {
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.KETER;
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.UNDEFINED;
     }
 }

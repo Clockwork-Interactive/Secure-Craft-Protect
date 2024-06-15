@@ -89,4 +89,9 @@ public class SCP330 extends BaseHorizontalEntityBlock implements Anomaly {
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.SAFE;
     }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_330;
+    }
 }

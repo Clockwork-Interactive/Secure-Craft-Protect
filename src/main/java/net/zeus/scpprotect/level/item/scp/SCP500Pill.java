@@ -19,7 +19,7 @@ import net.zeus.scpprotect.level.item.SCPItems;
 
 import java.util.Map;
 
-public class SCP500Pill extends Item implements Anomaly, DataGenObj {
+public class SCP500Pill extends Item implements DataGenObj {
     public SCP500Pill(Properties pProperties) {
         super(pProperties);
     }
@@ -63,10 +63,5 @@ public class SCP500Pill extends Item implements Anomaly, DataGenObj {
     @Override
     public String customID() {
         return "SCP-500 Pill";
-    }
-
-    @Override
-    public SCP.SCPTypes getClassType() {
-        return SCP.SCPTypes.SAFE;
     }
 }

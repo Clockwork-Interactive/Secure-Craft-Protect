@@ -64,6 +64,11 @@ public class Rebel extends Monster implements Anomaly, GeoEntity, DataGenObj {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.UNDEFINED;
+    }
+
+    @Override
     public String customID() {
         return "Rebel";
     }

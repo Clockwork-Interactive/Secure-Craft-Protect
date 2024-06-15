@@ -15,8 +15,8 @@ import java.util.function.Supplier;
 
 public class BlockAnomalyType<E extends Block> extends AnomalyType<Supplier<Block>, E> {
 
-    public BlockAnomalyType(Supplier<Block> type, SCP.SCPTypes scptypes) {
-        super(type, scptypes);
+    public BlockAnomalyType(Supplier<Block> type, SCP.SCPTypes scptypes, SCP.SCPNames scpnames) {
+        super(type, scptypes, scpnames);
     }
 
     @Override

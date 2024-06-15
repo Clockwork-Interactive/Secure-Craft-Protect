@@ -17,12 +17,12 @@ public class ItemAnomalyType<E extends Item> extends AnomalyType<Supplier<E>, It
 
     public Supplier<ItemStack> itemized;
 
-    public ItemAnomalyType(Supplier<E> type, SCP.SCPTypes scptypes) {
-        super(type, scptypes);
+    public ItemAnomalyType(Supplier<E> type, SCP.SCPTypes scptypes, SCP.SCPNames scpnames) {
+        super(type, scptypes, scpnames);
     }
 
-    public ItemAnomalyType(Supplier<E> type, Supplier<ItemStack> itemized, SCP.SCPTypes scptypes) {
-        super(type, scptypes);
+    public ItemAnomalyType(Supplier<E> type, Supplier<ItemStack> itemized, SCP.SCPTypes scptypes, SCP.SCPNames scpnames) {
+        super(type, scptypes, scpnames);
         this.itemized = itemized;
     }
 

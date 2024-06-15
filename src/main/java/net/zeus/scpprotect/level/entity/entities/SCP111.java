@@ -172,6 +172,11 @@ public class SCP111 extends Animal implements GeoEntity, Anomaly {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_111;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 

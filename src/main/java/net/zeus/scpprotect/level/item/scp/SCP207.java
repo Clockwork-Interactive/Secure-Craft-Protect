@@ -56,6 +56,11 @@ public class SCP207 extends Item implements Anomaly, DataGenObj {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_207;
+    }
+
+    @Override
     public String customID() {
         return "SCP-207 Bottle";
     }

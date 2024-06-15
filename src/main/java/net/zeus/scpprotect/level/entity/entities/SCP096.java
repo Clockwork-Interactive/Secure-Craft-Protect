@@ -182,6 +182,11 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_096;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         this.addDefault("idle", IDLE_ANIMATION);
         this.addContinuous(0, "climbing", CLIMBING_ANIMATION, (state) -> this.isClimbing());

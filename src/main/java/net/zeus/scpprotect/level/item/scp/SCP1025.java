@@ -52,6 +52,11 @@ public class SCP1025 extends Item implements Anomaly {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_1025;
+    }
+
+    @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.SAFE;
     }

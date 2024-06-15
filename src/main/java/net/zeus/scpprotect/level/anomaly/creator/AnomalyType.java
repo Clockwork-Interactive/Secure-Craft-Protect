@@ -12,9 +12,12 @@ public abstract class AnomalyType<T, E> {
 
     protected final T type;
     private final SCP.SCPTypes scptypes;
+    private final SCP.SCPNames scpnames;
 
-    public AnomalyType(T type, SCP.SCPTypes scptypes) {
+
+    public AnomalyType(T type, SCP.SCPTypes scptypes, SCP.SCPNames scpNames) {
         this.type = type;
+        this.scpnames = scpNames;
         this.scptypes = scptypes;
         AnomalyRegistry.ANOMALY_TYPES.put(this.type.toString(), this);
     }
@@ -43,6 +46,10 @@ public abstract class AnomalyType<T, E> {
 
     public SCP.SCPTypes getClassType() {
         return this.scptypes;
+    }
+
+    public SCP.SCPNames getClassName() {
+        return this.scpnames;
     }
 
     public static AnomalyType<?, ?> getAnomalyType(String name) {

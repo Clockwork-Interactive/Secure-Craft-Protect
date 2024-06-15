@@ -96,7 +96,7 @@ public class SCP966 extends SCPEntity {
 
         for (Entity entity : this.level().getEntities(this, this.getBoundingBox().inflate(12))) {
             if (entity instanceof LivingEntity livingEntity) {
-                if (this.tickCount % 100 == 0) {
+                if (this.tickCount % 500 == 0) {
                     livingEntity.addEffect(new MobEffectInstance(SCPEffects.INSOMNIA.get(), -1, 0, false, true, true));
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 1200, 1, false, true, true));
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 1200, 1, false, true, true));
@@ -117,6 +117,11 @@ public class SCP966 extends SCPEntity {
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.EUCLID;
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_966;
     }
 
 }

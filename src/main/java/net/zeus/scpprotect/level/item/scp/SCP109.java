@@ -3,6 +3,7 @@ package net.zeus.scpprotect.level.item.scp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -105,6 +106,11 @@ public class SCP109 extends Item implements Anomaly {
                 return true;
             }
         }
+    }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_109;
     }
 
 

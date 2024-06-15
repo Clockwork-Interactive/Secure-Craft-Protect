@@ -138,7 +138,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .parent(EUCLID_ADVANCEMENT)
                     .display(
                             SCPItems.POLAROID.get(),
-                            Component.literal("Don't Look At Me"),
+                            Component.literal("Don't Look at Me"),
                             Component.literal("Encounter SCP-096"),
                             null,
                             FrameType.GOAL,
@@ -168,7 +168,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .parent(SAFE_ADVANCEMENT)
                     .display(
                             SCPItems.SCP_500_BOTTLE.get(),
-                            Component.literal("A Taste Of Immortality"),
+                            Component.literal("A Taste of Immortality"),
                             Component.literal("Use an SCP-500 pill"),
                             null,
                             FrameType.GOAL,
@@ -198,7 +198,7 @@ public class AdvancementProvider extends ForgeAdvancementProvider {
                     .parent(EUCLID_ADVANCEMENT)
                     .display(
                             Blocks.YELLOW_CONCRETE,
-                            Component.literal("Its Just A Statue..."),
+                            Component.literal("It's Just a Statue..."),
                             Component.literal("Encounter SCP-173"),
                             null,
                             FrameType.GOAL,

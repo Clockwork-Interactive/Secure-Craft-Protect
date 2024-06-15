@@ -220,6 +220,11 @@ public class SCP106 extends SCPEntity {
     }
 
     @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_106;
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         this.addContinuous(0, "fall", FALLING, (state) -> this.getState() == SCP106State.FALLING);
         this.addContinuous(1, "rise", RISE, (state) -> this.getState() == SCP106State.RISE && this.getFrozenTicks() > 0);

@@ -369,6 +369,11 @@ public class SCP173 extends SCPEntity {
         return SCP.SCPTypes.EUCLID;
     }
 
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_173;
+    }
+
     public enum SCP173Types {
         CLASSIC("", "SCP-173: Classic"),
         UNITY("u", "SCP-173: Unity"),

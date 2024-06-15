@@ -10,8 +10,9 @@ import net.minecraft.world.phys.AABB;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.interfaces.DataGenObj;
 
-public class ContainmentItem extends Item {
+public class ContainmentItem extends Item implements DataGenObj {
     public ContainmentItem(Properties pProperties) {
         super(pProperties);
     }
@@ -44,5 +45,10 @@ public class ContainmentItem extends Item {
         }
 
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
+    }
+
+    @Override
+    public String customID() {
+        return "Containment Cage";
     }
 }

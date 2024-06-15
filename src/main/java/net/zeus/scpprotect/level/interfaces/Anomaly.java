@@ -1,5 +1,6 @@
 package net.zeus.scpprotect.level.interfaces;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.zeus.scpprotect.SCP;
 import org.apache.commons.lang3.tuple.Triple;
@@ -15,6 +16,7 @@ public interface Anomaly {
 
 
     SCP.SCPTypes getClassType();
+    SCP.SCPNames getSCPName();
 
     default void onKillEntity(LivingEntity entity) {
 

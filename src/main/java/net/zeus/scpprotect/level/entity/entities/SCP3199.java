@@ -110,6 +110,11 @@ public class SCP3199 extends SCPEntity {
         return SCP.SCPTypes.KETER;
     }
 
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_3199;
+    }
+
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {

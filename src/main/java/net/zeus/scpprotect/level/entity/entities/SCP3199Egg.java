@@ -151,4 +151,8 @@ public class SCP3199Egg extends Mob implements GeoEntity, Bucketable, Anomaly {
         return SCP.SCPTypes.KETER;
     }
 
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.UNDEFINED;
+    }
 }

@@ -69,6 +69,10 @@ public class SCP049_2 extends SCPEntity {
     public SCP.SCPTypes getClassType() {
         return null;
     }
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return null;
+    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {

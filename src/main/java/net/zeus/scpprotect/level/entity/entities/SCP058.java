@@ -144,4 +144,9 @@ public class SCP058 extends SCPEntity {
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.KETER;
     }
+
+    @Override
+    public SCP.SCPNames getSCPName() {
+        return SCP.SCPNames.SCP_058;
+    }
 }
