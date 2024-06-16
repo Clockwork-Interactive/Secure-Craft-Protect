@@ -43,7 +43,13 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 Items.BLUE_CONCRETE,
                 Items.PURPLE_CONCRETE,
                 Items.MAGENTA_CONCRETE,
-                Items.PINK_CONCRETE
+                Items.PINK_CONCRETE,
+                Items.GRAY_CONCRETE
+        );
+        tag(SCPItemTags.MODULES).add(
+                SCPItems.SAFE_MODULE.get(),
+                SCPItems.EUCLID_MODULE.get(),
+                SCPItems.KETER_MODULE.get()
         );
     }
 }

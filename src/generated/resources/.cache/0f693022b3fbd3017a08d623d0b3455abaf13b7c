@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-14T17:49:13.8967414	Item Models: scprotect
+// 1.20.1	2024-06-15T22:40:03.1677824	Item Models: scprotect
 0d66ea49bdaf29e897d9c8854ab74e004364d09b assets/scprotect/models/item/arrow.json
 15ff37c8c2249bced5aa00fe838bee33684f3928 assets/scprotect/models/item/awcy.json
 dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy.json
@@ -6,10 +6,12 @@ dff34d55e0624257d267455c3ddac3ca8cbb4c9e assets/scprotect/models/item/blue_candy
 1641192df2b375a9b625814b82adf672418369f4 assets/scprotect/models/item/electronic_button.json
 a289795d0f2a088937641277ab0177c6963493ab assets/scprotect/models/item/entrance_zone_door.json
 ddf638e697ec64903dfc7330e0c182f754bf90e3 assets/scprotect/models/item/euclid_achievement.json
+31cb8cda879ab54bd9dfb55be76c9d56b8a3a706 assets/scprotect/models/item/euclid_module.json
 6ef7af20b903187d2413cd9aa338cb43a4d43dcd assets/scprotect/models/item/green_candy.json
 a68eccec9137ffa41d33d86aef0d516cea918ff8 assets/scprotect/models/item/hairbrush.json
 a0dd37287d6a0cd2f98f51c58a609e208da924b7 assets/scprotect/models/item/heavy_containment_door.json
 34cf8368eb911b53625d680b4d6c0c01337c6136 assets/scprotect/models/item/keter_achievement.json
+fd0267e2dc40481d8600358330850dcad04406e4 assets/scprotect/models/item/keter_module.json
 4dfd78ad4ec2c5f1a885bd92d0ac970e6a0a39a6 assets/scprotect/models/item/keycard_reader.json
 f6e306dc5401e4c3e29bb30b89c1bdc4173ff26e assets/scprotect/models/item/lavender.json
 5e4817b868470ea13a4fb963b6bab55849dac699 assets/scprotect/models/item/level_1_keycard.json
@@ -30,6 +32,7 @@ c4ac2aeceee80ef42669fc824eca907a65b8639c assets/scprotect/models/item/level_4_ke
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/rebel_spawn_egg.json
 161c45a420ac716ce09cb1d844d3f388cc2b8b76 assets/scprotect/models/item/red_candy.json
 ffc9ff80e9b0ea4718f1e05fb20e4219bbf26507 assets/scprotect/models/item/safe_achievement.json
+54ab17ac22cd8bfaeb501b1127f1931d9bb4cb95 assets/scprotect/models/item/safe_module.json
 9dab8563b5201118e3fae85f13cb4a66509d001b assets/scprotect/models/item/scp_006_bucket.json
 547052f6f5a57f10027cea1f774d0c6fce960525 assets/scprotect/models/item/scp_019.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/scprotect/models/item/scp_019_2_spawn_egg.json

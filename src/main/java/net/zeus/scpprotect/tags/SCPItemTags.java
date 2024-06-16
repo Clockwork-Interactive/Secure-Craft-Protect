@@ -9,6 +9,7 @@ import net.zeus.scpprotect.SCP;
 public class SCPItemTags {
     public static final TagKey<Item> KEYCARDS = createTag("keycards");
     public static final TagKey<Item> CONCRETE = createTag("concrete");
+    public static final TagKey<Item> MODULES = createTag("modules");
 
     private static TagKey<Item> createTag(String name) {
         return ItemTags.create(new ResourceLocation(SCP.MOD_ID, name));

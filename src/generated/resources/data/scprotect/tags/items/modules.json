@@ -1,0 +1,7 @@
+{
+  "values": [
+    "scprotect:safe_module",
+    "scprotect:euclid_module",
+    "scprotect:keter_module"
+  ]
+}
