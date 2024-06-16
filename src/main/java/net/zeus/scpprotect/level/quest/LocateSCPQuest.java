@@ -16,6 +16,7 @@ import net.zeus.scpprotect.level.anomaly.AnomalyRegistry;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
 import net.zeus.scpprotect.level.anomaly.creator.EntityAnomalyType;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
+import net.zeus.scpprotect.level.item.SCPItems;
 import net.zeus.scpprotect.level.item.items.ModuleItem;
 import net.zeus.scpprotect.level.quest.points.LocateSCPPoint;
 
@@ -67,7 +68,7 @@ public class LocateSCPQuest extends Quest {
                     if (this.scpType instanceof EntityAnomalyType<?> entityAnomalyType)
                         this.getPlayer().level().getCapability(Capabilities.SCP_SAVED_DATA).ifPresent((data) ->
                                 data.addSCP((EntityType<? extends Anomaly>) entityAnomalyType.getType().get()));
-                    //this.getPlayer().getCooldowns().addCooldown(SCPItems.REALITY_SCANNER.get(), 4100);
+                    this.getPlayer().getCooldowns().addCooldown(SCPItems.REALITY_SCANNER.get(), 4100);
                     SCPAdvancements.grant(this.getPlayer(), this.scpType.getClassType().advancement);
                 })
                 .build();
@@ -92,7 +93,7 @@ public class LocateSCPQuest extends Quest {
                 if (tag.contains("hasModule")) {
                     ItemStack moduleStack = ItemStack.of(tag.getList("hasModule", 10).getCompound(0));
                     if (moduleStack.getItem() instanceof ModuleItem module) {
-                        if (!type.getClassType().equals(module.getType())) {
+                        if (type.getClassType() != module.getType()) {
                             remove.set(true);
                         }
                     }

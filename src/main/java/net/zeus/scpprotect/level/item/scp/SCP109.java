@@ -3,7 +3,6 @@ package net.zeus.scpprotect.level.item.scp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +17,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -38,7 +39,6 @@ public class SCP109 extends Item implements Anomaly {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
-
         if (player.isCrouching()) {
             BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
             BlockPos blockpos = blockhitresult.getBlockPos();
@@ -46,9 +46,22 @@ public class SCP109 extends Item implements Anomaly {
             BlockPos blockpos1 = blockpos.relative(direction);
             BlockState blockstate = level.getBlockState(blockpos);
             BlockPos blockpos2 = canBlockContainFluid(level, blockpos, blockstate) ? blockpos : blockpos1;
-            if (this.emptyContents(player, level, blockpos2, blockhitresult, stack)) {
-                player.getCooldowns().addCooldown(stack.getItem(), 100);
+            if (blockstate.is(Blocks.CAULDRON)) {
+                level.setBlockAndUpdate(blockpos, Blocks.WATER_CAULDRON.defaultBlockState());
+                pour(level, blockpos, stack, player, usedHand);
                 return InteractionResultHolder.success(stack);
+
+            } else if (blockstate.is(Blocks.WATER_CAULDRON)) {
+                if (blockstate.getValue(LayeredCauldronBlock.LEVEL) < 3) {
+                    level.setBlockAndUpdate(blockpos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, blockstate.getValue(LayeredCauldronBlock.LEVEL) + 1));
+                    pour(level, blockpos, stack, player, usedHand);
+                    return InteractionResultHolder.success(stack);
+                }
+            } else {
+                if (this.emptyContents(player, level, blockpos2, blockhitresult, stack)) {
+                    pour(level, blockpos, stack, player, usedHand);
+                    return InteractionResultHolder.success(stack);
+                }
             }
         } else {
             player.startUsingItem(usedHand);
@@ -113,15 +126,12 @@ public class SCP109 extends Item implements Anomaly {
         return SCP.SCPNames.SCP_109;
     }
 
-
     public static void playEmptySound(Level level, BlockPos pos) {
         RandomSource source = RandomSource.createNewThreadLocalInstance();
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.playSound(null, pos, SCPSounds.SCP_109_POUR.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
-
-
 
     protected boolean canBlockContainFluid(Level worldIn, BlockPos posIn, BlockState blockstate) {
         return (blockstate.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) blockstate.getBlock()).canPlaceLiquid(worldIn, posIn, blockstate, Fluids.WATER)) || blockstate.liquid();
@@ -130,5 +140,11 @@ public class SCP109 extends Item implements Anomaly {
     @Override
     public SCP.SCPTypes getClassType() {
         return SCP.SCPTypes.EUCLID;
+    }
+
+    private void pour(Level level, BlockPos pos, ItemStack stack, Player player, InteractionHand hand) {
+        level.playSound(player, pos, SCPSounds.SCP_109_POUR.get(), SoundSource.BLOCKS);
+        player.swing(hand);
+        player.getCooldowns().addCooldown(stack.getItem(), 100);
     }
 }
