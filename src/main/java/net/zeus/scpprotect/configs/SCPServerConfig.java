@@ -1,8 +1,9 @@
 package net.zeus.scpprotect.configs;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SCPServerConfig {
@@ -13,11 +14,13 @@ public class SCPServerConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DOORS_TEMP_OPEN;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BREAKING_BEDROCK_WITH_SCP_063;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLISTED_SCPS;
-    Calendar calendar = Calendar.getInstance();
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DESTROYABLES;
+    public static final List<Block> DESTROYABLE_BLOCKS = new ArrayList<>();
 
     static {
         BUILDER.push("SCP-096");
         SCP_096_REACT_TO_ENTITIES = BUILDER.comment("Toggle SCP-096 being triggered by other entities").define("SCP-096 React To Other Entities", false);
+        DESTROYABLES = BUILDER.comment("Blocks that 096 can destroy").defineList("Destroyables", List.of(), o -> o instanceof String);
         BUILDER.pop();
 
         BUILDER.push("Reality Scanner");

@@ -34,14 +34,17 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.refractionapi.refraction.sound.SoundUtil;
 import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.capabilities.Capabilities;
+import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.data.PlayerData;
 import net.zeus.scpprotect.datagen.advancements.SCPCriteriaTriggers;
 import net.zeus.scpprotect.level.block.SCPBlocks;
@@ -309,6 +312,19 @@ public class CommonForgeEvents {
 
         if (effect == SCPEffects.PACIFICATION.get()) {
             PacificationEffect.onRemove(entity);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerStart(ServerStartingEvent event) {
+        for (String reg : SCPServerConfig.DESTROYABLES.get()) {
+            Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(reg));
+            if (block != null) {
+                SCP.LOGGER.info("Adding block to destroyables: {}", reg);
+                SCPServerConfig.DESTROYABLE_BLOCKS.add(block);
+                continue;
+            }
+            SCP.LOGGER.error("Block not found: {}", reg);
         }
     }
 

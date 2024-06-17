@@ -1,6 +1,7 @@
 package net.zeus.scpprotect.level.entity.entities;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.refractionapi.refraction.misc.RefractionMisc;
 import net.refractionapi.refraction.sound.SoundUtil;
@@ -33,12 +35,13 @@ import net.refractionapi.refraction.vec3.Vec3Helper;
 import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
 import net.zeus.scpprotect.configs.SCPServerConfig;
-import net.zeus.scpprotect.level.entity.goals.BreakDoorGoal096;
+import net.zeus.scpprotect.level.entity.goals.BreakBlockGoal096;
 import net.zeus.scpprotect.level.entity.goals.HurtByTargetGoal096;
 import net.zeus.scpprotect.level.entity.goals.WaterAvoiding096StrollGoal;
-import net.zeus.scpprotect.level.entity.goals.navigation.AnomalyNavigation;
+import net.zeus.scpprotect.level.entity.goals.navigation.SCP096ClimbingNavigation;
 import net.zeus.scpprotect.level.entity.goals.navigation.SCP096Navigation;
 import net.zeus.scpprotect.level.sound.SCPSounds;
+import net.zeus.scpprotect.util.Misc;
 import net.zeus.scpprotect.util.SCPDamageTypes;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -75,8 +78,8 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     public static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(SCP096.class, EntityDataSerializers.BOOLEAN);
     public SCP096LookForPlayerGoal lookForPlayerGoal;
 
-    private AnomalyNavigation regularNavigation;
-    private SCP096Navigation scp096Navigation;
+    private SCP096Navigation regularNavigation;
+    private SCP096ClimbingNavigation scp096ClimbingNavigation;
 
     public SCP096(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -100,7 +103,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new BreakDoorGoal096(this, 20));
+        this.goalSelector.addGoal(2, new BreakBlockGoal096(this, 20));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new WaterAvoiding096StrollGoal(this, 1.0D, 0.001F));
     }
@@ -159,13 +162,18 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     public void tick() {
         if (!level().isClientSide) {
             if (this.getChargeTime() == 0 || this.getChargeTime() == this.getDefaultChargeTime()) {
-                this.setClimbing(this.horizontalCollision && this.getNavigation() instanceof SCP096Navigation);
+                this.setClimbing(this.horizontalCollision && this.getNavigation() instanceof SCP096ClimbingNavigation);
             }
             if (this.targets.isEmpty() && this.hasHadTarget()) { // Do stuff when all targets are dead.
                 this.onKillAll();
             }
         }
         super.tick();
+    }
+
+    public boolean canDestroy(BlockPos pos) {
+        BlockState blockState = level().getBlockState(pos);
+        return SCPServerConfig.DESTROYABLE_BLOCKS.contains(blockState.getBlock()) || Misc.isDoor(level(), pos);
     }
 
     public int getDefaultChargeTime() {
@@ -193,7 +201,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
         this.addContinuous(1, "triggered", TRIGGERED_ANIMATION, (state) -> !this.isDefaultCharge() && !this.isTriggered());
         this.addContinuous(2, "running", RUNNING_ANIMATION, (state) -> this.isTriggered() && state.isMoving());
         this.addContinuous(3, "walking", WALKING_ANIMATION, (state) -> Vec3Helper.isEntityMovingClient(this));
-        this.addContinuous(4, "sitting", SITTING_ANIMATION, (state) -> this.entityData.get(SITTING));
+        this.addContinuous(4, "sitting", SITTING_ANIMATION, (state) -> !this.isTriggered() && this.entityData.get(SITTING));
 
         controllerRegistrar.add(new AnimationController<>(this, "controller", (state) -> PlayState.STOP)
                 .triggerableAnim("triggered", TRIGGERED_ANIMATION)
@@ -230,14 +238,14 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        this.regularNavigation = new AnomalyNavigation(this, pLevel);
-        this.scp096Navigation = new SCP096Navigation(this, pLevel);
+        this.regularNavigation = new SCP096Navigation(this, pLevel);
+        this.scp096ClimbingNavigation = new SCP096ClimbingNavigation(this, pLevel);
         return this.regularNavigation;
     }
 
     @Override
     protected void customServerAiStep() {
-        if (this.getNavigation() instanceof SCP096Navigation nav) {
+        if (this.getNavigation() instanceof SCP096ClimbingNavigation nav) {
             nav.tick();
         }
     }
@@ -245,8 +253,8 @@ public class SCP096 extends SCPEntity implements NeutralMob {
     @Override
     public PathNavigation getNavigation() {
         float yDifference = (float) (this.getTarget() != null ? this.getTarget().getY() - this.getY() : 0.0D);
-        if (this.getTarget() != null && (yDifference >= 2.0D || (this.getTarget().distanceTo(this) <= 4.0D && yDifference >= 0.0D))) {
-            return this.scp096Navigation;
+        if (this.level().getBlockState(this.blockPosition().above(2)).isAir() && this.getTarget() != null && (yDifference >= 2.0D || (this.getTarget().distanceTo(this) <= 4.0D && yDifference >= 0.0D))) {
+            return this.scp096ClimbingNavigation;
         }
         return this.regularNavigation;
     }
