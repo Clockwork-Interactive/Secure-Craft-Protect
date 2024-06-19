@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -158,7 +159,8 @@ public class CommonForgeEvents {
 
             ServerLevel scp106Dim = Objects.requireNonNull(player.level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
             if (scp106Dim != null && player.level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
-                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
+                player.addEffect(new MobEffectInstance(SCPEffects.CORROSION.get(), MobEffectInstance.INFINITE_DURATION, 0, false, false));
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, MobEffectInstance.INFINITE_DURATION, 0, false, false));
                 if (player.distanceToSqr(0, 0, 0) >= 49) {
                     SCP106Escape = SCP106Escape == null ? player.getRandom().nextInt(8) == 0 ? player.blockPosition() : null : SCP106Escape;
                     boolean live = SCP106Escape != null && Math.sqrt(SCP106Escape.distSqr(player.blockPosition())) <= 1.5F;
@@ -210,6 +212,16 @@ public class CommonForgeEvents {
         ServerLevel scp106Dim = Objects.requireNonNull(event.getEntity().level().getServer()).getLevel(SCPDimensions.SCP_106_LEVEL);
         if (event.isCancelable() && scp106Dim != null && event.getEntity().level().dimension().equals(SCPDimensions.SCP_106_LEVEL)) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void render(RenderPlayerEvent.Pre event) {
+        if (event.getEntity().hasEffect(SCPEffects.AMPUTATED.get())) {
+            event.getRenderer().getModel().rightArm.visible = false;
+            event.getRenderer().getModel().leftArm.visible = false;
+            event.getRenderer().getModel().rightSleeve.visible = false;
+            event.getRenderer().getModel().leftSleeve.visible = false;
         }
     }
 

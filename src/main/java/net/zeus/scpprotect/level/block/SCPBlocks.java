@@ -19,21 +19,26 @@ import net.zeus.scpprotect.level.item.SCPItems;
 import java.util.function.Supplier;
 
 public class SCPBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS =
+            DeferredRegister.create(ForgeRegistries.BLOCKS, SCP.MOD_ID);
 
     // SCPs
 
     public static final RegistryObject<Block> SCP_310 = registerBlock("scp_310",
             () -> new SCP310(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL)
-                    .strength(2.0F).noOcclusion().lightLevel((pState) -> 15)));
+                    .strength(1.0F).noOcclusion().lightLevel((pState) -> 15)));
 
     public static final RegistryObject<Block> SCP_330 = registerBlock("scp_330",
             () -> new SCP330(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion()));
+                    .strength(1.0F).noOcclusion()));
 
     public static final RegistryObject<Block> SCP_019 = registerBlock("scp_019",
             () -> new SCP019(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-                    .strength(2.0F).noOcclusion()));
+                    .strength(1.0F).noOcclusion()));
+
+    public static final RegistryObject<LiquidBlock> SCP_006 = registerBlock("scp_006",
+            () -> new SCP006Block(SCPFluids.SOURCE_SCP_006, BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noLootTable()));
 
 
     // Misc
@@ -113,8 +118,8 @@ public class SCPBlocks {
                     .strength(2.0F)));
 
     public static final RegistryObject<Block> MAGNETIZED_BLOCK = registerBlock("magnetized_block",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.NETHERITE_BLOCK).noLootTable()
-                    .strength(5.0F)));
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).sound(SoundType.NETHERITE_BLOCK)
+                    .strength(2.8F)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

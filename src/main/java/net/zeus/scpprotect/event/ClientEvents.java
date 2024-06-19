@@ -87,16 +87,6 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void render(RenderPlayerEvent.Pre event) {
-        if (event.getEntity().hasEffect(SCPEffects.AMPUTATED.get())) {
-            event.getRenderer().getModel().rightArm.visible = false;
-            event.getRenderer().getModel().leftArm.visible = false;
-            event.getRenderer().getModel().rightSleeve.visible = false;
-            event.getRenderer().getModel().leftSleeve.visible = false;
-        }
-    }
-
-    @SubscribeEvent
     public static void renderArrow(RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS) {
             Player player = Minecraft.getInstance().player;

@@ -6,11 +6,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.refractionapi.refraction.misc.RefractionMisc;
+import net.refractionapi.refraction.randomizer.WeightedRandom;
 import net.refractionapi.refraction.registry.block.BaseEntityBlock;
 import net.zeus.scpprotect.level.anomaly.creator.AnomalyType;
 import net.zeus.scpprotect.level.block.SCPBlockEntities;
+import net.zeus.scpprotect.level.item.SCPItems;
+
+import java.util.List;
 
 public class ContainmentBlockEntity extends BaseEntityBlock {
 

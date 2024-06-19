@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "minecraft:copper_ingot"
+    },
+    "b": {
+      "item": "minecraft:quartz"
+    },
+    "c": {
+      "item": "minecraft:redstone"
+    },
+    "d": {
+      "item": "minecraft:ink_sac"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "ddc",
+    "bbb"
+  ],
+  "result": {
+    "item": "scprotect:level_1_keycard"
+  }
+}

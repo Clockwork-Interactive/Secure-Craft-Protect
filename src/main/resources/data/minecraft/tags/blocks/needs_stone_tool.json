@@ -1,0 +1,31 @@
+{
+  "values": [
+    "scprotect:mosaic_tiles",
+    "scprotect:mosaic_tile_stairs",
+    "scprotect:mosaic_tile_slab",
+
+    "scprotect:white_tiles",
+    "scprotect:white_tile_stairs",
+    "scprotect:white_tile_slab",
+
+    "scprotect:metal_plate",
+    "scprotect:metal_plate_stairs",
+    "scprotect:metal_plate_slab",
+
+    "scprotect:metallic_panels",
+    "scprotect:metallic_panel_stairs",
+    "scprotect:metallic_panel_slab",
+
+    "scprotect:metal_container",
+    "scprotect:lined_metal_container",
+    "scprotect:gridded_metal_container",
+    "scprotect:lined_gridded_metal_container",
+
+    "scprotect:dirty_metal",
+    "scprotect:dirty_metal_stairs",
+    "scprotect:dirty_metal_slab",
+    "scprotect:dirty_metal_fence"
+
+
+  ]
+}

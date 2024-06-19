@@ -1,0 +1,13 @@
+{
+  "values": [
+    "scprotect:reinforced_concrete",
+    "scprotect:reinforced_concrete_stairs",
+    "scprotect:reinforced_concrete_slab",
+
+    "scprotect:reinforced_metal",
+
+    "scprotect:entrance_zone_door",
+    "scprotect:light_containment_door",
+    "scprotect:heavy_containment_door"
+  ]
+}

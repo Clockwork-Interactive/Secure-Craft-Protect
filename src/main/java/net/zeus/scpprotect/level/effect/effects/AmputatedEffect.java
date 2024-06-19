@@ -32,7 +32,7 @@ public class AmputatedEffect extends MobEffect {
             }
         }
         if (pLivingEntity.getEffect(this).getDuration() - 1 <= 0) {
-            pLivingEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.AMPUTATED, pLivingEntity.level()), 9999999f);
+            pLivingEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.AMPUTATED, pLivingEntity.level()), Float.MAX_VALUE);
             return;
         }
         if (pLivingEntity.level().isClientSide) {

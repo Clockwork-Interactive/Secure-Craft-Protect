@@ -334,7 +334,7 @@ public class SCP096 extends SCPEntity implements NeutralMob {
 
     @Override
     public boolean canContain() {
-        return true;
+        return false;
     }
 
     public boolean isTriggered() {

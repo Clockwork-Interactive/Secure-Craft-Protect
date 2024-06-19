@@ -1,0 +1,61 @@
+{
+  "values": [
+    "scprotect:entrance_zone_concrete",
+    "scprotect:entrance_zone_concrete_border",
+    "scprotect:entrance_zone_concrete_slab",
+    "scprotect:entrance_zone_concrete_stairs",
+    "scprotect:entrance_zone_concrete_striped",
+
+    "scprotect:mosaic_tiles",
+    "scprotect:mosaic_tile_stairs",
+    "scprotect:mosaic_tile_slab",
+
+    "scprotect:white_tiles",
+    "scprotect:white_tile_stairs",
+    "scprotect:white_tile_slab",
+
+    "scprotect:floor_concrete",
+    "scprotect:floor_concrete_stairs",
+    "scprotect:floor_concrete_slab",
+
+    "scprotect:light_containment_concrete",
+    "scprotect:light_containment_concrete_stairs",
+    "scprotect:light_containment_concrete_slab",
+    "scprotect:light_containment_concrete_black_border",
+    "scprotect:light_containment_concrete_ridged_bottom",
+    "scprotect:light_containment_concrete_ridged_top",
+
+    "scprotect:metal_plate",
+    "scprotect:metal_plate_stairs",
+    "scprotect:metal_plate_slab",
+
+    "scprotect:metallic_panels",
+    "scprotect:metallic_panel_stairs",
+    "scprotect:metallic_panel_slab",
+
+    "scprotect:reinforced_concrete",
+    "scprotect:reinforced_concrete_stairs",
+    "scprotect:reinforced_concrete_slab",
+
+    "scprotect:metal_container",
+    "scprotect:lined_metal_container",
+    "scprotect:gridded_metal_container",
+    "scprotect:lined_gridded_metal_container",
+
+    "scprotect:dirty_metal",
+    "scprotect:dirty_metal_stairs",
+    "scprotect:dirty_metal_slab",
+    "scprotect:dirty_metal_fence",
+
+    "scprotect:grate_block",
+
+    "scprotect:cement_bricks",
+    "scprotect:cement_brick_stairs",
+    "scprotect:cement_brick_slab",
+
+    "scprotect:reinforced_metal",
+
+    "scprotect:caution_hazard_block",
+    "scprotect:caution_traffic_block"
+  ]
+}

@@ -31,6 +31,7 @@ public class SCPTabs {
                     new ItemStack(SCPBlocks.SCP_019.get())).displayItems((enabledFeatures, entries) -> {
                 for (RegistryObject<Block> key : SCPBlocks.BLOCKS.getEntries()) {
                     if (key.get() instanceof FlowerBlock) continue;
+                    if (key.equals(SCPBlocks.SCP_006)) continue;
                     entries.accept(key.get());
                 }
                 for (RegistryObject<Block> key : FacilityBlocks.BLOCKS.getEntries()) {

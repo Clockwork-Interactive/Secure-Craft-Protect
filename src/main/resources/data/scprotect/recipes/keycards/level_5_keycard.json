@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item",
+  "key": {
+    "a": {
+      "item": "scprotect:level_4_keycard"
+    },
+    "b": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "ab"
+  ],
+  "result": {
+    "item": "scprotect:level_5_keycard"
+  }
+}
