@@ -35,9 +35,7 @@ public class AmputatedEffect extends MobEffect {
             pLivingEntity.hurt(RefractionMisc.damageSource(SCPDamageTypes.AMPUTATED, pLivingEntity.level()), Float.MAX_VALUE);
             return;
         }
-        if (pLivingEntity.level().isClientSide) {
-            Minecraft.getInstance().gameRenderer.setRenderHand(false);
-        }
+        Minecraft.getInstance().gameRenderer.setRenderHand(false);
     }
 
     @Override
