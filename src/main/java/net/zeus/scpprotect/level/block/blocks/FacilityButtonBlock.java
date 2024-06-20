@@ -3,11 +3,7 @@ package net.zeus.scpprotect.level.block.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,10 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
@@ -27,37 +21,33 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.zeus.scpprotect.SCP;
 import net.zeus.scpprotect.configs.SCPServerConfig;
 import net.zeus.scpprotect.level.block.entity.FacilityButtonBlockEntity;
 import net.zeus.scpprotect.level.item.SCPItems;
-import net.zeus.scpprotect.level.misc.SCPTags;
 import net.zeus.scpprotect.level.sound.SCPSounds;
-import net.zeus.scpprotect.level.tab.SCPTabs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock {
-    public static final BooleanProperty POWERED;
-    protected static final VoxelShape CEILING_AABB_X;
-    protected static final VoxelShape CEILING_AABB_Z;
-    protected static final VoxelShape FLOOR_AABB_X;
-    protected static final VoxelShape FLOOR_AABB_Z;
-    protected static final VoxelShape NORTH_AABB;
-    protected static final VoxelShape SOUTH_AABB;
-    protected static final VoxelShape WEST_AABB;
-    protected static final VoxelShape EAST_AABB;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    protected static final VoxelShape CEILING_AABB_X = Block.box(3.5, 14, 5, 12.5, 16, 11);
+    protected static final VoxelShape CEILING_AABB_Z = Block.box(5, 14, 3.5, 11, 16, 12.5);
+    protected static final VoxelShape FLOOR_AABB_X = Block.box(3.5, 0, 5, 12.5, 2, 11);
+    protected static final VoxelShape FLOOR_AABB_Z = Block.box(5, 0, 3.5, 11, 2, 12.5);
+    protected static final VoxelShape NORTH_AABB = Block.box(5, 3.5, 14, 11, 12.5, 16);
+    protected static final VoxelShape SOUTH_AABB = Block.box(5, 3.5, 0, 11, 12.5, 2);
+    protected static final VoxelShape WEST_AABB = Block.box(14, 3.5, 5, 16, 12.5, 11);
+    protected static final VoxelShape EAST_AABB = Block.box(0, 3.5, 5, 2, 12.5, 11);
     private final boolean needsKeycards;
     private final boolean arrowsCanPress;
     private final HashMap<RegistryObject<Item>, Integer> KEYCARDS = new HashMap<>() {{
@@ -212,22 +202,9 @@ public class FacilityButtonBlock extends FaceAttachedHorizontalDirectionalBlock 
         pBuilder.add(FACING, POWERED, FACE);
     }
 
-    static {
-        POWERED = BlockStateProperties.POWERED;
-        CEILING_AABB_Z = Block.box(5, 14, 3.5, 11, 16, 12.5);
-        CEILING_AABB_X = Block.box(3.5, 14, 5, 12.5, 16, 11);
-        FLOOR_AABB_Z = Block.box(5, 0, 3.5, 11, 2, 12.5);
-        FLOOR_AABB_X = Block.box(3.5, 0, 5, 12.5, 2, 11);
-        NORTH_AABB = Block.box(5, 3.5, 14, 11, 12.5, 16);
-        SOUTH_AABB = Block.box(5, 3.5, 0, 11, 12.5, 2);
-        WEST_AABB = Block.box(14, 3.5, 5, 16, 12.5, 11);
-        EAST_AABB = Block.box(0, 3.5, 5, 2, 12.5, 11);
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new FacilityButtonBlockEntity(pPos, pState);
     }
-
 }
