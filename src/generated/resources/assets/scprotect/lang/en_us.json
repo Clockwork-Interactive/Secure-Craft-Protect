@@ -185,6 +185,7 @@
   "sounds.scprotect.scp_096_triggered": "SCP-096 is triggered nearby!",
   "sounds.scprotect.scp_109_pour": "Someone has poured SCP-109!",
   "tooltip.scprotect.awcy": "Use on certain SCPs to change variants",
+  "tooltip.scprotect.containment_cage": "Right-click to contain a SCP. Use a lead to move the cage",
   "tooltip.scprotect.hairbrush": "Use to tame SCP-811",
   "tooltip.scprotect.reality_scanner": "Locates SCPs nearby",
   "tooltip.scprotect.wrench": "Put in offhand to change Keycard Reader level"

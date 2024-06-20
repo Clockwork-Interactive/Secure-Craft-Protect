@@ -1,10 +1,11 @@
 package net.zeus.scpprotect.level.item.items;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.zeus.scpprotect.advancements.SCPAdvancements;
@@ -12,9 +13,9 @@ import net.zeus.scpprotect.level.entity.misc.ContainmentBox;
 import net.zeus.scpprotect.level.interfaces.Anomaly;
 import net.zeus.scpprotect.level.interfaces.DataGenObj;
 
-public class ContainmentItem extends Item implements DataGenObj {
+public class ContainmentItem extends TooltipItem implements DataGenObj {
     public ContainmentItem(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, Component.translatable("tooltip.scprotect.containment_cage").withStyle(ChatFormatting.GRAY));
     }
 
     @Override

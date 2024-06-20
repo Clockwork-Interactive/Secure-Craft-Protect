@@ -81,9 +81,9 @@ public class SCPItems {
     public static final RegistryObject<Item> LEVEL_4_KEYCARD = ITEMS.register("level_4_keycard", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEVEL_5_KEYCARD = ITEMS.register("level_5_keycard", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEVEL_OMNI_KEYCARD = ITEMS.register("level_omni_keycard", () -> new Item(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> SAFE_MODULE = ITEMS.register("safe_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.SAFE, Component.literal("Safe").withStyle(ChatFormatting.GREEN)));
-    public static final RegistryObject<Item> EUCLID_MODULE = ITEMS.register("euclid_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.EUCLID, Component.literal("Euclid").withStyle(ChatFormatting.GOLD)));
-    public static final RegistryObject<Item> KETER_MODULE = ITEMS.register("keter_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.KETER, Component.literal("Keter").withStyle(ChatFormatting.RED)));
+    public static final RegistryObject<Item> SAFE_MODULE = ITEMS.register("safe_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.SAFE, Component.literal("Safe")));
+    public static final RegistryObject<Item> EUCLID_MODULE = ITEMS.register("euclid_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.EUCLID, Component.literal("Euclid")));
+    public static final RegistryObject<Item> KETER_MODULE = ITEMS.register("keter_module", () -> new ModuleItem(new Item.Properties().stacksTo(1), SCP.SCPTypes.KETER, Component.literal("Keter")));
 
     public static final RegistryObject<Item> SAFE_ACHIEVEMENT = ITEMS.register("safe_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));
     public static final RegistryObject<Item> EUCLID_ACHIEVEMENT = ITEMS.register("euclid_achievement", () -> new InstantDeleteItem(new Item.Properties().stacksTo(0)));

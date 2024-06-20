@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -23,11 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class RealityScanner extends TooltipItem {
-    public static final int MAX_WEIGHT = 1;
-
     public RealityScanner(Properties pProperties) {
         super(pProperties, Component.translatable("tooltip.scprotect.reality_scanner").withStyle(ChatFormatting.GRAY));
     }
@@ -49,128 +45,55 @@ public class RealityScanner extends TooltipItem {
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
-    // rest of this code has been copied from the bundle class
-    public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
-        if (pStack.getCount() != 1 || pAction != ClickAction.SECONDARY) {
-            return false;
-        } else {
-            ItemStack stack = pSlot.getItem();
-            if (stack.isEmpty()) {
-                removeOne(pStack).ifPresent((p_150740_) -> {
-                    add(pStack, pSlot.safeInsert(p_150740_));
-                });
-            } else if (stack.getItem().canFitInsideContainerItems() && stack.is(SCPItemTags.MODULES)) {
-                int i = (MAX_WEIGHT - getContentWeight(pStack)) / getWeight(stack);
-                int j = add(pStack, pSlot.safeTake(stack.getCount(), i, pPlayer));
-            }
-            return true;
-        }
-    }
-
+    @Override
     public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
-        if (pStack.getCount() != 1) return false;
         if (pAction == ClickAction.SECONDARY && pSlot.allowModification(pPlayer)) {
             if (pOther.isEmpty()) {
-                removeOne(pStack).ifPresent(pAccess::set);
-
-            } else if (pOther.getItem().canFitInsideContainerItems() && pOther.is(SCPItemTags.MODULES)) {
-                int i = add(pStack, pOther);
-                if (i > 0) {
-                    pOther.shrink(i);
+                remove(pStack).ifPresent(pAccess::set);
+            } else if (pOther.is(SCPItemTags.MODULES)) {
+                if (add(pStack, pOther)) {
+                    pOther.shrink(1);
                 }
             }
             return true;
-
-        } else {
-            return false;
         }
+        return false;
     }
 
-    public static int add(ItemStack pStack, ItemStack pInsertedStack) {
-        if (!pInsertedStack.isEmpty() && pInsertedStack.getItem().canFitInsideContainerItems()) {
+    private boolean add(ItemStack pStack, ItemStack pInsertedStack) {
+        if (!pInsertedStack.isEmpty()) {
             CompoundTag tag = pStack.getOrCreateTag();
             if (!tag.contains("hasModule")) {
                 tag.put("hasModule", new ListTag());
-            }
-
-            int i = getContentWeight(pStack);
-            int j = getWeight(pInsertedStack);
-            int k = Math.min(pInsertedStack.getCount(), (MAX_WEIGHT - i) / j);
-            if (k == 0) {
-                return 0;
-            } else {
-                ListTag listtag = tag.getList("hasModule", 10);
-                Optional<CompoundTag> optional = getMatchingItem(pInsertedStack, listtag);
-                if (optional.isPresent()) {
-                    CompoundTag tag1 = optional.get();
-                    ItemStack stack = ItemStack.of(tag1);
-                    stack.grow(k);
-                    stack.save(tag1);
-                    listtag.remove(tag1);
-                    listtag.add(0, tag1);
-                } else {
-                    ItemStack stack = pInsertedStack.copyWithCount(k);
-                    CompoundTag tag2 = new CompoundTag();
-                    stack.save(tag2);
-                    listtag.add(0, tag2);
+                ListTag modules = tag.getList("hasModule", 10);
+                if (modules.isEmpty()) {
+                    CompoundTag listTag = new CompoundTag();
+                    pInsertedStack.save(listTag);
+                    modules.add(0, listTag);
+                    return true;
                 }
-
-                return k;
             }
-        } else {
-            return 0;
         }
+        return false;
     }
 
-    public static Optional<CompoundTag> getMatchingItem(ItemStack pStack, ListTag pList) {
-        return pStack.is(Items.BUNDLE) ? Optional.empty() : pList.stream().filter(CompoundTag.class::isInstance).map(CompoundTag.class::cast).filter((p_186350_) -> {
-            return ItemStack.isSameItemSameTags(ItemStack.of(p_186350_), pStack);
-        }).findFirst();
-    }
-
-    public static int getWeight(ItemStack pStack) {
-        if (pStack.is(Items.BUNDLE)) {
-            return 4 + getContentWeight(pStack);
-        } else {
-            return MAX_WEIGHT / pStack.getMaxStackSize();
-        }
-    }
-
-    public static int getContentWeight(ItemStack pStack) {
-        return getContents(pStack).mapToInt((p_186356_) -> {
-            return getWeight(p_186356_) * p_186356_.getCount();
-        }).sum();
-    }
-
-    public static Optional<ItemStack> removeOne(ItemStack pStack) {
-        CompoundTag compoundtag = pStack.getOrCreateTag();
-        if (!compoundtag.contains("hasModule")) {
+    private Optional<ItemStack> remove(ItemStack pStack) {
+        CompoundTag tag = pStack.getOrCreateTag();
+        if (!tag.contains("hasModule")) {
             return Optional.empty();
         } else {
-            ListTag listtag = compoundtag.getList("hasModule", 10);
-            if (listtag.isEmpty()) {
+            ListTag modules = tag.getList("hasModule", 10);
+            if (modules.isEmpty()) {
                 return Optional.empty();
             } else {
-                int i = 0;
-                CompoundTag compoundtag1 = listtag.getCompound(0);
-                ItemStack itemstack = ItemStack.of(compoundtag1);
-                listtag.remove(0);
-                if (listtag.isEmpty()) {
+                CompoundTag listTag = modules.getCompound(0);
+                ItemStack moduleStack = ItemStack.of(listTag);
+                modules.remove(0);
+                if (modules.isEmpty()) {
                     pStack.removeTagKey("hasModule");
                 }
-
-                return Optional.of(itemstack);
+                return Optional.of(moduleStack);
             }
-        }
-    }
-
-    public static Stream<ItemStack> getContents(ItemStack pStack) {
-        CompoundTag compoundtag = pStack.getTag();
-        if (compoundtag == null) {
-            return Stream.empty();
-        } else {
-            ListTag listtag = compoundtag.getList("hasModule", 10);
-            return listtag.stream().map(CompoundTag.class::cast).map(ItemStack::of);
         }
     }
 

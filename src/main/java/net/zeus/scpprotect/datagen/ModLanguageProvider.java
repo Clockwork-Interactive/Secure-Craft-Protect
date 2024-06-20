@@ -127,6 +127,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.scprotect.awcy", "Use on certain SCPs to change variants");
         add("tooltip.scprotect.hairbrush", "Use to tame SCP-811");
         add("tooltip.scprotect.reality_scanner", "Locates SCPs nearby");
+        add("tooltip.scprotect.containment_cage", "Right-click to contain a SCP. Use a lead to move the cage");
 
         addPotion(SCPPotions.PACIFICATION, "Pacification");
 
